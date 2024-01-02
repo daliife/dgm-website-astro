@@ -1,0 +1,24 @@
+---
+import Introduction from "./Introduction.astro";
+import Layout from "../layouts/Layout.astro";
+import About from "./About.astro";
+import Work from "./Work.astro";
+import Contact from "./Contact.astro";
+---
+
+<Layout title="David Gimeno">
+  <main class="pt-12">
+    <Introduction />
+    <About />
+    <Work />
+    <Contact />
+    <style>
+      main {
+        width: 800px;
+        max-width: calc(100% - 2rem);
+        color: white;
+        margin: 0 auto;
+      }
+    </style>
+  </main>
+</Layout>

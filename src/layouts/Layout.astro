@@ -1,0 +1,99 @@
+---
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import "@fontsource-variable/onest";
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <!-- This controls the logic for changing the dark mode buttons appearance based on the users set preference -->
+    <script>
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+        localStorage.theme = "dark";
+        document.querySelector(".dark-mode-button").innerHTML = `
+			  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-violet-300">
+			  <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z" />
+			  </svg>
+			  `;
+      } else {
+        document.documentElement.classList.remove("dark");
+        localStorage.theme = "light";
+      }
+    </script>
+  </head>
+  <div class="relative h-full w-full">
+    <div class="fixed h-[100vh] w-[100vw] -z-10 overflow-hidden">
+      <!-- Dark background -->
+      <div
+        class="light:hidden dark:block absolute inset-0 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"
+      >
+      </div>
+      <!-- Light background -->
+      <div
+        class="light:block dark:hidden absolute inset-0 bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]"
+      >
+      </div>
+    </div>
+    <body class="flex flex-col max-w-[1120px] w-full items-center">
+      <Header />
+      <slot />
+      <Footer />
+    </body>
+  </div>
+
+  <script>
+    const themeToggle = document.getElementById("theme-toggle");
+    if (themeToggle) {
+      themeToggle.addEventListener("click", function () {
+        let currentTheme = document.documentElement.getAttribute("data-theme");
+        let targetTheme = "light";
+
+        if (currentTheme === "light") {
+          targetTheme = "dark";
+        }
+        console.log(targetTheme);
+
+        document.documentElement.setAttribute("data-theme", targetTheme);
+
+        document
+          ?.getElementById("theme-toggle-dark-icon")
+          ?.classList.toggle("hidden");
+        document
+          ?.getElementById("theme-toggle-light-icon")
+          ?.classList.toggle("hidden");
+      });
+    }
+  </script>
+
+  <style is:global>
+    :root {
+      color-scheme: light dark;
+    }
+    html {
+      font-family: "Onest Variable", system-ui, sans-serif;
+    }
+    body {
+      background: #050505;
+      display: flex;
+      justify-content: center;
+    }
+  </style>
+</html>
