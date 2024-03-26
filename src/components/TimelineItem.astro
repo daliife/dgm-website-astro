@@ -89,17 +89,17 @@ const numElements = 2;
 </li>
 
 <script>
-  window.addEventListener("DOMContentLoaded", (event) => {
+  window.addEventListener("DOMContentLoaded", () => {
     const buttons = document.querySelectorAll(".toggle-button");
 
     buttons.forEach((button) => {
       const list = button.previousElementSibling;
-      const listItems = list.querySelectorAll("[data-show-more]");
+      const listItems = list?.querySelectorAll("[data-show-more]");
 
       button.addEventListener("click", () => {
-        const isShowingMore = button.textContent.includes("less");
+        const isShowingMore = button.textContent?.includes("less");
 
-        listItems.forEach((item) => {
+        listItems?.forEach((item) => {
           item.classList.toggle("hidden");
         });
 
