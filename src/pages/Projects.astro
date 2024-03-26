@@ -1,0 +1,11 @@
+---
+import Project from "src/components/Project.astro";
+import Section from "../components/Section.astro";
+import { projects } from "@cv";
+---
+
+<Section id="projects" title="Projects">
+  <div class="flex flex-col md:flex-row gap-4 flex-wrap">
+    {projects.map((project) => <Project {...project} />)}
+  </div>
+</Section>

@@ -2,10 +2,10 @@
   "basics": {
     "name": "David",
     "lastName": "Gimeno",
-    "label": "Frontend Developer",
+    "label": "I'm a software engineer based in Barcelona. I'm currently working at NTT Data as a Frontend Developer.",
     "email": "davidgimenomane@gmail.com",
     "url": "https://davidgimeno.cat",
-    "summary": "A summary of John Doe…",
+    "summary": "Multimedia engineer with extensive practical experience in web and graphic design, 3D modelling, videogame developing on Unity and additional multimedia projects. Open to new computing environments and programming languages. I consider myself organised, punctual and a perfectionist who does not lack creativity. I look forward to new challenges which allow me to learn how to resolve situations more efficiently.",
     "profiles": [
       {
         "network": "Github",
@@ -26,24 +26,94 @@
   },
   "work": [
     {
-      "name": "Company",
-      "position": "President",
-      "url": "https://company.com",
-      "startDate": "2013-01-01",
-      "endDate": "2014-01-01",
-      "summary": "Description…",
-      "highlights": ["Started the company"]
-    }
-  ],
-  "volunteer": [
+      "company": "NTT Data",
+      "position": "Lead Engineer",
+      "url": "https://nttdata.com/",
+      "startDate": "2023-03-01",
+      "highlights": [
+        "Migration of the design system for NAKA's administration portal.",
+        "Maintenance and evolution of the 'administration portal' for NAKA's product administration portal using React.",
+        "Creation and management of pipelines for the NAKA frontend solution: automated end-to-end tests, build optimization, etc."
+      ]
+    },
     {
-      "organization": "Organization",
-      "position": "Volunteer",
-      "url": "https://organization.com/",
-      "startDate": "2012-01-01",
-      "endDate": "2013-01-01",
-      "summary": "Description…",
-      "highlights": ["Awarded 'Volunteer of the Month'"]
+      "company": "NTT Data",
+      "position": "Engineer",
+      "url": "https://nttdata.com/",
+      "startDate": "2021-03-01",
+      "endDate": "2023-02-01",
+      "highlights": [
+        "Development of new features for the mobile app 'eCliente' for Allianz.",
+        "Conduct the 'Angular basics' course for Allianz workers.",
+        "Implementation of the XL insurance business with Angular 12, bug fixes and component refactorization (MAPFRE).",
+        "Migration of styles and functionalities for the Servihabitat portal with Liferay (Caixabank).",
+        "Creation of a calendar widget in a Liferay portlet (Educaixa/Caixabank).",
+        "Creation of different SPAs for RFP (Ready For Proportional) type websites with a high 'wow effect' in Angular 9 (SEAT and Orange).",
+        "Creation of a Design system using Storybooks and Stencil.",
+        "PoC: exporting design tokens with Figma towards a Design System."
+      ]
+    },
+    {
+      "company": "NTT Data",
+      "position": "Junior Engineer",
+      "url": "https://nttdata.com/",
+      "startDate": "2019-10-01",
+      "endDate": "2021-02-01",
+      "highlights": [
+        "Creation of building blocks (web components) with Angular 8 (Allianz).",
+        "Learning and creation of PoC for the Phygital department.",
+        "Development of VR applications with Unity for the USIX2.0 project, a training app for the industrial sector.",
+        "Web Development with Adobe Experience Manager for the CasaSeat Retail Car Configurator project (SEAT: CODE)."
+      ]
+    },
+    {
+      "company": "La Salle BCN",
+      "position": "Lecturer",
+      "url": "https://www.linkedin.com/school/la-salle-bcn/",
+      "startDate": "2020-03-01",
+      "endDate": "2020-10-01",
+      "summary": "Professor of the subject 'Introduction to Unreal Engine' at the Masters degree in Advanced Video Game Development at La Salle Campus BCN"
+    },
+    {
+      "company": "NTT Data",
+      "position": "Internship",
+      "url": "https://nttdata.com/",
+      "startDate": "2019-02-01",
+      "endDate": "2019-07-01",
+      "summary": "Creation of a VR application (PhygitApp) to show the potential of Phygital experiences in the world of banking and customer service."
+    },
+    {
+      "company": "RUCKER LYPSA",
+      "position": "Multimedia programmer",
+      "url": "https://es.edag.com/es/news/la-empresa-ruecker-lypsa-sl-se-convierte-en-edag-engineering-spain-sl",
+      "startDate": "2017-10-01",
+      "endDate": "2017-12-01",
+      "summary": "Simulation of the HUD and Digital cockpit screens of a new car for the SEAT client."
+    },
+    {
+      "company": "Wanup",
+      "position": "IT Helpdesk",
+      "url": "https://www.linkedin.com/school/la-salle-bcn/",
+      "startDate": "2017-07-01",
+      "endDate": "2017-09-01",
+      "highlights": [
+        "IT problem resolution within the Wanup offices.",
+        "Creation of documentation related to the Systems and Helpdesk department.",
+        "Control and check of office hardware supplies."
+      ]
+    },
+    {
+      "company": "La Salle BCN",
+      "position": "Internship",
+      "url": "https://www.linkedin.com/school/la-salle-bcn/",
+      "startDate": "2016-09-01",
+      "endDate": "2017-05-01",
+      "highlights": [
+        "Creation of new didactic exercises for the students.",
+        "Give support to the teacher in partial teaching of the Animation 1 subject.",
+        "In the open-door sessions I give support by giving information, showing the laboratories, answering questions from future students.",
+        "Control of material and logistics of the laboratories."
+      ]
     }
   ],
   "education": [
@@ -58,29 +128,12 @@
       "courses": ["DB1101 - Basic SQL"]
     }
   ],
-  "awards": [
-    {
-      "title": "Award",
-      "date": "2014-11-01",
-      "awarder": "Company",
-      "summary": "There is no spoon."
-    }
-  ],
   "certificates": [
     {
       "name": "Certificate",
       "date": "2021-11-07",
       "issuer": "Company",
       "url": "https://certificate.com"
-    }
-  ],
-  "publications": [
-    {
-      "name": "Publication",
-      "publisher": "Company",
-      "releaseDate": "2014-10-01",
-      "url": "https://publication.com",
-      "summary": "Description…"
     }
   ],
   "skills": [
@@ -92,8 +145,16 @@
   ],
   "languages": [
     {
-      "language": "English",
+      "language": "Catalan",
       "fluency": "Native speaker"
+    },
+    {
+      "language": "Spanish",
+      "fluency": "Native speaker"
+    },
+    {
+      "language": "English",
+      "fluency": "Professional working proficiency"
     }
   ],
   "interests": [
@@ -102,20 +163,33 @@
       "keywords": ["Ferrets", "Unicorns"]
     }
   ],
-  "references": [
-    {
-      "name": "Jane Doe",
-      "reference": "Reference…"
-    }
-  ],
   "projects": [
     {
-      "name": "Project",
+      "name": "Ricardlogic",
       "startDate": "2019-01-01",
       "endDate": "2021-01-01",
-      "description": "Description...",
+      "description": "Adaptation of the minigame 'Paraulògic'",
       "highlights": ["Won award at AIHacks 2016"],
-      "url": "https://project.com/"
+      "url": "https://github.com/daliife/ricardlogic-minigame",
+      "image": "https://raw.githubusercontent.com/daliife/ricardlogic-minigame/main/assets/ricardlogic-screenshot.png"
+    },
+    {
+      "name": "Orange RFP",
+      "startDate": "2019-01-01",
+      "endDate": "2021-01-01",
+      "description": "Landing webpage with a card minigame",
+      "highlights": ["Won award at AIHacks 2016"],
+      "url": "https://daliife.github.io/rfp-orange/",
+      "image": "https://camo.githubusercontent.com/0b8a53d017f9da6d4e525c81d587b266655a8cf753170208a92567808623a5c4/68747470733a2f2f696d6775722e636f6d2f747531497a696c2e706e67"
+    },
+    {
+      "name": "Cinemup",
+      "startDate": "2019-01-01",
+      "endDate": "2021-01-01",
+      "description": "TV Recommender App created with Tizen Studio",
+      "highlights": ["Won award at AIHacks 2016"],
+      "url": "https://daliife.github.io/Cinemup/cinemup_web",
+      "image": "https://camo.githubusercontent.com/fa68c35771bb16b2288feaf814264d764c02d6e2ace84969274107d78dcf0510/687474703a2f2f692e696d6775722e636f6d2f68506767386b502e706e67"
     }
   ]
 }

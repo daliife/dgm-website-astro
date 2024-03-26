@@ -16,8 +16,7 @@ const { title } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
-    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
-    <link rel="icon" type="image/ico" href="/favicon.ico" />
+    <link rel="icon" type="image/ico" href="%BASE_URL%/favicon.ico" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <!-- This controls the logic for changing the dark mode buttons appearance based on the users set preference -->
@@ -46,14 +45,24 @@ const { title } = Astro.props;
   <div class="relative h-full w-full">
     <div class="fixed h-[100vh] w-[100vw] -z-10 overflow-hidden">
       <!-- Dark background -->
-      <div
+      <!-- <div
         class="light:hidden dark:block absolute inset-0 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]"
+      >
+      </div> -->
+      <div
+        class="light:hidden dark:block absolute top-0 z-[-2] h-screen w-screen bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]"
       >
       </div>
       <!-- Light background -->
-      <div
+      <!-- <div
         class="light:block dark:hidden absolute inset-0 bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]"
       >
+      </div> -->
+      <div class="light:block dark:hidden relative h-full w-full bg-[#f1f5f9]">
+        <div
+          class="absolute h-full w-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:16px_16px] [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_100%,transparent_100%)]"
+        >
+        </div>
       </div>
     </div>
     <body class="flex flex-col max-w-[1120px] w-full items-center">

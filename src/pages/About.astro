@@ -1,17 +1,12 @@
 ---
 import Section from "../components/Section.astro";
+import { basics } from "@cv";
+
+const { summary } = basics;
 ---
 
 <Section id="about" title="About me">
   <p class="text-md text-slate-700 dark:text-slate-300 text-pretty">
-    Multimedia engineer with extensive practical experience in web and graphic
-    design, 3D modelling, videogame developing on Unity and additional
-    multimedia projects.
-    <br /><br /> Open to new computing environments and programming languages. I
-    consider myself organised, punctual and a perfectionist who does not lack
-    creativity.
-    <br /><br />
-     I look forward to new challenges which allow me to learn how to resolve
-    situations more efficiently.
+    {summary}
   </p>
 </Section>
