@@ -1,22 +1,24 @@
 ---
 const lightSettings = {
-  dotColor: "#00000033",
-  bgColor: "#94a3b8",
+  dotColor: "#000000",
+  bgColor: "#ffffff",
 };
 const darkSettings = {
-  dotColor: "#ffffff33",
+  dotColor: "#ffffff",
   bgColor: "#00091d",
 };
 ---
 
 <div class="relative h-full w-full">
   <div class="fixed h-[100vh] w-[100vw] -z-10 overflow-hidden">
+    <!-- DARK MODE  -->
     <div
-      class={`light:hidden dark:block absolute top-0 z-[-2] h-screen w-screen bg-[${darkSettings.bgColor}] bg-[radial-gradient(${darkSettings.dotColor}_1px,${darkSettings.bgColor}_1px)] bg-[size:20px_20px]`}
+      class={`hidden dark:block absolute top-0 z-[-2] h-screen w-screen bg-[${darkSettings.bgColor}] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(0,0,0,0))]`}
     >
     </div>
+    <!-- LIGHT MODE  -->
     <div
-      class={`light:block dark:hidden absolute top-0 z-[-2] h-screen w-screen bg-[${lightSettings.bgColor}] bg-[radial-gradient(${lightSettings.dotColor}_1px,${lightSettings.bgColor}_1px)] bg-[size:20px_20px]`}
+      class={`block dark:hidden absolute top-0 z-[-2] h-screen w-screen bg-blue-100 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%, rgba(120,119,198,0.3),rgba(0,0,0,0))]`}
     >
     </div>
   </div>
