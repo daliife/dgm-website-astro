@@ -1,0 +1,24 @@
+---
+const lightSettings = {
+  dotColor: "#00000033",
+  bgColor: "#94a3b8",
+};
+const darkSettings = {
+  dotColor: "#ffffff33",
+  bgColor: "#00091d",
+};
+---
+
+<div class="relative h-full w-full">
+  <div class="fixed h-[100vh] w-[100vw] -z-10 overflow-hidden">
+    <div
+      class={`light:hidden dark:block absolute top-0 z-[-2] h-screen w-screen bg-[${darkSettings.bgColor}] bg-[radial-gradient(${darkSettings.dotColor}_1px,${darkSettings.bgColor}_1px)] bg-[size:20px_20px]`}
+    >
+    </div>
+    <div
+      class={`light:block dark:hidden absolute top-0 z-[-2] h-screen w-screen bg-[${lightSettings.bgColor}] bg-[radial-gradient(${lightSettings.dotColor}_1px,${lightSettings.bgColor}_1px)] bg-[size:20px_20px]`}
+    >
+    </div>
+  </div>
+</div>
+<slot />
