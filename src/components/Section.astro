@@ -5,7 +5,10 @@ const { id, title } = Astro.props;
 <section id={id} class="mx-4 my-8">
   {
     title && (
-      <h2 class="text-slate-600 dark:text-slate-400 text-2xl font-semibold mb-4">
+      <h2
+        class="text-slate-900 dark:text-slate-200 text-2xl font-semibold mb-4"
+        transition:name="section-name"
+      >
         {title}
       </h2>
     )

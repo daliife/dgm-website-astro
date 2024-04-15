@@ -1,8 +1,9 @@
 ---
+import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.astro";
 import Timeline from "../components/Timeline.astro";
-
 import { work } from "@cv";
+import { TITLE_PAGE_PREFIX } from "../utils/constants";
 
 const workExperience = work.map((job) => {
   return {
@@ -17,6 +18,8 @@ const workExperience = work.map((job) => {
 });
 ---
 
-<Section id="work" title="Work">
-  <Timeline elements={workExperience} />
-</Section>
+<Layout title={`${TITLE_PAGE_PREFIX} Work experience`}>
+  <Section id="work" title="Work">
+    <Timeline elements={workExperience} />
+  </Section>
+</Layout>

@@ -1,11 +1,15 @@
 ---
-import Project from "src/components/Project.astro";
+import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.astro";
+import Project from "../components/Project.astro";
+import { TITLE_PAGE_PREFIX } from "../utils/constants";
 import { projects } from "@cv";
 ---
 
-<Section id="projects" title="Projects">
-  <div class="flex flex-col md:flex-row gap-4 flex-wrap">
-    {projects.map((project) => <Project {...project} />)}
-  </div>
-</Section>
+<Layout title={`${TITLE_PAGE_PREFIX} Projects`}>
+  <Section id="projects" title="Projects">
+    <div class="flex flex-col md:flex-row gap-4 flex-wrap">
+      {projects.map((project) => <Project {...project} />)}
+    </div>
+  </Section>
+</Layout>
