@@ -15,6 +15,6 @@ if (isBuild) {
 export default defineConfig({
   server: { port: SERVER_PORT },
   site: BASE_URL,
-  base: "/dgm-website-astro/",
+  base: "/dgm-website-astro",
   integrations: [sitemap(), tailwind()],
 });
