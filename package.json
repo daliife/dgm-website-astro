@@ -8,7 +8,8 @@
     "build": "astro check && astro build",
     "build:production": "astro check && astro build --optimize",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "clean": "rm -rf dist"
   },
   "dependencies": {
     "@astrojs/check": "^0.5.10",
