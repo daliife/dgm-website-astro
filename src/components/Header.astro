@@ -64,8 +64,8 @@ const { pathname } = Astro.url;
                   "block py-2 px-3 md:p-0 dark:hover:text-slate-300  text-slate-600 hover:text-slate-500 dark:text-slate-400 hover:underline underline-offset-4",
                   {
                     "underline dark:text-slate-300 text-slate-500":
-                      pathname === "/" + page ||
-                      (pathname === "/" && page === "home"),
+                      pathname === "/dgm-website-astro/" + page ||
+                      (pathname === "/dgm-website-astro/" && page === "home"),
                   },
                 ]}
                 aria-current="page"
