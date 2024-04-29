@@ -1,5 +1,5 @@
 ---
-const { name, image, url, description, technologies } = Astro.props;
+const { name, image, url, description } = Astro.props;
 ---
 
 <a
@@ -21,10 +21,5 @@ w-56 h-full rounded-lg text-black dark:text-slate-100 bg-white dark:bg-slate-900
     <p class="text-sm text-gray-600 dark:text-gray-400">
       {description}
     </p>
-    <!-- <span
-      class="bg-gray-200 dark:bg-gray-600 text-gray-600 dark:text-gray-200 text-xs font-small px-2 py-1 rounded-full"
-    >
-      {technologies.join(", ")}
-    </span> -->
   </div>
 </a>
