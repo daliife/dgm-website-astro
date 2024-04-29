@@ -8,7 +8,7 @@ import { projects } from "@cv";
 
 <Layout title={`${TITLE_PAGE_PREFIX} Projects`}>
   <Section id="projects" title="Projects">
-    <div class="flex flex-col md:flex-row gap-4 flex-wrap">
+    <div class="flex flex-row gap-6 flex-wrap justify-center">
       {projects.map((project) => <Project {...project} />)}
     </div>
   </Section>

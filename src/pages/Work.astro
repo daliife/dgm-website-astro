@@ -18,8 +18,8 @@ const workExperience = work.map((job) => {
 });
 ---
 
-<Layout title={`${TITLE_PAGE_PREFIX} Work experience`}>
+<Layout title={`${TITLE_PAGE_PREFIX} Work`}>
   <Section id="work" title="Work">
-    <Timeline elements={workExperience} />
+    <Timeline elements={workExperience} client:load />
   </Section>
 </Layout>
