@@ -18,8 +18,4 @@ export default defineConfig({
   base: "dgm-website-astro",
   integrations: [sitemap(), tailwind()],
   output: "static",
-  outDir: "./docs",
-  build: {
-    assets: "astro",
-  },
 });
