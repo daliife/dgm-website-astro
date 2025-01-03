@@ -20,5 +20,5 @@ export default defineConfig({
   site: BASE_URL,
   base: "dgm-website-astro",
   integrations: [sitemap(), tailwind(), react()],
-  output: "hybrid",
+  output: "static",
 });
