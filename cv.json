@@ -167,7 +167,7 @@
     {
       "name": "Ricardlogic",
       "description": "Adaptation of the minigame 'Paraulògic'",
-      "url": "https://github.com/daliife/ricardlogic-minigame",
+      "url": "https://daliife.github.io/ricardlogic-minigame/",
       "image": "https://raw.githubusercontent.com/daliife/ricardlogic-minigame/main/assets/ricardlogic-screenshot.png",
       "technologies": ["HTML", "CSS", "JavaScript"]
     },
@@ -177,7 +177,7 @@
       "endDate": "2021-01-01",
       "description": "Landing webpage with a card minigame",
       "url": "https://daliife.github.io/rfp-orange/",
-      "image": "https://camo.githubusercontent.com/0b8a53d017f9da6d4e525c81d587b266655a8cf753170208a92567808623a5c4/68747470733a2f2f696d6775722e636f6d2f747531497a696c2e706e67",
+      "image": "https://camo.githubusercontent.com/f9ac2b50de02f48252349c1576fe4b96cc1fb43c374aea5c5f49c492918ad0bc/68747470733a2f2f696d6775722e636f6d2f747531497a696c2e706e67",
       "technologies": ["HTML", "CSS", "JavaScript"]
     },
     {
@@ -186,7 +186,7 @@
       "endDate": "2021-01-01",
       "description": "TV Recommender App created with Tizen Studio",
       "url": "https://daliife.github.io/Cinemup/cinemup_web",
-      "image": "https://camo.githubusercontent.com/fa68c35771bb16b2288feaf814264d764c02d6e2ace84969274107d78dcf0510/687474703a2f2f692e696d6775722e636f6d2f68506767386b502e706e67",
+      "image": "https://camo.githubusercontent.com/f851e18194310ed4de3cf007e15c7707636a955773341abf5105ec59459fe3ef/687474703a2f2f692e696d6775722e636f6d2f68506767386b502e706e67",
       "technologies": ["HTML", "CSS", "JavaScript"]
     },
     {
@@ -195,25 +195,16 @@
       "endDate": "2021-01-01",
       "description": "Interactive webpage with 3 minigames using canvas",
       "url": "https://daliife.github.io/rfp-seat",
-      "image": "https://camo.githubusercontent.com/98ec97072f17f25a70d542cd134e7847b7f2ce0d8e9f220295f4cd43e905c8ce/68747470733a2f2f692e696d6775722e636f6d2f556474555a434a2e706e67",
+      "image": "https://camo.githubusercontent.com/07b1335645e0266304ae923cfbe2c3c491a15a07d58a4fa555f627a05af2905c/68747470733a2f2f692e696d6775722e636f6d2f556474555a434a2e706e67",
       "technologies": ["HTML", "CSS", "JavaScript"]
     },
     {
-      "name": "Seat RFP",
+      "name": "HMI Seat RFP",
       "startDate": "2019-01-01",
       "endDate": "2021-01-01",
       "description": "Interactive webpage with 3 minigames using canvas",
-      "url": "https://daliife.github.io/rfp-seat",
-      "image": "https://camo.githubusercontent.com/98ec97072f17f25a70d542cd134e7847b7f2ce0d8e9f220295f4cd43e905c8ce/68747470733a2f2f692e696d6775722e636f6d2f556474555a434a2e706e67",
-      "technologies": ["HTML", "CSS", "JavaScript"]
-    },
-    {
-      "name": "Seat RFP",
-      "startDate": "2019-01-01",
-      "endDate": "2021-01-01",
-      "description": "Interactive webpage with 3 minigames using canvas",
-      "url": "https://daliife.github.io/rfp-seat",
-      "image": "https://camo.githubusercontent.com/98ec97072f17f25a70d542cd134e7847b7f2ce0d8e9f220295f4cd43e905c8ce/68747470733a2f2f692e696d6775722e636f6d2f556474555a434a2e706e67",
+      "url": "https://daliife.github.io/hmi-seat/",
+      "image": "https://camo.githubusercontent.com/4092f94cc4bd64d0ff05ca4b5b48b13f1c464f427dc9bb37243e1d2395eccae9/68747470733a2f2f696d6775722e636f6d2f386c50347149412e706e67",
       "technologies": ["HTML", "CSS", "JavaScript"]
     }
   ]
