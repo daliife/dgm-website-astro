@@ -1,13 +1,14 @@
 ---
 const { size, className } = Astro.props;
+const defaultSize = 131.75;
 ---
 
 <svg
   id="svg"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  width={(size * 400) / 131.75 ?? 400}
-  height={size ?? 131.75}
+  width={(size * 400) / defaultSize}
+  height={size ?? defaultSize}
   viewBox="0, 0, 400,131.75853018372703"
   ><g class={className ?? ""}
     ><path
