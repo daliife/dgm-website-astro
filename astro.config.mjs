@@ -20,4 +20,18 @@ export default defineConfig({
   server: {
     port: SERVER_PORT,
   },
+  build: {
+    inlineStylesheets: "auto",
+  },
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ["react", "react-dom"],
+          },
+        },
+      },
+    },
+  },
 });

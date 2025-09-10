@@ -1,8 +1,36 @@
 ---
-const { startDate, endDate, title, description, link, company, highlights } =
-  Astro.props;
+import { TIMELINE_ITEMS_LIMIT } from "../utils/constants";
 
-const formatDate = (date: string | number | Date) =>
+interface Props {
+  startDate?: string;
+  endDate?: string;
+  title: string;
+  description?: string;
+  link?: string;
+  company?: string;
+  highlights?: string[];
+}
+
+const {
+  startDate,
+  endDate,
+  title,
+  description,
+  link,
+  company,
+  highlights = [],
+} = Astro.props;
+
+// Validacions
+if (!title) {
+  throw new Error("TimelineItem component requires 'title' prop");
+}
+
+if (link && !company) {
+  console.warn("TimelineItem has link but no company name");
+}
+
+const formatDate = (date: string | undefined) =>
   date
     ? new Date(date).toLocaleDateString("en-US", {
         month: "short",
@@ -10,10 +38,12 @@ const formatDate = (date: string | number | Date) =>
       })
     : "Present";
 
-const startDateFormated = formatDate(startDate);
-const endDateFormated = formatDate(endDate);
-const dateRange = `${startDateFormated} - ${endDateFormated}`;
-const numElements = 2;
+const startDateFormatted = formatDate(startDate);
+const endDateFormatted = formatDate(endDate);
+const dateRange = `${startDateFormatted} - ${endDateFormatted}`;
+
+const numElements = TIMELINE_ITEMS_LIMIT;
+const hasMoreHighlights = highlights.length > numElements;
 ---
 
 <li class="mb-10 ms-4">
@@ -23,14 +53,16 @@ const numElements = 2;
   </div>
   <time
     class="mb-1 text-sm font-normal leading-none text-slate-500 dark:text-slate-400"
-    >{dateRange}</time
   >
+    {dateRange}
+  </time>
   <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-200">
     {title}
     {
       link && company && (
         <>
-          @
+          {" "}
+          @{" "}
           <a
             href={link}
             target="_blank"
@@ -49,34 +81,35 @@ const numElements = 2;
     )
   }
   {
-    highlights && (
-      <>
+    highlights.length > 0 && (
+      <div>
         <ol
           id="highlight-list"
           class="list-none list-inside pt-2 mb-2 text-sm font-normal text-slate-500 dark:text-slate-400"
         >
-          {highlights.slice(0, numElements).map((highlight: any) => (
+          {highlights.slice(0, numElements).map(highlight => (
             <li class="mb-2 text-sm font-normal text-slate-500 dark:text-slate-400">
               - {highlight}
             </li>
           ))}
-          {highlights.length > numElements && (
-            <>
-              {highlights.slice(numElements).map((highlight: any) => (
-                <li
-                  data-show-more
-                  class="hidden mb-2 text-sm font-normal text-slate-500 dark:text-slate-400"
-                >
+          {hasMoreHighlights && (
+            <div id="additional-highlights" class="hidden">
+              {highlights.slice(numElements).map(highlight => (
+                <li class="mb-2 text-sm font-normal text-slate-500 dark:text-slate-400">
                   - {highlight}
                 </li>
               ))}
-            </>
+            </div>
           )}
         </ol>
-        {highlights.length > numElements && (
+        {hasMoreHighlights && (
           <button
             id="toggle-button"
-            class="toggle-button underline text-sm hover:text-blue-700 text-slate-600  dark:text-slate-400 dark:hover:text-white flex gap-1 items-center"
+            class="toggle-button underline text-sm hover:text-blue-700 text-slate-600 dark:text-slate-400 dark:hover:text-white flex gap-1 items-center"
+            onclick="toggleHighlights(this)"
+            aria-expanded="false"
+            aria-controls="additional-highlights"
+            aria-label="Show more highlights"
           >
             <svg
               width="15"
@@ -95,27 +128,40 @@ const numElements = 2;
             Show more
           </button>
         )}
-      </>
+      </div>
     )
   }
 </li>
 
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const buttons = document.querySelectorAll(".toggle-button");
+<script is:inline>
+  function toggleHighlights(button) {
+    const additionalHighlights = button.parentElement.querySelector(
+      "#additional-highlights"
+    );
+    const isExpanded = additionalHighlights.classList.contains("block");
 
-    buttons.forEach((button) => {
-      const list = button.previousElementSibling;
-      const listItems = list?.querySelectorAll("[data-show-more]");
-
-      button.addEventListener("click", () => {
-        const isShowingMore = button.textContent?.includes("less");
-        console.log(isShowingMore);
-        listItems?.forEach((item) => {
-          item.classList.toggle("hidden");
-        });
-        button.textContent = isShowingMore ? "Show more" : "Show less";
-      });
-    });
-  });
+    if (isExpanded) {
+      additionalHighlights.classList.remove("block");
+      additionalHighlights.classList.add("hidden");
+      button.setAttribute("aria-expanded", "false");
+      button.setAttribute("aria-label", "Show more highlights");
+      button.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM7.50003 4C7.77617 4 8.00003 4.22386 8.00003 4.5V7H10.5C10.7762 7 11 7.22386 11 7.5C11 7.77614 10.7762 8 10.5 8H8.00003V10.5C8.00003 10.7761 7.77617 11 7.50003 11C7.22389 11 7.00003 10.7761 7.00003 10.5V8H4.50003C4.22389 8 4.00003 7.77614 4.00003 7.5C4.00003 7.22386 4.22389 7 4.50003 7H7.00003V4.5C7.00003 4.22386 7.22389 4 7.50003 4Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/>
+        </svg>
+        Show more
+      `;
+    } else {
+      additionalHighlights.classList.remove("hidden");
+      additionalHighlights.classList.add("block");
+      button.setAttribute("aria-expanded", "true");
+      button.setAttribute("aria-label", "Show fewer highlights");
+      button.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM7.50003 4C7.77617 4 8.00003 4.22386 8.00003 4.5V7H10.5C10.7762 7 11 7.22386 11 7.5C11 7.77614 10.7762 8 10.5 8H8.00003V10.5C8.00003 10.7761 7.77617 11 7.50003 11C7.22389 11 7.00003 10.7761 7.00003 10.5V8H4.50003C4.22389 8 4.00003 7.77614 4.00003 7.5C4.00003 7.22386 4.22389 7 4.50003 7H7.00003V4.5C7.00003 4.22386 7.22389 4 7.50003 4Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/>
+        </svg>
+        Show less
+      `;
+    }
+  }
 </script>

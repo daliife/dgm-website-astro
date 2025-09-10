@@ -1,18 +1,42 @@
 ---
-const { name, image, url, description } = Astro.props;
+import { Image } from "astro:assets";
+import { PROJECT_CARD_DIMENSIONS, IMAGE_LOADING } from "../utils/constants";
+
+interface Props {
+  name: string;
+  image: string;
+  url: string;
+  description: string;
+  technologies?: string[];
+}
+
+const { name, image, url, description, technologies = [] } = Astro.props;
+
+// Validacions
+if (!name || !url) {
+  throw new Error("Project component requires 'name' and 'url' props");
+}
+
+if (!image) {
+  console.warn(`Project "${name}" is missing an image`);
+}
 ---
 
 <a
   href={url}
-  target="blank"
+  target="_blank"
   rel="noopener noreferrer"
   class="flex flex-col items-start justify-center
 w-56 h-full rounded-lg text-black dark:text-slate-100 bg-slate-50 dark:bg-slate-700 hover:transform hover:-translate-y-4 hover:bg-slate-100 hover:dark:bg-slate-800 shadow-sm transition-transform duration-300 ease-in-out"
+  aria-label={`View project: ${name}`}
 >
-  <img
+  <Image
     src={image}
     alt={name}
     class="w-full h-32 min-h-32 max-h-32 object-cover rounded-t-md"
+    width={PROJECT_CARD_DIMENSIONS.width}
+    height={PROJECT_CARD_DIMENSIONS.height}
+    loading={IMAGE_LOADING.LAZY}
   />
   <div class="flex flex-col items-start w-full h-full justify-center p-3">
     <h2 class="text-md font-medium text-gray-900 dark:text-gray-100">
@@ -21,5 +45,16 @@ w-56 h-full rounded-lg text-black dark:text-slate-100 bg-slate-50 dark:bg-slate-
     <p class="mt-1 text-xs text-gray-600 dark:text-gray-400">
       {description}
     </p>
+    {
+      technologies.length > 0 && (
+        <div class="mt-2 flex flex-wrap gap-1">
+          {technologies.map(tech => (
+            <span class="px-2 py-1 text-xs bg-slate-200 dark:bg-slate-600 rounded">
+              {tech}
+            </span>
+          ))}
+        </div>
+      )
+    }
   </div>
 </a>

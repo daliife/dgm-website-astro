@@ -18,7 +18,10 @@ const workExperience = work.map((job) => {
 });
 ---
 
-<Layout title={`${TITLE_PAGE_PREFIX} Work`}>
+<Layout
+  title={`${TITLE_PAGE_PREFIX} Work`}
+  description="David Gimeno's professional work experience, including roles at NTT Data and other companies in software development."
+>
   <Section id="work" title="Work">
     <Timeline elements={workExperience} />
   </Section>

@@ -1,5 +1,5 @@
 ---
-import TimelineItem from "./TimelineItem.jsx";
+import TimelineItem from "./TimelineItem.astro";
 const { elements } = Astro.props;
 ---
 
@@ -7,8 +7,6 @@ const { elements } = Astro.props;
   {
     elements.map((item: any, index: number) => (
       <TimelineItem
-        client:load
-        key={index}
         startDate={item.startDate}
         endDate={item.endDate}
         title={item.title}

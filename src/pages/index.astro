@@ -6,17 +6,24 @@ import GithubIcon from "../icons/GithubIcon.astro";
 import EmailIcon from "../icons/EmailIcon.astro";
 import { basics } from "@cv";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
-import { LIVE_URL } from "astro.config.mjs";
+import davidProfile from "../assets/david-profile.webp";
 const { name, label, lastName } = basics;
 ---
 
-<Layout title={`${TITLE_PAGE_PREFIX} Homepage`}>
+<Layout
+  title={`${TITLE_PAGE_PREFIX} Homepage`}
+  description="Welcome to David Gimeno's portfolio. Software Engineer based in Barcelona, currently working at NTT Data as a Frontend Developer."
+  type="profile"
+>
   <Section id="home">
     <div class="flex flex-col items-center gap-8 md:flex-row p-0">
       <img
-        src=`${LIVE_URL}/david-profile.webp`
+        src={davidProfile.src}
         alt="David profile image"
         class="rounded-full w-36 h-36 bg-slate-200 dark:bg-slate-700 aspect-square"
+        width="144"
+        height="144"
+        loading="eager"
       />
       <div class="flex flex-col space-y-4">
         <h1 class="font-bold text-4xl text-slate-900 dark:text-slate-200">
