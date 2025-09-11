@@ -8,35 +8,81 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Dark Blue Palette - Accessible
+        // Primary Brand Colors - Modern Blue Palette (inspired by Vercel, Linear)
+        primary: {
+          50: "#eff6ff",
+          100: "#dbeafe",
+          200: "#bfdbfe",
+          300: "#93c5fd",
+          400: "#60a5fa",
+          500: "#3b82f6",
+          600: "#2563eb",
+          700: "#1d4ed8",
+          800: "#1e40af",
+          900: "#1e3a8a",
+          950: "#172554",
+        },
+        // Secondary Accent Colors - Ocean Blue (inspired by Tailwind, GitHub)
+        secondary: {
+          50: "#f0f9ff",
+          100: "#e0f2fe",
+          200: "#bae6fd",
+          300: "#7dd3fc",
+          400: "#38bdf8",
+          500: "#0ea5e9",
+          600: "#0284c7",
+          700: "#0369a1",
+          800: "#075985",
+          900: "#0c4a6e",
+          950: "#082f49",
+        },
+        // Neutral Colors - Modern Grays (inspired by Radix UI, shadcn/ui)
+        neutral: {
+          50: "#fafafa",
+          100: "#f4f4f5",
+          200: "#e4e4e7",
+          300: "#d4d4d8",
+          400: "#a1a1aa",
+          500: "#71717a",
+          600: "#52525b",
+          700: "#3f3f46",
+          800: "#27272a",
+          900: "#18181b",
+          950: "#09090b",
+        },
+        // Semantic Colors
+        success: {
+          50: "#f0fdf4",
+          500: "#22c55e",
+          600: "#16a34a",
+          700: "#15803d",
+        },
+        warning: {
+          50: "#fffbeb",
+          500: "#f59e0b",
+          600: "#d97706",
+          700: "#b45309",
+        },
+        error: {
+          50: "#fef2f2",
+          500: "#ef4444",
+          600: "#dc2626",
+          700: "#b91c1c",
+        },
+        // Legacy support (keeping for compatibility)
         "dark-blue": {
-          50: "#f0f4ff",
-          100: "#e0e7ff",
-          200: "#c7d2fe",
-          300: "#a5b4fc",
-          400: "#818cf8",
-          500: "#6366f1",
-          600: "#4f46e5",
-          700: "#4338ca",
-          800: "#3730a3",
-          900: "#312e81",
-          950: "#1e1b4b",
+          50: "#eff6ff",
+          100: "#dbeafe",
+          200: "#bfdbfe",
+          300: "#93c5fd",
+          400: "#60a5fa",
+          500: "#3b82f6",
+          600: "#2563eb",
+          700: "#1d4ed8",
+          800: "#1e40af",
+          900: "#1e3a8a",
+          950: "#172554",
         },
-        // Midnight Blue Palette - Deeper tones
-        midnight: {
-          50: "#f0f4ff",
-          100: "#e0e7ff",
-          200: "#c7d2fe",
-          300: "#a5b4fc",
-          400: "#818cf8",
-          500: "#6366f1",
-          600: "#4f46e5",
-          700: "#4338ca",
-          800: "#3730a3",
-          900: "#312e81",
-          950: "#1e1b4b",
-        },
-        // Deep Blue Accent Colors
         "deep-blue": {
           300: "#93c5fd",
           400: "#60a5fa",
@@ -46,7 +92,6 @@ export default {
           800: "#1e40af",
           900: "#1e3a8a",
         },
-        // Ocean Blue Colors
         ocean: {
           400: "#38bdf8",
           500: "#0ea5e9",
@@ -54,7 +99,6 @@ export default {
           700: "#0369a1",
           800: "#075985",
         },
-        // Steel Blue Colors
         steel: {
           400: "#60a5fa",
           500: "#3b82f6",
@@ -62,37 +106,19 @@ export default {
           700: "#1d4ed8",
           800: "#1e40af",
         },
-        // Accessible Text Colors
-        "text-primary-light": "#0f172a",
-        "text-secondary-light": "#1e293b",
-        "text-muted-light": "#475569",
-        "text-primary-dark": "#f8fafc",
-        "text-secondary-dark": "#e2e8f0",
-        "text-muted-dark": "#94a3b8",
-        // Accessible Background Colors
-        "bg-light": "#ffffff",
-        "bg-light-alt": "#f8fafc",
-        "bg-dark": "#0f172a",
-        "bg-dark-alt": "#1e293b",
-        // Accessible Border Colors
-        "border-light": "#e2e8f0",
-        "border-dark": "#334155",
-        "border-accent-light": "#3b82f6",
-        "border-accent-dark": "#60a5fa",
-        // Legacy brand colors (keeping for compatibility)
-        brand: {
-          50: "#fdf8f6",
-          100: "#f2e8e5",
-          200: "#eaddd7",
-          300: "#e0cec7",
-          400: "#d2bab0",
-          500: "#bfa094",
-          DEFAULT: "#bfa094",
-          600: "#a18072",
-          700: "#977669",
-          800: "#846358",
-          900: "#43302b",
-        },
+        // Text Colors - Semantic naming for better maintainability
+        "text-primary": "rgb(var(--text-primary) / <alpha-value>)",
+        "text-secondary": "rgb(var(--text-secondary) / <alpha-value>)",
+        "text-muted": "rgb(var(--text-muted) / <alpha-value>)",
+        "text-accent": "rgb(var(--text-accent) / <alpha-value>)",
+        // Background Colors
+        "bg-primary": "rgb(var(--bg-primary) / <alpha-value>)",
+        "bg-secondary": "rgb(var(--bg-secondary) / <alpha-value>)",
+        "bg-muted": "rgb(var(--bg-muted) / <alpha-value>)",
+        // Border Colors
+        "border-primary": "rgb(var(--border-primary) / <alpha-value>)",
+        "border-secondary": "rgb(var(--border-secondary) / <alpha-value>)",
+        "border-muted": "rgb(var(--border-muted) / <alpha-value>)",
       },
     },
   },

@@ -69,15 +69,15 @@ const getVariantClasses = (variant: string) => {
 const getColorClasses = (color: string) => {
   switch (color) {
     case "primary":
-      return "text-slate-900 dark:text-slate-100";
+      return "text-text-primary";
     case "secondary":
-      return "text-slate-700 dark:text-slate-300";
+      return "text-text-secondary";
     case "muted":
-      return "text-slate-600 dark:text-slate-400";
+      return "text-text-muted";
     case "accent":
-      return "text-deep-blue-600 dark:text-deep-blue-400";
+      return "text-text-accent";
     default:
-      return "text-slate-900 dark:text-slate-100";
+      return "text-text-primary";
   }
 };
 

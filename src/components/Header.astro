@@ -14,10 +14,10 @@ const { pathname } = Astro.url;
       class="flex items-center space-x-3 rtl:space-x-reverse"
     >
       <DgmLogoSimple
-        className={`fill-text-primary-light dark:fill-text-primary-dark hover:fill-deep-blue-600 dark:hover:fill-deep-blue-400 transition-colors duration-300 ${
+        className={`fill-text-primary hover:fill-text-accent transition-colors duration-300 ${
           pathname === "/dgm-website-astro/" ||
           pathname === "/dgm-website-astro"
-            ? "fill-deep-blue-600 dark:fill-deep-blue-400"
+            ? "fill-text-accent"
             : ""
         }`}
         size="24px"
@@ -30,7 +30,7 @@ const { pathname } = Astro.url;
       <button
         data-collapse-toggle="navbar-sticky"
         type="button"
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-text-primary-light dark:text-text-primary-dark rounded-lg md:hidden hover:bg-dark-blue-100 dark:hover:bg-dark-blue-900/20 hover:text-deep-blue-600 dark:hover:text-deep-blue-400 focus:outline-none focus:ring-2 focus:ring-deep-blue-200 dark:focus:ring-deep-blue-600 transition-colors duration-200"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-text-primary rounded-lg md:hidden hover:bg-bg-muted hover:text-text-accent focus:outline-none focus:ring-2 focus:ring-primary-200 dark:focus:ring-primary-600 transition-colors duration-200"
         aria-controls="navbar-sticky"
         aria-expanded="false"
         aria-label="Toggle navigation menu"
@@ -54,12 +54,12 @@ const { pathname } = Astro.url;
       </button>
     </div>
     <div
-      class="items-center justify-between hidden w-full fixed top-0 left-0 h-screen bg-white dark:bg-[#1a202c] z-50 md:flex md:w-auto md:order-1 md:relative md:h-auto md:bg-transparent dark:md:bg-transparent"
+      class="items-center justify-between hidden w-full fixed top-0 left-0 h-screen bg-bg-primary z-50 md:flex md:w-auto md:order-1 md:relative md:h-auto md:bg-transparent"
       id="navbar-sticky"
     >
       <button
         onclick="closeMobileMenu()"
-        class="absolute top-4 right-4 p-2 text-text-primary-light dark:text-text-primary-dark hover:text-deep-blue-600 dark:hover:text-deep-blue-400 hover:bg-dark-blue-50 dark:hover:bg-dark-blue-900/20 md:hidden transition-colors duration-200"
+        class="absolute top-4 right-4 p-2 text-text-primary hover:text-text-accent hover:bg-bg-muted md:hidden transition-colors duration-200"
         aria-label="Close navigation menu"
       >
         <span class="sr-only">Close menu</span>
@@ -86,9 +86,9 @@ const { pathname } = Astro.url;
               <a
                 href={page === "home" ? import.meta.env.BASE_URL : `/${page}`}
                 class:list={[
-                  "block py-3 px-4 sm:py-4 sm:px-6 md:p-0 text-text-primary-light dark:text-text-primary-dark hover:text-deep-blue-600 dark:hover:text-deep-blue-400 hover:underline underline-offset-4 text-base sm:text-lg md:text-base transition-all duration-300",
+                  "block py-3 px-4 sm:py-4 sm:px-6 md:p-0 text-text-primary hover:text-text-accent hover:underline underline-offset-4 text-base sm:text-lg md:text-base transition-all duration-300",
                   {
-                    "text-deep-blue-600 dark:text-deep-blue-400 font-bold bg-deep-blue-100 dark:bg-deep-blue-900/30 rounded-lg md:bg-deep-blue-50 md:dark:bg-deep-blue-900/20 md:rounded-md md:px-3 md:py-2 md:shadow-sm md:border md:border-deep-blue-200 md:dark:border-deep-blue-700 md:relative md:after:content-[''] md:after:absolute md:after:-bottom-1 md:after:left-1/2 md:after:transform md:after:-translate-x-1/2 md:after:w-2 md:after:h-2 md:after:bg-deep-blue-600 md:after:dark:bg-deep-blue-400 md:after:rounded-full":
+                    "text-text-accent font-bold bg-bg-muted rounded-lg md:bg-bg-secondary md:rounded-md md:px-3 md:py-2 md:shadow-sm md:border md:border-border-primary md:relative md:after:content-[''] md:after:absolute md:after:-bottom-1 md:after:left-1/2 md:after:transform md:after:-translate-x-1/2 md:after:w-2 md:after:h-2 md:after:bg-text-accent md:after:rounded-full":
                       pathname === "/dgm-website-astro/" + page ||
                       (pathname === "/dgm-website-astro/" && page === "home"),
                   },
