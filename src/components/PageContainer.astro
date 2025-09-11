@@ -1,0 +1,40 @@
+---
+import { LAYOUT_CONSTANTS } from "../utils/constants";
+
+interface Props {
+  type?: "narrow" | "medium" | "wide";
+  className?: string;
+}
+
+const { type = "narrow", className = "" } = Astro.props;
+
+const getMaxWidth = (type: string) => {
+  switch (type) {
+    case "narrow":
+      return LAYOUT_CONSTANTS.CONTENT_MAX_WIDTH.NARROW;
+    case "medium":
+      return LAYOUT_CONSTANTS.CONTENT_MAX_WIDTH.MEDIUM;
+    case "wide":
+      return LAYOUT_CONSTANTS.CONTENT_MAX_WIDTH.WIDE;
+    default:
+      return LAYOUT_CONSTANTS.CONTENT_MAX_WIDTH.NARROW;
+  }
+};
+
+const containerClasses = [
+  "w-full",
+  LAYOUT_CONSTANTS.CONTAINER_MAX_WIDTH,
+  "mx-auto",
+  LAYOUT_CONSTANTS.PADDING.HORIZONTAL,
+  LAYOUT_CONSTANTS.PADDING.VERTICAL,
+  className,
+].join(" ");
+
+const contentClasses = [getMaxWidth(type), "mx-auto"].join(" ");
+---
+
+<div class={containerClasses}>
+  <div class={contentClasses}>
+    <slot />
+  </div>
+</div>

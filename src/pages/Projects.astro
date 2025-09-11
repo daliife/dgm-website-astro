@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.astro";
 import Project from "../components/Project.astro";
+import PageContainer from "../components/PageContainer.astro";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
 import { projects } from "@cv";
 ---
@@ -10,9 +11,66 @@ import { projects } from "@cv";
   title={`${TITLE_PAGE_PREFIX} Projects`}
   description="Explore David Gimeno's portfolio of web development projects, including interactive applications and creative solutions."
 >
-  <Section id="projects" title="Projects">
-    <div class="flex flex-row gap-6 flex-wrap justify-center">
-      {projects.map((project) => <Project {...project} />)}
-    </div>
-  </Section>
+  <PageContainer type="wide">
+    <Section id="projects" title="Projects">
+      <div class="projects-container">
+        {
+          projects.map(project => (
+            <div class="project-item">
+              <Project {...project} />
+            </div>
+          ))
+        }
+      </div>
+    </Section>
+  </PageContainer>
 </Layout>
+
+<style>
+  .projects-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .projects-container {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .projects-container {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .projects-container {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2.5rem;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .projects-container {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .projects-container {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 3rem;
+    }
+  }
+
+  .project-item {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+</style>

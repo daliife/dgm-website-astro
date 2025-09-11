@@ -5,25 +5,32 @@ import { NAV_LINKS } from "../utils/constants";
 const { pathname } = Astro.url;
 ---
 
-<nav class="w-full max-w-3xl mx-auto z-20 top-0 start-0 bg-transparent">
+<nav class="w-full max-w-7xl mx-auto z-20 top-0 start-0 bg-transparent">
   <div
-    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-4"
   >
     <a
       href={import.meta.env.BASE_URL}
       class="flex items-center space-x-3 rtl:space-x-reverse"
     >
       <DgmLogoSimple
-        className="fill-slate-600 dark:fill-slate-400"
+        className={`fill-text-primary-light dark:fill-text-primary-dark hover:fill-deep-blue-600 dark:hover:fill-deep-blue-400 transition-colors duration-300 ${
+          pathname === "/dgm-website-astro/" ||
+          pathname === "/dgm-website-astro"
+            ? "fill-deep-blue-600 dark:fill-deep-blue-400"
+            : ""
+        }`}
         size="24px"
       />
     </a>
-    <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+    <div
+      class="flex md:order-2 space-x-2 sm:space-x-3 md:space-x-0 rtl:space-x-reverse"
+    >
       <DarkModeButton />
       <button
         data-collapse-toggle="navbar-sticky"
         type="button"
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-text-primary-light dark:text-text-primary-dark rounded-lg md:hidden hover:bg-dark-blue-100 dark:hover:bg-dark-blue-900/20 hover:text-deep-blue-600 dark:hover:text-deep-blue-400 focus:outline-none focus:ring-2 focus:ring-deep-blue-200 dark:focus:ring-deep-blue-600 transition-colors duration-200"
         aria-controls="navbar-sticky"
         aria-expanded="false"
         aria-label="Toggle navigation menu"
@@ -52,7 +59,7 @@ const { pathname } = Astro.url;
     >
       <button
         onclick="closeMobileMenu()"
-        class="absolute top-4 right-4 p-2 text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 md:hidden"
+        class="absolute top-4 right-4 p-2 text-text-primary-light dark:text-text-primary-dark hover:text-deep-blue-600 dark:hover:text-deep-blue-400 hover:bg-dark-blue-50 dark:hover:bg-dark-blue-900/20 md:hidden transition-colors duration-200"
         aria-label="Close navigation menu"
       >
         <span class="sr-only">Close menu</span>
@@ -71,7 +78,7 @@ const { pathname } = Astro.url;
         </svg>
       </button>
       <ul
-        class="flex flex-col p-4 mt-12 md:mt-0 font-medium w-full text-center md:text-left md:p-0 md:space-x-8 rtl:space-x-reverse md:flex-row"
+        class="flex flex-col p-6 sm:p-8 mt-16 sm:mt-20 md:mt-0 font-medium w-full text-center md:text-left md:p-0 md:space-x-6 lg:space-x-8 rtl:space-x-reverse md:flex-row"
       >
         {
           NAV_LINKS.map(page => (
@@ -79,9 +86,9 @@ const { pathname } = Astro.url;
               <a
                 href={page === "home" ? import.meta.env.BASE_URL : `/${page}`}
                 class:list={[
-                  "block py-2 px-3 md:p-0 dark:hover:text-slate-300 text-slate-600 hover:text-slate-500 dark:text-slate-400 hover:underline underline-offset-4",
+                  "block py-3 px-4 sm:py-4 sm:px-6 md:p-0 text-text-primary-light dark:text-text-primary-dark hover:text-deep-blue-600 dark:hover:text-deep-blue-400 hover:underline underline-offset-4 text-lg sm:text-xl md:text-base transition-all duration-300",
                   {
-                    "underline dark:text-slate-300 text-slate-500":
+                    "text-deep-blue-600 dark:text-deep-blue-400 font-bold bg-deep-blue-100 dark:bg-deep-blue-900/30 rounded-lg md:bg-deep-blue-50 md:dark:bg-deep-blue-900/20 md:rounded-md md:px-3 md:py-2 md:shadow-sm md:border md:border-deep-blue-200 md:dark:border-deep-blue-700 md:relative md:after:content-[''] md:after:absolute md:after:-bottom-1 md:after:left-1/2 md:after:transform md:after:-translate-x-1/2 md:after:w-2 md:after:h-2 md:after:bg-deep-blue-600 md:after:dark:bg-deep-blue-400 md:after:rounded-full":
                       pathname === "/dgm-website-astro/" + page ||
                       (pathname === "/dgm-website-astro/" && page === "home"),
                   },

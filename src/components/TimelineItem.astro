@@ -46,18 +46,22 @@ const numElements = TIMELINE_ITEMS_LIMIT;
 const hasMoreHighlights = highlights.length > numElements;
 ---
 
-<li class="mb-10 ms-4">
+<li class="mb-8 sm:mb-10 ms-2 sm:ms-4">
   <div
-    class="absolute w-3 h-3 bg-slate-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-slate-900 dark:bg-slate-700"
+    class="absolute w-2 h-2 sm:w-3 sm:h-3 bg-indigo-500 rounded-full mt-1.5 -start-1 sm:-start-1.5 border-2 border-white dark:border-slate-800 shadow-lg"
   >
   </div>
   <time
-    class="mb-1 text-sm font-normal leading-none text-slate-500 dark:text-slate-400"
+    class="mb-1 text-xs sm:text-sm font-normal leading-none text-slate-500 dark:text-slate-400"
   >
     {dateRange}
   </time>
-  <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-200">
-    {title}
+  <h2
+    class="text-base sm:text-lg lg:text-xl font-semibold text-slate-800 dark:text-slate-100 leading-tight"
+  >
+    <span class="text-indigo-600 dark:text-indigo-400">
+      {title}
+    </span>
     {
       link && company && (
         <>
@@ -67,7 +71,7 @@ const hasMoreHighlights = highlights.length > numElements;
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            class="underline hover:text-blue-700 dark:text-slate-400 dark:hover:text-white"
+            class="underline text-blue-600 dark:text-blue-400 hover:text-indigo-600 dark:hover:text-indigo-300 transition-colors duration-300"
           >
             {company}
           </a>
@@ -77,7 +81,9 @@ const hasMoreHighlights = highlights.length > numElements;
   </h2>
   {
     description && (
-      <p class="mb-4 text-sm font-normal text-slate-500">{description}</p>
+      <p class="mb-3 sm:mb-4 text-xs sm:text-sm font-normal text-slate-500 leading-relaxed">
+        {description}
+      </p>
     )
   }
   {
@@ -85,17 +91,17 @@ const hasMoreHighlights = highlights.length > numElements;
       <div>
         <ol
           id="highlight-list"
-          class="list-none list-inside pt-2 mb-2 text-sm font-normal text-slate-500 dark:text-slate-400"
+          class="list-none list-inside pt-2 mb-2 text-xs sm:text-sm font-normal text-slate-500 dark:text-slate-400"
         >
           {highlights.slice(0, numElements).map(highlight => (
-            <li class="mb-2 text-sm font-normal text-slate-500 dark:text-slate-400">
+            <li class="mb-1 sm:mb-2 text-xs sm:text-sm font-normal text-slate-500 dark:text-slate-400 leading-relaxed">
               - {highlight}
             </li>
           ))}
           {hasMoreHighlights && (
             <div id="additional-highlights" class="hidden">
               {highlights.slice(numElements).map(highlight => (
-                <li class="mb-2 text-sm font-normal text-slate-500 dark:text-slate-400">
+                <li class="mb-1 sm:mb-2 text-xs sm:text-sm font-normal text-slate-500 dark:text-slate-400 leading-relaxed">
                   - {highlight}
                 </li>
               ))}
@@ -105,7 +111,7 @@ const hasMoreHighlights = highlights.length > numElements;
         {hasMoreHighlights && (
           <button
             id="toggle-button"
-            class="toggle-button underline text-sm hover:text-blue-700 text-slate-600 dark:text-slate-400 dark:hover:text-white flex gap-1 items-center"
+            class="toggle-button underline text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:text-indigo-600 dark:hover:text-indigo-300 flex gap-1 items-center transition-colors duration-300"
             onclick="toggleHighlights(this)"
             aria-expanded="false"
             aria-controls="additional-highlights"
