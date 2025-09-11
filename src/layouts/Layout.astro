@@ -86,25 +86,54 @@ const {
     </script>
 
     <script is:inline>
-      document.addEventListener("astro:after-swap", () => {
+      // Theme initialization and persistence
+      function initializeTheme() {
         if (
           localStorage.theme === "dark" ||
           (!("theme" in localStorage) &&
             window.matchMedia("(prefers-color-scheme: dark)").matches)
         ) {
           document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
         }
+      }
+
+      // Dark mode toggle functionality
+      function setupDarkModeToggle() {
+        const toggleButton = document.getElementById("theme-toggle");
+        if (toggleButton) {
+          // Remove existing listeners to prevent duplicates
+          const newToggleButton = toggleButton.cloneNode(true);
+          toggleButton.parentNode.replaceChild(newToggleButton, toggleButton);
+
+          newToggleButton.addEventListener("click", () => {
+            if (document.documentElement.classList.contains("dark")) {
+              document.documentElement.classList.remove("dark");
+              localStorage.setItem("theme", "light");
+            } else {
+              document.documentElement.classList.add("dark");
+              localStorage.setItem("theme", "dark");
+            }
+          });
+        }
+      }
+
+      // Initialize theme on page load
+      initializeTheme();
+      setupDarkModeToggle();
+
+      // Re-initialize on navigation
+      document.addEventListener("astro:after-swap", () => {
+        initializeTheme();
+        setupDarkModeToggle();
       });
 
-      if (
-        localStorage.theme === "dark" ||
-        (!("theme" in localStorage) &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
+      // Also listen for page load events
+      document.addEventListener("astro:page-load", () => {
+        initializeTheme();
+        setupDarkModeToggle();
+      });
     </script>
     <ClientRouter />
   </head>
