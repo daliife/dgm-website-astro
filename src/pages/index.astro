@@ -1,6 +1,8 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import HomeContainer from "../components/HomeContainer.astro";
+import Typography from "../components/Typography.astro";
+import Button from "../components/Button.astro";
 import LinkedinIcon from "../icons/LinkedinIcon.astro";
 import GithubIcon from "../icons/GithubIcon.astro";
 import EmailIcon from "../icons/EmailIcon.astro";
@@ -23,18 +25,27 @@ const { name, label, lastName } = basics;
         <div
           class="flex flex-col space-y-4 sm:space-y-6 lg:space-y-8 text-center max-w-4xl"
         >
-          <h1
-            class="font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-text-primary-light dark:text-text-primary-dark leading-tight"
+          <Typography
+            as="h1"
+            variant="h1"
+            weight="bold"
+            align="center"
+            className="leading-tight mb-3"
           >
             Hello, I'm <span class="text-deep-blue-600 dark:text-deep-blue-400"
               >{name} {lastName}</span
             >
-          </h1>
-          <h2
-            class="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-text-secondary-light dark:text-text-secondary-dark leading-relaxed font-medium"
+          </Typography>
+          <Typography
+            as="h2"
+            variant="h2"
+            color="secondary"
+            weight="medium"
+            align="center"
+            className="leading-relaxed max-w-3xl mx-auto"
           >
             {label}
-          </h2>
+          </Typography>
           <div class="flex flex-wrap justify-center gap-4 sm:gap-6 pt-6">
             {
               basics.profiles.map((profile: any) => {
@@ -49,15 +60,17 @@ const { name, label, lastName } = basics;
                   }
                 };
                 return (
-                  <a
+                  <Button
+                    variant="outline"
+                    size="lg"
                     href={profile.url}
-                    rel="noopener"
                     target="_blank"
-                    class="inline-flex items-center px-5 py-3 text-base font-medium text-text-primary-light dark:text-text-primary-dark hover:text-deep-blue-600 dark:hover:text-deep-blue-400 transition-colors duration-200 rounded-lg bg-bg-light/90 dark:bg-bg-dark-alt/80 hover:bg-deep-blue-50 dark:hover:bg-deep-blue-900/20 backdrop-blur-sm border border-deep-blue-200/60 dark:border-border-dark hover:border-deep-blue-300 dark:hover:border-deep-blue-600"
+                    rel="noopener"
+                    className="backdrop-blur-sm"
                   >
                     {getProfileIconFromName(profile.network)}
                     <span class="ml-2">{profile.network}</span>
-                  </a>
+                  </Button>
                 );
               })
             }

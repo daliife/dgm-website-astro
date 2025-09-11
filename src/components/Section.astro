@@ -1,8 +1,18 @@
 ---
-const { id, title } = Astro.props;
+import { SPACING } from "../utils/constants";
+
+const { id, title, className = "" } = Astro.props;
+
+const sectionClasses = [
+  "mx-0 sm:mx-2 lg:mx-4",
+  SPACING.SECTION.MOBILE,
+  SPACING.SECTION.SM,
+  SPACING.SECTION.LG,
+  className,
+].join(" ");
 ---
 
-<section id={id} class="mx-0 sm:mx-2 lg:mx-4 my-6 sm:my-8 lg:my-12">
+<section id={id} class={sectionClasses}>
   {
     title && (
       <h2

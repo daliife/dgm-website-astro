@@ -1,0 +1,183 @@
+---
+import { TYPOGRAPHY } from "../utils/constants";
+
+interface TypographyProps {
+  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "p" | "span" | "div";
+  variant?: "h1" | "h2" | "h3" | "body" | "small";
+  className?: string;
+  color?: "primary" | "secondary" | "muted" | "accent";
+  weight?: "normal" | "medium" | "semibold" | "bold";
+  align?: "left" | "center" | "right";
+}
+
+const {
+  as = "p",
+  variant = "body",
+  className = "",
+  color = "primary",
+  weight = "normal",
+  align = "left",
+}: TypographyProps = Astro.props;
+
+const getVariantClasses = (variant: string) => {
+  switch (variant) {
+    case "h1":
+      return [
+        TYPOGRAPHY.H1.MOBILE,
+        TYPOGRAPHY.H1.SM,
+        TYPOGRAPHY.H1.LG,
+        TYPOGRAPHY.H1.XL,
+      ].join(" ");
+    case "h2":
+      return [
+        TYPOGRAPHY.H2.MOBILE,
+        TYPOGRAPHY.H2.SM,
+        TYPOGRAPHY.H2.LG,
+        TYPOGRAPHY.H2.XL,
+      ].join(" ");
+    case "h3":
+      return [
+        TYPOGRAPHY.H3.MOBILE,
+        TYPOGRAPHY.H3.SM,
+        TYPOGRAPHY.H3.LG,
+        TYPOGRAPHY.H3.XL,
+      ].join(" ");
+    case "body":
+      return [
+        TYPOGRAPHY.BODY.MOBILE,
+        TYPOGRAPHY.BODY.SM,
+        TYPOGRAPHY.BODY.LG,
+        TYPOGRAPHY.BODY.XL,
+      ].join(" ");
+    case "small":
+      return [
+        TYPOGRAPHY.SMALL.MOBILE,
+        TYPOGRAPHY.SMALL.SM,
+        TYPOGRAPHY.SMALL.LG,
+        TYPOGRAPHY.SMALL.XL,
+      ].join(" ");
+    default:
+      return [
+        TYPOGRAPHY.BODY.MOBILE,
+        TYPOGRAPHY.BODY.SM,
+        TYPOGRAPHY.BODY.LG,
+        TYPOGRAPHY.BODY.XL,
+      ].join(" ");
+  }
+};
+
+const getColorClasses = (color: string) => {
+  switch (color) {
+    case "primary":
+      return "text-slate-900 dark:text-slate-100";
+    case "secondary":
+      return "text-slate-700 dark:text-slate-300";
+    case "muted":
+      return "text-slate-600 dark:text-slate-400";
+    case "accent":
+      return "text-deep-blue-600 dark:text-deep-blue-400";
+    default:
+      return "text-slate-900 dark:text-slate-100";
+  }
+};
+
+const getWeightClasses = (weight: string) => {
+  switch (weight) {
+    case "normal":
+      return "font-normal";
+    case "medium":
+      return "font-medium";
+    case "semibold":
+      return "font-semibold";
+    case "bold":
+      return "font-bold";
+    default:
+      return "font-normal";
+  }
+};
+
+const getAlignClasses = (align: string) => {
+  switch (align) {
+    case "left":
+      return "text-left";
+    case "center":
+      return "text-center";
+    case "right":
+      return "text-right";
+    default:
+      return "text-left";
+  }
+};
+
+const classes = [
+  getVariantClasses(variant),
+  getColorClasses(color),
+  getWeightClasses(weight),
+  getAlignClasses(align),
+  className,
+].join(" ");
+---
+
+{
+  as === "h1" && (
+    <h1 class={classes}>
+      <slot />
+    </h1>
+  )
+}
+{
+  as === "h2" && (
+    <h2 class={classes}>
+      <slot />
+    </h2>
+  )
+}
+{
+  as === "h3" && (
+    <h3 class={classes}>
+      <slot />
+    </h3>
+  )
+}
+{
+  as === "h4" && (
+    <h4 class={classes}>
+      <slot />
+    </h4>
+  )
+}
+{
+  as === "h5" && (
+    <h5 class={classes}>
+      <slot />
+    </h5>
+  )
+}
+{
+  as === "h6" && (
+    <h6 class={classes}>
+      <slot />
+    </h6>
+  )
+}
+{
+  as === "p" && (
+    <p class={classes}>
+      <slot />
+    </p>
+  )
+}
+{
+  as === "span" && (
+    <span class={classes}>
+      <slot />
+    </span>
+  )
+}
+{
+  as === "div" && (
+    <div class={classes}>
+      <slot />
+    </div>
+  )
+}

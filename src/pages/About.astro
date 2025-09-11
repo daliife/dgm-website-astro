@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.astro";
 import PageContainer from "../components/PageContainer.astro";
+import Typography from "../components/Typography.astro";
 import { basics } from "@cv";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
 const { summary } = basics;
@@ -14,11 +15,13 @@ const { summary } = basics;
   <PageContainer type="narrow">
     <Section id="about" title="About me">
       <div class="prose prose-slate dark:prose-invert max-w-none">
-        <p
-          class="text-sm sm:text-base lg:text-lg text-text-secondary-light dark:text-text-secondary-dark text-pretty leading-relaxed"
+        <Typography
+          variant="body"
+          color="secondary"
+          className="text-pretty leading-relaxed"
         >
           {summary}
-        </p>
+        </Typography>
       </div>
     </Section>
   </PageContainer>

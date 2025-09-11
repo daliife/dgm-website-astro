@@ -5,7 +5,7 @@ const { elements } = Astro.props;
 
 <ol class="relative border-s border-gray-200 dark:border-gray-700">
   {
-    elements.map((item: any, index: number) => (
+    elements.map((item: any) => (
       <TimelineItem
         startDate={item.startDate}
         endDate={item.endDate}

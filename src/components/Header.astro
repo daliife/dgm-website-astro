@@ -86,7 +86,7 @@ const { pathname } = Astro.url;
               <a
                 href={page === "home" ? import.meta.env.BASE_URL : `/${page}`}
                 class:list={[
-                  "block py-3 px-4 sm:py-4 sm:px-6 md:p-0 text-text-primary-light dark:text-text-primary-dark hover:text-deep-blue-600 dark:hover:text-deep-blue-400 hover:underline underline-offset-4 text-lg sm:text-xl md:text-base transition-all duration-300",
+                  "block py-3 px-4 sm:py-4 sm:px-6 md:p-0 text-text-primary-light dark:text-text-primary-dark hover:text-deep-blue-600 dark:hover:text-deep-blue-400 hover:underline underline-offset-4 text-base sm:text-lg md:text-base transition-all duration-300",
                   {
                     "text-deep-blue-600 dark:text-deep-blue-400 font-bold bg-deep-blue-100 dark:bg-deep-blue-900/30 rounded-lg md:bg-deep-blue-50 md:dark:bg-deep-blue-900/20 md:rounded-md md:px-3 md:py-2 md:shadow-sm md:border md:border-deep-blue-200 md:dark:border-deep-blue-700 md:relative md:after:content-[''] md:after:absolute md:after:-bottom-1 md:after:left-1/2 md:after:transform md:after:-translate-x-1/2 md:after:w-2 md:after:h-2 md:after:bg-deep-blue-600 md:after:dark:bg-deep-blue-400 md:after:rounded-full":
                       pathname === "/dgm-website-astro/" + page ||

@@ -1,0 +1,111 @@
+---
+interface Props {
+  variant?: "primary" | "secondary" | "outline" | "ghost";
+  size?: "sm" | "md" | "lg";
+  href?: string;
+  target?: string;
+  rel?: string;
+  className?: string;
+  disabled?: boolean;
+  loading?: boolean;
+}
+
+const {
+  variant = "primary",
+  size = "md",
+  href,
+  target,
+  rel,
+  className = "",
+  disabled = false,
+  loading = false,
+} = Astro.props;
+
+const getVariantClasses = (variant: string) => {
+  switch (variant) {
+    case "primary":
+      return "bg-deep-blue-600 hover:bg-deep-blue-700 text-white border-deep-blue-600 hover:border-deep-blue-700";
+    case "secondary":
+      return "bg-deep-blue-100 hover:bg-deep-blue-200 text-deep-blue-700 border-deep-blue-100 hover:border-deep-blue-200 dark:bg-deep-blue-900/30 dark:hover:bg-deep-blue-900/50 dark:text-deep-blue-300 dark:border-deep-blue-700 dark:hover:border-deep-blue-600";
+    case "outline":
+      return "bg-transparent hover:bg-deep-blue-50 text-deep-blue-600 border-deep-blue-600 hover:border-deep-blue-700 dark:text-deep-blue-400 dark:border-deep-blue-400 dark:hover:bg-deep-blue-900/20";
+    case "ghost":
+      return "bg-transparent hover:bg-deep-blue-50 text-deep-blue-600 border-transparent hover:border-deep-blue-200 dark:text-deep-blue-400 dark:hover:bg-deep-blue-900/20";
+    default:
+      return "bg-deep-blue-600 hover:bg-deep-blue-700 text-white border-deep-blue-600 hover:border-deep-blue-700";
+  }
+};
+
+const getSizeClasses = (size: string) => {
+  switch (size) {
+    case "sm":
+      return "px-3 py-1.5 text-sm";
+    case "md":
+      return "px-4 py-2 text-base";
+    case "lg":
+      return "px-6 py-3 text-lg";
+    default:
+      return "px-4 py-2 text-base";
+  }
+};
+
+const baseClasses = [
+  "inline-flex",
+  "items-center",
+  "justify-center",
+  "font-medium",
+  "rounded-lg",
+  "border",
+  "transition-all",
+  "duration-200",
+  "ease-in-out",
+  "focus:outline-none",
+  "focus:ring-2",
+  "focus:ring-deep-blue-500",
+  "focus:ring-offset-2",
+  "disabled:opacity-50",
+  "disabled:cursor-not-allowed",
+  "disabled:transform-none",
+  "hover:transform",
+  "hover:-translate-y-0.5",
+  "active:transform",
+  "active:translate-y-0",
+  getVariantClasses(variant),
+  getSizeClasses(size),
+  className,
+].join(" ");
+
+const isLink = href !== undefined;
+const Tag = isLink ? "a" : "button";
+const tagProps = isLink
+  ? { href, target, rel }
+  : { disabled: disabled || loading };
+---
+
+<Tag class={baseClasses} {...tagProps}>
+  {
+    loading && (
+      <svg
+        class="animate-spin -ml-1 mr-2 h-4 w-4"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <circle
+          class="opacity-25"
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="4"
+        />
+        <path
+          class="opacity-75"
+          fill="currentColor"
+          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        />
+      </svg>
+    )
+  }
+  <slot />
+</Tag>

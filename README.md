@@ -1,54 +1,76 @@
-# Astro Starter Kit: Basics
+# David Gimeno Portfolio
 
-```sh
-npm create astro@latest -- --template basics
+Personal portfolio website built with Astro, showcasing web development projects and professional experience.
+
+## 🚀 Tech Stack
+
+- **Astro 5.1.2** - Modern static site generator
+- **TypeScript** - Type safety and better development experience
+- **Tailwind CSS** - Utility-first CSS framework
+- **React** - For interactive components
+
+## 📁 Project Structure
+
+```
+src/
+├── components/          # Reusable UI components
+│   ├── Button.astro
+│   ├── Grid.astro
+│   ├── Header.astro
+│   ├── Project.astro
+│   ├── Section.astro
+│   ├── Timeline.astro
+│   └── Typography.astro
+├── icons/              # SVG icon components
+├── layouts/            # Page layouts
+│   └── Layout.astro
+├── pages/              # Route pages
+│   ├── index.astro     # Home page
+│   ├── about.astro     # About page
+│   ├── projects.astro  # Projects showcase
+│   ├── work.astro      # Work experience
+│   └── 404.astro       # Error page
+└── utils/              # Utilities and constants
+    └── constants.ts
 ```
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/basics)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/basics)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/basics/devcontainer.json)
+## 🛠️ Development
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+```bash
+# Install dependencies
+npm install
 
-![just-the-basics](https://github.com/withastro/astro/assets/2244813/a0a5533c-a856-4198-8470-2d67b1d7c554)
+# Start development server
+npm run dev
 
-## 🚀 Project Structure
+# Build for production
+npm run build
 
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── components/
-│   │   └── Card.astro
-│   ├── layouts/
-│   │   └── Layout.astro
-│   └── pages/
-│       └── index.astro
-└── package.json
+# Preview production build
+npm run preview
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## 🎨 Features
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- **Responsive Design** - Mobile-first approach with Tailwind CSS
+- **Dark Mode** - Toggle between light and dark themes
+- **TypeScript** - Full type safety throughout the codebase
+- **Component Architecture** - Reusable and maintainable components
+- **SEO Optimized** - Meta tags, structured data, and sitemap
+- **Performance** - Optimized images and minimal JavaScript
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 📱 Pages
 
-## 🧞 Commands
+- **Home** - Hero section with introduction
+- **Projects** - Grid showcase of development projects
+- **Work** - Timeline of professional experience
+- **About** - Personal information and skills
 
-All commands are run from the root of the project, from a terminal:
+## 🔧 Configuration
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+The project uses:
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `astro.config.mjs` - Astro configuration
+- `tailwind.config.mjs` - Tailwind CSS configuration
+- `tsconfig.json` - TypeScript configuration
+- `cv.json` - Personal data and content

@@ -213,6 +213,45 @@ const {
         outline-offset: 2px;
       }
 
+      /* Smooth transitions for better UX */
+      * {
+        transition:
+          color 0.2s ease-in-out,
+          background-color 0.2s ease-in-out,
+          border-color 0.2s ease-in-out,
+          transform 0.2s ease-in-out,
+          opacity 0.2s ease-in-out;
+      }
+
+      /* Improved scroll behavior */
+      html {
+        scroll-behavior: smooth;
+      }
+
+      /* Better text rendering */
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      /* Loading states */
+      .loading {
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      /* Hover effects for interactive elements */
+      button:hover,
+      a:hover {
+        transform: translateY(-1px);
+      }
+
+      button:active,
+      a:active {
+        transform: translateY(0);
+      }
+
       /* Mobile-first responsive breakpoints */
       @media (max-width: 640px) {
         .mobile-padding {

@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.astro";
 import Project from "../components/Project.astro";
 import PageContainer from "../components/PageContainer.astro";
+import Grid from "../components/Grid.astro";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
 import { projects } from "@cv";
 ---
@@ -13,64 +14,15 @@ import { projects } from "@cv";
 >
   <PageContainer type="wide">
     <Section id="projects" title="Projects">
-      <div class="projects-container">
+      <Grid variant="projects" gap="lg">
         {
           projects.map(project => (
-            <div class="project-item">
+            <div class="flex flex-col w-full">
               <Project {...project} />
             </div>
           ))
         }
-      </div>
+      </Grid>
     </Section>
   </PageContainer>
 </Layout>
-
-<style>
-  .projects-container {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  @media (min-width: 640px) {
-    .projects-container {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.5rem;
-    }
-  }
-
-  @media (min-width: 1024px) {
-    .projects-container {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 2rem;
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .projects-container {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 2.5rem;
-    }
-  }
-
-  @media (min-width: 1536px) {
-    .projects-container {
-      grid-template-columns: repeat(5, 1fr);
-      gap: 3rem;
-    }
-  }
-
-  @media (min-width: 1920px) {
-    .projects-container {
-      grid-template-columns: repeat(6, 1fr);
-      gap: 3rem;
-    }
-  }
-
-  .project-item {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-  }
-</style>

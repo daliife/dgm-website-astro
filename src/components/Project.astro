@@ -27,31 +27,21 @@ if (!image) {
   target="_blank"
   rel="noopener noreferrer"
   class="flex flex-col items-start justify-center
-w-full h-auto rounded-xl text-text-primary-light dark:text-text-primary-dark bg-bg-light/95 dark:bg-bg-dark-alt/90 hover:transform hover:-translate-y-2 hover:bg-deep-blue-50 dark:hover:bg-deep-blue-900/20 shadow-sm hover:shadow-xl border border-deep-blue-200/60 dark:border-border-dark hover:border-deep-blue-300 dark:hover:border-deep-blue-600 backdrop-blur-sm transition-all duration-300 ease-in-out group"
+w-full h-auto rounded-xl text-text-primary-light dark:text-text-primary-dark bg-bg-light/95 dark:bg-bg-dark-alt/90 hover:transform hover:-translate-y-2 hover:bg-deep-blue-50 dark:hover:bg-deep-blue-900/20 shadow-sm hover:shadow-2xl border border-deep-blue-200/60 dark:border-border-dark hover:border-deep-blue-300 dark:hover:border-deep-blue-600 backdrop-blur-sm transition-all duration-300 ease-out group cursor-pointer"
   aria-label={`View project: ${name}`}
 >
   <div class="relative w-full overflow-hidden rounded-t-xl project-image">
     <Image
       src={image}
       alt={name}
-      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
       width={PROJECT_CARD_DIMENSIONS.width}
       height={PROJECT_CARD_DIMENSIONS.height}
-      loading={IMAGE_LOADING.LAZY}
+      loading={IMAGE_LOADING}
     />
     <div
       class="absolute inset-0 bg-gradient-to-t from-black/30 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
     >
-    </div>
-    <!-- Project name overlay on image -->
-    <div
-      class="absolute bottom-2 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-    >
-      <h3
-        class="text-white text-sm font-semibold drop-shadow-lg bg-deep-blue-600/80 px-2 py-1 rounded"
-      >
-        {name}
-      </h3>
     </div>
   </div>
   <div
@@ -76,12 +66,12 @@ w-full h-auto rounded-xl text-text-primary-light dark:text-text-primary-dark bg-
       </svg>
     </div>
     <h2
-      class="text-sm sm:text-base md:text-md font-semibold text-text-primary-light dark:text-text-primary-dark leading-tight group-hover:text-deep-blue-600 dark:group-hover:text-deep-blue-400 transition-colors duration-300"
+      class="text-sm sm:text-base md:text-lg font-semibold text-text-primary-light dark:text-text-primary-dark leading-tight group-hover:text-deep-blue-600 dark:group-hover:text-deep-blue-400 transition-colors duration-300"
     >
       {name}
     </h2>
     <p
-      class="mt-2 text-xs sm:text-sm text-text-muted-light dark:text-text-muted-dark leading-relaxed line-clamp-2 group-hover:text-text-secondary-light dark:group-hover:text-text-secondary-dark transition-colors duration-300"
+      class="mt-2 text-xs sm:text-sm md:text-base text-text-muted-light dark:text-text-muted-dark leading-relaxed line-clamp-2 group-hover:text-text-secondary-light dark:group-hover:text-text-secondary-dark transition-colors duration-300"
     >
       {description}
     </p>
