@@ -112,7 +112,10 @@ const hasMoreHighlights = highlights.length > numElements;
             </li>
           ))}
           {hasMoreHighlights && (
-            <div id="additional-highlights" class="hidden">
+            <div
+              id="additional-highlights"
+              class="hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out overflow-hidden"
+            >
               {highlights.slice(numElements).map(highlight => (
                 <li class="mb-3 sm:mb-4 text-sm sm:text-base font-normal text-text-secondary leading-relaxed flex items-start gap-3">
                   <div class="flex-shrink-0 w-5 h-5 rounded-full bg-text-accent/10 flex items-center justify-center mt-0.5">
@@ -170,11 +173,17 @@ const hasMoreHighlights = highlights.length > numElements;
     const additionalHighlights = button.parentElement.querySelector(
       "#additional-highlights"
     );
-    const isExpanded = additionalHighlights.classList.contains("block");
+    const isExpanded = additionalHighlights.classList.contains("max-h-screen");
 
     if (isExpanded) {
-      additionalHighlights.classList.remove("block");
-      additionalHighlights.classList.add("hidden");
+      // Collapse animation
+      additionalHighlights.style.maxHeight =
+        additionalHighlights.scrollHeight + "px";
+      additionalHighlights.offsetHeight; // Force reflow
+      additionalHighlights.style.maxHeight = "0px";
+      additionalHighlights.classList.remove("max-h-screen", "opacity-100");
+      additionalHighlights.classList.add("max-h-0", "opacity-0");
+
       button.setAttribute("aria-expanded", "false");
       button.setAttribute("aria-label", "Show more highlights");
       button.innerHTML = `
@@ -184,8 +193,20 @@ const hasMoreHighlights = highlights.length > numElements;
         Show more
       `;
     } else {
-      additionalHighlights.classList.remove("hidden");
-      additionalHighlights.classList.add("block");
+      // Expand animation
+      additionalHighlights.style.maxHeight = "0px";
+      additionalHighlights.classList.remove("hidden", "max-h-0", "opacity-0");
+      additionalHighlights.classList.add(
+        "block",
+        "max-h-screen",
+        "opacity-100"
+      );
+
+      // Trigger animation
+      additionalHighlights.offsetHeight; // Force reflow
+      additionalHighlights.style.maxHeight =
+        additionalHighlights.scrollHeight + "px";
+
       button.setAttribute("aria-expanded", "true");
       button.setAttribute("aria-label", "Show fewer highlights");
       button.innerHTML = `
