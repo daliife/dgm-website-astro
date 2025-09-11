@@ -71,15 +71,15 @@ export const TYPOGRAPHY = {
 
 // Grid Systems
 export const GRID_SYSTEMS = {
-  // Projects grid
+  // Projects grid - fewer columns for horizontal cards
   projects: {
     MOBILE: "grid-cols-1",
-    SM: "sm:grid-cols-2",
-    MD: "md:grid-cols-2",
-    LG: "lg:grid-cols-3",
-    XL: "xl:grid-cols-4",
-    "2XL": "2xl:grid-cols-5",
-    "3XL": "3xl:grid-cols-6",
+    SM: "sm:grid-cols-1",
+    MD: "md:grid-cols-1",
+    LG: "lg:grid-cols-2",
+    XL: "xl:grid-cols-2",
+    "2XL": "2xl:grid-cols-3",
+    "3XL": "3xl:grid-cols-3",
   },
   // General responsive grid
   responsive: {

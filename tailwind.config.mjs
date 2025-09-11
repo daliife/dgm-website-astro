@@ -2,7 +2,7 @@
 export default {
   content: [
     "./src/**/*.{astro,html,js,jsx,md,mdx}",
-    "./src/utils/constants.ts"
+    "./src/utils/constants.ts",
   ],
   darkMode: "class",
   theme: {
