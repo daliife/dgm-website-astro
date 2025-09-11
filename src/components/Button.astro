@@ -24,15 +24,15 @@ const {
 const getVariantClasses = (variant: string) => {
   switch (variant) {
     case "primary":
-      return "bg-deep-blue-600 hover:bg-deep-blue-700 text-white border-deep-blue-600 hover:border-deep-blue-700";
+      return "bg-gradient-to-br from-deep-blue-600 via-ocean-600 to-steel-600 hover:from-deep-blue-700 hover:via-ocean-700 hover:to-steel-700 text-white border-0 shadow-lg hover:shadow-2xl hover:shadow-deep-blue-500/25 backdrop-blur-sm";
     case "secondary":
-      return "bg-deep-blue-100 hover:bg-deep-blue-200 text-deep-blue-700 border-deep-blue-100 hover:border-deep-blue-200 dark:bg-deep-blue-900/30 dark:hover:bg-deep-blue-900/50 dark:text-deep-blue-300 dark:border-deep-blue-700 dark:hover:border-deep-blue-600";
+      return "bg-gradient-to-br from-deep-blue-50/80 to-ocean-50/80 hover:from-deep-blue-100/90 hover:to-ocean-100/90 text-deep-blue-700 border border-deep-blue-200/50 shadow-md hover:shadow-lg hover:shadow-deep-blue-200/20 backdrop-blur-sm dark:from-deep-blue-900/30 dark:to-ocean-900/30 dark:hover:from-deep-blue-900/50 dark:hover:to-ocean-900/50 dark:text-deep-blue-300 dark:border-deep-blue-700/50";
     case "outline":
-      return "bg-transparent hover:bg-deep-blue-50 text-deep-blue-600 border-deep-blue-600 hover:border-deep-blue-700 dark:text-deep-blue-400 dark:border-deep-blue-400 dark:hover:bg-deep-blue-900/20";
+      return "bg-gradient-to-br from-transparent to-transparent hover:from-deep-blue-50/60 hover:to-ocean-50/60 text-deep-blue-600 border-2 border-gradient-to-r border-deep-blue-600 hover:border-deep-blue-700 shadow-sm hover:shadow-md hover:shadow-deep-blue-200/10 backdrop-blur-sm dark:text-deep-blue-400 dark:border-deep-blue-400 dark:hover:from-deep-blue-900/20 dark:hover:to-ocean-900/20";
     case "ghost":
-      return "bg-transparent hover:bg-deep-blue-50 text-deep-blue-600 border-transparent hover:border-deep-blue-200 dark:text-deep-blue-400 dark:hover:bg-deep-blue-900/20";
+      return "bg-gradient-to-br from-transparent to-transparent hover:from-deep-blue-50/40 hover:to-ocean-50/40 text-deep-blue-600 border-0 shadow-sm hover:shadow-md hover:shadow-deep-blue-200/5 backdrop-blur-sm dark:text-deep-blue-400 dark:hover:from-deep-blue-900/15 dark:hover:to-ocean-900/15";
     default:
-      return "bg-deep-blue-600 hover:bg-deep-blue-700 text-white border-deep-blue-600 hover:border-deep-blue-700";
+      return "bg-gradient-to-br from-deep-blue-600 via-ocean-600 to-steel-600 hover:from-deep-blue-700 hover:via-ocean-700 hover:to-steel-700 text-white border-0 shadow-lg hover:shadow-2xl hover:shadow-deep-blue-500/25 backdrop-blur-sm";
   }
 };
 
@@ -54,11 +54,11 @@ const baseClasses = [
   "items-center",
   "justify-center",
   "font-medium",
-  "rounded-lg",
+  "rounded-full",
   "border",
   "transition-all",
-  "duration-200",
-  "ease-in-out",
+  "duration-500",
+  "ease-out",
   "focus:outline-none",
   "focus:ring-2",
   "focus:ring-deep-blue-500",

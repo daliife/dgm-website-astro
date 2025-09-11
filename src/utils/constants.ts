@@ -42,10 +42,10 @@ export const TYPOGRAPHY = {
     XL: "xl:text-7xl",
   },
   H2: {
-    MOBILE: "text-xl",
-    SM: "sm:text-2xl",
-    LG: "lg:text-3xl",
-    XL: "xl:text-4xl",
+    MOBILE: "text-lg",
+    SM: "sm:text-xl",
+    LG: "lg:text-2xl",
+    XL: "xl:text-3xl",
   },
   H3: {
     MOBILE: "text-lg",
