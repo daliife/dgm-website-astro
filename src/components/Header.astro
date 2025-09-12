@@ -7,7 +7,7 @@ const { pathname } = Astro.url;
 
 <nav class="w-full max-w-7xl mx-auto z-20 top-0 start-0 bg-transparent">
   <div
-    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-4"
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8"
   >
     <a
       href={import.meta.env.BASE_URL}
@@ -24,13 +24,13 @@ const { pathname } = Astro.url;
       />
     </a>
     <div
-      class="flex md:order-2 space-x-2 sm:space-x-3 md:space-x-0 rtl:space-x-reverse"
+      class="flex md:order-2 space-x-3 sm:space-x-4 md:space-x-0 rtl:space-x-reverse"
     >
       <DarkModeButton />
       <button
         data-collapse-toggle="navbar-sticky"
         type="button"
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-text-primary rounded-lg md:hidden hover:bg-bg-muted hover:text-text-accent focus:outline-none focus:ring-2 focus:ring-primary-200 dark:focus:ring-primary-600 transition-colors duration-200"
+        class="inline-flex items-center p-3 w-12 h-12 justify-center text-sm text-text-primary rounded-lg md:hidden hover:bg-bg-muted hover:text-text-accent focus:outline-none focus:ring-2 focus:ring-primary-200 dark:focus:ring-primary-600 transition-colors duration-200"
         aria-controls="navbar-sticky"
         aria-expanded="false"
         aria-label="Toggle navigation menu"
@@ -59,7 +59,7 @@ const { pathname } = Astro.url;
     >
       <button
         onclick="closeMobileMenu()"
-        class="absolute top-4 right-4 p-2 text-text-primary hover:text-text-accent hover:bg-bg-muted md:hidden transition-colors duration-200"
+        class="absolute top-6 right-6 p-3 text-text-primary hover:text-text-accent hover:bg-bg-muted md:hidden transition-colors duration-200"
         aria-label="Close navigation menu"
       >
         <span class="sr-only">Close menu</span>
@@ -78,7 +78,7 @@ const { pathname } = Astro.url;
         </svg>
       </button>
       <ul
-        class="flex flex-col p-6 sm:p-8 mt-16 sm:mt-20 md:mt-0 font-medium w-full text-center md:text-left md:p-0 md:space-x-6 lg:space-x-8 rtl:space-x-reverse md:flex-row"
+        class="flex flex-col p-8 sm:p-10 mt-20 sm:mt-24 md:mt-0 font-medium w-full text-center md:text-left md:p-0 md:space-x-8 lg:space-x-10 rtl:space-x-reverse md:flex-row"
       >
         {
           NAV_LINKS.map(page => (
@@ -86,7 +86,7 @@ const { pathname } = Astro.url;
               <a
                 href={page === "home" ? import.meta.env.BASE_URL : `/${page}`}
                 class:list={[
-                  "block py-3 px-4 sm:py-4 sm:px-6 md:p-0 text-text-primary hover:text-text-accent hover:underline underline-offset-4 text-base sm:text-lg md:text-base transition-all duration-300",
+                  "block py-4 px-5 sm:py-5 sm:px-7 md:p-0 text-text-primary hover:text-text-accent hover:underline underline-offset-4 text-lg sm:text-xl md:text-lg transition-all duration-300",
                   {
                     "text-text-accent font-bold bg-bg-muted rounded-lg md:bg-bg-secondary md:rounded-md md:px-3 md:py-2 md:shadow-sm md:border md:border-border-primary md:relative md:after:content-[''] md:after:absolute md:after:-bottom-1 md:after:left-1/2 md:after:transform md:after:-translate-x-1/2 md:after:w-2 md:after:h-2 md:after:bg-text-accent md:after:rounded-full":
                       pathname === "/dgm-website-astro/" + page ||

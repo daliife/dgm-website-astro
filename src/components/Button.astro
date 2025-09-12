@@ -24,15 +24,15 @@ const {
 const getVariantClasses = (variant: string) => {
   switch (variant) {
     case "primary":
-      return "bg-gradient-to-br from-primary-600 via-secondary-600 to-primary-700 hover:from-primary-700 hover:via-secondary-700 hover:to-primary-800 text-bg-primary border-0 shadow-lg hover:shadow-2xl hover:shadow-primary-500/25 backdrop-blur-sm";
+      return "bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 text-text-primary hover:bg-white/20 dark:hover:bg-white/10 hover:border-white/30 dark:hover:border-white/20 shadow-lg hover:shadow-xl hover:shadow-primary-500/10";
     case "secondary":
-      return "bg-gradient-to-br from-primary-50/80 to-secondary-50/80 hover:from-primary-100/90 hover:to-secondary-100/90 text-primary-700 border border-primary-200/50 shadow-md hover:shadow-lg hover:shadow-primary-200/20 backdrop-blur-sm dark:from-primary-900/30 dark:to-secondary-900/30 dark:hover:from-primary-900/50 dark:hover:to-secondary-900/50 dark:text-primary-300 dark:border-primary-700/50";
+      return "bg-white/5 dark:bg-white/5 backdrop-blur-md border border-white/10 dark:border-white/5 text-text-primary hover:bg-white/15 dark:hover:bg-white/10 hover:border-white/20 dark:hover:border-white/10 shadow-md hover:shadow-lg hover:shadow-primary-500/5";
     case "outline":
-      return "bg-gradient-to-br from-transparent to-transparent hover:from-primary-50/60 hover:to-secondary-50/60 text-primary-600 border-2 border-primary-600 hover:border-primary-700 shadow-sm hover:shadow-md hover:shadow-primary-200/10 backdrop-blur-sm dark:text-primary-400 dark:border-primary-400 dark:hover:from-primary-900/20 dark:hover:to-secondary-900/20";
+      return "bg-white/5 dark:bg-white/5 backdrop-blur-md border border-primary-500/30 dark:border-primary-400/30 text-text-primary hover:bg-white/15 dark:hover:bg-white/10 hover:border-primary-500/50 dark:hover:border-primary-400/50 shadow-sm hover:shadow-md hover:shadow-primary-500/5";
     case "ghost":
-      return "bg-gradient-to-br from-transparent to-transparent hover:from-primary-50/40 hover:to-secondary-50/40 text-primary-600 border-0 shadow-sm hover:shadow-md hover:shadow-primary-200/5 backdrop-blur-sm dark:text-primary-400 dark:hover:from-primary-900/15 dark:hover:to-secondary-900/15";
+      return "bg-white/5 dark:bg-white/5 backdrop-blur-md border border-transparent text-text-primary hover:bg-white/10 dark:hover:bg-white/5 hover:border-white/10 dark:hover:border-white/5 shadow-sm hover:shadow-md";
     default:
-      return "bg-gradient-to-br from-primary-600 via-secondary-600 to-primary-700 hover:from-primary-700 hover:via-secondary-700 hover:to-primary-800 text-bg-primary border-0 shadow-lg hover:shadow-2xl hover:shadow-primary-500/25 backdrop-blur-sm";
+      return "bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 text-text-primary hover:bg-white/20 dark:hover:bg-white/10 hover:border-white/30 dark:hover:border-white/20 shadow-lg hover:shadow-xl hover:shadow-primary-500/10";
   }
 };
 
@@ -53,15 +53,16 @@ const baseClasses = [
   "inline-flex",
   "items-center",
   "justify-center",
+  "gap-2",
   "font-medium",
-  "rounded-full",
+  "rounded-xl",
   "border",
   "transition-all",
-  "duration-500",
+  "duration-300",
   "ease-out",
   "focus:outline-none",
   "focus:ring-2",
-  "focus:ring-primary-500",
+  "focus:ring-primary-500/50",
   "focus:ring-offset-2",
   "disabled:opacity-50",
   "disabled:cursor-not-allowed",
@@ -70,6 +71,9 @@ const baseClasses = [
   "hover:-translate-y-0.5",
   "active:transform",
   "active:translate-y-0",
+  "group",
+  "relative",
+  "overflow-hidden",
   getVariantClasses(variant),
   getSizeClasses(size),
   className,
@@ -83,10 +87,16 @@ const tagProps = isLink
 ---
 
 <Tag class={baseClasses} {...tagProps}>
+  <!-- Glass effect overlay -->
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
+  >
+  </div>
+
   {
     loading && (
       <svg
-        class="animate-spin -ml-1 mr-2 h-4 w-4"
+        class="animate-spin h-4 w-4"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
