@@ -7,17 +7,18 @@ const { pathname } = Astro.url;
 
 <nav class="w-full max-w-7xl mx-auto z-20 top-0 start-0 bg-transparent">
   <div
-    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8"
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 lg:py-4"
   >
     <a
       href={import.meta.env.BASE_URL}
-      class="flex items-center space-x-3 rtl:space-x-reverse"
+      class="flex items-center space-x-3 rtl:space-x-reverse group"
     >
       <DgmLogoSimple
-        className={`fill-text-primary hover:fill-text-accent transition-colors duration-300 ${
+        className={`fill-text-primary group-hover:fill-primary-500 dark:group-hover:fill-primary-400 transition-colors duration-300 ${
+          pathname === "/" ||
           pathname === "/dgm-website-astro/" ||
           pathname === "/dgm-website-astro"
-            ? "fill-text-accent"
+            ? "fill-primary-500 dark:fill-primary-400"
             : ""
         }`}
         size="24px"
@@ -84,16 +85,25 @@ const { pathname } = Astro.url;
           NAV_LINKS.map(page => (
             <li>
               <a
-                href={page === "home" ? import.meta.env.BASE_URL : `/${page}`}
+                href={`/${page}`}
                 class:list={[
-                  "block py-4 px-5 sm:py-5 sm:px-7 md:p-0 text-text-primary hover:text-text-accent hover:underline underline-offset-4 text-lg sm:text-xl md:text-lg transition-all duration-300",
+                  "block py-4 px-5 sm:py-5 sm:px-7 md:py-2 md:px-4 text-slate-700 dark:text-text-secondary md:border-2 md:border-transparent text-lg sm:text-xl md:text-lg rounded-lg transition-all duration-300",
+                  // Hover styles only when not active
                   {
-                    "text-text-accent font-bold bg-bg-muted rounded-lg md:bg-bg-secondary md:rounded-md md:px-3 md:py-2 md:shadow-sm md:border md:border-border-primary md:relative md:after:content-[''] md:after:absolute md:after:-bottom-1 md:after:left-1/2 md:after:transform md:after:-translate-x-1/2 md:after:w-2 md:after:h-2 md:after:bg-text-accent md:after:rounded-full":
-                      pathname === "/dgm-website-astro/" + page ||
-                      (pathname === "/dgm-website-astro/" && page === "home"),
+                    "hover:text-text-accent hover:bg-bg-muted/50 hover:rounded-lg md:hover:bg-bg-secondary/30 md:hover:border-text-accent/30 md:hover:shadow-md":
+                      !(pathname === `/${page}` || pathname === `/${page}/`),
+                  },
+                  // Active styles
+                  {
+                    "text-primary-500 dark:text-primary-300 bg-slate-100/50 dark:bg-slate-700/60 md:rounded-lg md:px-4 md:py-2 md:shadow-md md:border-2 md:border-primary-500 dark:md:border-primary-300":
+                      pathname === `/${page}` || pathname === `/${page}/`,
                   },
                 ]}
-                aria-current="page"
+                aria-current={
+                  pathname === `/${page}` || pathname === `/${page}/`
+                    ? "page"
+                    : undefined
+                }
               >
                 {page.charAt(0).toUpperCase() + page.slice(1)}
               </a>

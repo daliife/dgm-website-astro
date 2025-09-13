@@ -5,7 +5,7 @@ export const DEFAULT_DESCRIPTION =
   "Personal portfolio website of David Gimeno - Software Engineer based in Barcelona";
 
 // Navigation
-export const NAV_LINKS = ["home", "projects", "work", "about"] as const;
+export const NAV_LINKS = ["projects", "work", "about"] as const;
 
 // Social Links
 export const SOCIAL_LINKS = {
@@ -28,7 +28,7 @@ export const SPACING = {
   SECTION: {
     MOBILE: "my-6",
     SM: "sm:my-8",
-    LG: "lg:my-12",
+    LG: "lg:my-8",
   },
 } as const;
 

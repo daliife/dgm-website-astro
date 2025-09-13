@@ -212,6 +212,9 @@ const {
           #bfdbfe 70%,
           #93c5fd 100%
         );
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
         min-height: 100vh;
       }
 
@@ -223,6 +226,9 @@ const {
           #334155 70%,
           #1e40af 100%
         );
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
         min-height: 100vh;
       }
 
@@ -237,6 +243,8 @@ const {
       /* Smooth scrolling */
       html {
         scroll-behavior: smooth;
+        /* Force scrollbar space to prevent layout shift */
+        overflow-y: scroll;
       }
 
       /* Focus styles for accessibility */
