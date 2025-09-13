@@ -3,7 +3,7 @@
     "name": "David",
     "lastName": "Gimeno",
     "label": "I'm a software engineer based in Barcelona. I'm currently working at NTT Data as a Frontend Developer.",
-    "email": "davidgimenomane@gmail.com",
+    "email": "davidgimeno1992@gmail.com",
     "url": "https://davidgimeno.cat",
     "summary": "Multimedia engineer with extensive practical experience in web and graphic design, 3D modelling, videogame developing on Unity and additional multimedia projects. Open to new computing environments and programming languages. I consider myself organised, punctual and a perfectionist who does not lack creativity. I look forward to new challenges which allow me to learn how to resolve situations more efficiently.",
     "profiles": [
@@ -20,7 +20,7 @@
       {
         "network": "Email",
         "username": "daliife",
-        "url": "mailto:davidgimenomane@gmail.com"
+        "url": "mailto:davidgimeno1992@gmail.com"
       }
     ]
   },
@@ -141,6 +141,16 @@
       "name": "Web Development",
       "level": "Master",
       "keywords": ["HTML", "CSS", "JavaScript"]
+    },
+    {
+      "name": "React & Angular",
+      "level": "Expert",
+      "keywords": ["React", "Angular", "TypeScript"]
+    },
+    {
+      "name": "3D & Unity",
+      "level": "Advanced",
+      "keywords": ["Unity", "3D Modeling", "VR"]
     }
   ],
   "languages": [

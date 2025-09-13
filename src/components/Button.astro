@@ -5,6 +5,7 @@ interface Props {
   href?: string;
   target?: string;
   rel?: string;
+  download?: string;
   className?: string;
   disabled?: boolean;
   loading?: boolean;
@@ -16,6 +17,7 @@ const {
   href,
   target,
   rel,
+  download,
   className = "",
   disabled = false,
   loading = false,
@@ -82,7 +84,7 @@ const baseClasses = [
 const isLink = href !== undefined;
 const Tag = isLink ? "a" : "button";
 const tagProps = isLink
-  ? { href, target, rel }
+  ? { href, target, rel, download }
   : { disabled: disabled || loading };
 ---
 
