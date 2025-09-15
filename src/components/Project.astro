@@ -103,45 +103,49 @@ if (!image) {
 </a>
 
 <style>
-  .project-image {
-    height: 200px; /* Fixed height for full image layout */
+  .project-card {
+    aspect-ratio: 4/3; /* More square aspect ratio */
   }
 
-  /* Responsive heights for full image layout */
+  .project-image {
+    height: 100%; /* Fill the card height */
+  }
+
+  /* Responsive aspect ratios for better visual balance */
   @media (min-width: 640px) {
-    .project-image {
-      height: 220px; /* Slightly larger on small screens */
+    .project-card {
+      aspect-ratio: 4/3; /* Maintain 4:3 ratio on small screens */
     }
   }
 
   @media (min-width: 1024px) {
-    .project-image {
-      height: 250px; /* Larger on desktop */
+    .project-card {
+      aspect-ratio: 3/2; /* Slightly more rectangular on desktop */
     }
   }
 
   @media (min-width: 1280px) {
-    .project-image {
-      height: 280px; /* Even larger on xl screens */
+    .project-card {
+      aspect-ratio: 4/3; /* Back to 4:3 on xl screens */
     }
   }
 
   @media (min-width: 1536px) {
-    .project-image {
-      height: 300px; /* Maximum height for 2xl screens */
+    .project-card {
+      aspect-ratio: 1/1; /* Square on 2xl screens for better grid */
     }
   }
 
   @media (min-width: 1920px) {
-    .project-image {
-      height: 320px; /* Ultra-wide screens */
+    .project-card {
+      aspect-ratio: 1/1; /* Square on ultra-wide screens */
     }
   }
 
   /* Mobile responsive adjustments */
   @media (max-width: 480px) {
-    .project-image {
-      height: 180px !important;
+    .project-card {
+      aspect-ratio: 3/2; /* Slightly rectangular on mobile */
     }
   }
 </style>
