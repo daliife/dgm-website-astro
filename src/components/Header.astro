@@ -1,6 +1,7 @@
 ---
 import DarkModeButton from "./DarkModeButton.astro";
 import DgmLogoSimple from "./DgmLogoSimple.astro";
+import Button from "./Button.astro";
 import { NAV_LINKS } from "../utils/constants";
 const { pathname } = Astro.url;
 ---
@@ -11,7 +12,7 @@ const { pathname } = Astro.url;
   >
     <a
       href={import.meta.env.BASE_URL}
-      class="flex items-center space-x-3 rtl:space-x-reverse group"
+      class="flex items-center space-x-3 rtl:space-x-reverse group order-1"
     >
       <DgmLogoSimple
         className={`fill-text-primary group-hover:fill-primary-500 dark:group-hover:fill-primary-400 transition-colors duration-300 ${
@@ -24,44 +25,17 @@ const { pathname } = Astro.url;
         size="24px"
       />
     </a>
+
     <div
-      class="flex md:order-2 space-x-3 sm:space-x-4 md:space-x-0 rtl:space-x-reverse"
-    >
-      <DarkModeButton />
-      <button
-        data-collapse-toggle="navbar-sticky"
-        type="button"
-        class="inline-flex items-center p-3 w-12 h-12 justify-center text-sm text-text-primary rounded-lg md:hidden hover:bg-bg-muted hover:text-text-accent focus:outline-none focus:ring-2 focus:ring-primary-200 dark:focus:ring-primary-600 transition-colors duration-200"
-        aria-controls="navbar-sticky"
-        aria-expanded="false"
-        aria-label="Toggle navigation menu"
-        onclick="toggleMobileMenu(this)"
-      >
-        <span class="sr-only">Open main menu</span>
-        <svg
-          class="w-5 h-5"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 17 14"
-        >
-          <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M1 1h15M1 7h15M1 13h15"></path>
-        </svg>
-      </button>
-    </div>
-    <div
-      class="items-center justify-between hidden w-full fixed top-0 left-0 h-screen bg-bg-primary z-50 md:flex md:w-auto md:order-1 md:relative md:h-auto md:bg-transparent"
+      class="items-center justify-between hidden w-full fixed top-0 left-0 h-screen bg-bg-primary z-50 md:flex md:w-auto md:relative md:h-auto md:bg-transparent order-2 md:order-2"
       id="navbar-sticky"
     >
-      <button
+      <Button
+        variant="icon"
+        size="icon"
         onclick="closeMobileMenu()"
-        class="absolute top-6 right-6 p-3 text-text-primary hover:text-text-accent hover:bg-bg-muted md:hidden transition-colors duration-200"
         aria-label="Close navigation menu"
+        className="absolute top-6 right-6 md:hidden"
       >
         <span class="sr-only">Close menu</span>
         <svg
@@ -77,7 +51,7 @@ const { pathname } = Astro.url;
             stroke-width="2"
             d="M6 18L18 6M6 6l12 12"></path>
         </svg>
-      </button>
+      </Button>
       <ul
         class="flex flex-col p-8 sm:p-10 mt-20 sm:mt-24 md:mt-0 font-medium w-full text-center md:text-left md:p-0 md:space-x-8 lg:space-x-10 rtl:space-x-reverse md:flex-row"
       >
@@ -111,6 +85,37 @@ const { pathname } = Astro.url;
           ))
         }
       </ul>
+    </div>
+
+    <div class="flex items-center space-x-3 order-3">
+      <DarkModeButton />
+
+      <Button
+        variant="icon"
+        size="icon"
+        data-collapse-toggle="navbar-sticky"
+        aria-controls="navbar-sticky"
+        aria-expanded="false"
+        aria-label="Toggle navigation menu"
+        onclick="toggleMobileMenu(this)"
+        className="md:hidden"
+      >
+        <span class="sr-only">Open main menu</span>
+        <svg
+          class="w-5 h-5"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 17 14"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M1 1h15M1 7h15M1 13h15"></path>
+        </svg>
+      </Button>
     </div>
   </div>
 </nav>

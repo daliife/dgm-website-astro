@@ -1,20 +1,6 @@
-// SEO Constants
 export const TITLE_PAGE_PREFIX = "DGM | ";
-export const SITE_NAME = "David Gimeno Portfolio";
-export const DEFAULT_DESCRIPTION =
-  "Personal portfolio website of David Gimeno - Software Engineer based in Barcelona";
-
-// Navigation
 export const NAV_LINKS = ["projects", "work", "about"] as const;
 
-// Social Links
-export const SOCIAL_LINKS = {
-  GITHUB: "https://github.com/daliife",
-  LINKEDIN: "https://www.linkedin.com/in/daliife/",
-  EMAIL: "mailto:davidgimenomane@gmail.com",
-} as const;
-
-// UI Constants
 export const TIMELINE_ITEMS_LIMIT = 2;
 export const PROJECT_CARD_DIMENSIONS = {
   width: 224,
@@ -22,9 +8,7 @@ export const PROJECT_CARD_DIMENSIONS = {
 } as const;
 export const IMAGE_LOADING = "lazy" as const;
 
-// Responsive Spacing
 export const SPACING = {
-  // Section spacing
   SECTION: {
     MOBILE: "my-6",
     SM: "sm:my-8",
@@ -32,9 +16,7 @@ export const SPACING = {
   },
 } as const;
 
-// Typography Scale
 export const TYPOGRAPHY = {
-  // Headings
   H1: {
     MOBILE: "text-4xl",
     SM: "sm:text-5xl",
@@ -53,14 +35,12 @@ export const TYPOGRAPHY = {
     LG: "lg:text-2xl",
     XL: "xl:text-3xl",
   },
-  // Body text
   BODY: {
     MOBILE: "text-base",
     SM: "sm:text-lg",
     LG: "lg:text-xl",
     XL: "xl:text-2xl",
   },
-  // Small text
   SMALL: {
     MOBILE: "text-sm",
     SM: "sm:text-base",
@@ -69,9 +49,7 @@ export const TYPOGRAPHY = {
   },
 } as const;
 
-// Grid Systems
 export const GRID_SYSTEMS = {
-  // Projects grid - fewer columns for horizontal cards
   projects: {
     MOBILE: "grid-cols-1",
     SM: "sm:grid-cols-1",
@@ -81,7 +59,6 @@ export const GRID_SYSTEMS = {
     "2XL": "2xl:grid-cols-3",
     "3XL": "3xl:grid-cols-3",
   },
-  // General responsive grid
   responsive: {
     MOBILE: "grid-cols-1",
     SM: "sm:grid-cols-2",
@@ -91,7 +68,6 @@ export const GRID_SYSTEMS = {
   },
 } as const;
 
-// Layout Constants
 export const LAYOUT_CONSTANTS = {
   CONTAINER_MAX_WIDTH: "max-w-7xl",
   CONTENT_MAX_WIDTH: {
@@ -111,27 +87,4 @@ export const LAYOUT_CONSTANTS = {
       LG: "lg:py-12",
     },
   },
-} as const;
-
-// Animation Constants
-export const ANIMATIONS = {
-  DURATION: {
-    FAST: "150ms",
-    NORMAL: "300ms",
-    SLOW: "500ms",
-  },
-  EASING: {
-    EASE_IN: "ease-in",
-    EASE_OUT: "ease-out",
-    EASE_IN_OUT: "ease-in-out",
-  },
-} as const;
-
-// Accessibility Constants
-export const A11Y = {
-  FOCUS_VISIBLE:
-    "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500",
-  SCREEN_READER_ONLY: "sr-only",
-  SKIP_LINK: "skip-link",
-  CONTENT: "content",
 } as const;

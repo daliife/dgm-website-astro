@@ -1,7 +1,10 @@
 ---
+import type { ButtonVariant, ButtonSize } from "../types/ui";
+import { buildButtonClasses, isGlassVariant } from "../utils/buttonStyles";
+
 interface Props {
-  variant?: "primary" | "secondary" | "outline" | "ghost";
-  size?: "sm" | "md" | "lg";
+  variant?: ButtonVariant;
+  size?: ButtonSize;
   href?: string;
   target?: string;
   rel?: string;
@@ -9,6 +12,12 @@ interface Props {
   className?: string;
   disabled?: boolean;
   loading?: boolean;
+  onclick?: string;
+  id?: string;
+  "aria-label"?: string;
+  "aria-expanded"?: string;
+  "aria-controls"?: string;
+  "data-collapse-toggle"?: string;
 }
 
 const {
@@ -21,79 +30,40 @@ const {
   className = "",
   disabled = false,
   loading = false,
+  onclick,
+  id,
+  "aria-label": ariaLabel,
+  "aria-expanded": ariaExpanded,
+  "aria-controls": ariaControls,
+  "data-collapse-toggle": dataCollapseToggle,
 } = Astro.props;
 
-const getVariantClasses = (variant: string) => {
-  switch (variant) {
-    case "primary":
-      return "bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 text-text-primary hover:bg-white/20 dark:hover:bg-white/10 hover:border-white/30 dark:hover:border-white/20 shadow-lg hover:shadow-xl hover:shadow-primary-500/10";
-    case "secondary":
-      return "bg-white/5 dark:bg-white/5 backdrop-blur-md border border-white/10 dark:border-white/5 text-text-primary hover:bg-white/15 dark:hover:bg-white/10 hover:border-white/20 dark:hover:border-white/10 shadow-md hover:shadow-lg hover:shadow-primary-500/5";
-    case "outline":
-      return "bg-white/5 dark:bg-white/5 backdrop-blur-md border border-primary-500/30 dark:border-primary-400/30 text-text-primary hover:bg-white/15 dark:hover:bg-white/10 hover:border-primary-500/50 dark:hover:border-primary-400/50 shadow-sm hover:shadow-md hover:shadow-primary-500/5";
-    case "ghost":
-      return "bg-white/5 dark:bg-white/5 backdrop-blur-md border border-transparent text-text-primary hover:bg-white/10 dark:hover:bg-white/5 hover:border-white/10 dark:hover:border-white/5 shadow-sm hover:shadow-md";
-    default:
-      return "bg-white/10 dark:bg-white/5 backdrop-blur-md border border-white/20 dark:border-white/10 text-text-primary hover:bg-white/20 dark:hover:bg-white/10 hover:border-white/30 dark:hover:border-white/20 shadow-lg hover:shadow-xl hover:shadow-primary-500/10";
-  }
-};
-
-const getSizeClasses = (size: string) => {
-  switch (size) {
-    case "sm":
-      return "px-3 py-1.5 text-sm";
-    case "md":
-      return "px-4 py-2 text-base";
-    case "lg":
-      return "px-6 py-3 text-lg";
-    default:
-      return "px-4 py-2 text-base";
-  }
-};
-
-const baseClasses = [
-  "inline-flex",
-  "items-center",
-  "justify-center",
-  "gap-2",
-  "font-medium",
-  "rounded-xl",
-  "border",
-  "transition-all",
-  "duration-300",
-  "ease-out",
-  "focus:outline-none",
-  "focus:ring-2",
-  "focus:ring-primary-500/50",
-  "focus:ring-offset-2",
-  "disabled:opacity-50",
-  "disabled:cursor-not-allowed",
-  "disabled:transform-none",
-  "hover:transform",
-  "hover:-translate-y-0.5",
-  "active:transform",
-  "active:translate-y-0",
-  "group",
-  "relative",
-  "overflow-hidden",
-  getVariantClasses(variant),
-  getSizeClasses(size),
-  className,
-].join(" ");
+const baseClasses = buildButtonClasses(variant, size, className);
 
 const isLink = href !== undefined;
 const Tag = isLink ? "a" : "button";
+
+// Prepare common attributes
+const commonAttrs: any = {};
+if (id) commonAttrs.id = id;
+if (onclick) commonAttrs.onclick = onclick;
+if (ariaLabel) commonAttrs["aria-label"] = ariaLabel;
+if (ariaExpanded) commonAttrs["aria-expanded"] = ariaExpanded;
+if (ariaControls) commonAttrs["aria-controls"] = ariaControls;
+if (dataCollapseToggle)
+  commonAttrs["data-collapse-toggle"] = dataCollapseToggle;
+
 const tagProps = isLink
-  ? { href, target, rel, download }
-  : { disabled: disabled || loading };
+  ? { href, target, rel, download, ...commonAttrs }
+  : { disabled: disabled || loading, ...commonAttrs };
 ---
 
 <Tag class={baseClasses} {...tagProps}>
-  <!-- Glass effect overlay -->
-  <div
-    class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"
-  >
-  </div>
+  {
+    isGlassVariant(variant) && (
+      <div class="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+    )
+  }
 
   {
     loading && (

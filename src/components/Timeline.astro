@@ -3,7 +3,9 @@ import TimelineItem from "./TimelineItem.astro";
 const { elements } = Astro.props;
 ---
 
-<ol class="relative border-s-2 border-border-primary ml-4 sm:ml-6">
+<ol
+  class="relative border-s-2 border-slate-300 dark:border-border-primary ml-4 sm:ml-6"
+>
   {
     elements.map((item: any) => (
       <TimelineItem

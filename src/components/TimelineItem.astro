@@ -1,5 +1,6 @@
 ---
 import { TIMELINE_ITEMS_LIMIT } from "../utils/constants";
+import Button from "./Button.astro";
 
 interface Props {
   startDate?: string;
@@ -21,7 +22,6 @@ const {
   highlights = [],
 } = Astro.props;
 
-// Validacions
 if (!title) {
   throw new Error("TimelineItem component requires 'title' prop");
 }
@@ -52,7 +52,7 @@ const hasMoreHighlights = highlights.length > numElements;
   >
   </div>
   <time
-    class="mb-2 text-sm sm:text-base font-medium leading-none text-text-accent bg-bg-muted/50 px-3 py-1 rounded-full inline-block"
+    class="mb-2 text-sm sm:text-base font-medium leading-none text-text-accent bg-slate-100 dark:bg-bg-muted/50 px-3 py-1 rounded-full inline-block"
   >
     {dateRange}
   </time>
@@ -138,13 +138,15 @@ const hasMoreHighlights = highlights.length > numElements;
           )}
         </ol>
         {hasMoreHighlights && (
-          <button
+          <Button
             id="toggle-button"
-            class="toggle-button text-sm sm:text-base font-medium text-text-accent hover:text-primary-600 dark:hover:text-primary-400 flex gap-2 items-center transition-colors duration-300 bg-bg-muted/30 hover:bg-bg-muted/50 px-3 py-2 rounded-lg"
+            variant="simple"
+            size="sm"
             onclick="toggleHighlights(this)"
             aria-expanded="false"
             aria-controls="additional-highlights"
             aria-label="Show more highlights"
+            className="toggle-button text-sm sm:text-base"
           >
             <svg
               width="15"
@@ -161,7 +163,7 @@ const hasMoreHighlights = highlights.length > numElements;
               />
             </svg>
             Show more
-          </button>
+          </Button>
         )}
       </div>
     )
