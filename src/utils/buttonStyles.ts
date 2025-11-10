@@ -25,7 +25,7 @@ export const getButtonSizeClasses = (size: string) => {
     case "md":
       return "px-4 py-2 text-base";
     case "lg":
-      return "px-6 py-3 text-lg";
+      return "px-7 py-3.5 text-lg";
     case "icon":
       return "p-3 w-12 h-12";
     default:
@@ -38,7 +38,7 @@ export const BUTTON_BASE_CLASSES = [
   "inline-flex",
   "items-center",
   "justify-center",
-  "gap-2",
+  "gap-3",
   "font-medium",
   "rounded-xl",
   "border",
