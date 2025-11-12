@@ -18,16 +18,16 @@ export const SPACING = {
 
 export const TYPOGRAPHY = {
   H1: {
-    MOBILE: "text-4xl",
-    SM: "sm:text-5xl",
+    MOBILE: "text-3xl",
+    SM: "sm:text-4xl",
     LG: "lg:text-6xl",
     XL: "xl:text-7xl",
   },
   H2: {
-    MOBILE: "text-lg",
-    SM: "sm:text-xl",
-    LG: "lg:text-2xl",
-    XL: "xl:text-3xl",
+    MOBILE: "text-xl",
+    SM: "sm:text-2xl",
+    LG: "lg:text-3xl",
+    XL: "xl:text-4xl",
   },
   H3: {
     MOBILE: "text-lg",

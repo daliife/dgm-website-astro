@@ -23,14 +23,14 @@ const { name, label, lastName } = basics;
       class="w-full h-full flex flex-col items-center justify-center"
     >
       <div
-        class="flex flex-col space-y-4 sm:space-y-6 lg:space-y-8 text-center max-w-4xl"
+        class="flex flex-col space-y-3 sm:space-y-5 lg:space-y-8 text-center max-w-4xl px-4 sm:px-6"
       >
         <Typography
           as="h1"
           variant="h1"
           weight="bold"
           align="center"
-          className="leading-tight mb-3"
+          className="leading-tight mb-2"
         >
           Hello, I'm <span
             class="bg-gradient-to-r from-primary-600 to-secondary-500 dark:from-primary-400 dark:to-secondary-400 bg-clip-text text-transparent font-bold"
@@ -47,7 +47,9 @@ const { name, label, lastName } = basics;
         >
           {label}
         </Typography>
-        <div class="flex flex-wrap justify-center gap-4 sm:gap-6 pt-6">
+        <div
+          class="flex flex-wrap justify-center gap-3 sm:gap-4 lg:gap-6 pt-4 sm:pt-6"
+        >
           {
             basics.profiles.map((profile: any) => {
               const getProfileIconFromName = (networkName: string): any => {
@@ -63,27 +65,27 @@ const { name, label, lastName } = basics;
               return (
                 <Button
                   variant="outline"
-                  size="lg"
+                  size="md"
                   href={profile.url}
                   target="_blank"
                   rel="noopener"
-                  className="backdrop-blur-sm"
+                  className="backdrop-blur-sm sm:size-lg"
                 >
                   {getProfileIconFromName(profile.network)}
-                  <span>{profile.network}</span>
+                  <span class="text-sm sm:text-base">{profile.network}</span>
                 </Button>
               );
             })
           }
           <Button
             variant="primary"
-            size="lg"
-            href="/cv-david-gimeno.pdf"
+            size="md"
+            href="/cv-david-gimeno.jpeg"
             download="David-Gimeno-CV.pdf"
-            className="backdrop-blur-sm bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border-primary-400/40 hover:border-primary-400/60 hover:from-primary-500/30 hover:to-secondary-500/30 shadow-lg hover:shadow-xl hover:shadow-primary-500/20 ring-1 ring-primary-500/20 hover:ring-primary-500/30"
+            className="backdrop-blur-sm bg-gradient-to-r from-primary-500/20 to-secondary-500/20 border-primary-400/40 hover:border-primary-400/60 hover:from-primary-500/30 hover:to-secondary-500/30 shadow-lg hover:shadow-xl hover:shadow-primary-500/20 ring-1 ring-primary-500/20 hover:ring-primary-500/30 sm:size-lg"
           >
             <svg
-              class="w-5 h-5"
+              class="w-4 h-4 sm:w-5 sm:h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -95,7 +97,7 @@ const { name, label, lastName } = basics;
                 d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
               ></path>
             </svg>
-            Download CV
+            <span class="text-sm sm:text-base">Download CV</span>
           </Button>
         </div>
       </div>

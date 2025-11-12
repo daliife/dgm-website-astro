@@ -34,15 +34,15 @@ const { pathname } = Astro.url;
       id="navbar-sticky"
     >
       <Button
-        variant="icon"
+        variant="ghost"
         size="icon"
         onclick="closeMobileMenu()"
         aria-label="Close navigation menu"
-        className="absolute top-6 right-6 md:hidden"
+        className="absolute top-6 right-6 md:hidden text-text-primary hover:text-text-accent bg-bg-secondary/50 hover:bg-bg-secondary"
       >
         <span class="sr-only">Close menu</span>
         <svg
-          class="w-6 h-6"
+          class="w-7 h-7"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -51,7 +51,7 @@ const { pathname } = Astro.url;
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
-            stroke-width="2"
+            stroke-width="2.5"
             d="M6 18L18 6M6 6l12 12"></path>
         </svg>
       </Button>
