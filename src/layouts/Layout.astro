@@ -85,45 +85,9 @@ const {
     </script>
 
     <script is:inline>
-      function initializeTheme() {
-        if (
-          localStorage.theme === "dark" ||
-          (!("theme" in localStorage) &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      }
-      function setupDarkModeToggle() {
-        const toggleButton = document.getElementById("theme-toggle");
-        if (toggleButton) {
-          const newToggleButton = toggleButton.cloneNode(true);
-          toggleButton.parentNode.replaceChild(newToggleButton, toggleButton);
-
-          newToggleButton.addEventListener("click", () => {
-            if (document.documentElement.classList.contains("dark")) {
-              document.documentElement.classList.remove("dark");
-              localStorage.setItem("theme", "light");
-            } else {
-              document.documentElement.classList.add("dark");
-              localStorage.setItem("theme", "dark");
-            }
-          });
-        }
-      }
-      initializeTheme();
-      setupDarkModeToggle();
-
+      document.documentElement.classList.add("dark");
       document.addEventListener("astro:after-swap", () => {
-        initializeTheme();
-        setupDarkModeToggle();
-      });
-
-      document.addEventListener("astro:page-load", () => {
-        initializeTheme();
-        setupDarkModeToggle();
+        document.documentElement.classList.add("dark");
       });
     </script>
     <ClientRouter />
