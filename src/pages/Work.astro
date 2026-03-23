@@ -2,10 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 import Section from "../components/Section.astro";
 import Timeline from "../components/Timeline.astro";
+import PageContainer from "../components/PageContainer.astro";
 import { work } from "@cv";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
 
-const workExperience = work.map((job) => {
+const workExperience = work.map(job => {
   return {
     startDate: job.startDate,
     endDate: job.endDate,
@@ -18,8 +19,13 @@ const workExperience = work.map((job) => {
 });
 ---
 
-<Layout title={`${TITLE_PAGE_PREFIX} Work`}>
-  <Section id="work" title="Work">
-    <Timeline elements={workExperience} />
-  </Section>
+<Layout
+  title={`${TITLE_PAGE_PREFIX} Work`}
+  description="David Gimeno's professional work experience, including roles at NTT Data and other companies in software development."
+>
+  <PageContainer type="narrow">
+    <Section id="work" title="Work">
+      <Timeline elements={workExperience} />
+    </Section>
+  </PageContainer>
 </Layout>

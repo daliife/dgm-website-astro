@@ -1,31 +1,104 @@
 ---
-import DarkModeButton from "./DarkModeButton.astro";
 import DgmLogoSimple from "./DgmLogoSimple.astro";
-const navLinks = ["home", "projects", "work", "about"];
+import Button from "./Button.astro";
+import { NAV_LINKS } from "../utils/constants";
 const { pathname } = Astro.url;
 ---
 
-<nav class="w-full max-w-3xl mx-auto z-20 top-0 start-0 bg-transparent">
+<nav
+  id="main-nav"
+  class="fixed inset-x-0 top-0 z-30 bg-transparent transition-colors duration-300"
+>
   <div
-    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
+    class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-5 lg:py-3"
   >
     <a
       href={import.meta.env.BASE_URL}
-      class="flex items-center space-x-3 rtl:space-x-reverse"
+      class="flex items-center space-x-3 rtl:space-x-reverse group order-1"
     >
       <DgmLogoSimple
-        className="fill-slate-600 dark:fill-slate-400"
+        className={`fill-text-primary group-hover:fill-text-accent transition-colors duration-200 ${
+          pathname === "/" ||
+          pathname === "/dgm-website-astro/" ||
+          pathname === "/dgm-website-astro"
+            ? "fill-text-accent"
+            : ""
+        }`}
         size="24px"
       />
     </a>
-    <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-      <DarkModeButton />
-      <button
+
+    <div
+      class="items-center justify-between hidden w-full fixed top-0 left-0 h-screen bg-bg-primary z-50 md:flex md:w-auto md:relative md:h-auto md:bg-transparent order-2 md:order-2"
+      id="navbar-sticky"
+    >
+      <Button
+        variant="ghost"
+        size="icon"
+        onclick="closeMobileMenu()"
+        aria-label="Close navigation menu"
+        className="absolute top-6 right-6 md:hidden text-text-primary hover:text-text-accent bg-bg-secondary/50 hover:bg-bg-secondary"
+      >
+        <span class="sr-only">Close menu</span>
+        <svg
+          class="w-7 h-7"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2.5"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </Button>
+      <ul
+        class="flex flex-col p-8 sm:p-10 mt-20 sm:mt-24 md:mt-0 font-medium w-full text-center md:text-left md:p-0 md:space-x-8 lg:space-x-10 rtl:space-x-reverse md:flex-row"
+      >
+        {
+          NAV_LINKS.map(page => (
+            <li>
+              <a
+                href={`/${page}`}
+                class:list={[
+                  "block py-4 px-5 sm:py-5 sm:px-7 md:py-2 md:px-4 text-text-secondary md:border md:border-transparent text-lg sm:text-xl md:text-lg rounded-lg transition-colors duration-200",
+                  // Hover styles only when not active
+                  {
+                    "hover:text-text-accent hover:bg-bg-muted/50 hover:rounded-lg md:hover:bg-bg-secondary/30 md:hover:border-text-accent/40 md:hover:shadow-sm":
+                      !(pathname === `/${page}` || pathname === `/${page}/`),
+                  },
+                  // Active styles (unificats per dark/light)
+                  {
+                    "text-text-accent bg-bg-secondary/40 md:rounded-lg md:px-4 md:py-2 md:shadow-sm md:border md:border-text-accent/60":
+                      pathname === `/${page}` || pathname === `/${page}/`,
+                  },
+                ]}
+                aria-current={
+                  pathname === `/${page}` || pathname === `/${page}/`
+                    ? "page"
+                    : undefined
+                }
+              >
+                {page.charAt(0).toUpperCase() + page.slice(1)}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="flex items-center space-x-3 order-3">
+      <Button
+        variant="icon"
+        size="icon"
         data-collapse-toggle="navbar-sticky"
-        type="button"
-        class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
         aria-controls="navbar-sticky"
         aria-expanded="false"
+        aria-label="Toggle navigation menu"
+        onclick="toggleMobileMenu(this)"
+        className="md:hidden"
       >
         <span class="sr-only">Open main menu</span>
         <svg
@@ -42,40 +115,76 @@ const { pathname } = Astro.url;
             stroke-width="2"
             d="M1 1h15M1 7h15M1 13h15"></path>
         </svg>
-      </button>
-    </div>
-    <div
-      class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
-      id="navbar-sticky"
-    >
-      <ul
-        class="flex flex-col p-4 md:p-0 mt-4 font-medium rounded-lg bg-transparent md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0"
-      >
-        {
-          navLinks.map((page) => (
-            <li>
-              <a
-                href={
-                  page === "home"
-                    ? import.meta.env.BASE_URL
-                    : `${import.meta.env.BASE_URL}/${page}`
-                }
-                class:list={[
-                  "block py-2 px-3 md:p-0 dark:hover:text-slate-300  text-slate-600 hover:text-slate-500 dark:text-slate-400 hover:underline underline-offset-4",
-                  {
-                    "underline dark:text-slate-300 text-slate-500":
-                      pathname === "/dgm-website-astro/" + page ||
-                      (pathname === "/dgm-website-astro/" && page === "home"),
-                  },
-                ]}
-                aria-current="page"
-              >
-                {page.charAt(0).toUpperCase() + page.slice(1)}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      </Button>
     </div>
   </div>
 </nav>
+
+<script is:inline>
+  function toggleMobileMenu(button) {
+    const menu = document.getElementById("navbar-sticky");
+    const isExpanded = menu.classList.contains("hidden");
+
+    if (isExpanded) {
+      menu.classList.remove("hidden");
+      button.setAttribute("aria-expanded", "true");
+    } else {
+      menu.classList.add("hidden");
+      button.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  function closeMobileMenu() {
+    const menu = document.getElementById("navbar-sticky");
+    const button = document.querySelector(
+      '[data-collapse-toggle="navbar-sticky"]'
+    );
+
+    menu.classList.add("hidden");
+    if (button) {
+      button.setAttribute("aria-expanded", "false");
+    }
+  }
+
+  // Initialize scroll behavior
+  function initScrollBehavior() {
+    const nav = document.getElementById("main-nav");
+    if (!nav) return;
+
+    const scrolledClasses = [
+      "backdrop-blur-sm",
+      "bg-bg-primary/60",
+      "dark:bg-bg-primary/50",
+      "shadow-sm",
+    ];
+
+    function handleScroll() {
+      const scrolled = window.scrollY > 8;
+      if (scrolled) {
+        nav.classList.add(...scrolledClasses);
+      } else {
+        nav.classList.remove(...scrolledClasses);
+      }
+    }
+
+    // Remove any existing listener to avoid duplicates
+    window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    // Initial check
+    handleScroll();
+  }
+
+  // Run on page load
+  document.addEventListener("DOMContentLoaded", initScrollBehavior);
+
+  // Re-run on Astro page transitions
+  document.addEventListener("astro:page-load", initScrollBehavior);
+
+  // Also run immediately if DOM is already loaded
+  if (document.readyState === "loading") {
+    // Already added DOMContentLoaded listener above
+  } else {
+    initScrollBehavior();
+  }
+</script>

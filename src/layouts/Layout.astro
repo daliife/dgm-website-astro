@@ -1,4 +1,5 @@
 ---
+import { LIVE_URL } from "astro.config.mjs";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 import "@fontsource-variable/onest";
@@ -6,63 +7,375 @@ import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  hideFooter?: boolean;
 }
 
-const { title } = Astro.props;
+const {
+  title,
+  description = "Personal portfolio website of David Gimeno - Software Engineer based in Barcelona",
+  image = `${LIVE_URL}/david-profile.webp`,
+  type = "website",
+  hideFooter = false,
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="description" content="Personal portfolio website" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/ico" href={`${LIVE_URL}/favicon.ico`} />
+    <link rel="canonical" href={Astro.url} />
+
+    <!-- SEO Meta Tags -->
+    <meta name="author" content="David Gimeno" />
+    <meta name="robots" content="index, follow" />
+    <meta name="language" content="en" />
+
     <link
-      rel="icon"
-      type="image/ico"
-      href=`${import.meta.env.BASE_URL}/favicon.ico`
+      rel="preload"
+      href="/_astro/onest-latin-wght-normal.DJzCSW5i.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
     <meta name="generator" content={Astro.generator} />
     <meta name="theme-color" content="#0f172a" />
-    <title>{title}</title>
-    <script is:inline>
-      document.addEventListener("astro:after-swap", () => {
-        if (
-          localStorage.theme === "dark" ||
-          (!("theme" in localStorage) &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
-          document.documentElement.classList.add("dark");
-        }
-      });
+    <meta property="og:type" content={type} />
+    <meta property="og:url" content={Astro.url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:site_name" content="David Gimeno Portfolio" />
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:title" content={title} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={image} />
 
-      if (
-        localStorage.theme === "dark" ||
-        (!("theme" in localStorage) &&
-          window.matchMedia("(prefers-color-scheme: dark)").matches)
-      ) {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
+    <title>{title}</title>
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "David Gimeno",
+        "jobTitle": "Software Engineer",
+        "description": "Software Engineer based in Barcelona, currently working at NTT Data as a Frontend Developer",
+        "url": "https://davidgimeno.cat",
+        "image": "https://davidgimeno.cat/david-profile.webp",
+        "sameAs": [
+          "https://github.com/daliife",
+          "https://www.linkedin.com/in/daliife/"
+        ],
+        "worksFor": {
+          "@type": "Organization",
+          "name": "NTT Data",
+          "url": "https://nttdata.com/"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Barcelona",
+          "addressCountry": "ES"
+        }
       }
+    </script>
+
+    <script is:inline>
+      document.documentElement.classList.add("dark");
+      document.addEventListener("astro:after-swap", () => {
+        document.documentElement.classList.add("dark");
+      });
     </script>
     <ClientRouter />
   </head>
-  <body class="grid grid-rows-[auto_1fr_auto] min-h-[100vh]">
-    <Header transition:persist />
-    <main
-      class="w-full max-w-3xl text-white mx-auto flex items-center justify-center"
+  <body
+    class={hideFooter
+      ? "grid grid-rows-[auto_1fr] min-h-[100vh] relative overflow-hidden"
+      : "grid grid-rows-[auto_1fr_auto] min-h-[100vh] relative"}
+  >
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-600 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-primary-300"
     >
+      Skip to main content
+    </a>
+    <div class="fixed inset-0 pointer-events-none overflow-hidden z-0">
+      <div
+        class="absolute -top-40 -right-40 w-80 h-80 bg-gradient-to-br from-primary-400/20 to-primary-600/20 rounded-full blur-3xl floating-bg-1"
+      >
+      </div>
+      <div
+        class="absolute -bottom-40 -left-40 w-96 h-96 bg-gradient-to-br from-secondary-400/15 to-primary-500/15 rounded-full blur-3xl floating-bg-2"
+      >
+      </div>
+      <div
+        class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-gradient-to-br from-primary-300/10 to-primary-500/10 rounded-full blur-3xl floating-bg-3"
+      >
+      </div>
+      <div
+        class="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-br from-primary-400/8 to-secondary-500/8 rounded-full blur-2xl floating-bg-1"
+      >
+      </div>
+      <div
+        class="absolute bottom-1/3 right-1/3 w-48 h-48 bg-gradient-to-br from-primary-400/12 to-secondary-500/12 rounded-full blur-2xl floating-bg-2"
+      >
+      </div>
+    </div>
+
+    <Header transition:persist />
+    <main id="main-content" class="w-full relative z-10">
       <slot />
     </main>
-    <Footer />
+    {!hideFooter && <Footer />}
     <style>
+      :root {
+        --text-primary: 15 23 42;
+        --text-secondary: 30 41 59;
+        --text-muted: 51 65 85;
+        --text-accent: 37 99 235;
+
+        --bg-primary: 255 255 255;
+        --bg-secondary: 248 250 252;
+        --bg-muted: 241 245 249;
+
+        --border-primary: 226 232 240;
+        --border-secondary: 203 213 225;
+        --border-muted: 148 163 184;
+      }
+
+      .dark {
+        --text-primary: 248 250 252;
+        --text-secondary: 226 232 240;
+        --text-muted: 148 163 184;
+        --text-accent: 96 165 250;
+
+        --bg-primary: 15 23 42;
+        --bg-secondary: 30 41 59;
+        --bg-muted: 51 65 85;
+
+        --border-primary: 71 85 105;
+        --border-secondary: 100 116 139;
+        --border-muted: 148 163 184;
+      }
+
       html {
-        background-color: lightgray;
+        background: linear-gradient(
+          135deg,
+          #eff6ff 0%,
+          #dbeafe 30%,
+          #bfdbfe 70%,
+          #93c5fd 100%
+        );
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 100vh;
       }
 
       html.dark {
-        background-color: #1a202c;
+        background: linear-gradient(
+          135deg,
+          #0f172a 0%,
+          #1e293b 30%,
+          #334155 70%,
+          #1e40af 100%
+        );
+        background-attachment: fixed;
+        background-size: cover;
+        background-repeat: no-repeat;
+        min-height: 100vh;
+      }
+
+      .line-clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        overflow-y: scroll;
+      }
+
+      *:focus {
+        outline: 3px solid #3b82f6;
+        outline-offset: 2px;
+        border-radius: 4px;
+      }
+
+      *:focus-visible {
+        outline: 3px solid #2563eb;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.2);
+      }
+
+      .dark *:focus {
+        outline: 3px solid #60a5fa;
+        outline-offset: 2px;
+      }
+
+      .dark *:focus-visible {
+        outline: 3px solid #60a5fa;
+        outline-offset: 2px;
+        box-shadow: 0 0 0 6px rgba(96, 165, 250, 0.2);
+      }
+
+      * {
+        transition:
+          color 0.2s ease-in-out,
+          background-color 0.2s ease-in-out,
+          border-color 0.2s ease-in-out,
+          transform 0.2s ease-in-out,
+          opacity 0.2s ease-in-out;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+
+      .loading {
+        opacity: 0.6;
+        pointer-events: none;
+      }
+
+      button:hover,
+      a:hover {
+        transform: translateY(-1px);
+      }
+
+      button:active,
+      a:active {
+        transform: translateY(0);
+      }
+
+      @media (max-width: 640px) {
+        .mobile-padding {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      .glass-effect {
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+
+      @keyframes float-gentle {
+        0%,
+        100% {
+          transform: translateY(0px) rotate(0deg);
+        }
+        50% {
+          transform: translateY(-5px) rotate(2deg);
+        }
+      }
+
+      @keyframes pulse-glow {
+        0%,
+        100% {
+          box-shadow:
+            0 0 20px rgba(99, 102, 241, 0.2),
+            0 0 40px rgba(139, 92, 246, 0.1);
+        }
+        50% {
+          box-shadow:
+            0 0 30px rgba(99, 102, 241, 0.4),
+            0 0 60px rgba(139, 92, 246, 0.2);
+        }
+      }
+
+      @keyframes rotate-slow {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .modern-avatar {
+        animation: float-gentle 6s ease-in-out infinite;
+      }
+
+      .modern-avatar:hover {
+        animation: pulse-glow 2s ease-in-out infinite;
+      }
+
+      .floating-element {
+        animation: float-gentle 4s ease-in-out infinite;
+      }
+
+      .rotating-ring {
+        animation: rotate-slow 20s linear infinite;
+      }
+
+      @keyframes float-vercel-1 {
+        0%,
+        100% {
+          transform: translateY(0px) translateX(0px) scale(1);
+        }
+        25% {
+          transform: translateY(-30px) translateX(20px) scale(1.1);
+        }
+        50% {
+          transform: translateY(-15px) translateX(-25px) scale(0.9);
+        }
+        75% {
+          transform: translateY(-40px) translateX(10px) scale(1.05);
+        }
+      }
+
+      @keyframes float-vercel-2 {
+        0%,
+        100% {
+          transform: translateY(0px) translateX(0px) scale(1);
+        }
+        33% {
+          transform: translateY(25px) translateX(-30px) scale(1.15);
+        }
+        66% {
+          transform: translateY(-35px) translateX(15px) scale(0.85);
+        }
+      }
+
+      @keyframes float-vercel-3 {
+        0%,
+        100% {
+          transform: translateY(0px) translateX(0px) scale(1);
+        }
+        40% {
+          transform: translateY(-20px) translateX(35px) scale(1.2);
+        }
+        80% {
+          transform: translateY(30px) translateX(-15px) scale(0.8);
+        }
+      }
+
+      .floating-bg-1 {
+        animation: float-vercel-1 20s ease-in-out infinite;
+      }
+
+      .floating-bg-2 {
+        animation: float-vercel-2 25s ease-in-out infinite;
+      }
+
+      .floating-bg-3 {
+        animation: float-vercel-3 30s ease-in-out infinite;
       }
     </style>
   </body>
