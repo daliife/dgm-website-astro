@@ -15,46 +15,50 @@ function formatDate(dateStr?: string) {
   description="Professional work experience of David Gimeno."
 >
   <div class="max-w-5xl mx-auto px-6 pt-32 pb-20">
-    <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase mb-12 reveal">
+    <h1
+      class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase mb-12 reveal"
+    >
       Work
     </h1>
     <div class="space-y-0 reveal">
-      {work.map((job: any) => (
-        <article class="border-t border-border-primary py-8">
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-3">
-            <div>
-              <h2 class="text-lg sm:text-xl font-semibold text-text-primary">
-                {job.position}
-              </h2>
-              <a
-                href={job.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-text-secondary text-sm hover:text-text-primary transition-colors duration-200"
-              >
-                {job.company}
-              </a>
+      {
+        work.map((job: any) => (
+          <article class="border-t border-border-primary py-8">
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-3">
+              <div>
+                <h2 class="text-lg sm:text-xl font-semibold text-text-primary">
+                  {job.position}
+                </h2>
+                <a
+                  href={job.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-text-secondary text-sm hover:text-text-primary transition-colors duration-200"
+                >
+                  {job.company}
+                </a>
+              </div>
+              <span class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap">
+                {formatDate(job.startDate)} — {formatDate(job.endDate)}
+              </span>
             </div>
-            <span class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap">
-              {formatDate(job.startDate)} — {formatDate(job.endDate)}
-            </span>
-          </div>
-          {job.summary && (
-            <p class="text-text-secondary text-sm leading-relaxed mb-3 max-w-2xl">
-              {job.summary}
-            </p>
-          )}
-          {job.highlights && job.highlights.length > 0 && (
-            <ul class="space-y-1.5 mt-3">
-              {job.highlights.map((h: string) => (
-                <li class="text-text-muted text-sm leading-relaxed pl-4 relative before:content-['–'] before:absolute before:left-0 before:text-text-muted">
-                  {h}
-                </li>
-              ))}
-            </ul>
-          )}
-        </article>
-      ))}
+            {job.summary && (
+              <p class="text-text-secondary text-sm leading-relaxed mb-3 max-w-2xl">
+                {job.summary}
+              </p>
+            )}
+            {job.highlights && job.highlights.length > 0 && (
+              <ul class="space-y-1.5 mt-3">
+                {job.highlights.map((h: string) => (
+                  <li class="text-text-muted text-sm leading-relaxed pl-4 relative before:content-['–'] before:absolute before:left-0 before:text-text-muted">
+                    {h}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </article>
+        ))
+      }
     </div>
   </div>
 </Layout>

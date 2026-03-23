@@ -12,7 +12,9 @@ const { summary } = basics;
   <div class="max-w-5xl mx-auto px-6 pt-32 pb-20 space-y-20">
     <!-- About Me -->
     <section class="reveal">
-      <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase mb-10">
+      <h1
+        class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase mb-10"
+      >
         About Me
       </h1>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
@@ -38,40 +40,48 @@ const { summary } = basics;
 
     <!-- Skills -->
     <section class="reveal">
-      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10">
+      <h2
+        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10"
+      >
         Skills
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {skills.map((skill: any) => (
-          <div>
-            <h3 class="text-sm uppercase tracking-widest text-text-muted mb-3">
-              {skill.name}
-            </h3>
-            <p class="text-text-secondary text-sm mb-2">{skill.level}</p>
-            <div class="flex flex-wrap gap-2">
-              {skill.keywords.map((keyword: string) => (
-                <span class="text-xs text-text-secondary border border-border-primary rounded-full px-3 py-1">
-                  {keyword}
-                </span>
-              ))}
+        {
+          skills.map((skill: any) => (
+            <div>
+              <h3 class="text-sm uppercase tracking-widest text-text-muted mb-3">
+                {skill.name}
+              </h3>
+              <p class="text-text-secondary text-sm mb-2">{skill.level}</p>
+              <div class="flex flex-wrap gap-2">
+                {skill.keywords.map((keyword: string) => (
+                  <span class="text-xs text-text-secondary border border-border-primary rounded-full px-3 py-1">
+                    {keyword}
+                  </span>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        }
       </div>
     </section>
 
     <!-- Languages -->
     <section class="reveal">
-      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10">
+      <h2
+        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10"
+      >
         Languages
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {languages.map((lang: any) => (
-          <div class="border-t border-border-primary pt-4">
-            <h3 class="text-text-primary font-medium">{lang.language}</h3>
-            <p class="text-text-muted text-sm mt-1">{lang.fluency}</p>
-          </div>
-        ))}
+        {
+          languages.map((lang: any) => (
+            <div class="border-t border-border-primary pt-4">
+              <h3 class="text-text-primary font-medium">{lang.language}</h3>
+              <p class="text-text-muted text-sm mt-1">{lang.fluency}</p>
+            </div>
+          ))
+        }
       </div>
     </section>
   </div>

@@ -10,16 +10,16 @@ Personal portfolio website for David Gimeno. Static site built with Astro 5, Typ
 
 Before writing any code, internalize these rules:
 
-| Constraint    | Rule                                                                                                                      |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| Theme         | **Dark/light mode via toggle.** `ThemeToggle.astro` handles switching. Theme persists in `localStorage`.                  |
-| Styling       | **Tailwind utilities only.** No inline styles, no CSS modules, no custom stylesheets.                                     |
-| Color tokens  | Use **semantic tokens** (`text-text-primary`, `bg-bg-secondary`, etc.) — never raw palette classes like `text-gray-900`.  |
-| Content       | All personal data lives in **`cv.json`**. Never hardcode names, dates, job titles, or project info in components.         |
-| Interactivity | **`.astro` components first.** Use React only when client-side state or hooks are strictly necessary.                     |
-| Navigation    | Routes are driven by `NAV_LINKS` in `src/utils/constants.ts`. New pages need an entry there and a file in `src/pages/`.   |
-| Buttons/links | **Always use `<Button>`** component for interactive UI elements. Pass `href` for links, omit for buttons.                 |
-| Scripts       | Use `astro:page-load` event, **not** `DOMContentLoaded` (broken with View Transitions).                                   |
+| Constraint    | Rule                                                                                                                     |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Theme         | **Dark/light mode via toggle.** `ThemeToggle.astro` handles switching. Theme persists in `localStorage`.                 |
+| Styling       | **Tailwind utilities only.** No inline styles, no CSS modules, no custom stylesheets.                                    |
+| Color tokens  | Use **semantic tokens** (`text-text-primary`, `bg-bg-secondary`, etc.) — never raw palette classes like `text-gray-900`. |
+| Content       | All personal data lives in **`cv.json`**. Never hardcode names, dates, job titles, or project info in components.        |
+| Interactivity | **`.astro` components first.** Use React only when client-side state or hooks are strictly necessary.                    |
+| Navigation    | Routes are driven by `NAV_LINKS` in `src/utils/constants.ts`. New pages need an entry there and a file in `src/pages/`.  |
+| Buttons/links | **Always use `<Button>`** component for interactive UI elements. Pass `href` for links, omit for buttons.                |
+| Scripts       | Use `astro:page-load` event, **not** `DOMContentLoaded` (broken with View Transitions).                                  |
 | Package mgr   | **pnpm only.** Do not use npm or yarn.                                                                                   |
 
 ## Repository layout
@@ -105,13 +105,13 @@ Sizes: `sm` `md` (default) `lg` `icon`
 
 ## Components reference
 
-| Component                     | What it renders                                                                   |
-| ----------------------------- | --------------------------------------------------------------------------------- |
-| `layout/Header.astro`         | Fixed nav with logo, desktop/mobile menu, theme toggle                            |
-| `layout/Footer.astro`         | Copyright + social links from cv.json                                             |
-| `brand/DgmLogoSimple.astro`   | SVG logo monogram. Props: `className`, `size`                                     |
-| `brand/ThemeToggle.astro`     | Dark/light mode toggle button with sun/moon icons                                 |
-| `ui/Button.astro`             | Polymorphic button/link with semantic token styles                                |
+| Component                   | What it renders                                        |
+| --------------------------- | ------------------------------------------------------ |
+| `layout/Header.astro`       | Fixed nav with logo, desktop/mobile menu, theme toggle |
+| `layout/Footer.astro`       | Copyright + social links from cv.json                  |
+| `brand/DgmLogoSimple.astro` | SVG logo monogram. Props: `className`, `size`          |
+| `brand/ThemeToggle.astro`   | Dark/light mode toggle button with sun/moon icons      |
+| `ui/Button.astro`           | Polymorphic button/link with semantic token styles     |
 
 ## Icons
 

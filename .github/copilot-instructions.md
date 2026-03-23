@@ -81,18 +81,18 @@ Add the route name to `NAV_LINKS` in `src/utils/constants.ts`, update the `NavLi
 
 ## File map
 
-| File                                    | Purpose                                              |
-| --------------------------------------- | ---------------------------------------------------- |
-| `cv.json`                               | All personal content                                 |
-| `src/layouts/Layout.astro`              | Root HTML shell, SEO, theme, fonts, scroll reveal    |
-| `src/components/brand/ThemeToggle.astro` | Dark/light mode toggle                              |
-| `src/components/layout/Header.astro`    | Fixed nav with logo, links, theme toggle             |
-| `src/components/layout/Footer.astro`    | Copyright + social links                             |
-| `src/components/ui/Button.astro`        | Universal button/link component                      |
-| `src/utils/constants.ts`                | `NAV_LINKS`, typography scale, spacing, grid configs |
-| `tailwind.config.mjs`                   | Design tokens and color palette                      |
-| `astro.config.mjs`                      | Integrations, Vite, site URL                         |
-| `src/types/ui.ts`                       | `ButtonVariant`, `ButtonSize`, `NavLink`             |
+| File                                     | Purpose                                              |
+| ---------------------------------------- | ---------------------------------------------------- |
+| `cv.json`                                | All personal content                                 |
+| `src/layouts/Layout.astro`               | Root HTML shell, SEO, theme, fonts, scroll reveal    |
+| `src/components/brand/ThemeToggle.astro` | Dark/light mode toggle                               |
+| `src/components/layout/Header.astro`     | Fixed nav with logo, links, theme toggle             |
+| `src/components/layout/Footer.astro`     | Copyright + social links                             |
+| `src/components/ui/Button.astro`         | Universal button/link component                      |
+| `src/utils/constants.ts`                 | `NAV_LINKS`, typography scale, spacing, grid configs |
+| `tailwind.config.mjs`                    | Design tokens and color palette                      |
+| `astro.config.mjs`                       | Integrations, Vite, site URL                         |
+| `src/types/ui.ts`                        | `ButtonVariant`, `ButtonSize`, `NavLink`             |
 
 ## Design tokens reference
 

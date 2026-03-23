@@ -36,10 +36,17 @@ const {
     <meta name="robots" content="index, follow" />
     <meta name="language" content="en" />
 
-
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#0a0a0a"
+      media="(prefers-color-scheme: dark)"
+    />
     <meta property="og:type" content={type} />
     <meta property="og:url" content={Astro.url} />
     <meta property="og:title" content={title} />
@@ -82,7 +89,10 @@ const {
     <script is:inline>
       (function () {
         const saved = localStorage.getItem("theme");
-        if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        if (
+          saved === "dark" ||
+          (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
           document.documentElement.classList.add("dark");
         } else {
           document.documentElement.classList.remove("dark");
@@ -90,7 +100,10 @@ const {
       })();
       document.addEventListener("astro:after-swap", () => {
         const saved = localStorage.getItem("theme");
-        if (saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        if (
+          saved === "dark" ||
+          (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
           document.documentElement.classList.add("dark");
         } else {
           document.documentElement.classList.remove("dark");
@@ -100,9 +113,11 @@ const {
     <ClientRouter />
   </head>
   <body
-    class={`bg-bg-primary text-text-primary font-sans ${hideFooter
-      ? "grid grid-rows-[auto_1fr] min-h-[100vh] relative"
-      : "grid grid-rows-[auto_1fr_auto] min-h-[100vh] relative"}`}
+    class={`bg-bg-primary text-text-primary font-sans ${
+      hideFooter
+        ? "grid grid-rows-[auto_1fr] min-h-[100vh] relative"
+        : "grid grid-rows-[auto_1fr_auto] min-h-[100vh] relative"
+    }`}
   >
     <a
       href="#main-content"
@@ -152,7 +167,9 @@ const {
         overflow-y: scroll;
         background-color: rgb(var(--bg-primary));
         color: rgb(var(--text-primary));
-        transition: background-color 0.3s ease, color 0.3s ease;
+        transition:
+          background-color 0.3s ease,
+          color 0.3s ease;
       }
 
       body {
@@ -180,7 +197,9 @@ const {
       .reveal {
         opacity: 0;
         transform: translateY(20px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease;
       }
       .reveal.is-visible {
         opacity: 1;
@@ -204,12 +223,14 @@ const {
     </style>
     <script>
       document.addEventListener("astro:page-load", () => {
-        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const prefersReduced = window.matchMedia(
+          "(prefers-reduced-motion: reduce)"
+        ).matches;
         if (prefersReduced) return;
 
         const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
+          entries => {
+            entries.forEach(entry => {
               if (entry.isIntersecting) {
                 entry.target.classList.add("is-visible");
                 observer.unobserve(entry.target);
@@ -219,7 +240,9 @@ const {
           { threshold: 0.1 }
         );
 
-        document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+        document
+          .querySelectorAll(".reveal")
+          .forEach(el => observer.observe(el));
       });
     </script>
   </body>

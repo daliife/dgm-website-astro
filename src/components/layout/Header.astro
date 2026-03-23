@@ -11,9 +11,7 @@ const { pathname } = Astro.url;
     class="fixed inset-x-0 top-0 z-30 transition-colors duration-300"
     aria-label="Main navigation"
   >
-    <div
-      class="max-w-5xl mx-auto flex items-center justify-between px-6 py-4"
-    >
+    <div class="max-w-5xl mx-auto flex items-center justify-between px-6 py-4">
       <!-- Logo -->
       <a
         href={import.meta.env.BASE_URL}
@@ -30,8 +28,9 @@ const { pathname } = Astro.url;
       <div class="hidden md:flex items-center gap-8">
         <ul class="flex items-center gap-6">
           {
-            NAV_LINKS.map((page) => {
-              const isActive = pathname === `/${page}` || pathname === `/${page}/`;
+            NAV_LINKS.map(page => {
+              const isActive =
+                pathname === `/${page}` || pathname === `/${page}/`;
               return (
                 <li>
                   <a
@@ -65,8 +64,18 @@ const { pathname } = Astro.url;
           aria-controls="mobile-menu"
           class="p-2 text-text-secondary hover:text-text-primary transition-colors"
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M4 6h16M4 12h16M4 18h16"></path>
           </svg>
         </button>
       </div>
@@ -90,15 +99,26 @@ const { pathname } = Astro.url;
           aria-label="Close navigation menu"
           class="p-2 text-text-secondary hover:text-text-primary transition-colors"
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
       </div>
       <ul class="flex flex-col items-center justify-center gap-8 pt-20">
         {
-          NAV_LINKS.map((page) => {
-            const isActive = pathname === `/${page}` || pathname === `/${page}/`;
+          NAV_LINKS.map(page => {
+            const isActive =
+              pathname === `/${page}` || pathname === `/${page}/`;
             return (
               <li>
                 <a
@@ -148,19 +168,19 @@ const { pathname } = Astro.url;
     menuClose.addEventListener("click", closeMenu);
 
     // Close on link click
-    menu.querySelectorAll("a").forEach((link) => {
+    menu.querySelectorAll("a").forEach(link => {
       link.addEventListener("click", closeMenu);
     });
 
     // Close on Escape key
-    document.addEventListener("keydown", (e) => {
+    document.addEventListener("keydown", e => {
       if (e.key === "Escape" && !menu!.classList.contains("hidden")) {
         closeMenu();
       }
     });
 
     // Focus trap inside mobile menu
-    menu.addEventListener("keydown", (e) => {
+    menu.addEventListener("keydown", e => {
       if (e.key !== "Tab") return;
       const focusable = menu!.querySelectorAll<HTMLElement>(
         'a[href], button, [tabindex]:not([tabindex="-1"])'

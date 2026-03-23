@@ -20,14 +20,14 @@ The Vite dev server (`pnpm run dev`) provides HMR and a local preview. The produ
 
 Astro uses file-based routing. `src/pages/` maps directly to URLs:
 
-| File                       | URL             |
-| -------------------------- | --------------- |
-| `src/pages/index.astro`    | `/`             |
-| `src/pages/about.astro`    | `/about`        |
-| `src/pages/projects.astro` | `/projects`     |
-| `src/pages/work.astro`     | `/work`         |
-| `src/pages/contact.astro`  | `/contact`      |
-| `src/pages/404.astro`      | `/404`          |
+| File                       | URL         |
+| -------------------------- | ----------- |
+| `src/pages/index.astro`    | `/`         |
+| `src/pages/about.astro`    | `/about`    |
+| `src/pages/projects.astro` | `/projects` |
+| `src/pages/work.astro`     | `/work`     |
+| `src/pages/contact.astro`  | `/contact`  |
+| `src/pages/404.astro`      | `/404`      |
 
 Navigation links are defined in `src/utils/constants.ts → NAV_LINKS`: `["about", "projects", "work", "contact"]`. This array drives the `<Header>` nav. Adding a page requires:
 
@@ -118,10 +118,10 @@ Semantic color tokens are defined as CSS custom property references in `tailwind
 
 Values are set in `Layout.astro` `<style>`:
 
-| Token            | Light          | Dark           |
-| ---------------- | -------------- | -------------- |
-| `--text-primary` | `23 23 23`     | `250 250 250`  |
-| `--bg-primary`   | `255 255 255`  | `10 10 10`     |
+| Token              | Light         | Dark          |
+| ------------------ | ------------- | ------------- |
+| `--text-primary`   | `23 23 23`    | `250 250 250` |
+| `--bg-primary`     | `255 255 255` | `10 10 10`    |
 | `--border-primary` | `229 229 229` | `38 38 38`    |
 
 **Never use raw palette classes** (`text-gray-900`, `bg-white`, etc.). Always use semantic tokens.
@@ -158,28 +158,28 @@ src/components/
 
 ### Active components
 
-| Component                        | Purpose                                                  |
-| -------------------------------- | -------------------------------------------------------- |
-| `brand/DgmLogoSimple.astro`      | SVG logo monogram. Props: `className`, `size`            |
-| `brand/ThemeToggle.astro`        | Dark/light mode toggle button                            |
-| `layout/Header.astro`            | Fixed nav: logo, desktop/mobile nav, theme toggle        |
-| `layout/Footer.astro`            | Copyright + social links from cv.json                    |
-| `ui/Button.astro`                | Polymorphic button/link component                        |
+| Component                   | Purpose                                           |
+| --------------------------- | ------------------------------------------------- |
+| `brand/DgmLogoSimple.astro` | SVG logo monogram. Props: `className`, `size`     |
+| `brand/ThemeToggle.astro`   | Dark/light mode toggle button                     |
+| `layout/Header.astro`       | Fixed nav: logo, desktop/mobile nav, theme toggle |
+| `layout/Footer.astro`       | Copyright + social links from cv.json             |
+| `ui/Button.astro`           | Polymorphic button/link component                 |
 
 ### Available but unused components
 
 These were part of the previous design and remain available:
 
-| Component                        | Purpose                                    |
-| -------------------------------- | ------------------------------------------ |
-| `layout/HomeContainer.astro`     | Full-viewport hero wrapper                 |
-| `layout/PageContainer.astro`     | Max-width centered container               |
-| `ui/Grid.astro`                  | Responsive CSS grid                        |
-| `ui/Section.astro`               | Section with vertical spacing              |
-| `ui/Typography.astro`            | Text with design-system scale              |
-| `sections/Project.astro`         | Project card                               |
-| `sections/Timeline.astro`        | Work experience container                  |
-| `sections/TimelineItem.astro`    | Single work experience row                 |
+| Component                     | Purpose                       |
+| ----------------------------- | ----------------------------- |
+| `layout/HomeContainer.astro`  | Full-viewport hero wrapper    |
+| `layout/PageContainer.astro`  | Max-width centered container  |
+| `ui/Grid.astro`               | Responsive CSS grid           |
+| `ui/Section.astro`            | Section with vertical spacing |
+| `ui/Typography.astro`         | Text with design-system scale |
+| `sections/Project.astro`      | Project card                  |
+| `sections/Timeline.astro`     | Work experience container     |
+| `sections/TimelineItem.astro` | Single work experience row    |
 
 ---
 
@@ -277,9 +277,9 @@ Shared types live in `src/types/ui.ts`: `ButtonVariant`, `ButtonSize`, `NavLink`
 
 ## Linting & Formatting
 
-| Tool     | Config            | Command                                   |
-| -------- | ----------------- | ----------------------------------------- |
-| ESLint   | `eslint.config.*` | `npm run lint` / `npm run lint:fix`       |
-| Prettier | `.prettierrc`     | `npm run format` / `npm run format:check` |
+| Tool     | Config            | Command                                     |
+| -------- | ----------------- | ------------------------------------------- |
+| ESLint   | `eslint.config.*` | `pnpm run lint` / `pnpm run lint:fix`       |
+| Prettier | `.prettierrc`     | `pnpm run format` / `pnpm run format:check` |
 
 Both tools support `.astro` files via their respective plugins (`eslint-plugin-astro`, Prettier Astro plugin).

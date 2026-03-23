@@ -21,24 +21,28 @@ const socialLinks = [
 ---
 
 <footer class="border-t border-border-primary" role="contentinfo">
-  <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+  <div
+    class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
+  >
     <span class="text-xs text-text-muted">
       &copy; {currentYear} David Gimeno
     </span>
     <nav aria-label="Footer social links">
       <ul class="flex items-center gap-6">
-        {socialLinks.map((link) => (
-          <li>
-            <a
-              href={link.url}
-              target={link.name !== "Email" ? "_blank" : undefined}
-              rel={link.name !== "Email" ? "noopener noreferrer" : undefined}
-              class="text-xs uppercase tracking-widest text-text-muted hover:text-text-primary transition-colors duration-200"
-            >
-              {link.name}
-            </a>
-          </li>
-        ))}
+        {
+          socialLinks.map(link => (
+            <li>
+              <a
+                href={link.url}
+                target={link.name !== "Email" ? "_blank" : undefined}
+                rel={link.name !== "Email" ? "noopener noreferrer" : undefined}
+                class="text-xs uppercase tracking-widest text-text-muted hover:text-text-primary transition-colors duration-200"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
   </div>
