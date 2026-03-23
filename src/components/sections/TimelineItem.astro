@@ -1,6 +1,6 @@
 ---
-import { TIMELINE_ITEMS_LIMIT } from "../utils/constants";
-import Button from "./Button.astro";
+import { TIMELINE_ITEMS_LIMIT } from "../../utils/constants";
+import Button from "../ui/Button.astro";
 
 interface Props {
   startDate?: string;
@@ -52,7 +52,7 @@ const hasMoreHighlights = highlights.length > numElements;
   >
   </div>
   <time
-    class="mb-2 text-sm sm:text-base font-medium leading-none text-text-accent bg-slate-100 dark:bg-bg-muted/50 px-3 py-1 rounded-full inline-block"
+    class="mb-2 text-sm sm:text-base font-medium leading-none text-text-accent bg-bg-muted px-3 py-1 rounded-full inline-block"
   >
     {dateRange}
   </time>

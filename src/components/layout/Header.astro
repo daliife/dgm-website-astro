@@ -1,0 +1,192 @@
+---
+import DgmLogoSimple from "../brand/DgmLogoSimple.astro";
+import ThemeToggle from "../brand/ThemeToggle.astro";
+import { NAV_LINKS } from "../../utils/constants";
+const { pathname } = Astro.url;
+---
+
+<header>
+  <nav
+    id="main-nav"
+    class="fixed inset-x-0 top-0 z-30 transition-colors duration-300"
+    aria-label="Main navigation"
+  >
+    <div
+      class="max-w-5xl mx-auto flex items-center justify-between px-6 py-4"
+    >
+      <!-- Logo -->
+      <a
+        href={import.meta.env.BASE_URL}
+        class="flex items-center group"
+        aria-label="Home"
+      >
+        <DgmLogoSimple
+          className="fill-text-primary transition-opacity duration-200 group-hover:opacity-60"
+          size="22px"
+        />
+      </a>
+
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-8">
+        <ul class="flex items-center gap-6">
+          {
+            NAV_LINKS.map((page) => {
+              const isActive = pathname === `/${page}` || pathname === `/${page}/`;
+              return (
+                <li>
+                  <a
+                    href={`/${page}`}
+                    class:list={[
+                      "text-sm uppercase tracking-widest transition-colors duration-200",
+                      isActive
+                        ? "text-text-primary font-semibold"
+                        : "text-text-muted hover:text-text-primary",
+                    ]}
+                    aria-current={isActive ? "page" : undefined}
+                  >
+                    {page.charAt(0).toUpperCase() + page.slice(1)}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+        <ThemeToggle />
+      </div>
+
+      <!-- Mobile controls -->
+      <div class="flex items-center gap-2 md:hidden">
+        <ThemeToggle />
+        <button
+          id="mobile-menu-btn"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          class="p-2 text-text-secondary hover:text-text-primary transition-colors"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu -->
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden fixed inset-0 z-50 bg-bg-primary"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Navigation menu"
+    >
+      <div class="flex items-center justify-between px-6 py-4">
+        <a href={import.meta.env.BASE_URL} aria-label="Home">
+          <DgmLogoSimple className="fill-text-primary" size="22px" />
+        </a>
+        <button
+          id="mobile-menu-close"
+          type="button"
+          aria-label="Close navigation menu"
+          class="p-2 text-text-secondary hover:text-text-primary transition-colors"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <ul class="flex flex-col items-center justify-center gap-8 pt-20">
+        {
+          NAV_LINKS.map((page) => {
+            const isActive = pathname === `/${page}` || pathname === `/${page}/`;
+            return (
+              <li>
+                <a
+                  href={`/${page}`}
+                  class:list={[
+                    "text-2xl uppercase tracking-widest transition-colors duration-200",
+                    isActive
+                      ? "text-text-primary font-semibold"
+                      : "text-text-muted hover:text-text-primary",
+                  ]}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {page.charAt(0).toUpperCase() + page.slice(1)}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const nav = document.getElementById("main-nav");
+    const menuBtn = document.getElementById("mobile-menu-btn");
+    const menuClose = document.getElementById("mobile-menu-close");
+    const menu = document.getElementById("mobile-menu");
+    if (!nav || !menuBtn || !menuClose || !menu) return;
+
+    function openMenu() {
+      menu!.classList.remove("hidden");
+      menuBtn!.setAttribute("aria-expanded", "true");
+      document.body.style.overflow = "hidden";
+      menuClose!.focus();
+    }
+
+    function closeMenu() {
+      menu!.classList.add("hidden");
+      menuBtn!.setAttribute("aria-expanded", "false");
+      document.body.style.overflow = "";
+      menuBtn!.focus();
+    }
+
+    menuBtn.addEventListener("click", openMenu);
+    menuClose.addEventListener("click", closeMenu);
+
+    // Close on link click
+    menu.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", closeMenu);
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !menu!.classList.contains("hidden")) {
+        closeMenu();
+      }
+    });
+
+    // Focus trap inside mobile menu
+    menu.addEventListener("keydown", (e) => {
+      if (e.key !== "Tab") return;
+      const focusable = menu!.querySelectorAll<HTMLElement>(
+        'a[href], button, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+
+    // Scroll behavior — add bg on scroll
+    function handleScroll() {
+      if (window.scrollY > 8) {
+        nav!.classList.add("bg-bg-primary/80", "backdrop-blur-md");
+      } else {
+        nav!.classList.remove("bg-bg-primary/80", "backdrop-blur-md");
+      }
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+  });
+</script>

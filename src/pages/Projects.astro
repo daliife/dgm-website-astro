@@ -1,28 +1,40 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Section from "../components/Section.astro";
-import Project from "../components/Project.astro";
-import PageContainer from "../components/PageContainer.astro";
-import Grid from "../components/Grid.astro";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
 import { projects } from "@cv";
 ---
 
 <Layout
-  title={`${TITLE_PAGE_PREFIX} Projects`}
-  description="Explore David Gimeno's portfolio of web development projects, including interactive applications and creative solutions."
+  title={`${TITLE_PAGE_PREFIX}Projects`}
+  description="Portfolio of web development projects by David Gimeno."
 >
-  <PageContainer type="narrow">
-    <Section id="projects" title="Projects">
-      <Grid variant="projects" gap="lg">
-        {
-          projects.map(project => (
-            <div class="flex flex-col w-full">
-              <Project {...project} />
+  <div class="max-w-5xl mx-auto px-6 pt-32 pb-20">
+    <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase mb-12 reveal">
+      Projects
+    </h1>    
+    <div class="space-y-0 reveal">
+      {projects.map((project: any) => (
+        <article class="group border-t border-border-primary py-8">
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block"
+          >
+            <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-3">
+              <h2 class="text-xl sm:text-2xl font-semibold text-text-primary group-hover:opacity-60 transition-opacity duration-200">
+                {project.name}
+              </h2>
+              <span class="text-xs uppercase tracking-widest text-text-muted">
+                {project.technologies?.join(" · ")}
+              </span>
             </div>
-          ))
-        }
-      </Grid>
-    </Section>
-  </PageContainer>
+            <p class="text-text-secondary text-sm sm:text-base leading-relaxed max-w-2xl">
+              {project.description}
+            </p>
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
 </Layout>

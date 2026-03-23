@@ -1,5 +1,5 @@
 export const TITLE_PAGE_PREFIX = "DGM | ";
-export const NAV_LINKS = ["projects", "work", "about"] as const;
+export const NAV_LINKS = ["about", "projects", "work", "contact"] as const;
 
 export const TIMELINE_ITEMS_LIMIT = 2;
 export const PROJECT_CARD_DIMENSIONS = {

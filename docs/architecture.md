@@ -12,7 +12,7 @@ Static personal portfolio hosted at [davidgimeno.cat](http://davidgimeno.cat). T
 cv.json  →  Astro build  →  dist/  →  FTP upload  →  hosting server
 ```
 
-The Vite dev server (`npm run dev`) provides HMR and a local preview. The production build runs `astro check` (TypeScript + Astro types) followed by `astro build`.
+The Vite dev server (`pnpm run dev`) provides HMR and a local preview. The production build runs `astro check` (TypeScript + Astro types) followed by `astro build`.
 
 ---
 
@@ -20,16 +20,16 @@ The Vite dev server (`npm run dev`) provides HMR and a local preview. The produc
 
 Astro uses file-based routing. `src/pages/` maps directly to URLs:
 
-| File                        | URL                               |
-| --------------------------- | --------------------------------- |
-| `src/pages/index.astro`     | `/`                               |
-| `src/pages/about.astro`     | `/about`                          |
-| `src/pages/projects.astro`  | `/projects`                       |
-| `src/pages/work.astro`      | `/work`                           |
-| `src/pages/404.astro`       | `/404` (error page)               |
-| `src/pages/about-alt.astro` | `/about-alt` (WIP / experimental) |
+| File                       | URL             |
+| -------------------------- | --------------- |
+| `src/pages/index.astro`    | `/`             |
+| `src/pages/about.astro`    | `/about`        |
+| `src/pages/projects.astro` | `/projects`     |
+| `src/pages/work.astro`     | `/work`         |
+| `src/pages/contact.astro`  | `/contact`      |
+| `src/pages/404.astro`      | `/404`          |
 
-Navigation links are defined in `src/utils/constants.ts → NAV_LINKS`. This array drives both the `<Header>` nav and any programmatic navigation. Adding a page requires:
+Navigation links are defined in `src/utils/constants.ts → NAV_LINKS`: `["about", "projects", "work", "contact"]`. This array drives the `<Header>` nav. Adding a page requires:
 
 1. A file in `src/pages/`.
 2. An entry in `NAV_LINKS` (only if the page should appear in the nav).
@@ -47,13 +47,12 @@ Navigation links are defined in `src/utils/constants.ts → NAV_LINKS`. This arr
 | `projects`  | Array of projects: `name`, `description`, `url`, `highlights[]`, `technologies[]`       |
 | `skills`    | Array of skill groups                                                                   |
 | `education` | Array of education entries                                                              |
+| `languages` | Array of languages with fluency                                                         |
 
 Pages import it directly in the Astro frontmatter:
 
 ```astro
 ---
-import cv from "../../cv.json";
-// or via the path alias
 import { basics, work } from "@cv";
 ---
 ```
@@ -70,10 +69,13 @@ Every page must be wrapped in `<Layout>`. It provides:
 
 - The full `<html>` shell with `lang="en"`
 - All `<head>` content: charset, viewport, fonts, SEO meta, OG tags, Twitter cards, JSON-LD structured data
-- Dark mode initialization (unconditional `classList.add("dark")`)
+- Dark/light mode initialization (localStorage + `prefers-color-scheme`)
 - Astro `<ClientRouter>` for View Transitions
-- `<Header>` and `<Footer>` (Footer can be hidden with `hideFooter={true}`)
+- `<Header>` (persisted across navigations) and `<Footer>` (can be hidden with `hideFooter={true}`)
 - Skip-to-content accessibility link
+- Scroll-reveal animation system (`.reveal` class + Intersection Observer)
+- Smooth theme transition CSS (background-color, border-color, color)
+- `prefers-reduced-motion` support
 
 Props:
 
@@ -87,27 +89,18 @@ Props:
 }
 ```
 
-### Page containers
-
-| Component             | Purpose                                                                       |
-| --------------------- | ----------------------------------------------------------------------------- |
-| `PageContainer.astro` | Standard content pages. Max-width centered container with top/bottom padding. |
-| `HomeContainer.astro` | Full-viewport hero wrapper for the index page.                                |
-
 ---
 
-## Dark Mode
+## Dark / Light Mode
 
-Dark mode is always active. The `dark` class is added to `<html>` unconditionally by a `<script is:inline>` in `Layout.astro`, and re-applied on every View Transition swap via `astro:after-swap`.
+The theme system supports both dark and light modes:
 
-```js
-document.documentElement.classList.add("dark");
-document.addEventListener("astro:after-swap", () => {
-  document.documentElement.classList.add("dark");
-});
-```
+1. An `is:inline` script in `<head>` runs **before render** to prevent FOUC. It checks `localStorage("theme")`, then falls back to `prefers-color-scheme: dark`.
+2. On `astro:after-swap` (View Transitions), the same check re-applies the class.
+3. `ThemeToggle.astro` provides a sun/moon icon button that toggles `.dark` on `<html>` and persists the choice to `localStorage`.
+4. CSS custom properties in `:root` and `.dark` define all color tokens. A global transition (0.3s) on `background-color`, `border-color`, and `color` ensures smooth theme switching.
 
-Tailwind is configured with `darkMode: "class"`. All `dark:` variants apply because the `dark` class is always present. There is no toggle button and no `localStorage` theme persistence.
+Tailwind is configured with `darkMode: "class"`.
 
 ---
 
@@ -121,10 +114,17 @@ Semantic color tokens are defined as CSS custom property references in `tailwind
 "text-primary":    "rgb(var(--text-primary) / <alpha-value>)"
 "bg-primary":      "rgb(var(--bg-primary) / <alpha-value>)"
 "border-primary":  "rgb(var(--border-primary) / <alpha-value>)"
-// ... etc.
 ```
 
-The actual CSS variable values are defined in the global stylesheet. Always use these tokens instead of raw palette classes.
+Values are set in `Layout.astro` `<style>`:
+
+| Token            | Light          | Dark           |
+| ---------------- | -------------- | -------------- |
+| `--text-primary` | `23 23 23`     | `250 250 250`  |
+| `--bg-primary`   | `255 255 255`  | `10 10 10`     |
+| `--border-primary` | `229 229 229` | `38 38 38`    |
+
+**Never use raw palette classes** (`text-gray-900`, `bg-white`, etc.). Always use semantic tokens.
 
 **Full token set:**
 
@@ -134,24 +134,52 @@ The actual CSS variable values are defined in the global stylesheet. Always use 
 | Background | `bg-bg-primary`, `bg-bg-secondary`, `bg-bg-muted`                                 |
 | Border     | `border-border-primary`, `border-border-secondary`, `border-border-muted`         |
 
-### Typography scale
+### Font
 
-Defined in `src/utils/constants.ts → TYPOGRAPHY`. Provides responsive Tailwind class sets per heading level:
+**Inter Variable** — loaded via `@fontsource-variable/inter`. Configured in `tailwind.config.mjs` as default sans-serif.
 
-```ts
-TYPOGRAPHY.H1.MOBILE; // "text-3xl"
-TYPOGRAPHY.H1.LG; // "lg:text-6xl"
+### Scroll reveal
+
+Add `class="reveal"` to any element to get a fade-in-up animation on scroll. Handled by an `IntersectionObserver` in `Layout.astro`. Respects `prefers-reduced-motion`.
+
+---
+
+## Component Structure
+
+Components are organized into four subdirectories:
+
+```
+src/components/
+  brand/          ← Logo, ThemeToggle
+  layout/         ← Header, Footer, HomeContainer, PageContainer
+  sections/       ← Project, Timeline, TimelineItem (legacy, not currently used)
+  ui/             ← Button, Grid, Section, Typography
 ```
 
-Used by `Typography.astro` — pass `variant="h1"` etc. to apply the scale automatically.
+### Active components
 
-### Spacing
+| Component                        | Purpose                                                  |
+| -------------------------------- | -------------------------------------------------------- |
+| `brand/DgmLogoSimple.astro`      | SVG logo monogram. Props: `className`, `size`            |
+| `brand/ThemeToggle.astro`        | Dark/light mode toggle button                            |
+| `layout/Header.astro`            | Fixed nav: logo, desktop/mobile nav, theme toggle        |
+| `layout/Footer.astro`            | Copyright + social links from cv.json                    |
+| `ui/Button.astro`                | Polymorphic button/link component                        |
 
-`SPACING.SECTION` provides consistent vertical section margins across breakpoints.
+### Available but unused components
 
-### Grid configs
+These were part of the previous design and remain available:
 
-`GRID_SYSTEMS` in `constants.ts` defines responsive column configurations for different content types (e.g. `projects`).
+| Component                        | Purpose                                    |
+| -------------------------------- | ------------------------------------------ |
+| `layout/HomeContainer.astro`     | Full-viewport hero wrapper                 |
+| `layout/PageContainer.astro`     | Max-width centered container               |
+| `ui/Grid.astro`                  | Responsive CSS grid                        |
+| `ui/Section.astro`               | Section with vertical spacing              |
+| `ui/Typography.astro`            | Text with design-system scale              |
+| `sections/Project.astro`         | Project card                               |
+| `sections/Timeline.astro`        | Work experience container                  |
+| `sections/TimelineItem.astro`    | Single work experience row                 |
 
 ---
 
@@ -168,31 +196,33 @@ Props {
   rel?:     string
   disabled?: boolean
   className?: string
-  // + aria-label, aria-expanded, aria-controls, id, onclick, data-collapse-toggle
 }
 ```
 
-All button styles are defined inline in the component's `variantClasses` and `sizeClasses` records. The `buttonStyles.ts` utility file exists as a helper but `Button.astro` has its own self-contained style logic.
+All variant styles use semantic tokens (no raw color classes).
+
+---
+
+## Accessibility
+
+- **Skip-to-content link** in Layout.astro
+- **Semantic landmarks**: `<nav>`, `<main>`, `<footer>`, `<article>`, `<section>`
+- **ARIA attributes**: `aria-label` on icon buttons, `aria-current="page"` on active nav, `aria-expanded`/`aria-controls` on mobile menu, `aria-modal` on menu dialog
+- **Focus management**: Global `*:focus-visible` outline, focus moves to close button on menu open, returns to menu button on close
+- **Focus trap** in mobile menu (Tab/Shift+Tab cycles through focusable elements)
+- **Escape key** closes mobile menu
+- **`prefers-reduced-motion`**: All animations and transitions disabled
+- **Image alt text**: Descriptive alt on profile photo
 
 ---
 
 ## View Transitions
 
-The project uses Astro's built-in `<ClientRouter>` (wraps the browser View Transitions API with a fallback). Key consequences:
+The project uses Astro's built-in `<ClientRouter>`. Key consequences:
 
 - `DOMContentLoaded` **does not re-fire** on client-side navigation. Use `astro:page-load` instead.
-- `astro:after-swap` fires after the new page DOM is in place (before `astro:page-load`). Used for light-weight re-initialisation (e.g. re-applying dark mode).
-- Any `<script>` in a page component runs on initial load and after each navigation.
-
-Pattern for client-side init:
-
-```astro
-<script>
-  document.addEventListener("astro:page-load", () => {
-    // safe to query DOM here
-  });
-</script>
-```
+- `astro:after-swap` fires after the new page DOM is in place. Used for theme re-application.
+- `Header` uses `transition:persist` to stay mounted across navigations.
 
 ---
 
@@ -203,36 +233,33 @@ Pattern for client-side init:
 - Standard meta tags (description, author, robots, language)
 - Open Graph tags (type, url, title, description, image, site_name)
 - Twitter card tags
-- JSON-LD `Person` schema with `name`, `jobTitle`, `url`, `image`, `sameAs`, `worksFor`, `address`
+- JSON-LD `Person` schema
 - Canonical URL via `<link rel="canonical">`
-- Sitemap generated by `@astrojs/sitemap` at build time
+- `<meta name="theme-color">` with media queries for light/dark
+- Sitemap generated by `@astrojs/sitemap`
 
 ---
 
 ## Build & Deployment
 
-### Local build
+### Commands
 
 ```bash
-npm run build  # runs: astro check && astro build
+pnpm run dev          # http://localhost:4321
+pnpm run build        # astro check + production build
+pnpm run preview      # serve dist/ locally
+pnpm run lint         # ESLint
+pnpm run format       # Prettier
 ```
 
-Output goes to `dist/`. `astro check` validates TypeScript and Astro component types before building.
-
-### Deployment
-
-Currently manual: run `npm run build`, then upload the contents of `dist/` to the hosting server via FTP.
-
-**Future:** automate with a CI/CD pipeline (e.g. GitHub Actions) that builds on push to `main` and deploys via FTP using a secret-based action such as `SamKirkland/FTP-Deploy-Action`.
+Output goes to `dist/`. Deployment is currently manual via FTP.
 
 ### URL resolution
 
 `astro.config.mjs` sets `site` dynamically:
 
-- During `astro build`: uses `LIVE_URL` (`http://davidgimeno.cat`)
+- During `astro build` (detected via `process.argv.includes("build")`): uses `LIVE_URL` (`http://davidgimeno.cat`)
 - During dev: uses `http://localhost:4321`
-
-Detection is based on `process.env.npm_lifecycle_script`.
 
 ---
 
@@ -244,7 +271,7 @@ Detection is based on `process.env.npm_lifecycle_script`.
 "@cv": ["./cv.json"]
 ```
 
-Shared types live in `src/types/ui.ts`: `ButtonVariant`, `ButtonSize`, `BaseButtonProps`, `LinkButtonProps`.
+Shared types live in `src/types/ui.ts`: `ButtonVariant`, `ButtonSize`, `NavLink`.
 
 ---
 
