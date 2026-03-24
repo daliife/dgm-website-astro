@@ -1,18 +1,22 @@
 ---
-import NotFoundIcon from "src/icons/NotFoundIcon.astro";
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="404: Page Not Found">
-  <div class="flex flex-col items-center gap-5">
-    <NotFoundIcon />
-    <div class="flex flex-col gap-1 text-center">
-      <h1 class="text-2xl font-semibold text-text-primary">
-        404: PAGE NOT FOUND
-      </h1>
-      <p class="text-md italic text-text-secondary">
-        You just hit a route that doesn't exist... the sadness.
-      </p>
-    </div>
-  </div>
+<Layout title="404 — Page Not Found">
+  <section
+    class="min-h-screen flex flex-col items-center justify-center px-6 text-center"
+  >
+    <h1
+      class="text-6xl sm:text-8xl font-bold tracking-tight text-text-primary mb-4"
+    >
+      404
+    </h1>
+    <p class="text-text-muted text-base sm:text-lg mb-8">Page not found</p>
+    <a
+      href="/"
+      class="text-sm uppercase tracking-widest text-text-muted hover:text-text-primary border-b border-text-muted hover:border-text-primary pb-1 transition-colors duration-200"
+    >
+      Back to home
+    </a>
+  </section>
 </Layout>

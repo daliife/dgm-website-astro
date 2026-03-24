@@ -3,14 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@cv": [
-        "./cv.json"
-      ],
-      "astro/*": [
-        "./src/astro/*"
-      ]
-    },
-    "jsx": "react-jsx",
-    "jsxImportSource": "react"
+      "@cv": ["./cv.json"]
+    }
   }
 }

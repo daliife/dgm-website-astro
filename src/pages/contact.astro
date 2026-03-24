@@ -1,0 +1,61 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { basics } from "@cv";
+import { TITLE_PAGE_PREFIX } from "../utils/constants";
+const { email, profiles } = basics;
+---
+
+<Layout
+  title={`${TITLE_PAGE_PREFIX}Contact`}
+  description="Get in touch with David Gimeno."
+>
+  <div class="max-w-5xl mx-auto px-6 pt-32 pb-20">
+    <h1
+      class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase mb-6 reveal"
+    >
+      Contact
+    </h1>
+    <p
+      class="text-text-secondary text-base sm:text-lg leading-relaxed max-w-xl mb-16 reveal"
+    >
+      Interested in working together? Feel free to reach out through any of the
+      channels below.
+    </p>
+    <div class="space-y-6 reveal">
+      <a
+        href={`mailto:${email}`}
+        class="block border-t border-border-primary pt-6 group"
+      >
+        <span
+          class="text-xs uppercase tracking-widest text-text-muted mb-2 block"
+          >Email</span
+        >
+        <span
+          class="text-lg sm:text-xl text-text-primary group-hover:opacity-60 transition-opacity duration-200"
+        >
+          {email}
+        </span>
+      </a>
+      {
+        profiles.map((profile: any) => {
+          if (profile.network === "Email") return null;
+          return (
+            <a
+              href={profile.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block border-t border-border-primary pt-6 group"
+            >
+              <span class="text-xs uppercase tracking-widest text-text-muted mb-2 block">
+                {profile.network}
+              </span>
+              <span class="text-lg sm:text-xl text-text-primary group-hover:opacity-60 transition-opacity duration-200">
+                {profile.username || profile.network}
+              </span>
+            </a>
+          );
+        })
+      }
+    </div>
+  </div>
+</Layout>

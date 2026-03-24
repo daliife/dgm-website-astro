@@ -1,11 +1,15 @@
 {
   "basics": {
     "name": "David",
-    "lastName": "Gimeno",
-    "label": "I'm a software engineer based in Barcelona. I'm currently working at NTT Data as a Frontend Developer.",
+    "lastName": "Gimeno Mañé",
+    "label": "Frontend Developer",
     "email": "davidgimeno1992@gmail.com",
-    "url": "https://davidgimeno.cat",
-    "summary": "Multimedia engineer with extensive practical experience in web and graphic design, 3D modelling, videogame developing on Unity and additional multimedia projects. Open to new computing environments and programming languages. I consider myself organised, punctual and a perfectionist who does not lack creativity. I look forward to new challenges which allow me to learn how to resolve situations more efficiently.",
+    "location": {
+      "city": "Barcelona",
+      "region": "Catalonia",
+      "countryCode": "ES"
+    },
+    "summary": "Frontend Developer focused on building modern, efficient, and user-centered interfaces. Experience creating reusable components and working with web technologies, with an interest in new libraries, tools, and the impact of AI.\n\nI also have experience in 3D modeling and Unity development, bringing an additional perspective to interactive projects (with a primary focus on frontend).\n\nI adapt quickly to new environments and stand out for my curiosity and continuous learning, staying up to date with new technologies and trends.",
     "profiles": [
       {
         "network": "Github",
@@ -14,12 +18,12 @@
       },
       {
         "network": "Linkedin",
-        "username": "daliife",
-        "url": "https://www.linkedin.com/in/daliife/"
+        "username": "David Gimeno Mañé",
+        "url": "https://www.linkedin.com/in/dgimeno/"
       },
       {
         "network": "Email",
-        "username": "daliife",
+        "username": "davidgimeno1992@gmail.com",
         "url": "mailto:davidgimeno1992@gmail.com"
       }
     ]
@@ -31,9 +35,13 @@
       "url": "https://nttdata.com/",
       "startDate": "2023-03-01",
       "highlights": [
-        "Migration of the design system for NAKA's administration portal.",
-        "Maintenance and evolution of the 'administration portal' for NAKA's product administration portal using React.",
-        "Creation and management of pipelines for the NAKA frontend solution: automated end-to-end tests, build optimization, etc."
+        "Development of a new Role-Plays product, integrating SCAI (WebSockets) and AI Factory (LLMs for scoring).",
+        "Creation of components and widgets for Syntphony Learning Tech (PHP, Moodle, HTML, JavaScript).",
+        "Implementation of features in the Syntphony Immersive Experiences admin portal, including OTP login.",
+        "Development of a web version of Syntphony Immersive Experiences with WebGL and Unity.",
+        "Maintenance of Syntphony Immersive Experiences documentation (Nextra, MD/MDX).",
+        "Migration of the Design System for the Syntphony Immersive Experiences portal.",
+        "Maintenance and optimization of frontend CI/CD pipelines: e2e tests, unit tests, and build optimization."
       ]
     },
     {
@@ -118,39 +126,69 @@
   ],
   "education": [
     {
-      "institution": "University",
-      "url": "https://institution.com/",
-      "area": "Software Development",
-      "studyType": "Bachelor",
+      "institution": "La Salle BCN",
+      "url": "https://www.salleurl.edu/",
+      "area": "Advanced Videogame Development",
+      "studyType": "Master's degree",
+      "startDate": "2018-01-01",
+      "endDate": "2019-01-01"
+    },
+    {
+      "institution": "La Salle BCN",
+      "url": "https://www.salleurl.edu/",
+      "area": "Audiovisual Communications Technologies",
+      "studyType": "Engineer's degree",
+      "startDate": "2013-01-01",
+      "endDate": "2018-01-01"
+    },
+    {
+      "institution": "EMAV",
+      "url": "https://www.emav.com/",
+      "area": "Audiovisual Communications Technologies",
+      "studyType": "Tècnic Superior de So",
       "startDate": "2011-01-01",
-      "endDate": "2013-01-01",
-      "score": "4.0",
-      "courses": ["DB1101 - Basic SQL"]
+      "endDate": "2013-01-01"
     }
   ],
   "certificates": [
     {
-      "name": "Certificate",
-      "date": "2021-11-07",
-      "issuer": "Company",
-      "url": "https://certificate.com"
+      "name": "Cambridge Certificate in Advanced English (CAE)",
+      "issuer": "Cambridge"
+    },
+    {
+      "name": "CCNA Routing and Switching: Introduction to Networks",
+      "issuer": "Cisco"
+    },
+    {
+      "name": "ATC (3Ds Max)",
+      "issuer": "Autodesk"
     }
   ],
   "skills": [
     {
       "name": "Web Development",
       "level": "Master",
-      "keywords": ["HTML", "CSS", "JavaScript"]
+      "keywords": ["HTML", "CSS", "JavaScript", "TypeScript"]
     },
     {
-      "name": "React & Angular",
+      "name": "Frameworks",
       "level": "Expert",
-      "keywords": ["React", "Angular", "TypeScript"]
+      "keywords": ["React", "Angular", "Astro", "Next.js"]
     },
     {
-      "name": "3D & Unity",
+      "name": "Tools & DevOps",
       "level": "Advanced",
-      "keywords": ["Unity", "3D Modeling", "VR"]
+      "keywords": ["CI/CD", "Git", "Storybook", "Figma"]
+    },
+    {
+      "name": "3D & Interactive",
+      "level": "Advanced",
+      "keywords": ["Unity", "WebGL", "VR", "3D Modeling"]
+    },
+    {
+      "name": "AI Integration",
+      "level": "Intermediate",
+      "keywords": ["LLMs", "AI Factory", "WebSockets"]
     }
   ],
   "languages": [

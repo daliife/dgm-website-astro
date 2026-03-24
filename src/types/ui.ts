@@ -59,7 +59,7 @@ export interface Project {
 }
 
 // Navigation Types
-export type NavLink = "projects" | "work" | "about";
+export type NavLink = "about" | "projects" | "work" | "contact";
 
 // Social Network Types
 export type SocialNetwork = "Linkedin" | "Github" | "Email";

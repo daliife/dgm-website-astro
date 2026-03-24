@@ -1,5 +1,5 @@
 ---
-import type { ButtonVariant, ButtonSize } from "../types/ui";
+import type { ButtonVariant, ButtonSize } from "../../types/ui";
 
 interface Props {
   variant?: ButtonVariant;
@@ -41,19 +41,18 @@ const {
 const baseClasses =
   " inline-flex items-center justify-center gap-3 font-medium transition-all duration-300 ease-out rounded-lg disabled:opacity-50 disabled:cursor-not-allowed";
 
-// Variant classes - Disseny minimalista amb animacions subtils
+// Variant classes - Minimalist design with subtle animations
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-gray-900 dark:bg-white text-white dark:text-gray-900 hover:bg-gray-800 dark:hover:bg-gray-100 hover:scale-[1.02] active:scale-[0.98]",
+    "bg-text-primary text-bg-primary hover:opacity-90 hover:scale-[1.02] active:scale-[0.98]",
   secondary:
-    "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-[1.02] active:scale-[0.98]",
+    "bg-bg-muted text-text-primary hover:bg-bg-secondary hover:scale-[1.02] active:scale-[0.98]",
   outline:
-    "border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-gray-100 hover:border-gray-900 dark:hover:border-gray-100 hover:bg-gray-50 dark:hover:bg-gray-800/50 hover:scale-[1.02] active:scale-[0.98]",
-  ghost:
-    "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100",
+    "border border-border-secondary text-text-primary hover:border-text-primary hover:bg-bg-muted/50 hover:scale-[1.02] active:scale-[0.98]",
+  ghost: "text-text-secondary hover:bg-bg-muted hover:text-text-primary",
   simple:
-    "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 underline-offset-4 hover:underline",
-  icon: "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full",
+    "text-text-muted hover:text-text-primary underline-offset-4 hover:underline",
+  icon: "text-text-muted hover:text-text-primary hover:bg-bg-muted rounded-full",
 };
 
 // Size classes
