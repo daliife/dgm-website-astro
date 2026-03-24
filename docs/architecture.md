@@ -252,7 +252,12 @@ pnpm run lint         # ESLint
 pnpm run format       # Prettier
 ```
 
-Output goes to `dist/`. Deployment is currently manual via FTP.
+Output goes to `dist/`. Deployment is fully automated via GitHub Actions on every push to `main`:
+
+- **`deploy.yml`** — builds and uploads `dist/` to cdmon via FTP. Requires secrets: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`, `FTP_SERVER_DIR`.
+- **`deploy-pages.yml`** — builds and deploys to GitHub Pages. Requires Pages source set to **GitHub Actions** in repo Settings.
+
+Both pipelines use Node.js 24 and pnpm 9. Both support `workflow_dispatch` for manual triggers.
 
 ### URL resolution
 
