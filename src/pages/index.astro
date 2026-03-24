@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import DgmLogoSimple from "../components/brand/DgmLogoSimple.astro";
 import { basics } from "@cv";
 const { name, lastName, email } = basics;
 ---
@@ -13,17 +12,12 @@ const { name, lastName, email } = basics;
 >
   <section class="min-h-screen flex flex-col items-center justify-center px-6">
     <div class="max-w-4xl w-full reveal">
-      <!-- Logo -->
-      <div class="mb-10">
-        <DgmLogoSimple className="fill-text-primary opacity-90" size="52px" />
-      </div>
-
       <!-- Name -->
       <h1
         class="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-text-primary uppercase leading-none mb-4"
       >
         <span class="block">{name}</span>
-        <span class="block">{lastName}</span>
+        <span class="block font-light">{lastName}</span>
       </h1>
 
       <!-- Rotating descriptor -->
