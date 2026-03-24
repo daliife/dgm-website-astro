@@ -1,35 +1,103 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { basics, skills, languages, education, certificates } from "@cv";
+import { basics, work, skills, languages, education, certificates } from "@cv";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
-const { summary } = basics;
+const { name, lastName, email, summary, profiles } = basics;
+
+function formatDate(dateStr?: string) {
+  if (!dateStr) return "Present";
+  const d = new Date(dateStr);
+  return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+}
+
+const linkedin = profiles?.find((p: any) => p.network === "Linkedin");
+const github = profiles?.find((p: any) => p.network === "Github");
 ---
 
 <Layout
   title={`${TITLE_PAGE_PREFIX}About`}
   description="About David Gimeno — Software Engineer based in Barcelona."
 >
-  <div class="max-w-5xl mx-auto px-6 pt-32 pb-20 space-y-20">
+  <!-- Print-only CV header -->
+  <div class="hidden print:flex print:items-start print:gap-3 print:mb-4">
+    <img
+      src="/david-profile.webp"
+      alt="Portrait of David Gimeno"
+      class="print:w-14 print:h-[70px] print:object-cover print:rounded"
+      width="56"
+      height="70"
+    />
+    <div>
+      <h1
+        class="print:text-xl print:font-bold print:uppercase print:text-black print:leading-tight"
+      >
+        {name}
+        {lastName}
+      </h1>
+      <p class="print:text-xs print:text-gray-600 print:mt-0.5">
+        Frontend Developer
+      </p>
+      <div
+        class="print:flex print:flex-wrap print:gap-x-3 print:mt-1 print:text-[10px] print:text-gray-500"
+      >
+        <span>{email}</span>
+        <span>Barcelona, Spain</span>
+        {linkedin && <span>linkedin.com/in/dgimeno</span>}
+        {github && <span>github.com/daliife</span>}
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="max-w-5xl mx-auto px-6 pt-32 pb-20 space-y-20 print:pt-0 print:pb-0 print:px-0 print:space-y-3 print:max-w-none"
+  >
     <!-- About Me -->
     <section class="reveal">
-      <h1
-        class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase mb-10"
+      <div
+        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10 print:mb-1"
       >
-        About Me
-      </h1>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-        <div class="space-y-6">
+        <h1
+          class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase print:text-[10px] print:font-medium print:tracking-widest print:border-b print:border-gray-300 print:pb-0.5 print:w-full print:normal-case print:text-black"
+        >
+          <span class="print:hidden">About Me</span>
+          <span class="hidden print:inline">Summary</span>
+        </h1>
+        <button
+          id="print-cv"
+          class="print:hidden inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-border-secondary text-text-primary hover:border-text-primary hover:bg-bg-muted/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out"
+        >
+          <svg
+            class="w-4 h-4 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18.25 7.034V3.375"
+            ></path>
+          </svg>
+          Print CV
+        </button>
+      </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start print:block"
+      >
+        <div class="space-y-6 print:space-y-1">
           {
             summary
               .split("\n\n")
               .map((para: string) => (
-                <p class="text-text-secondary text-base sm:text-lg leading-relaxed">
+                <p class="text-text-secondary text-base sm:text-lg leading-relaxed print:text-[10px] print:leading-snug print:text-gray-700">
                   {para}
                 </p>
               ))
           }
         </div>
-        <div class="flex justify-center md:justify-end">
+        <div class="flex justify-center md:justify-end print:hidden">
           <div class="w-64 h-80 bg-bg-muted rounded-lg overflow-hidden">
             <img
               src="/david-profile.webp"
@@ -44,25 +112,76 @@ const { summary } = basics;
       </div>
     </section>
 
+    <!-- Work Experience (print only) -->
+    <section class="hidden print:block">
+      <h2
+        class="print:text-[10px] print:uppercase print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:text-black"
+      >
+        Experience
+      </h2>
+      {
+        work.map((job: any) => (
+          <div class="print:mb-1.5">
+            <div class="print:flex print:items-baseline print:justify-between">
+              <div>
+                <span class="print:text-[10px] print:font-semibold print:text-black">
+                  {job.position}
+                </span>
+                <span class="print:text-xs print:text-gray-600">
+                  {" "}
+                  — {job.company}
+                </span>
+              </div>
+              <span class="print:text-[9px] print:text-gray-500 print:whitespace-nowrap">
+                {formatDate(job.startDate)} — {formatDate(job.endDate)}
+              </span>
+            </div>
+            {job.summary && (
+              <p class="print:text-[9px] print:text-gray-600 print:leading-snug print:mt-0.5">
+                {job.summary}
+              </p>
+            )}
+            {job.highlights && job.highlights.length > 0 && (
+              <ul class="print:mt-0.5 print:space-y-0">
+                {job.highlights.map((h: string) => (
+                  <li class="print:text-[9px] print:text-gray-600 print:leading-snug print:pl-3 print:relative before:content-['–'] before:absolute before:left-0 before:text-gray-400">
+                    {h}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        ))
+      }
+    </section>
+
     <!-- Skills -->
     <section class="reveal">
       <h2
-        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10"
+        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10 print:text-[10px] print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:normal-case print:text-black"
       >
         Skills
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 print:block print:space-y-0.5"
+      >
         {
           skills.map((skill: any) => (
-            <div>
-              <h3 class="text-sm uppercase tracking-widest text-text-muted mb-3">
+            <div class="print:flex print:items-baseline print:gap-x-2">
+              <h3 class="text-sm uppercase tracking-widest text-text-muted mb-3 print:text-[9px] print:mb-0 print:font-medium print:text-gray-900 print:shrink-0">
                 {skill.name}
+                <span class="hidden print:inline">:</span>
               </h3>
-              <p class="text-text-secondary text-sm mb-2">{skill.level}</p>
-              <div class="flex flex-wrap gap-2">
-                {skill.keywords.map((keyword: string) => (
-                  <span class="text-xs text-text-secondary border border-border-primary rounded-full px-3 py-1">
+              <p class="text-text-secondary text-sm mb-2 print:hidden">
+                {skill.level}
+              </p>
+              <div class="flex flex-wrap gap-2 print:contents">
+                {skill.keywords.map((keyword: string, i: number) => (
+                  <span class="text-xs text-text-secondary border border-border-primary rounded-full px-3 py-1 print:border-0 print:p-0 print:text-[9px] print:text-gray-600 print:rounded-none print:inline">
                     {keyword}
+                    {i < skill.keywords.length - 1 ? (
+                      <span class="hidden print:inline">,&nbsp;</span>
+                    ) : null}
                   </span>
                 ))}
               </div>
@@ -75,16 +194,22 @@ const { summary } = basics;
     <!-- Languages -->
     <section class="reveal">
       <h2
-        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10"
+        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10 print:text-[10px] print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:normal-case print:text-black"
       >
         Languages
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-3 gap-6 print:flex print:gap-x-6"
+      >
         {
           languages.map((lang: any) => (
-            <div class="border-t border-border-primary pt-4">
-              <h3 class="text-text-primary font-medium">{lang.language}</h3>
-              <p class="text-text-muted text-sm mt-1">{lang.fluency}</p>
+            <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
+              <h3 class="text-text-primary font-medium print:text-[9px] print:text-gray-900">
+                {lang.language}
+              </h3>
+              <p class="text-text-muted text-sm mt-1 print:text-[9px] print:mt-0 print:text-gray-500">
+                {lang.fluency}
+              </p>
             </div>
           ))
         }
@@ -94,20 +219,25 @@ const { summary } = basics;
     <!-- Education -->
     <section class="reveal">
       <h2
-        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10"
+        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10 print:text-[10px] print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:normal-case print:text-black"
       >
         Education
       </h2>
-      <div class="space-y-6">
+      <div class="space-y-6 print:space-y-1">
         {
           education.map((edu: any) => (
-            <div class="border-t border-border-primary pt-4">
-              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+            <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 print:flex-row print:gap-0">
                 <div>
-                  <h3 class="text-text-primary font-medium">{edu.studyType}</h3>
-                  <p class="text-text-secondary text-sm">{edu.area}</p>
+                  <h3 class="text-text-primary font-medium print:text-[10px] print:font-semibold print:text-gray-900">
+                    {edu.studyType}
+                  </h3>
+                  <p class="text-text-secondary text-sm print:text-[9px] print:text-gray-600">
+                    {edu.area}{" "}
+                    <span class="hidden print:inline">— {edu.institution}</span>
+                  </p>
                 </div>
-                <span class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap">
+                <span class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap print:text-[9px] print:text-gray-500">
                   {new Date(edu.startDate).getFullYear()} &mdash;{" "}
                   {new Date(edu.endDate).getFullYear()}
                 </span>
@@ -116,7 +246,7 @@ const { summary } = basics;
                 href={edu.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-text-muted text-sm hover:text-text-primary transition-colors duration-200"
+                class="text-text-muted text-sm hover:text-text-primary transition-colors duration-200 print:hidden"
               >
                 {edu.institution}
               </a>
@@ -129,16 +259,22 @@ const { summary } = basics;
     <!-- Certificates -->
     <section class="reveal">
       <h2
-        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10"
+        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10 print:text-[10px] print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:normal-case print:text-black"
       >
         Certificates
       </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+      <div
+        class="grid grid-cols-1 sm:grid-cols-3 gap-6 print:flex print:gap-x-6"
+      >
         {
           certificates.map((cert: any) => (
-            <div class="border-t border-border-primary pt-4">
-              <h3 class="text-text-primary font-medium text-sm">{cert.name}</h3>
-              <p class="text-text-muted text-sm mt-1">{cert.issuer}</p>
+            <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
+              <h3 class="text-text-primary font-medium text-sm print:text-[9px] print:text-gray-900">
+                {cert.name}
+              </h3>
+              <p class="text-text-muted text-sm mt-1 print:text-[9px] print:mt-0 print:text-gray-500">
+                {cert.issuer}
+              </p>
             </div>
           ))
         }
@@ -146,3 +282,45 @@ const { summary } = basics;
     </section>
   </div>
 </Layout>
+
+<style>
+  @media print {
+    :global(body) {
+      background: white !important;
+      color: black !important;
+      font-size: 11px !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    :global(header),
+    :global(footer),
+    :global(nav) {
+      display: none !important;
+    }
+    :global(title),
+    :global(.astro-route-announcer) {
+      display: none !important;
+    }
+    section {
+      break-inside: auto;
+    }
+    @page {
+      margin: 8mm 10mm;
+      size: A4;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const btn = document.getElementById("print-cv");
+    if (btn) {
+      btn.addEventListener("click", () => {
+        const originalTitle = document.title;
+        document.title = "CV David Gimeno Mañé";
+        window.print();
+        document.title = originalTitle;
+      });
+    }
+  });
+</script>
