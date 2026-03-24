@@ -1,36 +1,146 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import DgmLogoSimple from "../components/brand/DgmLogoSimple.astro";
 import { basics } from "@cv";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
-const { name, lastName, label, email } = basics;
+const { name, lastName, email } = basics;
 ---
 
 <Layout
   title={`${TITLE_PAGE_PREFIX}Home`}
-  description="Personal portfolio of David Gimeno — Software Engineer based in Barcelona."
+  description="Personal portfolio of David Gimeno Mañé — Software Engineer based in Barcelona."
   type="profile"
   hideFooter={true}
 >
   <section class="min-h-screen flex flex-col items-center justify-center px-6">
-    <div class="max-w-3xl w-full space-y-8 text-center reveal">
-      <h1
-        class="text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-text-primary uppercase leading-none"
-      >
-        {name}<br />{lastName}
-      </h1>
-      <p
-        class="text-base sm:text-lg text-text-secondary max-w-xl mx-auto leading-relaxed"
-      >
-        {label}
-      </p>
-      <div class="pt-4">
-        <a
-          href={`mailto:${email}`}
-          class="inline-block text-sm uppercase tracking-widest text-text-muted hover:text-text-primary border-b border-text-muted hover:border-text-primary pb-1 transition-colors duration-200"
-        >
-          Get in touch
-        </a>
+    <div class="max-w-4xl w-full reveal">
+      <!-- Logo -->
+      <div class="mb-10">
+        <DgmLogoSimple className="fill-text-primary opacity-90" size="52px" />
       </div>
+
+      <!-- Name -->
+      <h1
+        class="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-text-primary uppercase leading-none mb-4"
+      >
+        <span class="block">{name}</span>
+        <span class="block">{lastName}</span>
+      </h1>
+
+      <!-- Rotating descriptor -->
+      <p
+        class="text-2xl sm:text-3xl font-light text-text-secondary uppercase tracking-widest mb-10 overflow-hidden whitespace-nowrap min-h-[1.5em] flex items-center"
+        aria-live="polite"
+      >
+        <span id="tw-rotating" aria-hidden="true"></span>
+        <span class="typewriter-cursor" aria-hidden="true"></span>
+      </p>
+
+      <!-- CTA -->
+      <a
+        href={`mailto:${email}`}
+        class="inline-flex items-center gap-2 text-sm uppercase tracking-widest text-text-muted hover:text-text-primary border-b border-border-secondary hover:border-text-primary pb-1 transition-colors duration-200"
+      >
+        <!-- Mail icon -->
+        <svg
+          class="w-4 h-4 shrink-0"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          aria-hidden="true"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          ></path>
+        </svg>
+        Get in touch
+      </a>
     </div>
   </section>
 </Layout>
+
+<style>
+  .typewriter-cursor {
+    display: inline-block;
+    width: 0.1em;
+    height: 0.82em;
+    background-color: currentColor;
+    vertical-align: text-bottom;
+    margin-left: 0.1em;
+    border-radius: 1px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .typewriter-cursor {
+      display: none;
+    }
+  }
+</style>
+
+<script define:vars={{ lastName }}>
+  document.addEventListener("astro:page-load", () => {
+    const el = document.getElementById("tw-rotating");
+    const cursor = document.querySelector(".typewriter-cursor");
+    if (!el || !cursor) return;
+
+    const phrases = [
+      "FRONTEND DEVELOPER",
+      "SOFTWARE ENGINEER",
+      "REACT SPECIALIST",
+      "BARCELONA BASED",
+      "UI CRAFTSMAN",
+    ];
+
+    // prefers-reduced-motion: show first phrase statically
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.textContent = phrases[0];
+      cursor.style.display = "none";
+      return;
+    }
+
+    let charIdx = 0;
+    let phraseIdx = 0;
+    let isDeleting = false;
+
+    function rotate() {
+      const current = phrases[phraseIdx];
+
+      if (isDeleting) {
+        charIdx--;
+        el.textContent = current.slice(0, charIdx);
+        if (charIdx === 0) {
+          isDeleting = false;
+          phraseIdx = (phraseIdx + 1) % phrases.length;
+          setTimeout(rotate, 350);
+        } else {
+          setTimeout(rotate, 35 + Math.random() * 20);
+        }
+      } else {
+        charIdx++;
+        el.textContent = current.slice(0, charIdx);
+        if (charIdx === current.length) {
+          setTimeout(() => {
+            isDeleting = true;
+            rotate();
+          }, 3500);
+        } else {
+          setTimeout(rotate, 80 + Math.random() * 40);
+        }
+      }
+    }
+
+    setTimeout(rotate, 600);
+  });
+</script>
