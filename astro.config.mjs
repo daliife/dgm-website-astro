@@ -6,7 +6,7 @@ import { createLogger } from "vite";
 
 const SERVER_PORT = 4321;
 const LOCALHOST_URL = `http://localhost:${SERVER_PORT}`;
-export const LIVE_URL = "https://davidgimeno.cat";
+const LIVE_URL = "https://davidgimeno.cat";
 const isBuild = process.argv.includes("build");
 let BASE_URL = LOCALHOST_URL;
 if (isBuild) {

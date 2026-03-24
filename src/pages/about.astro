@@ -2,8 +2,25 @@
 import Layout from "../layouts/Layout.astro";
 import { basics, work, skills, languages, education, certificates } from "@cv";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
-import type { SocialProfile } from "../types/ui";
-const { name, lastName, email, summary, profiles, label, location } = basics;
+import Button from "../components/ui/Button.astro";
+import type {
+  SocialProfile,
+  WorkEntry,
+  SkillEntry,
+  LanguageEntry,
+  EducationEntry,
+  CertificateEntry,
+} from "../types/ui";
+const {
+  name,
+  lastName,
+  email,
+  summary,
+  profiles,
+  label,
+  location,
+  image: profileImage,
+} = basics;
 
 function formatDate(dateStr?: string) {
   if (!dateStr) return "Present";
@@ -15,7 +32,9 @@ function stripProtocol(url: string): string {
   return url.replace(/^https?:\/\/(www\.)?/, "");
 }
 
-const linkedin = (profiles as SocialProfile[])?.find(p => p.network === "Linkedin");
+const linkedin = (profiles as SocialProfile[])?.find(
+  p => p.network === "Linkedin"
+);
 const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
 ---
 
@@ -26,7 +45,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
   <!-- Print-only CV header -->
   <div class="hidden print:flex print:items-start print:gap-3 print:mb-4">
     <img
-      src="/david-profile.webp"
+      src={profileImage ?? "/david-profile.webp"}
       alt="Portrait of David Gimeno"
       class="print:w-14 print:h-[70px] print:object-cover print:rounded"
       width="56"
@@ -46,7 +65,13 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
         class="print:flex print:flex-wrap print:gap-x-3 print:mt-1 print:text-[10px] print:text-gray-500"
       >
         <span>{email}</span>
-        {location && <span>{location.city}, {location.region}</span>}
+        {
+          location && (
+            <span>
+              {location.city}, {location.region}
+            </span>
+          )
+        }
         {linkedin && <span>{stripProtocol(linkedin.url)}</span>}
         {github && <span>{stripProtocol(github.url)}</span>}
       </div>
@@ -67,9 +92,11 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
           <span class="print:hidden">About Me</span>
           <span class="hidden print:inline">Summary</span>
         </h1>
-        <button
+        <Button
           id="print-cv"
-          class="print:hidden inline-flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-lg border border-border-secondary text-text-primary hover:border-text-primary hover:bg-bg-muted/50 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 ease-out"
+          variant="outline"
+          size="sm"
+          className="print:hidden"
         >
           <svg
             class="w-4 h-4 shrink-0"
@@ -86,7 +113,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
             ></path>
           </svg>
           Print CV
-        </button>
+        </Button>
       </div>
       <div
         class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start print:block"
@@ -105,7 +132,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
         <div class="flex justify-center md:justify-end print:hidden">
           <div class="w-64 h-80 bg-bg-muted rounded-lg overflow-hidden">
             <img
-              src="/david-profile.webp"
+              src={profileImage ?? "/david-profile.webp"}
               alt="Portrait of David Gimeno"
               class="w-full h-full object-cover"
               width="256"
@@ -125,7 +152,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
         Experience
       </h2>
       {
-        work.map((job: any) => (
+        work.map((job: WorkEntry) => (
           <div class="print:mb-1.5">
             <div class="print:flex print:items-baseline print:justify-between">
               <div>
@@ -171,7 +198,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 print:block print:space-y-0.5"
       >
         {
-          skills.map((skill: any) => (
+          skills.map((skill: SkillEntry) => (
             <div class="print:flex print:items-baseline print:gap-x-2">
               <h3 class="text-sm uppercase tracking-widest text-text-muted mb-3 print:text-[9px] print:mb-0 print:font-medium print:text-gray-900 print:shrink-0">
                 {skill.name}
@@ -207,7 +234,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
         class="grid grid-cols-1 sm:grid-cols-3 gap-6 print:flex print:gap-x-6"
       >
         {
-          languages.map((lang: any) => (
+          languages.map((lang: LanguageEntry) => (
             <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
               <h3 class="text-text-primary font-medium print:text-[9px] print:text-gray-900">
                 {lang.language}
@@ -230,7 +257,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
       </h2>
       <div class="space-y-6 print:space-y-1">
         {
-          education.map((edu: any) => (
+          education.map((edu: EducationEntry) => (
             <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 print:flex-row print:gap-0">
                 <div>
@@ -272,7 +299,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
         class="grid grid-cols-1 sm:grid-cols-3 gap-6 print:flex print:gap-x-6"
       >
         {
-          certificates.map((cert: any) => (
+          certificates.map((cert: CertificateEntry) => (
             <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
               <h3 class="text-text-primary font-medium text-sm print:text-[9px] print:text-gray-900">
                 {cert.name}

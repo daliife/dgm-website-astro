@@ -2,11 +2,14 @@
   "name": "dgm-website-astro",
   "type": "module",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=24"
+  },
+  "packageManager": "pnpm@9",
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro check && astro build",
-    "build:production": "astro check && astro build --optimize",
     "preview": "astro preview",
     "astro": "astro",
     "clean": "rm -rf dist",

@@ -1,13 +1,14 @@
 export const TITLE_PAGE_PREFIX = "David Gimeno Mañé — ";
-export const NAV_LINKS = ["about", "projects", "work", "contact"] as const;
+export const NAV_LINKS: { href: string; label: string }[] = [
+  { href: "about", label: "About" },
+  { href: "projects", label: "Projects" },
+  { href: "work", label: "Work" },
+  { href: "contact", label: "Contact" },
+];
 
-export const TIMELINE_ITEMS_LIMIT = 2;
-export const PROJECT_CARD_DIMENSIONS = {
-  width: 224,
-  height: 128,
-} as const;
-export const IMAGE_LOADING = "lazy" as const;
+export const LIVE_URL = "https://davidgimeno.cat";
 
+// Used by Section.astro
 export const SPACING = {
   SECTION: {
     MOBILE: "my-6",
@@ -16,6 +17,7 @@ export const SPACING = {
   },
 } as const;
 
+// Used by Typography.astro
 export const TYPOGRAPHY = {
   H1: {
     MOBILE: "text-3xl",
@@ -49,6 +51,7 @@ export const TYPOGRAPHY = {
   },
 } as const;
 
+// Used by Grid.astro
 export const GRID_SYSTEMS = {
   projects: {
     MOBILE: "grid-cols-1",
@@ -68,6 +71,17 @@ export const GRID_SYSTEMS = {
   },
 } as const;
 
+// Used by Project.astro
+export const PROJECT_CARD_DIMENSIONS = {
+  width: 224,
+  height: 128,
+} as const;
+export const IMAGE_LOADING = "lazy" as const;
+
+// Used by TimelineItem.astro
+export const TIMELINE_ITEMS_LIMIT = 2;
+
+// Used by legacy layout components
 export const LAYOUT_CONSTANTS = {
   CONTAINER_MAX_WIDTH: "max-w-7xl",
   CONTENT_MAX_WIDTH: {

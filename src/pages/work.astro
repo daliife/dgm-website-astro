@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { work } from "@cv";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
+import type { WorkEntry } from "../types/ui";
 
 function formatDate(dateStr?: string) {
   if (!dateStr) return "Present";
@@ -22,7 +23,7 @@ function formatDate(dateStr?: string) {
     </h1>
     <div class="space-y-0 reveal">
       {
-        work.map((job: any) => (
+        work.map((job: WorkEntry) => (
           <article class="border-t border-border-primary py-8">
             <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-3">
               <div>
