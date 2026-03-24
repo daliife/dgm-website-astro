@@ -4,7 +4,7 @@ This file is automatically loaded by GitHub Copilot when working in this reposit
 
 ## Project
 
-Personal portfolio for David Gimeno — a static Astro 5 site hosted at [davidgimeno.cat](http://davidgimeno.cat). TypeScript + Tailwind CSS + React islands. Built locally with `pnpm run build` and deployed manually via FTP.
+Personal portfolio for David Gimeno — a static Astro 5 site hosted at [davidgimeno.cat](http://davidgimeno.cat). TypeScript + Tailwind CSS + React islands. Deployed automatically via GitHub Actions on push to `main` (FTP to cdmon via `deploy.yml`, GitHub Pages via `deploy-pages.yml`). Both pipelines use Node.js 24 + pnpm 9.
 
 ## Hard rules — never break these
 
@@ -81,18 +81,20 @@ Add the route name to `NAV_LINKS` in `src/utils/constants.ts`, update the `NavLi
 
 ## File map
 
-| File                                     | Purpose                                              |
-| ---------------------------------------- | ---------------------------------------------------- |
-| `cv.json`                                | All personal content                                 |
-| `src/layouts/Layout.astro`               | Root HTML shell, SEO, theme, fonts, scroll reveal    |
-| `src/components/brand/ThemeToggle.astro` | Dark/light mode toggle                               |
-| `src/components/layout/Header.astro`     | Fixed nav with logo, links, theme toggle             |
-| `src/components/layout/Footer.astro`     | Copyright + social links                             |
-| `src/components/ui/Button.astro`         | Universal button/link component                      |
-| `src/utils/constants.ts`                 | `NAV_LINKS`, typography scale, spacing, grid configs |
-| `tailwind.config.mjs`                    | Design tokens and color palette                      |
-| `astro.config.mjs`                       | Integrations, Vite, site URL                         |
-| `src/types/ui.ts`                        | `ButtonVariant`, `ButtonSize`, `NavLink`             |
+| File                                     | Purpose                                               |
+| ---------------------------------------- | ----------------------------------------------------- |
+| `cv.json`                                | All personal content                                  |
+| `src/layouts/Layout.astro`               | Root HTML shell, SEO, theme, fonts, scroll reveal     |
+| `src/components/brand/ThemeToggle.astro` | Dark/light mode toggle                                |
+| `src/components/layout/Header.astro`     | Fixed nav with logo, links, theme toggle              |
+| `src/components/layout/Footer.astro`     | Copyright + social links                              |
+| `src/components/ui/Button.astro`         | Universal button/link component                       |
+| `src/utils/constants.ts`                 | `NAV_LINKS`, typography scale, spacing, grid configs  |
+| `tailwind.config.mjs`                    | Design tokens and color palette                       |
+| `astro.config.mjs`                       | Integrations, Vite, site URL                          |
+| `src/types/ui.ts`                        | `ButtonVariant`, `ButtonSize`, `NavLink`              |
+| `.github/workflows/deploy.yml`           | CI/CD: build + FTP deploy to cdmon on push to main    |
+| `.github/workflows/deploy-pages.yml`     | CI/CD: build + deploy to GitHub Pages on push to main |
 
 ## Design tokens reference
 

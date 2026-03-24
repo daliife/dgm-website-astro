@@ -1,5 +1,5 @@
 ---
-import { LIVE_URL } from "astro.config.mjs";
+import { LIVE_URL } from "../utils/constants";
 import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
 import "@fontsource-variable/inter";
@@ -18,15 +18,26 @@ interface Props {
 const {
   title,
   description = "Personal portfolio website of David Gimeno - Software Engineer based in Barcelona",
-  image = `${LIVE_URL}/david-profile.webp`,
+  image: imageProp,
   type = "website",
   hideFooter = false,
 } = Astro.props;
 
-const { name, lastName, label, profiles, location } = basics;
+const {
+  name,
+  lastName,
+  label,
+  profiles,
+  location,
+  image: profileImage,
+} = basics;
+const image =
+  imageProp ?? `${LIVE_URL}${profileImage ?? "/david-profile.webp"}`;
 const fullName = `${name} ${lastName}`;
 const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
-const linkedin = (profiles as SocialProfile[])?.find(p => p.network === "Linkedin");
+const linkedin = (profiles as SocialProfile[])?.find(
+  p => p.network === "Linkedin"
+);
 const currentJob = work?.[0];
 
 const jsonLd = {
@@ -36,7 +47,7 @@ const jsonLd = {
   jobTitle: label,
   description: `${label} based in ${location?.city}, currently working at ${currentJob?.company}`,
   url: LIVE_URL,
-  image: `${LIVE_URL}/david-profile.webp`,
+  image: `${LIVE_URL}${profileImage ?? "/david-profile.webp"}`,
   sameAs: [github?.url, linkedin?.url].filter(Boolean),
   ...(currentJob && {
     worksFor: {
@@ -94,10 +105,14 @@ const jsonLd = {
     <meta property="twitter:image" content={image} />
 
     <title>{title}</title>
-    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify(jsonLd)}
+    />
 
     <script is:inline>
-      (function () {
+      function applyTheme() {
         const saved = localStorage.getItem("theme");
         if (
           saved === "dark" ||
@@ -107,18 +122,9 @@ const jsonLd = {
         } else {
           document.documentElement.classList.remove("dark");
         }
-      })();
-      document.addEventListener("astro:after-swap", () => {
-        const saved = localStorage.getItem("theme");
-        if (
-          saved === "dark" ||
-          (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
-          document.documentElement.classList.add("dark");
-        } else {
-          document.documentElement.classList.remove("dark");
-        }
-      });
+      }
+      applyTheme();
+      document.addEventListener("astro:after-swap", applyTheme);
     </script>
     <ClientRouter />
   </head>

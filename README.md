@@ -29,7 +29,10 @@ pnpm run preview  # Serve the production build locally
 ├── .npmrc                 # pnpm config (shamefully-hoist=true)
 ├── public/                # Static assets (images, favicon, robots.txt)
 ├── .github/
-│   └── copilot-instructions.md  # GitHub Copilot context
+│   ├── copilot-instructions.md  # GitHub Copilot context
+│   └── workflows/
+│       ├── deploy.yml            # Auto-deploy to cdmon via FTP (push to main)
+│       └── deploy-pages.yml      # Auto-deploy to GitHub Pages (push to main)
 ├── docs/
 │   └── architecture.md    # In-depth architecture reference
 ├── AGENTS.md              # AI agent context (Codex, Claude, Gemini…)
@@ -115,11 +118,26 @@ See [docs/architecture.md](docs/architecture.md) for a full reference, and [AGEN
 
 ## 🚢 Deployment
 
-Manual deployment via FTP:
+Deployment is fully automated via GitHub Actions on every push to `main`.
 
-```bash
-pnpm run build  # generates dist/
-# upload the contents of dist/ to the hosting server via FTP
-```
+| Workflow               | File                                 | Target                |
+| ---------------------- | ------------------------------------ | --------------------- |
+| Build & Deploy (FTP)   | `.github/workflows/deploy.yml`       | cdmon hosting via FTP |
+| Build & Deploy (Pages) | `.github/workflows/deploy-pages.yml` | GitHub Pages          |
 
-> ⚙️ CI/CD automation (e.g. auto-deploy on push to `main`) is planned for the future.
+Both pipelines: checkout → pnpm install → `pnpm run build` → deploy.
+
+### Required GitHub secrets (for FTP deploy)
+
+Set these in **Settings → Secrets and variables → Actions**:
+
+| Secret           | Description              |
+| ---------------- | ------------------------ |
+| `FTP_SERVER`     | FTP hostname             |
+| `FTP_USERNAME`   | FTP username             |
+| `FTP_PASSWORD`   | FTP password             |
+| `FTP_SERVER_DIR` | Remote path to upload to |
+
+### Manual trigger
+
+Both workflows support `workflow_dispatch` — trigger them from the GitHub Actions tab without pushing.

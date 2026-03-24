@@ -4,7 +4,7 @@ This file provides context for AI coding agents (OpenAI Codex, Claude, Gemini, e
 
 ## What is this project?
 
-Personal portfolio website for David Gimeno. Static site built with Astro 5, TypeScript, Tailwind CSS, and React islands. Hosted at [davidgimeno.cat](http://davidgimeno.cat). Built locally with `pnpm run build` and deployed manually via FTP.
+Personal portfolio website for David Gimeno. Static site built with Astro 5, TypeScript, Tailwind CSS, and React islands. Hosted at [davidgimeno.cat](http://davidgimeno.cat). Deployed automatically via GitHub Actions on every push to `main` (FTP to cdmon + GitHub Pages).
 
 ## Non-negotiable constraints
 
@@ -45,6 +45,9 @@ docs/
 AGENTS.md                  ← This file
 .github/
   copilot-instructions.md  ← GitHub Copilot custom instructions
+  workflows/
+    deploy.yml             ← Auto-deploy to cdmon via FTP (triggers on push to main)
+    deploy-pages.yml       ← Auto-deploy to GitHub Pages (triggers on push to main)
 ```
 
 ## How to add things
@@ -126,6 +129,15 @@ pnpm run preview      # serve dist/ locally
 pnpm run lint         # ESLint
 pnpm run format       # Prettier
 ```
+
+## Deployment
+
+Two GitHub Actions pipelines deploy on every push to `main`:
+
+- **`deploy.yml`** — builds and uploads `dist/` to cdmon via FTP. Requires secrets: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`, `FTP_SERVER_DIR`.
+- **`deploy-pages.yml`** — builds and deploys to GitHub Pages. Requires Pages source set to **GitHub Actions** in repo Settings.
+
+Both pipelines use Node.js 24 and pnpm 9.
 
 ## Further reading
 

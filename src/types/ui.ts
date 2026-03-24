@@ -6,7 +6,7 @@ export type ButtonVariant =
   | "ghost"
   | "simple"
   | "icon";
-export type ButtonSize = "sm" | "md" | "lg" | "icon";
+export type ButtonSize = "sm" | "md" | "lg" | "icon" | "none";
 
 // Common Props Types
 export interface BaseButtonProps {
@@ -67,6 +67,52 @@ export type SocialNetwork = "Linkedin" | "Github" | "Email";
 export interface SocialProfile {
   network: SocialNetwork;
   url: string;
+}
+
+// CV Content Types
+export interface WorkEntry {
+  company: string;
+  position: string;
+  url?: string;
+  startDate: string;
+  endDate?: string;
+  summary?: string;
+  highlights?: string[];
+}
+
+export interface ProjectEntry {
+  name: string;
+  description: string;
+  url?: string;
+  image?: string;
+  technologies?: string[];
+  startDate?: string;
+  endDate?: string;
+}
+
+export interface SkillEntry {
+  name: string;
+  level: string;
+  keywords: string[];
+}
+
+export interface EducationEntry {
+  institution: string;
+  url: string;
+  area: string;
+  studyType: string;
+  startDate: string;
+  endDate: string;
+}
+
+export interface CertificateEntry {
+  name: string;
+  issuer: string;
+}
+
+export interface LanguageEntry {
+  language: string;
+  fluency: string;
 }
 
 // Typography Types
