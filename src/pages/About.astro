@@ -19,9 +19,15 @@ const { summary } = basics;
       </h1>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
         <div class="space-y-6">
-          <p class="text-text-secondary text-base sm:text-lg leading-relaxed">
-            {summary}
-          </p>
+          {
+            summary
+              .split("\n\n")
+              .map((para: string) => (
+                <p class="text-text-secondary text-base sm:text-lg leading-relaxed">
+                  {para}
+                </p>
+              ))
+          }
         </div>
         <div class="flex justify-center md:justify-end">
           <div class="w-64 h-80 bg-bg-muted rounded-lg overflow-hidden">

@@ -2,10 +2,8 @@
   "basics": {
     "name": "David",
     "lastName": "Gimeno Mañé",
-    "label": "I'm a software engineer based in Barcelona. I'm currently working at NTT Data as a Frontend Developer.",
     "email": "davidgimeno1992@gmail.com",
-    "url": "https://davidgimeno.cat",
-    "summary": "Multimedia engineer with extensive practical experience in web and graphic design, 3D modelling, videogame developing on Unity and additional multimedia projects. Open to new computing environments and programming languages. I consider myself organised, punctual and a perfectionist who does not lack creativity. I look forward to new challenges which allow me to learn how to resolve situations more efficiently.",
+    "summary": "Frontend Developer focused on building modern, efficient, and user-centered interfaces. Experience creating reusable components and working with web technologies, with an interest in new libraries, tools, and the impact of AI.\n\nI also have experience in 3D modeling and Unity development, bringing an additional perspective to interactive projects (with a primary focus on frontend).\n\nI adapt quickly to new environments and stand out for my curiosity and continuous learning, staying up to date with new technologies and trends.",
     "profiles": [
       {
         "network": "Github",
@@ -14,12 +12,12 @@
       },
       {
         "network": "Linkedin",
-        "username": "daliife",
-        "url": "https://www.linkedin.com/in/daliife/"
+        "username": "David Gimeno Mañé",
+        "url": "https://www.linkedin.com/in/dgimeno/"
       },
       {
         "network": "Email",
-        "username": "daliife",
+        "username": "davidgimeno1992@gmail.com",
         "url": "mailto:davidgimeno1992@gmail.com"
       }
     ]
