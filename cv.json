@@ -2,7 +2,13 @@
   "basics": {
     "name": "David",
     "lastName": "Gimeno Mañé",
+    "label": "Frontend Developer",
     "email": "davidgimeno1992@gmail.com",
+    "location": {
+      "city": "Barcelona",
+      "region": "Catalonia",
+      "countryCode": "ES"
+    },
     "summary": "Frontend Developer focused on building modern, efficient, and user-centered interfaces. Experience creating reusable components and working with web technologies, with an interest in new libraries, tools, and the impact of AI.\n\nI also have experience in 3D modeling and Unity development, bringing an additional perspective to interactive projects (with a primary focus on frontend).\n\nI adapt quickly to new environments and stand out for my curiosity and continuous learning, staying up to date with new technologies and trends.",
     "profiles": [
       {

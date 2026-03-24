@@ -4,6 +4,8 @@ import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
 import "@fontsource-variable/inter";
 import { ClientRouter } from "astro:transitions";
+import { basics, work } from "@cv";
+import type { SocialProfile } from "../types/ui";
 
 interface Props {
   title: string;
@@ -20,6 +22,37 @@ const {
   type = "website",
   hideFooter = false,
 } = Astro.props;
+
+const { name, lastName, label, profiles, location } = basics;
+const fullName = `${name} ${lastName}`;
+const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
+const linkedin = (profiles as SocialProfile[])?.find(p => p.network === "Linkedin");
+const currentJob = work?.[0];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: fullName,
+  jobTitle: label,
+  description: `${label} based in ${location?.city}, currently working at ${currentJob?.company}`,
+  url: LIVE_URL,
+  image: `${LIVE_URL}/david-profile.webp`,
+  sameAs: [github?.url, linkedin?.url].filter(Boolean),
+  ...(currentJob && {
+    worksFor: {
+      "@type": "Organization",
+      name: currentJob.company,
+      url: currentJob.url,
+    },
+  }),
+  ...(location && {
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: location.city,
+      addressCountry: location.countryCode,
+    },
+  }),
+};
 ---
 
 <!doctype html>
@@ -61,31 +94,7 @@ const {
     <meta property="twitter:image" content={image} />
 
     <title>{title}</title>
-    <script type="application/ld+json" is:inline>
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "David Gimeno",
-        "jobTitle": "Frontend Developer",
-        "description": "Frontend Developer based in Barcelona, currently working at NTT Data",
-        "url": "https://davidgimeno.cat",
-        "image": "https://davidgimeno.cat/david-profile.webp",
-        "sameAs": [
-          "https://github.com/daliife",
-          "https://www.linkedin.com/in/dgimeno/"
-        ],
-        "worksFor": {
-          "@type": "Organization",
-          "name": "NTT Data",
-          "url": "https://nttdata.com/"
-        },
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Barcelona",
-          "addressCountry": "ES"
-        }
-      }
-    </script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
 
     <script is:inline>
       (function () {
