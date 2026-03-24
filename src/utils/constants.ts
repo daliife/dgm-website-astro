@@ -1,4 +1,4 @@
-export const TITLE_PAGE_PREFIX = "DGM | ";
+export const TITLE_PAGE_PREFIX = "David Gimeno Mañé — ";
 export const NAV_LINKS = ["about", "projects", "work", "contact"] as const;
 
 export const TIMELINE_ITEMS_LIMIT = 2;

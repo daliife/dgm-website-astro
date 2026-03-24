@@ -71,7 +71,7 @@ const hasMoreHighlights = highlights.length > numElements;
             href={link}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-text-accent hover:text-primary-600 dark:hover:text-primary-400 transition-colors duration-300 font-semibold"
+            class="text-text-accent underline underline-offset-2 decoration-text-accent/40 hover:decoration-text-accent transition-all duration-200 font-semibold"
           >
             {company}
           </a>
@@ -89,10 +89,7 @@ const hasMoreHighlights = highlights.length > numElements;
   {
     highlights.length > 0 && (
       <div>
-        <ol
-          id="highlight-list"
-          class="list-none list-inside pt-2 mb-3 text-sm sm:text-base font-normal text-text-secondary"
-        >
+        <ol class="list-none list-inside pt-2 mb-3 text-sm sm:text-base font-normal text-text-secondary">
           {highlights.slice(0, numElements).map(highlight => (
             <li class="mb-3 sm:mb-4 text-sm sm:text-base font-normal text-text-secondary leading-relaxed flex items-start gap-3">
               <div class="flex-shrink-0 w-5 h-5 rounded-full bg-text-accent/10 flex items-center justify-center mt-0.5">
@@ -111,10 +108,13 @@ const hasMoreHighlights = highlights.length > numElements;
               <span class="flex-1">{highlight}</span>
             </li>
           ))}
-          {hasMoreHighlights && (
-            <div
-              id="additional-highlights"
-              class="hidden max-h-0 opacity-0 transition-all duration-300 ease-in-out overflow-hidden"
+        </ol>
+        {hasMoreHighlights && (
+          <>
+            <ol
+              data-extra-highlights
+              class="list-none list-inside mb-3 text-sm sm:text-base font-normal text-text-secondary overflow-hidden transition-all duration-300 ease-in-out"
+              style="max-height: 0; opacity: 0;"
             >
               {highlights.slice(numElements).map(highlight => (
                 <li class="mb-3 sm:mb-4 text-sm sm:text-base font-normal text-text-secondary leading-relaxed flex items-start gap-3">
@@ -134,36 +134,33 @@ const hasMoreHighlights = highlights.length > numElements;
                   <span class="flex-1">{highlight}</span>
                 </li>
               ))}
-            </div>
-          )}
-        </ol>
-        {hasMoreHighlights && (
-          <Button
-            id="toggle-button"
-            variant="simple"
-            size="sm"
-            onclick="toggleHighlights(this)"
-            aria-expanded="false"
-            aria-controls="additional-highlights"
-            aria-label="Show more highlights"
-            className="toggle-button text-sm sm:text-base"
-          >
-            <svg
-              width="15"
-              height="15"
-              viewBox="0 0 15 15"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            </ol>
+            <Button
+              variant="simple"
+              size="sm"
+              data-toggle-highlights
+              onclick="toggleHighlights(this)"
+              aria-expanded="false"
+              aria-label="Show more highlights"
+              className="toggle-button text-sm sm:text-base"
             >
-              <path
-                d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM7.50003 4C7.77617 4 8.00003 4.22386 8.00003 4.5V7H10.5C10.7762 7 11 7.22386 11 7.5C11 7.77614 10.7762 8 10.5 8H8.00003V10.5C8.00003 10.7761 7.77617 11 7.50003 11C7.22389 11 7.00003 10.7761 7.00003 10.5V8H4.50003C4.22389 8 4.00003 7.77614 4.00003 7.5C4.00003 7.22386 4.22389 7 4.50003 7H7.00003V4.5C7.00003 4.22386 7.22389 4 7.50003 4Z"
-                fill="currentColor"
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-              />
-            </svg>
-            Show more
-          </Button>
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 15 15"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM7.50003 4C7.77617 4 8.00003 4.22386 8.00003 4.5V7H10.5C10.7762 7 11 7.22386 11 7.5C11 7.77614 10.7762 8 10.5 8H8.00003V10.5C8.00003 10.7761 7.77617 11 7.50003 11C7.22389 11 7.00003 10.7761 7.00003 10.5V8H4.50003C4.22389 8 4.00003 7.77614 4.00003 7.5C4.00003 7.22386 4.22389 7 4.50003 7H7.00003V4.5C7.00003 4.22386 7.22389 4 7.50003 4Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              Show more
+            </Button>
+          </>
         )}
       </div>
     )
@@ -172,51 +169,35 @@ const hasMoreHighlights = highlights.length > numElements;
 
 <script is:inline>
   function toggleHighlights(button) {
-    const additionalHighlights = button.parentElement.querySelector(
-      "#additional-highlights"
-    );
-    const isExpanded = additionalHighlights.classList.contains("max-h-screen");
+    // Scope to parent container — works with multiple instances on same page
+    const container = button.closest("li");
+    const extra = container.querySelector("[data-extra-highlights]");
+    if (!extra) return;
+
+    const isExpanded = button.getAttribute("aria-expanded") === "true";
 
     if (isExpanded) {
-      // Collapse animation
-      additionalHighlights.style.maxHeight =
-        additionalHighlights.scrollHeight + "px";
-      additionalHighlights.offsetHeight; // Force reflow
-      additionalHighlights.style.maxHeight = "0px";
-      additionalHighlights.classList.remove("max-h-screen", "opacity-100");
-      additionalHighlights.classList.add("max-h-0", "opacity-0");
-
+      extra.style.maxHeight = extra.scrollHeight + "px";
+      extra.offsetHeight; // force reflow
+      extra.style.maxHeight = "0";
+      extra.style.opacity = "0";
       button.setAttribute("aria-expanded", "false");
       button.setAttribute("aria-label", "Show more highlights");
       button.innerHTML = `
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM7.50003 4C7.77617 4 8.00003 4.22386 8.00003 4.5V7H10.5C10.7762 7 11 7.22386 11 7.5C11 7.77614 10.7762 8 10.5 8H8.00003V10.5C8.00003 10.7761 7.77617 11 7.50003 11C7.22389 11 7.00003 10.7761 7.00003 10.5V8H4.50003C4.22389 8 4.00003 7.77614 4.00003 7.5C4.00003 7.22386 4.22389 7 4.50003 7H7.00003V4.5C7.00003 4.22386 7.22389 4 7.50003 4Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/>
         </svg>
-        Show more
-      `;
+        Show more`;
     } else {
-      // Expand animation
-      additionalHighlights.style.maxHeight = "0px";
-      additionalHighlights.classList.remove("hidden", "max-h-0", "opacity-0");
-      additionalHighlights.classList.add(
-        "block",
-        "max-h-screen",
-        "opacity-100"
-      );
-
-      // Trigger animation
-      additionalHighlights.offsetHeight; // Force reflow
-      additionalHighlights.style.maxHeight =
-        additionalHighlights.scrollHeight + "px";
-
+      extra.style.maxHeight = extra.scrollHeight + "px";
+      extra.style.opacity = "1";
       button.setAttribute("aria-expanded", "true");
       button.setAttribute("aria-label", "Show fewer highlights");
       button.innerHTML = `
         <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M7.49991 0.876892C3.84222 0.876892 0.877075 3.84204 0.877075 7.49972C0.877075 11.1574 3.84222 14.1226 7.49991 14.1226C11.1576 14.1226 14.1227 11.1574 14.1227 7.49972C14.1227 3.84204 11.1576 0.876892 7.49991 0.876892ZM1.82707 7.49972C1.82707 4.36671 4.36689 1.82689 7.49991 1.82689C10.6329 1.82689 13.1727 4.36671 13.1727 7.49972C13.1727 10.6327 10.6329 13.1726 7.49991 13.1726C4.36689 13.1726 1.82707 10.6327 1.82707 7.49972ZM7.50003 4C7.77617 4 8.00003 4.22386 8.00003 4.5V7H10.5C10.7762 7 11 7.22386 11 7.5C11 7.77614 10.7762 8 10.5 8H8.00003V10.5C8.00003 10.7761 7.77617 11 7.50003 11C7.22389 11 7.00003 10.7761 7.00003 10.5V8H4.50003C4.22389 8 4.00003 7.77614 4.00003 7.5C4.00003 7.22386 4.22389 7 4.50003 7H7.00003V4.5C7.00003 4.22386 7.22389 4 7.50003 4Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"/>
         </svg>
-        Show less
-      `;
+        Show less`;
     }
   }
 </script>

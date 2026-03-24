@@ -2,12 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 import DgmLogoSimple from "../components/brand/DgmLogoSimple.astro";
 import { basics } from "@cv";
-import { TITLE_PAGE_PREFIX } from "../utils/constants";
 const { name, lastName, email } = basics;
 ---
 
 <Layout
-  title={`${TITLE_PAGE_PREFIX}Home`}
+  title="David Gimeno — Frontend Developer"
   description="Personal portfolio of David Gimeno Mañé — Software Engineer based in Barcelona."
   type="profile"
   hideFooter={true}
