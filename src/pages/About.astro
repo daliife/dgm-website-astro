@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { basics, skills, languages } from "@cv";
+import { basics, skills, languages, education, certificates } from "@cv";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
 const { summary } = basics;
 ---
@@ -85,6 +85,60 @@ const { summary } = basics;
             <div class="border-t border-border-primary pt-4">
               <h3 class="text-text-primary font-medium">{lang.language}</h3>
               <p class="text-text-muted text-sm mt-1">{lang.fluency}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section class="reveal">
+      <h2
+        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10"
+      >
+        Education
+      </h2>
+      <div class="space-y-6">
+        {
+          education.map((edu: any) => (
+            <div class="border-t border-border-primary pt-4">
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
+                <div>
+                  <h3 class="text-text-primary font-medium">{edu.studyType}</h3>
+                  <p class="text-text-secondary text-sm">{edu.area}</p>
+                </div>
+                <span class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap">
+                  {new Date(edu.startDate).getFullYear()} &mdash;{" "}
+                  {new Date(edu.endDate).getFullYear()}
+                </span>
+              </div>
+              <a
+                href={edu.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="text-text-muted text-sm hover:text-text-primary transition-colors duration-200"
+              >
+                {edu.institution}
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- Certificates -->
+    <section class="reveal">
+      <h2
+        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10"
+      >
+        Certificates
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {
+          certificates.map((cert: any) => (
+            <div class="border-t border-border-primary pt-4">
+              <h3 class="text-text-primary font-medium text-sm">{cert.name}</h3>
+              <p class="text-text-muted text-sm mt-1">{cert.issuer}</p>
             </div>
           ))
         }
