@@ -13,6 +13,11 @@ const { name, lastName, email } = basics;
 >
   <section class="min-h-screen flex flex-col items-center justify-center px-6">
     <div class="max-w-4xl w-full reveal">
+      <!-- Greeting -->
+      <p class="text-xs uppercase tracking-widest text-text-muted mb-4">
+        Hello there, it's
+      </p>
+
       <!-- Name -->
       <h1
         class="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-text-primary uppercase leading-none mb-4"
@@ -35,7 +40,7 @@ const { name, lastName, email } = basics;
         href={`mailto:${email}`}
         variant="simple"
         size="none"
-        className="text-sm uppercase tracking-widest border-b border-border-secondary hover:border-text-primary pb-1 hover:no-underline gap-2"
+        className="text-sm uppercase tracking-widest border-b border-border-secondary hover:border-text-primary pb-1 hover:no-underline gap-2 rounded-none"
       >
         <!-- Mail icon -->
         <svg
@@ -96,7 +101,9 @@ const { name, lastName, email } = basics;
       "SOFTWARE ENGINEER",
       "REACT SPECIALIST",
       "BARCELONA BASED",
-      "UI CRAFTSMAN",
+      "CLARINETIST",
+      "RUNNER & HIKING LOVER",
+      "GAMER & CINEPHILE",
     ];
 
     // prefers-reduced-motion: show first phrase statically
