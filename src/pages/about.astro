@@ -134,7 +134,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
             <img
               src={profileImage ?? "/david-profile.webp"}
               alt="Portrait of David Gimeno"
-              class="w-full h-full object-cover"
+              class="w-full h-full object-cover grayscale"
               width="256"
               height="320"
               loading="lazy"
@@ -278,7 +278,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
                 href={edu.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="text-text-muted text-sm hover:text-text-primary transition-colors duration-200 print:hidden"
+                class="text-text-secondary text-sm underline underline-offset-2 decoration-text-secondary/40 hover:text-text-primary hover:decoration-text-primary transition-all duration-200 print:hidden"
               >
                 {edu.institution}
               </a>
