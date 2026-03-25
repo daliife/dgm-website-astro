@@ -130,11 +130,13 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
           }
         </div>
         <div class="flex justify-center md:justify-end print:hidden">
-          <div class="w-64 h-80 bg-bg-muted rounded-lg overflow-hidden">
+          <div
+            class="w-64 h-80 bg-bg-muted rounded-lg overflow-hidden group cursor-default"
+          >
             <img
               src={profileImage ?? "/david-profile.webp"}
               alt="Portrait of David Gimeno"
-              class="w-full h-full object-cover grayscale"
+              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.04] transition-all duration-700 ease-out"
               width="256"
               height="320"
               loading="lazy"
