@@ -147,7 +147,7 @@ const jsonLd = {
     </a>
 
     <Header transition:persist />
-    <main id="main-content" class="w-full relative">
+    <main id="main-content" class="w-full relative" transition:animate="none">
       <slot />
     </main>
     {!hideFooter && <Footer />}
