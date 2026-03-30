@@ -129,8 +129,8 @@
     {
       "institution": "La Salle BCN",
       "url": "https://www.salleurl.edu/",
-      "area": "Advanced Videogame Development",
-      "studyType": "Master's degree",
+      "area": "Game Development",
+      "studyType": "Master's Degree in Advanced Video Game Development",
       "startDate": "2018-01-01",
       "endDate": "2019-01-01"
     },
@@ -138,15 +138,15 @@
       "institution": "La Salle BCN",
       "url": "https://www.salleurl.edu/",
       "area": "Multimedia Engineering",
-      "studyType": "Engineer's degree",
+      "studyType": "Bachelor's Degree in Multimedia Engineering",
       "startDate": "2013-01-01",
       "endDate": "2018-01-01"
     },
     {
-      "institution": "EMAV",
+      "institution": "EMAV (Escola de Mitjans Audiovisuals)",
       "url": "https://www.emav.com/",
       "area": "Sound Engineering",
-      "studyType": "Tècnic Superior de So",
+      "studyType": "Higher Vocational Diploma in Sound Engineering",
       "startDate": "2011-01-01",
       "endDate": "2013-01-01"
     }
