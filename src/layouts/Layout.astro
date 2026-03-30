@@ -213,6 +213,23 @@ const jsonLd = {
         border-radius: 2px;
       }
 
+      /* Nav links: reserve bold width to prevent layout shift on active state */
+      .nav-link {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .nav-link::after {
+        content: attr(data-text);
+        font-weight: 600;
+        visibility: hidden;
+        height: 0;
+        overflow: hidden;
+        pointer-events: none;
+        user-select: none;
+        letter-spacing: inherit;
+      }
+
       /* Scroll reveal */
       .reveal {
         opacity: 0;
