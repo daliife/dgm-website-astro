@@ -17,7 +17,7 @@ const { project } = Astro.props as { project: ProjectEntry };
       <img
         src={project.image ?? "https://placehold.co/384x256/e5e5e5/d4d4d4"}
         alt={project.name}
-        class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:group-hover:grayscale-0 [@media(hover:hover)]:group-hover:scale-[1.04] transition-all duration-700 ease-out"
+        class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:group-hover:grayscale-0 [@media(hover:hover)]:group-hover:scale-[1.04] transition-all duration-300 ease-out"
         loading="lazy"
         width="384"
         height="256"
@@ -29,7 +29,7 @@ const { project } = Astro.props as { project: ProjectEntry };
         class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-2 mb-2 sm:mb-3"
       >
         <h2
-          class="text-xl sm:text-2xl font-semibold text-text-primary [@media(hover:hover)]:group-hover:opacity-60 transition-all duration-700 ease-out"
+          class="text-xl sm:text-2xl font-semibold text-text-primary [@media(hover:hover)]:group-hover:opacity-60 transition-all duration-200 ease-out"
         >
           {project.name}
         </h2>
