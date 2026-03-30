@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { basics, work, skills, languages, education, certificates } from "@cv";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
+import { formatDate } from "../utils/format";
 import Button from "../components/ui/Button.astro";
 import type {
   SocialProfile,
@@ -21,12 +22,6 @@ const {
   location,
   image: profileImage,
 } = basics;
-
-function formatDate(dateStr?: string) {
-  if (!dateStr) return "Present";
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
-}
 
 function stripProtocol(url: string): string {
   return url.replace(/^https?:\/\/(www\.)?/, "");
@@ -83,64 +78,75 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
   >
     <!-- About Me -->
     <section class="reveal">
-      <div
-        class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-10 print:mb-1"
-      >
+      <!-- Title row -->
+      <div class="mb-10 print:mb-1">
         <h1
           class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase print:text-[10px] print:font-medium print:tracking-widest print:border-b print:border-gray-300 print:pb-0.5 print:w-full print:normal-case print:text-black"
         >
-          <span class="print:hidden">About Me</span>
+          <span class="print:hidden">About</span>
           <span class="hidden print:inline">Summary</span>
         </h1>
-        <Button
-          id="print-cv"
-          variant="outline"
-          size="sm"
-          className="print:hidden"
-        >
-          <svg
-            class="w-4 h-4 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-              d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18.25 7.034V3.375"
-            ></path>
-          </svg>
-          Print CV
-        </Button>
       </div>
+
+      <!-- Content: image left, bio right -->
       <div
-        class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start print:block"
+        class="grid grid-cols-1 md:grid-cols-[5fr_7fr] gap-10 md:gap-14 items-start print:block"
       >
-        <div class="space-y-6 print:space-y-1">
-          {
-            summary
-              .split("\n\n")
-              .map((para: string) => (
-                <p class="text-text-secondary text-base sm:text-lg leading-relaxed print:text-[10px] print:leading-snug print:text-gray-700">
-                  {para}
-                </p>
-              ))
-          }
+        <!-- Image -->
+        <div class="img-frame overflow-hidden bg-bg-muted print:hidden group">
+          <img
+            src={profileImage ?? "/david-profile.webp"}
+            alt="Portrait of David Gimeno"
+            class="w-full aspect-[4/5] object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:group-hover:grayscale-0 [@media(hover:hover)]:group-hover:scale-[1.04] transition-all duration-300 ease-out"
+            width="400"
+            height="500"
+            loading="eager"
+          />
         </div>
-        <div class="flex justify-center md:justify-end print:hidden">
-          <div
-            class="w-64 h-80 bg-bg-muted rounded-lg overflow-hidden group cursor-default"
+
+        <!-- Bio text -->
+        <div class="flex flex-col justify-start print:space-y-1">
+          <p
+            class="text-xs uppercase tracking-widest text-text-muted mb-1 print:hidden"
           >
-            <img
-              src={profileImage ?? "/david-profile.webp"}
-              alt="Portrait of David Gimeno"
-              class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.04] transition-all duration-700 ease-out"
-              width="256"
-              height="320"
-              loading="lazy"
-            />
+            {label}
+          </p>
+          {
+            location && (
+              <p class="text-xs uppercase tracking-widest text-text-muted mb-8 print:hidden">
+                {location.city} &middot; {location.region}
+              </p>
+            )
+          }
+          <div class="space-y-5 print:space-y-1">
+            {
+              summary
+                .split("\n\n")
+                .map((para: string) => (
+                  <p class="text-text-secondary text-base leading-relaxed print:text-[10px] print:leading-snug print:text-gray-700">
+                    {para}
+                  </p>
+                ))
+            }
+          </div>
+          <div class="mt-8 print:hidden">
+            <Button id="print-cv" variant="outline" size="sm">
+              <svg
+                class="w-4 h-4 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.5"
+                  d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a1.125 1.125 0 01-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0021 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 00-1.913-.247M6.34 18H5.25A2.25 2.25 0 013 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 011.913-.247m10.5 0a48.536 48.536 0 00-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18.25 7.034V3.375"
+                ></path>
+              </svg>
+              Print CV
+            </Button>
           </div>
         </div>
       </div>

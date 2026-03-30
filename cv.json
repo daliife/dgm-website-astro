@@ -9,7 +9,7 @@
       "region": "Catalonia",
       "countryCode": "ES"
     },
-    "summary": "Frontend Developer focused on building modern, efficient, and user-centered interfaces. Experience creating reusable components and working with web technologies, with an interest in new libraries, tools, and the impact of AI.\n\nI also have experience in 3D modeling and Unity development, bringing an additional perspective to interactive projects (with a primary focus on frontend).\n\nI adapt quickly to new environments and stand out for my curiosity and continuous learning, staying up to date with new technologies and trends.",
+    "summary": "Frontend Developer focused on building clean, clear, and well-crafted interfaces. I care about creating experiences that not only work well, but also look good. Experience building reusable components and working with web technologies.\n\nI adapt quickly to new environments and stand out for my curiosity and continuous learning, keeping up with new technologies, tools, and the impact of AI.\n\nI also work with Unity on interactive projects, supported by 3D modeling skills to bring a perspective beyond frontend.",
     "image": "/david-profile.webp",
     "profiles": [
       {
@@ -57,7 +57,7 @@
         "Implementation of the XL insurance business with Angular 12, bug fixes and component refactorization (MAPFRE).",
         "Migration of styles and functionalities for the Servihabitat portal with Liferay (Caixabank).",
         "Creation of a calendar widget in a Liferay portlet (Educaixa/Caixabank).",
-        "Creation of different SPAs for RFP (Ready For Proportional) type websites with a high 'wow effect' in Angular 9 (SEAT and Orange).",
+        "Creation of different SPAs for RFP (Ready For Proposal) type websites with a high 'wow effect' in Angular 9 (SEAT and Orange).",
         "Creation of a Design system using Storybooks and Stencil.",
         "PoC: exporting design tokens with Figma towards a Design System."
       ]
@@ -129,24 +129,24 @@
     {
       "institution": "La Salle BCN",
       "url": "https://www.salleurl.edu/",
-      "area": "Advanced Videogame Development",
-      "studyType": "Master's degree",
+      "area": "Game Development",
+      "studyType": "Master's Degree in Advanced Video Game Development",
       "startDate": "2018-01-01",
       "endDate": "2019-01-01"
     },
     {
       "institution": "La Salle BCN",
       "url": "https://www.salleurl.edu/",
-      "area": "Audiovisual Communications Technologies",
-      "studyType": "Engineer's degree",
+      "area": "Multimedia Engineering",
+      "studyType": "Bachelor's Degree in Multimedia Engineering",
       "startDate": "2013-01-01",
       "endDate": "2018-01-01"
     },
     {
-      "institution": "EMAV",
+      "institution": "EMAV (Escola de Mitjans Audiovisuals)",
       "url": "https://www.emav.com/",
-      "area": "Audiovisual Communications Technologies",
-      "studyType": "Tècnic Superior de So",
+      "area": "Sound Engineering",
+      "studyType": "Higher Vocational Diploma in Sound Engineering",
       "startDate": "2011-01-01",
       "endDate": "2013-01-01"
     }

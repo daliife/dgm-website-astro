@@ -1,0 +1,47 @@
+---
+import type { ProjectEntry } from "../../types/ui";
+
+const { project } = Astro.props as { project: ProjectEntry };
+---
+
+<article class="group border-t border-border-primary py-8">
+  <a
+    href={project.url}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="flex flex-row gap-5 sm:gap-10 items-start"
+  >
+    <div
+      class="img-frame w-24 h-24 shrink-0 sm:w-48 sm:h-32 overflow-hidden bg-bg-muted"
+    >
+      <img
+        src={project.image ?? "https://placehold.co/384x256/e5e5e5/d4d4d4"}
+        alt={project.name}
+        class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:group-hover:grayscale-0 [@media(hover:hover)]:group-hover:scale-[1.04] transition-all duration-300 ease-out"
+        loading="lazy"
+        width="384"
+        height="256"
+        onerror="this.onerror=null;this.src='https://placehold.co/384x256/e5e5e5/d4d4d4'"
+      />
+    </div>
+    <div class="flex-1 min-w-0">
+      <div
+        class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-2 mb-2 sm:mb-3"
+      >
+        <h2
+          class="text-xl sm:text-2xl font-semibold text-text-primary [@media(hover:hover)]:group-hover:opacity-60 transition-all duration-200 ease-out"
+        >
+          {project.name}
+        </h2>
+        <span
+          class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap"
+        >
+          {project.technologies?.join(" · ")}
+        </span>
+      </div>
+      <p class="text-text-secondary text-sm sm:text-base leading-relaxed">
+        {project.description}
+      </p>
+    </div>
+  </a>
+</article>
