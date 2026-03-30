@@ -28,7 +28,12 @@ const socialLinks = [
     class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
   >
     <span class="text-xs text-text-muted">
-      &copy; {currentYear} David Gimeno &mdash; Built with Astro &amp; AI
+      &copy; {currentYear} David Gimeno &mdash; Built with <span
+        class="footer-cycle-wrapper"
+        ><span class="footer-cycle">love ♥</span><span class="footer-cycle"
+          >Astro 🚀</span
+        ><span class="footer-cycle">AI ✦</span></span
+      >
     </span>
     <nav aria-label="Footer social links">
       <ul class="flex items-center gap-6">
@@ -57,3 +62,66 @@ const socialLinks = [
     </nav>
   </div>
 </footer>
+
+<style>
+  .footer-cycle-wrapper {
+    display: inline-grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1em;
+    overflow: hidden;
+    line-height: 1;
+    vertical-align: baseline;
+    min-width: 3.5ch;
+  }
+
+  .footer-cycle {
+    grid-area: 1 / 1;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: cycle-word 9s ease-in-out infinite;
+  }
+
+  .footer-cycle:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .footer-cycle:nth-child(2) {
+    animation-delay: 3s;
+  }
+  .footer-cycle:nth-child(3) {
+    animation-delay: 6s;
+  }
+
+  @keyframes cycle-word {
+    0% {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    8% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    25% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    33% {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer-cycle {
+      animation: none;
+      opacity: 0;
+    }
+    .footer-cycle:nth-child(1) {
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
