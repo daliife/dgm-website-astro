@@ -57,7 +57,7 @@
         "Implementation of the XL insurance business with Angular 12, bug fixes and component refactorization (MAPFRE).",
         "Migration of styles and functionalities for the Servihabitat portal with Liferay (Caixabank).",
         "Creation of a calendar widget in a Liferay portlet (Educaixa/Caixabank).",
-        "Creation of different SPAs for RFP (Ready For Proportional) type websites with a high 'wow effect' in Angular 9 (SEAT and Orange).",
+        "Creation of different SPAs for RFP (Ready For Proposal) type websites with a high 'wow effect' in Angular 9 (SEAT and Orange).",
         "Creation of a Design system using Storybooks and Stencil.",
         "PoC: exporting design tokens with Figma towards a Design System."
       ]
@@ -137,7 +137,7 @@
     {
       "institution": "La Salle BCN",
       "url": "https://www.salleurl.edu/",
-      "area": "Audiovisual Communications Technologies",
+      "area": "Multimedia Engineering",
       "studyType": "Engineer's degree",
       "startDate": "2013-01-01",
       "endDate": "2018-01-01"
@@ -145,7 +145,7 @@
     {
       "institution": "EMAV",
       "url": "https://www.emav.com/",
-      "area": "Audiovisual Communications Technologies",
+      "area": "Sound Engineering",
       "studyType": "Tècnic Superior de So",
       "startDate": "2011-01-01",
       "endDate": "2013-01-01"
