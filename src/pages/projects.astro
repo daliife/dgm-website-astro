@@ -23,17 +23,17 @@ import type { ProjectEntry } from "../types/ui";
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="flex flex-col sm:flex-row gap-6 sm:gap-10 items-start"
+              class="flex flex-row gap-5 sm:gap-10 items-start"
             >
               {/* Project image */}
-              <div class="w-full sm:w-48 sm:shrink-0 h-28 sm:h-32 rounded-lg overflow-hidden bg-bg-muted">
+              <div class="w-24 h-24 shrink-0 sm:w-48 sm:h-32 rounded-lg overflow-hidden bg-bg-muted">
                 <img
                   src={
                     project.image ??
                     "https://placehold.co/384x256/e5e5e5/d4d4d4"
                   }
                   alt={project.name}
-                  class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-[1.04] transition-all duration-700 ease-out"
+                  class="w-full h-full object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:group-hover:grayscale-0 [@media(hover:hover)]:group-hover:scale-[1.04] transition-all duration-700 ease-out"
                   loading="lazy"
                   width="384"
                   height="256"
@@ -42,8 +42,8 @@ import type { ProjectEntry } from "../types/ui";
               </div>
               {/* Content */}
               <div class="flex-1 min-w-0">
-                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 mb-3">
-                  <h2 class="text-xl sm:text-2xl font-semibold text-text-primary group-hover:opacity-60 transition-all duration-700 ease-out">
+                <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-2 mb-2 sm:mb-3">
+                  <h2 class="text-xl sm:text-2xl font-semibold text-text-primary [@media(hover:hover)]:group-hover:opacity-60 transition-all duration-700 ease-out">
                     {project.name}
                   </h2>
                   <span class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap">
