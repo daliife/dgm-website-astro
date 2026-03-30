@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { basics, work, skills, languages, education, certificates } from "@cv";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
+import { formatDate } from "../utils/format";
 import Button from "../components/ui/Button.astro";
 import type {
   SocialProfile,
@@ -21,12 +22,6 @@ const {
   location,
   image: profileImage,
 } = basics;
-
-function formatDate(dateStr?: string) {
-  if (!dateStr) return "Present";
-  const d = new Date(dateStr);
-  return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
-}
 
 function stripProtocol(url: string): string {
   return url.replace(/^https?:\/\/(www\.)?/, "");

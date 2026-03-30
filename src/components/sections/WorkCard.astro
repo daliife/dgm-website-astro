@@ -1,0 +1,50 @@
+---
+import { formatDate } from "../../utils/format";
+import type { WorkEntry } from "../../types/ui";
+
+const { job } = Astro.props as { job: WorkEntry };
+---
+
+<article class="border-t border-border-primary py-8">
+  <div
+    class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-3"
+  >
+    <div>
+      <h2 class="text-lg sm:text-xl font-semibold text-text-primary">
+        {job.position}
+      </h2>
+      <a
+        href={job.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-text-secondary text-sm underline underline-offset-2 decoration-text-secondary/40 hover:text-text-primary hover:decoration-text-primary transition-all duration-200"
+      >
+        {job.company}
+      </a>
+    </div>
+    <span
+      class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap"
+    >
+      {formatDate(job.startDate)} — {formatDate(job.endDate)}
+    </span>
+  </div>
+  {
+    job.summary && (
+      <p class="text-text-secondary text-sm leading-relaxed mb-3 max-w-2xl">
+        {job.summary}
+      </p>
+    )
+  }
+  {
+    job.highlights && job.highlights.length > 0 && (
+      <ul class="space-y-2 mt-3">
+        {job.highlights.map((h: string) => (
+          <li class="flex items-start gap-3 text-sm leading-relaxed">
+            <span class="shrink-0 text-text-muted select-none">—</span>
+            <span class="text-text-secondary">{h}</span>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+</article>
