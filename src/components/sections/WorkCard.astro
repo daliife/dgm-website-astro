@@ -2,7 +2,7 @@
 import { formatDate } from "../../utils/format";
 import type { WorkEntry } from "../../types/ui";
 
-const { job } = Astro.props as { job: WorkEntry };
+const { job, jobIndex } = Astro.props as { job: WorkEntry; jobIndex: number };
 ---
 
 <article class="border-t border-border-primary py-8">
@@ -10,7 +10,10 @@ const { job } = Astro.props as { job: WorkEntry };
     class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-3"
   >
     <div>
-      <h2 class="text-lg sm:text-xl font-semibold text-text-primary">
+      <h2
+        class="text-lg sm:text-xl font-semibold text-text-primary"
+        data-i18n={`work.${jobIndex}.position`}
+      >
         {job.position}
       </h2>
       <a
@@ -30,7 +33,10 @@ const { job } = Astro.props as { job: WorkEntry };
   </div>
   {
     job.summary && (
-      <p class="text-text-secondary text-sm leading-relaxed mb-3 max-w-2xl">
+      <p
+        class="text-text-secondary text-sm leading-relaxed mb-3 max-w-2xl"
+        data-i18n={`work.${jobIndex}.summary`}
+      >
         {job.summary}
       </p>
     )
@@ -38,10 +44,15 @@ const { job } = Astro.props as { job: WorkEntry };
   {
     job.highlights && job.highlights.length > 0 && (
       <ul class="space-y-2 mt-3">
-        {job.highlights.map((h: string) => (
+        {job.highlights.map((h: string, hIndex: number) => (
           <li class="flex items-start gap-3 text-sm leading-relaxed">
             <span class="shrink-0 text-text-muted select-none">—</span>
-            <span class="text-text-secondary">{h}</span>
+            <span
+              class="text-text-secondary"
+              data-i18n={`work.${jobIndex}.highlights.${hIndex}`}
+            >
+              {h}
+            </span>
           </li>
         ))}
       </ul>

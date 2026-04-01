@@ -1,0 +1,151 @@
+---
+// Language dropdown toggle — renders in both desktop and mobile header
+---
+
+<div data-lang-switcher class="relative">
+  <button
+    type="button"
+    data-lang-toggle-btn
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    aria-label="Select language"
+    class="flex items-center gap-1 p-2 rounded-full text-text-secondary hover:text-text-primary hover:bg-bg-muted transition-colors duration-200"
+  >
+    <span data-lang-current class="text-xs font-medium tracking-wide">EN</span>
+    <svg
+      class="w-3 h-3"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+
+  <div
+    data-lang-dropdown
+    role="listbox"
+    aria-label="Language"
+    class="absolute right-0 top-full mt-1 hidden z-50 bg-bg-primary border border-border-primary rounded-lg shadow-lg py-1 min-w-[3.5rem]"
+  >
+    <button
+      type="button"
+      role="option"
+      data-lang-btn="en"
+      aria-selected="true"
+      class="w-full text-left px-3 py-1.5 text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors duration-150"
+    >
+      EN
+    </button>
+    <button
+      type="button"
+      role="option"
+      data-lang-btn="ca"
+      aria-selected="false"
+      class="w-full text-left px-3 py-1.5 text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors duration-150"
+    >
+      CA
+    </button>
+  </div>
+</div>
+
+<script>
+  import { CA } from "../../i18n/ca";
+
+  function applyI18n(lang: string) {
+    const isCA = lang === "ca";
+    document.querySelectorAll<HTMLElement>("[data-i18n]").forEach(el => {
+      const key = el.dataset.i18n!;
+      // Capture the original English text before overwriting it for the first time
+      if (!el.dataset.i18nOrig) {
+        el.dataset.i18nOrig = el.textContent?.trim() ?? "";
+      }
+      if (isCA) {
+        const val = CA[key];
+        if (val !== undefined) el.textContent = val;
+      } else {
+        el.textContent = el.dataset.i18nOrig!;
+      }
+    });
+
+    document.documentElement.lang = isCA ? "ca" : "en";
+
+    // Update all toggle indicators (there may be two instances: desktop + mobile)
+    document
+      .querySelectorAll<HTMLElement>("[data-lang-current]")
+      .forEach(el => {
+        el.textContent = lang.toUpperCase();
+      });
+
+    // Update aria-selected on all option buttons
+    document.querySelectorAll<HTMLElement>("[data-lang-btn]").forEach(btn => {
+      btn.setAttribute("aria-selected", String(btn.dataset.langBtn === lang));
+    });
+  }
+
+  // ── One-time global delegation for clicks (runs when module is evaluated) ─
+  document.addEventListener("click", e => {
+    const langBtn = (e.target as Element).closest(
+      "[data-lang-btn]"
+    ) as HTMLElement | null;
+
+    if (langBtn?.dataset.langBtn) {
+      const lang = langBtn.dataset.langBtn;
+      localStorage.setItem("lang", lang);
+      applyI18n(lang);
+      // Close the containing dropdown
+      const switcher = langBtn.closest("[data-lang-switcher]");
+      switcher?.querySelector("[data-lang-dropdown]")?.classList.add("hidden");
+      switcher
+        ?.querySelector("[data-lang-toggle-btn]")
+        ?.setAttribute("aria-expanded", "false");
+      return;
+    }
+
+    // Close all dropdowns when clicking outside any switcher
+    if (!(e.target as Element).closest("[data-lang-switcher]")) {
+      document
+        .querySelectorAll("[data-lang-dropdown]")
+        .forEach(d => d.classList.add("hidden"));
+      document
+        .querySelectorAll("[data-lang-toggle-btn]")
+        .forEach(b => b.setAttribute("aria-expanded", "false"));
+    }
+  });
+
+  // ── Per-navigation: apply saved language and wire up toggle button once ───
+  document.addEventListener("astro:page-load", () => {
+    const lang = localStorage.getItem("lang") ?? "en";
+    applyI18n(lang);
+
+    // Setup each toggle button once, guarded by data-init
+    document
+      .querySelectorAll<HTMLElement>("[data-lang-toggle-btn]")
+      .forEach(btn => {
+        if (btn.dataset.init) return;
+        btn.dataset.init = "true";
+        btn.addEventListener("click", e => {
+          e.stopPropagation();
+          const switcher = btn.closest("[data-lang-switcher]");
+          const dropdown = switcher?.querySelector("[data-lang-dropdown]");
+          const isOpen = !dropdown?.classList.contains("hidden");
+          // Close every open dropdown first
+          document
+            .querySelectorAll("[data-lang-dropdown]")
+            .forEach(d => d.classList.add("hidden"));
+          document
+            .querySelectorAll("[data-lang-toggle-btn]")
+            .forEach(b => b.setAttribute("aria-expanded", "false"));
+          if (!isOpen) {
+            dropdown?.classList.remove("hidden");
+            btn.setAttribute("aria-expanded", "true");
+          }
+        });
+      });
+  });
+</script>

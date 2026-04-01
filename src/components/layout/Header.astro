@@ -1,6 +1,7 @@
 ---
 import DgmLogoSimple from "../brand/DgmLogoSimple.astro";
 import ThemeToggle from "../brand/ThemeToggle.astro";
+import LanguageToggle from "../brand/LanguageToggle.astro";
 import { NAV_LINKS } from "../../utils/constants";
 const { pathname } = Astro.url;
 ---
@@ -44,7 +45,7 @@ const { pathname } = Astro.url;
                     ]}
                     aria-current={isActive ? "page" : undefined}
                   >
-                    {label}
+                    <span data-i18n={`ui.nav.${href}`}>{label}</span>
                   </a>
                 </li>
               );
@@ -52,10 +53,12 @@ const { pathname } = Astro.url;
           }
         </ul>
         <ThemeToggle />
+        <LanguageToggle />
       </div>
 
       <!-- Mobile controls -->
       <div class="flex items-center gap-2 md:hidden">
+        <LanguageToggle />
         <ThemeToggle />
         <button
           id="mobile-menu-btn"
@@ -132,7 +135,7 @@ const { pathname } = Astro.url;
                   ]}
                   aria-current={isActive ? "page" : undefined}
                 >
-                  {label}
+                  <span data-i18n={`ui.nav.${href}`}>{label}</span>
                 </a>
               </li>
             );
