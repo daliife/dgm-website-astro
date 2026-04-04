@@ -72,12 +72,14 @@ const { project } = Astro.props as { project: ProjectEntry };
 
 <script>
   document.addEventListener("astro:page-load", () => {
-    document
-      .querySelectorAll<HTMLImageElement>("img[data-use-fallback]")
-      .forEach(img => {
-        img.addEventListener("error", function () {
-          this.remove();
-        });
+    const imgs = document.querySelectorAll<HTMLImageElement>(
+      "img[data-use-fallback]"
+    );
+    if (!imgs.length) return;
+    imgs.forEach(img => {
+      img.addEventListener("error", function () {
+        this.remove();
       });
+    });
   });
 </script>
