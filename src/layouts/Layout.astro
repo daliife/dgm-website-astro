@@ -2,7 +2,8 @@
 import { LIVE_URL } from "../utils/constants";
 import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
-import "@fontsource-variable/inter";
+import "../styles/fonts.css";
+import interLatinFontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 import { ClientRouter } from "astro:transitions";
 import { basics, work } from "@cv";
 import type { SocialProfile } from "../types/ui";
@@ -11,6 +12,8 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  imageWidth?: number;
+  imageHeight?: number;
   type?: string;
   hideFooter?: boolean;
 }
@@ -19,6 +22,8 @@ const {
   title,
   description = "Personal portfolio website of David Gimeno - Software Engineer based in Barcelona",
   image: imageProp,
+  imageWidth = 400,
+  imageHeight = 500,
   type = "website",
   hideFooter = false,
 } = Astro.props;
@@ -79,6 +84,15 @@ const jsonLd = {
     <meta name="apple-mobile-web-app-title" content="David Gimeno" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href={Astro.url} />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={interLatinFontUrl}
+      crossorigin
+    />
+
+    <!-- SEO Meta Tags -->
 
     <!-- SEO Meta Tags -->
     <meta name="author" content="David Gimeno" />
@@ -101,6 +115,9 @@ const jsonLd = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
+    <meta property="og:image:width" content={String(imageWidth)} />
+    <meta property="og:image:height" content={String(imageHeight)} />
+    <meta property="og:locale" content="en_US" />
     <meta property="og:site_name" content="David Gimeno Portfolio" />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
@@ -199,14 +216,6 @@ const jsonLd = {
         overflow-x: hidden;
       }
 
-      *,
-      *::before,
-      *::after {
-        transition-property: background-color, border-color, color;
-        transition-duration: 0.3s;
-        transition-timing-function: ease;
-      }
-
       *:focus-visible {
         outline: 2px solid rgb(var(--text-primary));
         outline-offset: 2px;
@@ -259,18 +268,21 @@ const jsonLd = {
       }
     </style>
     <script>
+      let revealObserver: IntersectionObserver | null = null;
+
       document.addEventListener("astro:page-load", () => {
         const prefersReduced = window.matchMedia(
           "(prefers-reduced-motion: reduce)"
         ).matches;
         if (prefersReduced) return;
 
-        const observer = new IntersectionObserver(
+        revealObserver?.disconnect();
+        revealObserver = new IntersectionObserver(
           entries => {
             entries.forEach(entry => {
               if (entry.isIntersecting) {
                 entry.target.classList.add("is-visible");
-                observer.unobserve(entry.target);
+                revealObserver?.unobserve(entry.target);
               }
             });
           },
@@ -279,7 +291,7 @@ const jsonLd = {
 
         document
           .querySelectorAll(".reveal")
-          .forEach(el => observer.observe(el));
+          .forEach(el => revealObserver!.observe(el));
       });
     </script>
   </body>
