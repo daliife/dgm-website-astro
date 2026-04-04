@@ -11,7 +11,7 @@ export const CA: Record<string, string> = {
   "ui.nav.contact": "Contacte",
 
   // ── Home page ─────────────────────────────────────────────────────────────
-  "ui.home.greeting": "Hola, sóc",
+  "ui.home.greeting": "Hola, sóc en",
   "ui.home.cta": "Contacta'm",
 
   // ── Page headings ─────────────────────────────────────────────────────────
@@ -41,7 +41,7 @@ export const CA: Record<string, string> = {
   "basics.summary.1":
     "M'adapto ràpidament a nous entorns i em distingeixo per la meva curiositat i aprenentatge continu, mantenint-me al dia amb noves tecnologies, eines i l'impacte de la IA.",
   "basics.summary.2":
-    "També treballo amb Unity en projectes interactius, recolzat per habilitats de modelat 3D per aportar una perspectiva més enllà del frontend.",
+    "També treballo amb Unity en projectes interactius, complementat per habilitats de modelat 3D per aportar una perspectiva més enllà del frontend.",
 
   // ── Work experience ───────────────────────────────────────────────────────
   "work.0.position": "Lead Engineer",
@@ -76,7 +76,7 @@ export const CA: Record<string, string> = {
   "work.1.highlights.6":
     "Creació d'un Design System usant Storybooks i Stencil.",
   "work.1.highlights.7":
-    "PoC: exportació de design tokens amb Figma cap a un Design System.",
+    "PoC: exportació de design tokens amb Figma a un Design System.",
 
   "work.2.position": "Junior Engineer",
   "work.2.highlights.0":
@@ -122,9 +122,9 @@ export const CA: Record<string, string> = {
   "projects.1.description": "Pàgina d'aterratge amb un minijoc de cartes",
   "projects.2.description": "App recomanadora de TV creada amb Tizen Studio",
   "projects.3.description":
-    "Pàgina web interactiva amb 3 minijocs usant canvas",
+    "Pàgina web interactiva amb 3 minijocs fent servir canvas",
   "projects.4.description":
-    "Pàgina web interactiva amb 3 minijocs usant canvas",
+    "Pàgina web interactiva amb 3 minijocs fent servir canvas",
 
   // ── Education ─────────────────────────────────────────────────────────────
   "education.0.studyType": "Màster en Desenvolupament Avançat de Videojocs",
@@ -143,7 +143,7 @@ export const CA: Record<string, string> = {
   "skills.2.level": "Avançat",
   "skills.3.name": "3D i Interactius",
   "skills.3.level": "Avançat",
-  "skills.4.name": "Integració IA",
+  "skills.4.name": "Integració d'IA",
   "skills.4.level": "Intermedi",
 
   // ── Languages ─────────────────────────────────────────────────────────────

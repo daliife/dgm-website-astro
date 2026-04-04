@@ -45,6 +45,15 @@
     <button
       type="button"
       role="option"
+      data-lang-btn="es"
+      aria-selected="false"
+      class="w-full text-left px-3 py-1.5 text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors duration-150"
+    >
+      ES
+    </button>
+    <button
+      type="button"
+      role="option"
       data-lang-btn="ca"
       aria-selected="false"
       class="w-full text-left px-3 py-1.5 text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors duration-150"
@@ -56,24 +65,25 @@
 
 <script>
   import { CA } from "../../i18n/ca";
+  import { ES } from "../../i18n/es";
 
   function applyI18n(lang: string) {
-    const isCA = lang === "ca";
+    const translations = lang === "ca" ? CA : lang === "es" ? ES : null;
     document.querySelectorAll<HTMLElement>("[data-i18n]").forEach(el => {
       const key = el.dataset.i18n!;
       // Capture the original English text before overwriting it for the first time
       if (!el.dataset.i18nOrig) {
         el.dataset.i18nOrig = el.textContent?.trim() ?? "";
       }
-      if (isCA) {
-        const val = CA[key];
+      if (translations) {
+        const val = translations[key];
         if (val !== undefined) el.textContent = val;
       } else {
         el.textContent = el.dataset.i18nOrig!;
       }
     });
 
-    document.documentElement.lang = isCA ? "ca" : "en";
+    document.documentElement.lang = lang;
 
     // Update all toggle indicators (there may be two instances: desktop + mobile)
     document
