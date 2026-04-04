@@ -2,7 +2,8 @@
 import { LIVE_URL } from "../utils/constants";
 import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
-import "@fontsource-variable/inter";
+import "../styles/fonts.css";
+import interLatinFontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 import { ClientRouter } from "astro:transitions";
 import { basics, work } from "@cv";
 import type { SocialProfile } from "../types/ui";
@@ -83,6 +84,15 @@ const jsonLd = {
     <meta name="apple-mobile-web-app-title" content="David Gimeno" />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href={Astro.url} />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={interLatinFontUrl}
+      crossorigin
+    />
+
+    <!-- SEO Meta Tags -->
 
     <!-- SEO Meta Tags -->
     <meta name="author" content="David Gimeno" />

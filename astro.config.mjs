@@ -17,11 +17,15 @@ export default defineConfig({
   site: LIVE_URL,
   integrations: [sitemap(), tailwind()],
   output: "static",
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: "hover",
+  },
   server: {
     port: SERVER_PORT,
   },
   build: {
-    inlineStylesheets: "auto",
+    inlineStylesheets: "never",
   },
   vite: {
     customLogger: logger,
