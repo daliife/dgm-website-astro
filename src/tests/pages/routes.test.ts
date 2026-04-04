@@ -28,6 +28,32 @@ describe("Pages — render without errors", () => {
   }
 });
 
+describe("Pages — i18n", () => {
+  it("nav links have data-i18n keys for all routes", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(IndexPage);
+
+    expect(html).toContain('data-i18n="ui.nav.about"');
+    expect(html).toContain('data-i18n="ui.nav.projects"');
+    expect(html).toContain('data-i18n="ui.nav.work"');
+    expect(html).toContain('data-i18n="ui.nav.contact"');
+  });
+
+  it("/about page heading has data-i18n key", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(AboutPage);
+
+    expect(html).toContain("data-i18n");
+  });
+
+  it("/contact page intro has data-i18n key", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ContactPage);
+
+    expect(html).toContain("data-i18n");
+  });
+});
+
 describe("Pages — basic HTML structure", () => {
   it("/ contains name heading", async () => {
     const container = await AstroContainer.create();
