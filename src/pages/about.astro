@@ -1,5 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import profileImgSrc from "../assets/images/david-profile.webp";
 import { basics, work, skills, languages, education, certificates } from "@cv";
 import { TITLE_PAGE_PREFIX } from "../utils/constants";
 import { formatDate } from "../utils/format";
@@ -95,13 +97,16 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
       >
         <!-- Image -->
         <div class="img-frame overflow-hidden bg-bg-muted print:hidden group">
-          <img
-            src={profileImage ?? "/david-profile.webp"}
+          <Image
+            src={profileImgSrc}
             alt="Portrait of David Gimeno"
             class="w-full aspect-[4/5] object-cover [@media(hover:hover)]:grayscale [@media(hover:hover)]:group-hover:grayscale-0 [@media(hover:hover)]:group-hover:scale-[1.04] transition-all duration-300 ease-out"
-            width="400"
-            height="500"
+            width={400}
+            height={500}
             loading="eager"
+            fetchpriority="high"
+            format="avif"
+            quality={80}
           />
         </div>
 

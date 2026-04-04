@@ -52,13 +52,10 @@ const { pathname } = Astro.url;
             })
           }
         </ul>
-        <ThemeToggle />
-        <LanguageToggle />
       </div>
 
-      <!-- Mobile controls -->
-      <div class="flex items-center gap-2 md:hidden">
-        <LanguageToggle />
+      <!-- Controls: single ThemeToggle + mobile hamburger -->
+      <div class="flex items-center gap-2">
         <ThemeToggle />
         <button
           id="mobile-menu-btn"
@@ -66,7 +63,7 @@ const { pathname } = Astro.url;
           aria-label="Open navigation menu"
           aria-expanded="false"
           aria-controls="mobile-menu"
-          class="p-2 text-text-secondary hover:text-text-primary transition-colors"
+          class="p-2 text-text-secondary hover:text-text-primary transition-colors md:hidden"
         >
           <svg
             class="w-5 h-5"
