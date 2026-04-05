@@ -114,26 +114,3 @@ export interface LanguageEntry {
   language: string;
   fluency: string;
 }
-
-// Typography Types
-export type TypographyVariant =
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "h6"
-  | "p"
-  | "span";
-export type TypographyColor = "primary" | "secondary" | "muted" | "accent";
-export type TypographyWeight =
-  | "light"
-  | "normal"
-  | "medium"
-  | "semibold"
-  | "bold";
-export type TypographyAlign = "left" | "center" | "right" | "justify";
-
-// Layout Types
-export type ContainerType = "narrow" | "medium" | "wide" | "full";
-export type SectionSpacing = "sm" | "md" | "lg" | "xl";

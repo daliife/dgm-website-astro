@@ -70,35 +70,3 @@ export const GRID_SYSTEMS = {
     XL: "xl:grid-cols-5",
   },
 } as const;
-
-// Used by Project.astro
-export const PROJECT_CARD_DIMENSIONS = {
-  width: 224,
-  height: 128,
-} as const;
-export const IMAGE_LOADING = "lazy" as const;
-
-// Used by TimelineItem.astro
-export const TIMELINE_ITEMS_LIMIT = 2;
-
-// Used by legacy layout components
-export const LAYOUT_CONSTANTS = {
-  CONTAINER_MAX_WIDTH: "max-w-7xl",
-  CONTENT_MAX_WIDTH: {
-    NARROW: "max-w-4xl",
-    MEDIUM: "max-w-5xl",
-    WIDE: "max-w-6xl",
-  },
-  PADDING: {
-    HORIZONTAL: {
-      MOBILE: "px-4",
-      SM: "sm:px-6",
-      LG: "lg:px-8",
-    },
-    VERTICAL: {
-      MOBILE: "py-6",
-      SM: "sm:py-8",
-      LG: "lg:py-12",
-    },
-  },
-} as const;
