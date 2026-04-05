@@ -5,6 +5,7 @@ import profileImgSrc from "../assets/images/david-profile.webp";
 import { basics, work, skills, languages, education, certificates } from "@cv";
 import { TITLE_PAGE_PREFIX, PAGE_CONTAINER_CLASSES } from "../utils/constants";
 import { formatDate } from "../utils/format";
+import { getSocialProfile } from "../utils/socialLinks";
 import Button from "../components/ui/Button.astro";
 import type {
   SocialProfile,
@@ -29,10 +30,8 @@ function stripProtocol(url: string): string {
   return url.replace(/^https?:\/\/(www\.)?/, "");
 }
 
-const linkedin = (profiles as SocialProfile[])?.find(
-  p => p.network === "Linkedin"
-);
-const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
+const linkedin = getSocialProfile(profiles as SocialProfile[], "Linkedin");
+const github = getSocialProfile(profiles as SocialProfile[], "Github");
 ---
 
 <Layout

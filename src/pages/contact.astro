@@ -7,6 +7,7 @@ import {
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
 import type { SocialProfile } from "../types/ui";
+import Button from "../components/ui/Button.astro";
 const { email, profiles } = basics;
 ---
 
@@ -26,9 +27,11 @@ const { email, profiles } = basics;
       channels below.
     </p>
     <div class="space-y-6 reveal">
-      <a
+      <Button
         href={`mailto:${email}`}
-        class="block border-t border-border-primary pt-6 group"
+        variant="simple"
+        size="none"
+        className="!flex flex-col !items-start !justify-start gap-1 rounded-none hover:no-underline w-full border-t border-border-primary pt-6 group"
       >
         <span
           class="text-xs uppercase tracking-widest text-text-muted mb-2 block"
@@ -39,16 +42,18 @@ const { email, profiles } = basics;
         >
           {email}
         </span>
-      </a>
+      </Button>
       {
         (profiles as SocialProfile[]).map(profile => {
           if (profile.network === "Email") return null;
           return (
-            <a
+            <Button
               href={profile.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="block border-t border-border-primary pt-6 group"
+              variant="simple"
+              size="none"
+              className="!flex flex-col !items-start !justify-start gap-1 rounded-none hover:no-underline w-full border-t border-border-primary pt-6 group"
             >
               <span class="text-xs uppercase tracking-widest text-text-muted mb-2 block">
                 {profile.network}
@@ -56,7 +61,7 @@ const { email, profiles } = basics;
               <span class="text-lg sm:text-xl text-text-primary group-hover:opacity-60 transition-opacity duration-200">
                 {profile.username || profile.network}
               </span>
-            </a>
+            </Button>
           );
         })
       }

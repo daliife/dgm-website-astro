@@ -4,6 +4,13 @@ import ThemeToggle from "../brand/ThemeToggle.astro";
 import LanguageToggle from "../brand/LanguageToggle.astro";
 import { NAV_LINKS } from "../../utils/constants";
 const { pathname } = Astro.url;
+
+const isActivePath = (href: string) =>
+  pathname === `/${href}` || pathname === `/${href}/`;
+const navLinkActiveClasses = (active: boolean) =>
+  active
+    ? "text-text-primary font-semibold"
+    : "text-text-muted hover:text-text-primary";
 ---
 
 <header>
@@ -30,8 +37,7 @@ const { pathname } = Astro.url;
         <ul class="flex items-center gap-6">
           {
             NAV_LINKS.map(({ href, label }) => {
-              const isActive =
-                pathname === `/${href}` || pathname === `/${href}/`;
+              const active = isActivePath(href);
               return (
                 <li>
                   <a
@@ -39,11 +45,9 @@ const { pathname } = Astro.url;
                     data-text={label}
                     class:list={[
                       "nav-link text-sm uppercase tracking-widest transition-colors duration-200",
-                      isActive
-                        ? "text-text-primary font-semibold"
-                        : "text-text-muted hover:text-text-primary",
+                      navLinkActiveClasses(active),
                     ]}
-                    aria-current={isActive ? "page" : undefined}
+                    aria-current={active ? "page" : undefined}
                   >
                     <span data-i18n={`ui.nav.${href}`}>{label}</span>
                   </a>
@@ -124,19 +128,16 @@ const { pathname } = Astro.url;
       <ul class="flex flex-col items-center justify-center gap-8 pt-20">
         {
           NAV_LINKS.map(({ href, label }) => {
-            const isActive =
-              pathname === `/${href}` || pathname === `/${href}/`;
+            const active = isActivePath(href);
             return (
               <li>
                 <a
                   href={`/${href}`}
                   class:list={[
                     "text-2xl uppercase tracking-widest transition-colors duration-200",
-                    isActive
-                      ? "text-text-primary font-semibold"
-                      : "text-text-muted hover:text-text-primary",
+                    navLinkActiveClasses(active),
                   ]}
-                  aria-current={isActive ? "page" : undefined}
+                  aria-current={active ? "page" : undefined}
                 >
                   <span data-i18n={`ui.nav.${href}`}>{label}</span>
                 </a>

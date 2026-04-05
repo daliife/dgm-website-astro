@@ -67,6 +67,7 @@ export type SocialNetwork = "Linkedin" | "Github" | "Email";
 export interface SocialProfile {
   network: SocialNetwork;
   url: string;
+  username?: string;
 }
 
 // CV Content Types
