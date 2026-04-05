@@ -283,6 +283,11 @@ const jsonLd = {
     <script>
       let revealObserver: IntersectionObserver | null = null;
 
+      document.addEventListener("astro:before-swap", () => {
+        revealObserver?.disconnect();
+        revealObserver = null;
+      });
+
       document.addEventListener("astro:page-load", () => {
         const prefersReduced = window.matchMedia(
           "(prefers-reduced-motion: reduce)"

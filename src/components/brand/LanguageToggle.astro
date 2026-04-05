@@ -1,4 +1,5 @@
 ---
+import { SUPPORTED_LANGUAGES } from "../../utils/constants";
 // Language dropdown toggle — renders in both desktop and mobile header
 ---
 
@@ -33,33 +34,19 @@
     aria-label="Language"
     class="absolute right-0 top-full mt-1 hidden z-50 bg-bg-primary border border-border-primary rounded-lg shadow-lg py-1 min-w-[3.5rem]"
   >
-    <button
-      type="button"
-      role="option"
-      data-lang-btn="en"
-      aria-selected="true"
-      class="w-full text-left px-3 py-1.5 text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors duration-150"
-    >
-      EN
-    </button>
-    <button
-      type="button"
-      role="option"
-      data-lang-btn="es"
-      aria-selected="false"
-      class="w-full text-left px-3 py-1.5 text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors duration-150"
-    >
-      ES
-    </button>
-    <button
-      type="button"
-      role="option"
-      data-lang-btn="ca"
-      aria-selected="false"
-      class="w-full text-left px-3 py-1.5 text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors duration-150"
-    >
-      CA
-    </button>
+    {
+      SUPPORTED_LANGUAGES.map(lang => (
+        <button
+          type="button"
+          role="option"
+          data-lang-btn={lang.code}
+          aria-selected={lang.default ? "true" : "false"}
+          class="w-full text-left px-3 py-1.5 text-xs uppercase tracking-widest text-text-secondary hover:text-text-primary hover:bg-bg-secondary transition-colors duration-150"
+        >
+          {lang.label}
+        </button>
+      ))
+    }
   </div>
 </div>
 

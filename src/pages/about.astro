@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import profileImgSrc from "../assets/images/david-profile.webp";
 import { basics, work, skills, languages, education, certificates } from "@cv";
-import { TITLE_PAGE_PREFIX } from "../utils/constants";
+import { TITLE_PAGE_PREFIX, PAGE_CONTAINER_CLASSES } from "../utils/constants";
 import { formatDate } from "../utils/format";
 import Button from "../components/ui/Button.astro";
 import type {
@@ -40,7 +40,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
   description={`About ${name} ${lastName} — ${label} based in ${location?.city}. Discover my story, skills, and professional background.`}
 >
   <div
-    class="max-w-5xl mx-auto px-6 pt-24 md:pt-32 pb-20 content-wrapper print:pt-0 print:pb-0 print:px-0 print:max-w-none"
+    class={`${PAGE_CONTAINER_CLASSES} content-wrapper print:pt-0 print:pb-0 print:px-0 print:max-w-none`}
   >
     <!-- Print-only CV header -->
     <div class="hidden print:flex print:items-start print:gap-4 print:mb-8">
