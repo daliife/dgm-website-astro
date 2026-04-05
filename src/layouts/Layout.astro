@@ -98,7 +98,6 @@ const jsonLd = {
     <!-- SEO Meta Tags -->
     <meta name="author" content={fullName} />
     <meta name="robots" content="index, follow" />
-    <meta name="language" content="en" />
 
     <meta name="generator" content={Astro.generator} />
     <meta
@@ -126,6 +125,18 @@ const jsonLd = {
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
+    <meta
+      property="twitter:image:alt"
+      content={`Profile photo of ${fullName}`}
+    />
+    {
+      type === "profile" && (
+        <>
+          <meta property="og:profile:first_name" content={name} />
+          <meta property="og:profile:last_name" content={lastName} />
+        </>
+      )
+    }
 
     <title>{title}</title>
     <script
