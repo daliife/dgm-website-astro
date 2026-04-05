@@ -2,12 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { basics } from "@cv";
-const { name, lastName, email } = basics;
+const { name, lastName, label, email } = basics;
 ---
 
 <Layout
-  title="David Gimeno — Frontend Developer"
-  description="Personal portfolio of David Gimeno Mañé — Software Engineer based in Barcelona."
+  title={`${name} ${lastName} — ${label}`}
   type="profile"
   hideFooter={true}
 >

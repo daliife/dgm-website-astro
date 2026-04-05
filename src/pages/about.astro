@@ -37,7 +37,7 @@ const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
 
 <Layout
   title={`${TITLE_PAGE_PREFIX}About`}
-  description="About David Gimeno — Software Engineer based in Barcelona."
+  description={`About ${name} ${lastName} — ${label} based in ${location?.city}. Discover my story, skills, and professional background.`}
 >
   <div
     class="max-w-5xl mx-auto px-6 pt-24 md:pt-32 pb-20 content-wrapper print:pt-0 print:pb-0 print:px-0 print:max-w-none"
