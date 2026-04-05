@@ -2,19 +2,21 @@
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { basics } from "@cv";
-const { name, lastName, email } = basics;
+const { name, lastName, label, email } = basics;
 ---
 
 <Layout
-  title="David Gimeno — Frontend Developer"
-  description="Personal portfolio of David Gimeno Mañé — Software Engineer based in Barcelona."
+  title={`${name} ${lastName} — ${label}`}
   type="profile"
   hideFooter={true}
 >
   <section class="min-h-screen flex flex-col items-center justify-center px-6">
     <div class="max-w-4xl w-full reveal">
       <!-- Greeting -->
-      <p class="text-xs uppercase tracking-widest text-text-muted mb-4">
+      <p
+        class="text-xs uppercase tracking-widest text-text-muted mb-4"
+        data-i18n="ui.home.greeting"
+      >
         Hello there, it's
       </p>
 
@@ -57,7 +59,7 @@ const { name, lastName, email } = basics;
             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
           ></path>
         </svg>
-        Get in touch
+        <span data-i18n="ui.home.cta">Get in touch</span>
       </Button>
     </div>
   </section>
@@ -96,15 +98,37 @@ const { name, lastName, email } = basics;
     const cursor = document.querySelector<HTMLElement>(".typewriter-cursor");
     if (!el || !cursor) return;
 
-    const phrases = [
-      "FRONTEND DEVELOPER",
-      "SOFTWARE ENGINEER",
-      "REACT SPECIALIST",
-      "BARCELONA BASED",
-      "CLARINETIST",
-      "RUNNER & HIKING LOVER",
-      "GAMER & CINEPHILE",
-    ];
+    const lang = localStorage.getItem("lang") ?? "en";
+    const phrases =
+      lang === "ca"
+        ? [
+            "DESENVOLUPADOR FRONTEND",
+            "ENGINYER DE SOFTWARE",
+            "ESPECIALISTA EN REACT",
+            "UBICAT A BARCELONA",
+            "CLARINETISTA",
+            "AMANT DE LA MUNTANYA",
+            "GAMER I CINÈFIL",
+          ]
+        : lang === "es"
+          ? [
+              "DESARROLLADOR FRONTEND",
+              "INGENIERO DE SOFTWARE",
+              "ESPECIALISTA EN REACT",
+              "BASADO EN BARCELONA",
+              "CLARINETISTA",
+              "AMANTE DE LA MONTAÑA",
+              "GAMER Y CINÉFILO",
+            ]
+          : [
+              "FRONTEND DEVELOPER",
+              "SOFTWARE ENGINEER",
+              "REACT SPECIALIST",
+              "BARCELONA BASED",
+              "CLARINETIST",
+              "RUNNER & HIKING LOVER",
+              "GAMER & CINEPHILE",
+            ];
 
     // prefers-reduced-motion: show first phrase statically
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {

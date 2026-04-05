@@ -1,7 +1,10 @@
 ---
 import type { ProjectEntry } from "../../types/ui";
 
-const { project } = Astro.props as { project: ProjectEntry };
+const { project, projectIndex } = Astro.props as {
+  project: ProjectEntry;
+  projectIndex: number;
+};
 ---
 
 <article class="group border-t border-border-primary py-8">
@@ -63,7 +66,10 @@ const { project } = Astro.props as { project: ProjectEntry };
           {project.technologies?.join(" · ")}
         </span>
       </div>
-      <p class="text-text-secondary text-sm sm:text-base leading-relaxed">
+      <p
+        class="text-text-secondary text-sm sm:text-base leading-relaxed"
+        data-i18n={`projects.${projectIndex}.description`}
+      >
         {project.description}
       </p>
     </div>

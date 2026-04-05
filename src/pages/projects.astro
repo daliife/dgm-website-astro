@@ -1,6 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { TITLE_PAGE_PREFIX } from "../utils/constants";
+import {
+  TITLE_PAGE_PREFIX,
+  PAGE_CONTAINER_CLASSES,
+  PAGE_HEADING_CLASSES,
+} from "../utils/constants";
 import { projects } from "@cv";
 import ProjectCard from "../components/sections/ProjectCard.astro";
 import type { ProjectEntry } from "../types/ui";
@@ -8,16 +12,18 @@ import type { ProjectEntry } from "../types/ui";
 
 <Layout
   title={`${TITLE_PAGE_PREFIX}Projects`}
-  description="Portfolio of web development projects by David Gimeno."
+  description="Portfolio of web development projects by David Gimeno Mañé — Frontend Developer based in Barcelona."
 >
-  <div class="max-w-5xl mx-auto px-6 pt-24 md:pt-32 pb-20">
-    <h1
-      class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase mb-12 reveal"
-    >
+  <div class={PAGE_CONTAINER_CLASSES}>
+    <h1 class={`${PAGE_HEADING_CLASSES} mb-12`} data-i18n="ui.page.projects">
       Projects
     </h1>
     <div class="space-y-0 reveal">
-      {projects.map((project: ProjectEntry) => <ProjectCard {project} />)}
+      {
+        projects.map((project: ProjectEntry, i: number) => (
+          <ProjectCard {project} projectIndex={i} />
+        ))
+      }
     </div>
   </div>
 </Layout>

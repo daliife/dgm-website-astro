@@ -5,6 +5,10 @@ import { createLogger } from "vite";
 
 const SERVER_PORT = 4321;
 const LIVE_URL = "https://davidgimeno.cat";
+const PAGES_URL = "https://daliife.github.io";
+const PAGES_BASE = "/dgm-website-astro";
+
+const isGitHubPages = process.env.GITHUB_PAGES === "true";
 
 const logger = createLogger();
 const originalWarn = logger.warn.bind(logger);
@@ -14,7 +18,8 @@ logger.warn = (msg, options) => {
 };
 
 export default defineConfig({
-  site: LIVE_URL,
+  site: isGitHubPages ? PAGES_URL : LIVE_URL,
+  base: isGitHubPages ? PAGES_BASE : "/",
   integrations: [sitemap(), tailwind()],
   output: "static",
   prefetch: {

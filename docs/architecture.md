@@ -70,12 +70,12 @@ Every page must be wrapped in `<Layout>`. It provides:
 - The full `<html>` shell with `lang="en"`
 - All `<head>` content: charset, viewport, fonts, SEO meta, OG tags, Twitter cards, JSON-LD structured data
 - Dark/light mode initialization (localStorage + `prefers-color-scheme`)
-- Astro `<ClientRouter>` for View Transitions
+- Astro `<ClientRouter>` for View Transitions with prefetch on hover
 - `<Header>` (persisted across navigations) and `<Footer>` (can be hidden with `hideFooter={true}`)
 - Skip-to-content accessibility link
 - Scroll-reveal animation system (`.reveal` class + Intersection Observer)
-- Smooth theme transition CSS (background-color, border-color, color)
 - `prefers-reduced-motion` support
+- Mobile: page transitions disabled via `@media (max-width: 767px)` CSS override
 
 Props:
 
@@ -84,6 +84,8 @@ Props:
   title: string;           // required — "DGM | Page Title"
   description?: string;    // defaults to portfolio description
   image?: string;          // OG image (defaults to profile photo)
+  imageWidth?: number;     // OG image width (default: 400)
+  imageHeight?: number;    // OG image height (default: 500)
   type?: string;           // OG type (defaults to "website")
   hideFooter?: boolean;    // for full-viewport pages like the home hero
 }
@@ -136,7 +138,14 @@ Values are set in `Layout.astro` `<style>`:
 
 ### Font
 
-**Inter Variable** — loaded via `@fontsource-variable/inter`. Configured in `tailwind.config.mjs` as default sans-serif.
+**Inter Variable** — loaded via `src/styles/fonts.css` with two subsets only:
+
+- `inter-latin-wght-normal.woff2` — covers basic Latin (covers ~99% of portfolio content)
+- `inter-latin-ext-wght-normal.woff2` — covers extended Latin (diacritics for Catalan/Spanish)
+
+All other subsets (Cyrillic, Greek, Vietnamese) are excluded to reduce download size.
+The Latin woff2 is preloaded via `<link rel="preload">` in `Layout.astro` to eliminate FOIT.
+`font-display: swap` is set on both `@font-face` rules.
 
 ### Scroll reveal
 
@@ -158,13 +167,14 @@ src/components/
 
 ### Active components
 
-| Component                   | Purpose                                           |
-| --------------------------- | ------------------------------------------------- |
-| `brand/DgmLogoSimple.astro` | SVG logo monogram. Props: `className`, `size`     |
-| `brand/ThemeToggle.astro`   | Dark/light mode toggle button                     |
-| `layout/Header.astro`       | Fixed nav: logo, desktop/mobile nav, theme toggle |
-| `layout/Footer.astro`       | Copyright + social links from cv.json             |
-| `ui/Button.astro`           | Polymorphic button/link component                 |
+| Component                    | Purpose                                                     |
+| ---------------------------- | ----------------------------------------------------------- |
+| `brand/DgmLogoSimple.astro`  | SVG logo monogram. Props: `className`, `size`               |
+| `brand/ThemeToggle.astro`    | Dark/light mode toggle button                               |
+| `brand/LanguageToggle.astro` | EN/CA language switcher dropdown (client-side i18n)         |
+| `layout/Header.astro`        | Fixed nav: logo (left), nav links (centre), toggles (right) |
+| `layout/Footer.astro`        | Copyright + social links from cv.json                       |
+| `ui/Button.astro`            | Polymorphic button/link component                           |
 
 ### Available but unused components
 
@@ -180,6 +190,43 @@ These were part of the previous design and remain available:
 | `sections/Project.astro`      | Project card                  |
 | `sections/Timeline.astro`     | Work experience container     |
 | `sections/TimelineItem.astro` | Single work experience row    |
+
+---
+
+## Internationalisation (i18n)
+
+The site supports **English** (default) and **Catalan** via a lightweight client-side system — no build-time routes, no URL prefixes.
+
+### How it works
+
+1. Static strings that need translation get a `data-i18n="key"` attribute in `.astro` templates.
+2. `LanguageToggle.astro` renders an EN/CA dropdown in both the desktop nav and the mobile menu.
+3. On language change, a `<script>` in `LanguageToggle.astro` queries all `[data-i18n]` elements and replaces their `textContent` with the Catalan value from `src/i18n/ca.ts`.
+4. The original English text is preserved in `data-i18n-orig` on first toggle, allowing switching back without a page reload.
+5. The selected language is persisted in `localStorage("lang")` and re-applied on `astro:page-load`.
+6. `document.documentElement.lang` is updated to `"ca"` or `"en"` accordingly.
+
+### Translation keys
+
+Keys use dot notation: `ui.*` for static UI strings, `basics.*` / `work.*` for cv.json content.
+
+```ts
+// src/i18n/ca.ts
+export const CA: Record<string, string> = {
+  "ui.nav.about": "Sobre mi",
+  "ui.nav.work": "Experiència",
+  // ...
+};
+```
+
+### Adding a translatable string
+
+```astro
+<!-- in any .astro page or component -->
+<h1 data-i18n="ui.page.about">About</h1>
+```
+
+Then add the Catalan translation to `src/i18n/ca.ts`.
 
 ---
 
@@ -222,7 +269,9 @@ The project uses Astro's built-in `<ClientRouter>`. Key consequences:
 
 - `DOMContentLoaded` **does not re-fire** on client-side navigation. Use `astro:page-load` instead.
 - `astro:after-swap` fires after the new page DOM is in place. Used for theme re-application.
-- `Header` uses `transition:persist` to stay mounted across navigations.
+- `<Header>` uses `transition:persist` to stay mounted across navigations.
+- **Prefetch on hover**: `astro.config.mjs` sets `prefetch: { prefetchAll: true, defaultStrategy: "hover" }`. Pages are pre-fetched when the user hovers a nav link, making navigation near-instant.
+- **Mobile**: page transitions are disabled via CSS (`@media (max-width: 767px)`) for snappier feel — both the View Transitions API path (`::view-transition-*`) and the JS fallback path (`[data-astro-transition-fallback]`).
 
 ---
 
@@ -245,19 +294,23 @@ The project uses Astro's built-in `<ClientRouter>`. Key consequences:
 ### Commands
 
 ```bash
-pnpm run dev          # http://localhost:4321
-pnpm run build        # astro check + production build
-pnpm run preview      # serve dist/ locally
-pnpm run lint         # ESLint
-pnpm run format       # Prettier
+pnpm run dev           # http://localhost:4321
+pnpm run build         # astro check + production build
+pnpm run preview       # serve dist/ locally
+pnpm run lint          # ESLint
+pnpm run format        # Prettier
+pnpm run test          # Vitest (run once)
+pnpm run test:watch    # Vitest (watch mode)
+pnpm run test:coverage # Vitest + v8 coverage
 ```
 
 Output goes to `dist/`. Deployment is fully automated via GitHub Actions on every push to `main`:
 
 - **`deploy.yml`** — builds and uploads `dist/` to cdmon via FTP. Requires secrets: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`, `FTP_SERVER_DIR`.
 - **`deploy-pages.yml`** — builds and deploys to GitHub Pages. Requires Pages source set to **GitHub Actions** in repo Settings.
+- **`security-audit.yml`** — runs `pnpm audit --audit-level=high` on push/PR to `main` and on a weekly schedule (Mondays 08:00 UTC).
 
-Both pipelines use Node.js 24 and pnpm 9. Both support `workflow_dispatch` for manual triggers.
+All pipelines use Node.js 24 and pnpm (version read from `packageManager` field in `package.json`).
 
 ### URL resolution
 
@@ -265,6 +318,26 @@ Both pipelines use Node.js 24 and pnpm 9. Both support `workflow_dispatch` for m
 
 - During `astro build` (detected via `process.argv.includes("build")`): uses `LIVE_URL` (`http://davidgimeno.cat`)
 - During dev: uses `http://localhost:4321`
+
+---
+
+## Testing
+
+Unit tests use **Vitest** with Astro's `experimental_AstroContainer` for SSR rendering.
+
+```
+src/tests/
+  components/
+    Button.test.ts         — polymorphic rendering, variants, props
+    Header.test.ts         — nav links, data-i18n, LanguageToggle, mobile menu
+    LanguageToggle.test.ts — ARIA attributes, EN/CA options, listbox role
+    ProjectCard.test.ts    — name, URL, image fallback, technologies
+    WorkCard.test.ts       — position, dates, highlights
+  pages/
+    routes.test.ts         — all 6 pages render, HTML structure, data-i18n keys
+```
+
+Configuration in `vitest.config.ts` (uses `getViteConfig` from `astro/config`).
 
 ---
 
@@ -277,6 +350,8 @@ Both pipelines use Node.js 24 and pnpm 9. Both support `workflow_dispatch` for m
 ```
 
 Shared types live in `src/types/ui.ts`: `ButtonVariant`, `ButtonSize`, `NavLink`.
+
+Side-effect imports without types (e.g. font packages) are declared in `src/env.d.ts`.
 
 ---
 

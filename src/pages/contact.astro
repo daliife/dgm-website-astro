@@ -1,30 +1,37 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { basics } from "@cv";
-import { TITLE_PAGE_PREFIX } from "../utils/constants";
+import {
+  TITLE_PAGE_PREFIX,
+  PAGE_CONTAINER_CLASSES,
+  PAGE_HEADING_CLASSES,
+} from "../utils/constants";
+import type { SocialProfile } from "../types/ui";
+import Button from "../components/ui/Button.astro";
 const { email, profiles } = basics;
 ---
 
 <Layout
   title={`${TITLE_PAGE_PREFIX}Contact`}
-  description="Get in touch with David Gimeno."
+  description="Contact David Gimeno Mañé — Frontend Developer based in Barcelona. Let’s work together."
 >
-  <div class="max-w-5xl mx-auto px-6 pt-24 md:pt-32 pb-20">
-    <h1
-      class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase mb-6 reveal"
-    >
+  <div class={PAGE_CONTAINER_CLASSES}>
+    <h1 class={`${PAGE_HEADING_CLASSES} mb-6`} data-i18n="ui.page.contact">
       Contact
     </h1>
     <p
       class="text-text-secondary text-base sm:text-lg leading-relaxed max-w-xl mb-16 reveal"
+      data-i18n="ui.contact.intro"
     >
       Interested in working together? Feel free to reach out through any of the
       channels below.
     </p>
     <div class="space-y-6 reveal">
-      <a
+      <Button
         href={`mailto:${email}`}
-        class="block border-t border-border-primary pt-6 group"
+        variant="simple"
+        size="none"
+        className="!flex flex-col !items-start !justify-start gap-1 rounded-none hover:no-underline w-full border-t border-border-primary pt-6 group"
       >
         <span
           class="text-xs uppercase tracking-widest text-text-muted mb-2 block"
@@ -35,16 +42,18 @@ const { email, profiles } = basics;
         >
           {email}
         </span>
-      </a>
+      </Button>
       {
-        profiles.map((profile: any) => {
+        (profiles as SocialProfile[]).map(profile => {
           if (profile.network === "Email") return null;
           return (
-            <a
+            <Button
               href={profile.url}
               target="_blank"
               rel="noopener noreferrer"
-              class="block border-t border-border-primary pt-6 group"
+              variant="simple"
+              size="none"
+              className="!flex flex-col !items-start !justify-start gap-1 rounded-none hover:no-underline w-full border-t border-border-primary pt-6 group"
             >
               <span class="text-xs uppercase tracking-widest text-text-muted mb-2 block">
                 {profile.network}
@@ -52,7 +61,7 @@ const { email, profiles } = basics;
               <span class="text-lg sm:text-xl text-text-primary group-hover:opacity-60 transition-opacity duration-200">
                 {profile.username || profile.network}
               </span>
-            </a>
+            </Button>
           );
         })
       }

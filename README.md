@@ -23,7 +23,7 @@ pnpm run preview  # Serve the production build locally
 ## 📁 Project Structure
 
 ```
-├── astro.config.mjs       # Astro + Vite configuration
+├── astro.config.mjs       # Astro + Vite configuration (GITHUB_PAGES env var for base path)
 ├── tailwind.config.mjs    # Design tokens and Tailwind theme
 ├── cv.json                # All personal content (bio, work, projects…)
 ├── .npmrc                 # pnpm config (shamefully-hoist=true)
@@ -38,16 +38,17 @@ pnpm run preview  # Serve the production build locally
 ├── AGENTS.md              # AI agent context (Codex, Claude, Gemini…)
 └── src/
     ├── components/
-    │   ├── brand/          # DgmLogoSimple, ThemeToggle
-    │   ├── layout/         # Header, Footer, PageContainer, HomeContainer
-    │   ├── sections/       # Project, Timeline, TimelineItem (legacy)
+    │   ├── brand/          # DgmLogoSimple, ThemeToggle, LanguageToggle
+    │   ├── layout/         # Header, Footer
+    │   ├── sections/       # ProjectCard, WorkCard
     │   └── ui/             # Button, Grid, Section, Typography
-    ├── icons/              # Inline SVG icon components (legacy)
+    ├── i18n/               # ca.ts, es.ts — client-side translations
     ├── layouts/
     │   └── Layout.astro    # Root HTML shell
     ├── pages/              # One file = one route
-    ├── types/              # Shared TypeScript interfaces
-    └── utils/              # NAV_LINKS, constants
+    ├── tests/              # Vitest unit tests (components + utils + pages)
+    ├── types/              # Shared TypeScript interfaces (ui.ts)
+    └── utils/              # constants.ts, format.ts, socialLinks.ts
 ```
 
 ## 📄 Pages
@@ -85,10 +86,11 @@ pnpm run build        # Must succeed (0 errors, 0 warnings)
 ```astro
 ---
 import Layout from "../layouts/Layout.astro";
-import { TITLE_PAGE_PREFIX } from "../utils/constants";
+import { TITLE_PAGE_PREFIX, PAGE_CONTAINER_CLASSES, PAGE_HEADING_CLASSES } from "../utils/constants";
 ---
 <Layout title={`${TITLE_PAGE_PREFIX}My Page`}>
-  <div class="max-w-5xl mx-auto px-6 pt-32 pb-20">
+  <div class={PAGE_CONTAINER_CLASSES}>
+    <h1 class={`${PAGE_HEADING_CLASSES} mb-12`}>My Page</h1>
     <!-- content -->
   </div>
 </Layout>
@@ -97,6 +99,18 @@ import { TITLE_PAGE_PREFIX } from "../utils/constants";
 ### 📝 Adding content
 
 All personal content (bio, work history, projects, skills, languages) lives in `cv.json`. Edit that file — do not hardcode strings inside components.
+
+### 🌐 Internationalisation (i18n)
+
+The site supports EN (default), ES, and CA via a client-side toggle. Translations live in `src/i18n/ca.ts` and `src/i18n/es.ts` as flat `Record<string, string>` objects. Static strings in templates use `data-i18n="key"` attributes; the `LanguageToggle` component applies them on the client.
+
+### 🧪 Tests
+
+```bash
+pnpm run test   # Run all Vitest tests
+```
+
+Tests live under `src/tests/` split into `components/`, `pages/`, and `utils/`. Use `experimental_AstroContainer` to render `.astro` components in tests.
 
 ```astro
 ---

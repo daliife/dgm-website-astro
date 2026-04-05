@@ -8,6 +8,20 @@ export const NAV_LINKS: { href: string; label: string }[] = [
 
 export const LIVE_URL = "https://davidgimeno.cat";
 
+export const PAGE_CONTAINER_CLASSES =
+  "max-w-5xl mx-auto px-6 pt-24 md:pt-32 pb-20";
+
+export const PAGE_HEADING_CLASSES =
+  "text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase reveal";
+
+export const SUPPORTED_LANGUAGES = [
+  { code: "en", label: "EN", default: true },
+  { code: "es", label: "ES", default: false },
+  { code: "ca", label: "CA", default: false },
+] as const;
+
+export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number]["code"];
+
 // Used by Section.astro
 export const SPACING = {
   SECTION: {
@@ -68,37 +82,5 @@ export const GRID_SYSTEMS = {
     MD: "md:grid-cols-3",
     LG: "lg:grid-cols-4",
     XL: "xl:grid-cols-5",
-  },
-} as const;
-
-// Used by Project.astro
-export const PROJECT_CARD_DIMENSIONS = {
-  width: 224,
-  height: 128,
-} as const;
-export const IMAGE_LOADING = "lazy" as const;
-
-// Used by TimelineItem.astro
-export const TIMELINE_ITEMS_LIMIT = 2;
-
-// Used by legacy layout components
-export const LAYOUT_CONSTANTS = {
-  CONTAINER_MAX_WIDTH: "max-w-7xl",
-  CONTENT_MAX_WIDTH: {
-    NARROW: "max-w-4xl",
-    MEDIUM: "max-w-5xl",
-    WIDE: "max-w-6xl",
-  },
-  PADDING: {
-    HORIZONTAL: {
-      MOBILE: "px-4",
-      SM: "sm:px-6",
-      LG: "lg:px-8",
-    },
-    VERTICAL: {
-      MOBILE: "py-6",
-      SM: "sm:py-8",
-      LG: "lg:py-12",
-    },
   },
 } as const;
