@@ -1,6 +1,9 @@
 ---
 import { SUPPORTED_LANGUAGES } from "../../utils/constants";
-// Language dropdown toggle — renders in both desktop and mobile header
+interface Props {
+  dropup?: boolean;
+}
+const { dropup = false } = Astro.props;
 ---
 
 <div data-lang-switcher class="relative">
@@ -24,7 +27,7 @@ import { SUPPORTED_LANGUAGES } from "../../utils/constants";
         stroke-linecap="round"
         stroke-linejoin="round"
         stroke-width="2"
-        d="M19 9l-7 7-7-7"></path>
+        d={dropup ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}></path>
     </svg>
   </button>
 
@@ -32,7 +35,7 @@ import { SUPPORTED_LANGUAGES } from "../../utils/constants";
     data-lang-dropdown
     role="listbox"
     aria-label="Language"
-    class="absolute right-0 top-full mt-1 hidden z-50 bg-bg-primary border border-border-primary rounded-lg shadow-lg py-1 min-w-[3.5rem]"
+    class={`absolute right-0 ${dropup ? "bottom-full mb-1" : "top-full mt-1"} hidden z-50 bg-bg-primary border border-border-primary rounded-lg shadow-lg py-1 min-w-[3.5rem]`}
   >
     {
       SUPPORTED_LANGUAGES.map(lang => (
