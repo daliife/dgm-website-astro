@@ -2,6 +2,7 @@
 import { LIVE_URL } from "../utils/constants";
 import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
+import CookieConsent from "../components/layout/CookieConsent.astro";
 import "../styles/fonts.css";
 import interLatinFontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 import { ClientRouter } from "astro:transitions";
@@ -145,6 +146,14 @@ const jsonLd = {
       set:html={JSON.stringify(jsonLd)}
     />
 
+    <!-- Umami Analytics -->
+    <script
+      defer
+      src="https://cloud.umami.is/script.js"
+      data-website-id="308bb911-c6d0-467c-8b4c-8e0a4ddf6294"
+      data-domains="davidgimeno.cat"
+      is:inline></script>
+
     <script is:inline>
       function applyTheme() {
         const saved = localStorage.getItem("theme");
@@ -181,6 +190,7 @@ const jsonLd = {
       <slot />
     </main>
     {!hideFooter && <Footer />}
+    <CookieConsent />
     <style is:global>
       :root {
         --text-primary: 23 23 23;

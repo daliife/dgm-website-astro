@@ -29,6 +29,34 @@ export const ES: Record<string, string> = {
   "ui.about.printcv": "Imprimir CV",
   "ui.about.experience": "Experiencia", // print-only
 
+  // ── Cookie consent ──────────────────────────────────────────────────────────
+  "ui.cookies.message":
+    "Este sitio utiliza analíticas anónimas para mejorar la experiencia.",
+  "ui.cookies.learnmore": "Más información",
+  "ui.cookies.dismiss": "Entendido",
+
+  // ── Footer ───────────────────────────────────────────────────────────────────
+  "ui.footer.privacy": "Privacidad",
+
+  // ── Privacy page ─────────────────────────────────────────────────────────────
+  "ui.page.privacy": "Privacidad",
+  "ui.privacy.intro":
+    "Este sitio utiliza Umami, una herramienta de analítica de código abierto y respetuosa con la privacidad. No se usan cookies y no se recopilan datos personales.",
+  "ui.privacy.collected.title": "Qué recopilamos",
+  "ui.privacy.collected.0": "Páginas visitadas y rutas de navegación",
+  "ui.privacy.collected.1": "URL de referencia (de dónde vienes)",
+  "ui.privacy.collected.2": "Navegador y sistema operativo (genérico)",
+  "ui.privacy.collected.3":
+    "Tipo de dispositivo (escritorio / móvil / tableta)",
+  "ui.privacy.collected.4": "País (aproximado, basado en IP anonimizada)",
+  "ui.privacy.notcollected.title": "Qué NO recopilamos",
+  "ui.privacy.notcollected.0": "Sin cookies ni identificadores persistentes",
+  "ui.privacy.notcollected.1": "Sin datos personales (nombre, correo, etc.)",
+  "ui.privacy.notcollected.2": "Sin almacenamiento de dirección IP",
+  "ui.privacy.notcollected.3": "Sin seguimiento entre sitios",
+  "ui.privacy.notcollected.4": "Sin venta de datos a terceros",
+  "ui.privacy.moreinfo": "Más detalles en",
+
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":
     "¿Te interesa colaborar? No dudes en contactarme a través de cualquiera de los siguientes canales.",

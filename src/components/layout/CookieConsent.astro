@@ -1,0 +1,80 @@
+---
+import Button from "../ui/Button.astro";
+---
+
+<div
+  id="cookie-banner"
+  role="banner"
+  aria-label="Cookie notice"
+  transition:persist
+  class="fixed bottom-0 left-0 right-0 z-50 hidden translate-y-full"
+>
+  <div class="border-t border-border-primary bg-bg-secondary px-6 py-4">
+    <div
+      class="max-w-5xl mx-auto flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+    >
+      <p class="text-xs text-text-secondary leading-relaxed">
+        <span data-i18n="ui.cookies.message"
+          >This site uses anonymous analytics to improve the experience.</span
+        >
+        {" "}
+        <a
+          href="/privacy"
+          class="underline underline-offset-4 hover:text-text-primary transition-colors"
+          data-i18n="ui.cookies.learnmore"
+        >
+          Learn more
+        </a>
+      </p>
+      <Button
+        id="cookie-dismiss"
+        variant="primary"
+        size="sm"
+        className="shrink-0"
+      >
+        <span data-i18n="ui.cookies.dismiss">OK</span>
+      </Button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = "cookie-consent-dismissed";
+
+  function initBanner() {
+    const banner = document.getElementById("cookie-banner");
+    if (!banner) return;
+
+    if (localStorage.getItem(STORAGE_KEY) === "true") {
+      banner.classList.add("hidden");
+      return;
+    }
+
+    banner.classList.remove("hidden");
+
+    // Trigger slide-up animation on next frame
+    requestAnimationFrame(() => {
+      banner.classList.remove("translate-y-full");
+      banner.classList.add(
+        "translate-y-0",
+        "transition-transform",
+        "duration-300",
+        "ease-out"
+      );
+    });
+
+    const btn = document.getElementById("cookie-dismiss");
+    btn?.addEventListener("click", () => {
+      localStorage.setItem(STORAGE_KEY, "true");
+      banner.classList.remove("translate-y-0");
+      banner.classList.add("translate-y-full");
+      banner.addEventListener(
+        "transitionend",
+        () => banner.classList.add("hidden"),
+        { once: true }
+      );
+    });
+  }
+
+  document.addEventListener("astro:page-load", initBanner);
+</script>
