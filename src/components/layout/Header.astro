@@ -148,7 +148,7 @@ const navLinkActiveClasses = (active: boolean) =>
       </ul>
       <!-- Language toggle at bottom of mobile menu -->
       <div class="absolute bottom-12 left-0 right-0 flex justify-center">
-        <LanguageToggle />
+        <LanguageToggle dropup />
       </div>
     </div>
   </nav>
@@ -162,10 +162,16 @@ const navLinkActiveClasses = (active: boolean) =>
     const menu = document.getElementById("mobile-menu");
     if (!nav || !menuBtn || !menuClose || !menu) return;
 
+    let scrollY = 0;
+
     function openMenu() {
+      scrollY = window.scrollY;
       menu!.classList.remove("hidden");
       menuBtn!.setAttribute("aria-expanded", "true");
       document.body.style.overflow = "hidden";
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = "100%";
       menuClose!.focus();
     }
 
@@ -173,6 +179,10 @@ const navLinkActiveClasses = (active: boolean) =>
       menu!.classList.add("hidden");
       menuBtn!.setAttribute("aria-expanded", "false");
       document.body.style.overflow = "";
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.width = "";
+      window.scrollTo(0, scrollY);
       menuBtn!.focus();
     }
 

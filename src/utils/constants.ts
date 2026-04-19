@@ -1,8 +1,8 @@
 export const TITLE_PAGE_PREFIX = "David Gimeno Mañé — ";
 export const NAV_LINKS: { href: string; label: string }[] = [
   { href: "about", label: "About" },
-  { href: "projects", label: "Projects" },
   { href: "work", label: "Work" },
+  { href: "projects", label: "Projects" },
   { href: "contact", label: "Contact" },
 ];
 
