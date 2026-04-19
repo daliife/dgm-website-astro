@@ -29,15 +29,24 @@ const socialLinks = [
   <div
     class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4"
   >
-    <span class="text-xs text-text-muted">
-      &copy; {currentYear}
-      {basics.name}
-      {basics.lastName} &mdash; Built with <span class="footer-cycle-wrapper"
-        ><span class="footer-cycle">love ♥</span><span class="footer-cycle"
-          >Astro 🚀</span
-        ><span class="footer-cycle">AI ✦</span></span
+    <div class="flex items-center gap-4">
+      <span class="text-xs text-text-muted">
+        &copy; {currentYear}
+        {basics.name}
+        {basics.lastName} &mdash; Built with <span class="footer-cycle-wrapper"
+          ><span class="footer-cycle">love ♥</span><span class="footer-cycle"
+            >Astro 🚀</span
+          ><span class="footer-cycle">AI ✦</span></span
+        >
+      </span>
+      <a
+        href="/privacy"
+        class="text-xs text-text-muted hover:text-text-primary transition-colors duration-200"
+        data-i18n="ui.footer.privacy"
       >
-    </span>
+        Privacy
+      </a>
+    </div>
     <nav aria-label="Footer social links">
       <ul class="flex items-center gap-6">
         {

@@ -29,6 +29,34 @@ export const CA: Record<string, string> = {
   "ui.about.printcv": "Imprimir CV",
   "ui.about.experience": "Experiència", // print-only
 
+  // ── Cookie consent ──────────────────────────────────────────────────────────
+  "ui.cookies.message":
+    "Aquest lloc utilitza analítiques anònimes per millorar l'experiència.",
+  "ui.cookies.learnmore": "Més informació",
+  "ui.cookies.dismiss": "Entès",
+
+  // ── Footer ───────────────────────────────────────────────────────────────────
+  "ui.footer.privacy": "Privacitat",
+
+  // ── Privacy page ─────────────────────────────────────────────────────────────
+  "ui.page.privacy": "Privacitat",
+  "ui.privacy.intro":
+    "Aquest lloc utilitza Umami, una eina d'analítica de codi obert i respectuosa amb la privacitat. No s'utilitzen galetes i no es recullen dades personals.",
+  "ui.privacy.collected.title": "Què recopilem",
+  "ui.privacy.collected.0": "Pàgines visitades i rutes de navegació",
+  "ui.privacy.collected.1": "URL de referència (d'on véns)",
+  "ui.privacy.collected.2": "Navegador i sistema operatiu (genèric)",
+  "ui.privacy.collected.3":
+    "Tipus de dispositiu (escriptori / mòbil / tauleta)",
+  "ui.privacy.collected.4": "País (aproximat, basat en IP anonimitzada)",
+  "ui.privacy.notcollected.title": "Què NO recopilem",
+  "ui.privacy.notcollected.0": "Sense galetes ni identificadors persistents",
+  "ui.privacy.notcollected.1": "Sense dades personals (nom, correu, etc.)",
+  "ui.privacy.notcollected.2": "Sense emmagatzematge d'adreça IP",
+  "ui.privacy.notcollected.3": "Sense seguiment entre llocs",
+  "ui.privacy.notcollected.4": "Sense venda de dades a tercers",
+  "ui.privacy.moreinfo": "Més detalls a",
+
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":
     "T'interessa col·laborar? No dubtis a contactar-me a través de qualsevol dels canals següents.",

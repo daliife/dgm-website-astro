@@ -1,0 +1,95 @@
+---
+import Layout from "../layouts/Layout.astro";
+import {
+  TITLE_PAGE_PREFIX,
+  PAGE_CONTAINER_CLASSES,
+  PAGE_HEADING_CLASSES,
+} from "../utils/constants";
+---
+
+<Layout title={`${TITLE_PAGE_PREFIX}Privacy`}>
+  <div class={PAGE_CONTAINER_CLASSES}>
+    <h1 class={`${PAGE_HEADING_CLASSES} mb-12`} data-i18n="ui.page.privacy">
+      Privacy
+    </h1>
+
+    <div class="max-w-2xl space-y-10">
+      <p
+        class="text-base text-text-secondary leading-relaxed reveal"
+        data-i18n="ui.privacy.intro"
+      >
+        This site uses <a
+          href="https://umami.is"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-text-primary underline underline-offset-4 hover:opacity-70 transition-opacity"
+          >Umami</a
+        >, a privacy-focused open-source analytics tool. No cookies are used and
+        no personal data is collected.
+      </p>
+
+      <section class="reveal">
+        <h2
+          class="text-lg font-semibold text-text-primary uppercase tracking-wide mb-3"
+          data-i18n="ui.privacy.collected.title"
+        >
+          What we collect
+        </h2>
+        <ul
+          class="space-y-2 text-sm text-text-secondary leading-relaxed list-disc list-inside"
+        >
+          <li data-i18n="ui.privacy.collected.0">
+            Page views and navigation paths
+          </li>
+          <li data-i18n="ui.privacy.collected.1">
+            Referrer URL (where you came from)
+          </li>
+          <li data-i18n="ui.privacy.collected.2">
+            Browser and operating system (generic)
+          </li>
+          <li data-i18n="ui.privacy.collected.3">
+            Device type (desktop / mobile / tablet)
+          </li>
+          <li data-i18n="ui.privacy.collected.4">
+            Country (approximate, based on anonymised IP)
+          </li>
+        </ul>
+      </section>
+
+      <section class="reveal">
+        <h2
+          class="text-lg font-semibold text-text-primary uppercase tracking-wide mb-3"
+          data-i18n="ui.privacy.notcollected.title"
+        >
+          What we do NOT collect
+        </h2>
+        <ul
+          class="space-y-2 text-sm text-text-secondary leading-relaxed list-disc list-inside"
+        >
+          <li data-i18n="ui.privacy.notcollected.0">
+            No cookies or persistent identifiers
+          </li>
+          <li data-i18n="ui.privacy.notcollected.1">
+            No personal data (name, email, etc.)
+          </li>
+          <li data-i18n="ui.privacy.notcollected.2">No IP address storage</li>
+          <li data-i18n="ui.privacy.notcollected.3">No cross-site tracking</li>
+          <li data-i18n="ui.privacy.notcollected.4">
+            No data sold to third parties
+          </li>
+        </ul>
+      </section>
+
+      <p class="text-sm text-text-muted reveal">
+        <span data-i18n="ui.privacy.moreinfo">More details at</span>{" "}
+        <a
+          href="https://umami.is/privacy"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="underline underline-offset-4 hover:text-text-secondary transition-colors"
+          >umami.is/privacy ↗</a
+        >.
+      </p>
+    </div>
+  </div>
+</Layout>
