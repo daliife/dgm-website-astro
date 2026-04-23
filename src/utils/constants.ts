@@ -15,9 +15,9 @@ export const PAGE_HEADING_CLASSES =
   "text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase reveal";
 
 export const SUPPORTED_LANGUAGES = [
+  { code: "ca", label: "CA", default: true },
   { code: "en", label: "EN", default: false },
   { code: "es", label: "ES", default: false },
-  { code: "ca", label: "CA", default: true },
 ] as const;
 
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number]["code"];
