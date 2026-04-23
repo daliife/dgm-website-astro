@@ -1,0 +1,62 @@
+---
+import { formatDate } from "../../utils/format";
+import type { WorkEntry } from "../../types/ui";
+
+interface Props {
+  work: WorkEntry[];
+}
+
+const { work } = Astro.props;
+---
+
+<section class="hidden print:block">
+  <h2
+    class="print:text-[10px] print:uppercase print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:text-black"
+    data-i18n="ui.about.experience"
+  >
+    Experience
+  </h2>
+  {
+    work.map((job: WorkEntry, jobIndex: number) => (
+      <div class="print:mb-5 print:break-inside-avoid">
+        <div class="print:flex print:items-baseline print:justify-between">
+          <div>
+            <span
+              class="print:text-[11px] print:font-semibold print:text-black"
+              data-i18n={`work.${jobIndex}.position`}
+            >
+              {job.position}
+            </span>
+            <span class="print:text-[11px] print:text-gray-600">
+              {" "}
+              — {job.company}
+            </span>
+          </div>
+          <span class="print:text-[10px] print:text-gray-500 print:whitespace-nowrap">
+            {formatDate(job.startDate)} — {formatDate(job.endDate)}
+          </span>
+        </div>
+        {job.summary && (
+          <p
+            class="print:text-[10px] print:text-gray-600 print:leading-relaxed print:mt-1.5"
+            data-i18n={`work.${jobIndex}.summary`}
+          >
+            {job.summary}
+          </p>
+        )}
+        {job.highlights && job.highlights.length > 0 && (
+          <ul class="print:mt-1.5 print:space-y-1">
+            {job.highlights.map((h: string, hIndex: number) => (
+              <li
+                class="print:text-[10px] print:text-gray-600 print:leading-snug print:pl-3 print:relative before:content-['–'] before:absolute before:left-0 before:text-gray-400"
+                data-i18n={`work.${jobIndex}.highlights.${hIndex}`}
+              >
+                {h}
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    ))
+  }
+</section>

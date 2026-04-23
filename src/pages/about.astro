@@ -4,17 +4,15 @@ import { Image } from "astro:assets";
 import profileImgSrc from "../assets/images/david-profile.webp";
 import { basics, work, skills, languages, education, certificates } from "@cv";
 import { TITLE_PAGE_PREFIX, PAGE_CONTAINER_CLASSES } from "../utils/constants";
-import { formatDate } from "../utils/format";
+import { stripProtocol } from "../utils/format";
 import { getSocialProfile } from "../utils/socialLinks";
 import Button from "../components/ui/Button.astro";
-import type {
-  SocialProfile,
-  WorkEntry,
-  SkillEntry,
-  LanguageEntry,
-  EducationEntry,
-  CertificateEntry,
-} from "../types/ui";
+import SkillsSection from "../components/sections/SkillsSection.astro";
+import LanguagesSection from "../components/sections/LanguagesSection.astro";
+import EducationSection from "../components/sections/EducationSection.astro";
+import CertificatesSection from "../components/sections/CertificatesSection.astro";
+import PrintWorkSection from "../components/sections/PrintWorkSection.astro";
+import type { SocialProfile, WorkEntry } from "../types/ui";
 const {
   name,
   lastName,
@@ -25,10 +23,6 @@ const {
   location,
   image: profileImage,
 } = basics;
-
-function stripProtocol(url: string): string {
-  return url.replace(/^https?:\/\/(www\.)?/, "");
-}
 
 const linkedin = getSocialProfile(profiles as SocialProfile[], "Linkedin");
 const github = getSocialProfile(profiles as SocialProfile[], "Github");
@@ -162,257 +156,16 @@ const github = getSocialProfile(profiles as SocialProfile[], "Github");
       </div>
     </section>
 
-    <!-- Work Experience (print only) -->
-    <section class="hidden print:block">
-      <h2
-        class="print:text-[10px] print:uppercase print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:text-black"
-        data-i18n="ui.about.experience"
-      >
-        Experience
-      </h2>
-      {
-        work.map((job: WorkEntry, jobIndex: number) => (
-          <div class="print:mb-5 print:break-inside-avoid">
-            <div class="print:flex print:items-baseline print:justify-between">
-              <div>
-                <span
-                  class="print:text-[11px] print:font-semibold print:text-black"
-                  data-i18n={`work.${jobIndex}.position`}
-                >
-                  {job.position}
-                </span>
-                <span class="print:text-[11px] print:text-gray-600">
-                  {" "}
-                  — {job.company}
-                </span>
-              </div>
-              <span class="print:text-[10px] print:text-gray-500 print:whitespace-nowrap">
-                {formatDate(job.startDate)} — {formatDate(job.endDate)}
-              </span>
-            </div>
-            {job.summary && (
-              <p
-                class="print:text-[10px] print:text-gray-600 print:leading-relaxed print:mt-1.5"
-                data-i18n={`work.${jobIndex}.summary`}
-              >
-                {job.summary}
-              </p>
-            )}
-            {job.highlights && job.highlights.length > 0 && (
-              <ul class="print:mt-1.5 print:space-y-1">
-                {job.highlights.map((h: string, hIndex: number) => (
-                  <li
-                    class="print:text-[10px] print:text-gray-600 print:leading-snug print:pl-3 print:relative before:content-['–'] before:absolute before:left-0 before:text-gray-400"
-                    data-i18n={`work.${jobIndex}.highlights.${hIndex}`}
-                  >
-                    {h}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        ))
-      }
-    </section>
-
-    <!-- Skills -->
-    <section class="reveal mt-20 print:mt-6">
-      <h2
-        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10 print:text-[10px] print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:normal-case print:text-black"
-        data-i18n="ui.about.skills"
-      >
-        Skills
-      </h2>
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 print:block print:space-y-3"
-      >
-        {
-          skills.map((skill: SkillEntry, skillIndex: number) => (
-            <div class="print:flex print:items-baseline print:gap-x-2">
-              <h3 class="text-sm uppercase tracking-widest text-text-muted mb-3 print:text-[10px] print:mb-0 print:font-medium print:text-gray-900 print:shrink-0">
-                <span data-i18n={`skills.${skillIndex}.name`}>
-                  {skill.name}
-                </span>
-                <span class="hidden print:inline">:</span>
-              </h3>
-              <p
-                class="text-text-secondary text-sm mb-2 print:hidden"
-                data-i18n={`skills.${skillIndex}.level`}
-              >
-                {skill.level}
-              </p>
-              <div class="flex flex-wrap gap-2 print:contents">
-                {skill.keywords.map((keyword: string, i: number) => (
-                  <span class="text-xs text-text-secondary border border-border-primary rounded-full px-3 py-1 print:border-0 print:p-0 print:text-[10px] print:text-gray-600 print:rounded-none print:inline">
-                    {keyword}
-                    {i < skill.keywords.length - 1 ? (
-                      <span class="hidden print:inline">,&nbsp;</span>
-                    ) : null}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))
-        }
-      </div>
-    </section>
-
-    <!-- Languages -->
-    <section class="reveal mt-20 print:mt-6">
-      <h2
-        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10 print:text-[10px] print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:normal-case print:text-black"
-        data-i18n="ui.about.languages"
-      >
-        Languages
-      </h2>
-      <div
-        class="grid grid-cols-1 sm:grid-cols-3 gap-6 print:flex print:gap-x-6"
-      >
-        {
-          languages.map((lang: LanguageEntry, langIndex: number) => (
-            <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
-              <h3 class="text-text-primary font-medium print:text-[10px] print:text-gray-900">
-                {lang.language}
-              </h3>
-              <p
-                class="text-text-muted text-sm mt-1 print:text-[10px] print:mt-0 print:text-gray-500"
-                data-i18n={`languages.${langIndex}.fluency`}
-              >
-                {lang.fluency}
-              </p>
-            </div>
-          ))
-        }
-      </div>
-    </section>
-
-    <!-- Education -->
-    <section class="reveal mt-20 print:mt-6">
-      <h2
-        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10 print:text-[10px] print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:normal-case print:text-black"
-        data-i18n="ui.about.education"
-      >
-        Education
-      </h2>
-      <div class="space-y-6 print:space-y-4">
-        {
-          education.map((edu: EducationEntry, eduIndex: number) => (
-            <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
-              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 print:flex-row print:gap-0">
-                <div>
-                  <h3
-                    class="text-text-primary font-medium print:text-[10px] print:font-semibold print:text-gray-900"
-                    data-i18n={`education.${eduIndex}.studyType`}
-                  >
-                    {edu.studyType}
-                  </h3>
-                  <p class="text-text-secondary text-sm print:text-[10px] print:text-gray-600">
-                    <span data-i18n={`education.${eduIndex}.area`}>
-                      {edu.area}
-                    </span>{" "}
-                    <span class="hidden print:inline">— {edu.institution}</span>
-                  </p>
-                </div>
-                <span class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap print:text-[9px] print:text-gray-500">
-                  {new Date(edu.startDate).getFullYear()} &mdash;{" "}
-                  {new Date(edu.endDate).getFullYear()}
-                </span>
-              </div>
-              <a
-                href={edu.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="text-text-secondary text-sm underline underline-offset-2 decoration-text-secondary/40 hover:text-text-primary hover:decoration-text-primary transition-all duration-200 print:hidden"
-              >
-                {edu.institution}
-              </a>
-            </div>
-          ))
-        }
-      </div>
-    </section>
-
-    <!-- Certificates -->
-    <section class="reveal mt-20 print:mt-6">
-      <h2
-        class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10 print:text-[10px] print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:normal-case print:text-black"
-        data-i18n="ui.about.certificates"
-      >
-        Certificates
-      </h2>
-      <div
-        class="grid grid-cols-1 sm:grid-cols-3 gap-6 print:flex print:gap-x-6"
-      >
-        {
-          certificates.map((cert: CertificateEntry) => (
-            <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
-              <h3 class="text-text-primary font-medium text-sm print:text-[10px] print:text-gray-900">
-                {cert.name}
-              </h3>
-              <p class="text-text-muted text-sm mt-1 print:text-[10px] print:mt-0 print:text-gray-500">
-                {cert.issuer}
-              </p>
-            </div>
-          ))
-        }
-      </div>
-    </section>
+    <PrintWorkSection work={work as WorkEntry[]} />
+    <SkillsSection skills={skills} />
+    <LanguagesSection languages={languages} />
+    <EducationSection education={education} />
+    <CertificatesSection certificates={certificates} />
   </div>
 </Layout>
 
-<style>
-  @media print {
-    @page {
-      margin: 14mm 16mm;
-      size: A4;
-    }
-
-    :global(body) {
-      background: white !important;
-      color: black !important;
-      font-size: 12px !important;
-      -webkit-print-color-adjust: exact;
-      print-color-adjust: exact;
-    }
-
-    :global(header),
-    :global(footer),
-    :global(nav),
-    :global(.astro-route-announcer) {
-      display: none !important;
-    }
-
-    /* Main content container */
-    .content-wrapper {
-      max-width: none !important;
-    }
-
-    /* Reveal animations: reset so all sections are visible */
-    .reveal {
-      opacity: 1 !important;
-      transform: none !important;
-    }
-
-    /* Allow sections to break across pages naturally */
-    section {
-      break-inside: auto;
-      orphans: 3;
-      widows: 3;
-    }
-
-    /* Headings should never be orphaned at bottom of page */
-    h2,
-    h3 {
-      break-after: avoid-page;
-    }
-
-    /* Work entries: keep position + summary together */
-    li,
-    p {
-      orphans: 2;
-      widows: 2;
-    }
-  }
+<style is:global>
+  @import "../styles/print.css";
 </style>
 
 <script>

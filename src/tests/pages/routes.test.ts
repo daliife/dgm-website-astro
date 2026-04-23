@@ -6,6 +6,7 @@ import ProjectsPage from "../../pages/projects.astro";
 import WorkPage from "../../pages/work.astro";
 import ContactPage from "../../pages/contact.astro";
 import NotFoundPage from "../../pages/404.astro";
+import PrivacyPage from "../../pages/privacy.astro";
 
 const pages = [
   { name: "/", component: IndexPage },
@@ -14,6 +15,7 @@ const pages = [
   { name: "/work", component: WorkPage },
   { name: "/contact", component: ContactPage },
   { name: "/404", component: NotFoundPage },
+  { name: "/privacy", component: PrivacyPage },
 ];
 
 describe("Pages — render without errors", () => {
