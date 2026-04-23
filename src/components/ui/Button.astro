@@ -71,7 +71,7 @@ const isLink = href !== undefined;
 const Tag = isLink ? "a" : "button";
 
 // Prepare common attributes
-const commonAttrs: any = {};
+const commonAttrs: Record<string, unknown> = {};
 if (id) commonAttrs.id = id;
 if (onclick) commonAttrs.onclick = onclick;
 if (ariaLabel) commonAttrs["aria-label"] = ariaLabel;

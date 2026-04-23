@@ -79,4 +79,45 @@ describe("Button", () => {
 
     expect(html).toBeTruthy();
   });
+
+  it.each([
+    ["primary", "sm"],
+    ["primary", "lg"],
+    ["outline", "sm"],
+    ["ghost", "md"],
+    ["icon", "icon"],
+    ["simple", "none"],
+  ] as const)(
+    "renders variant %s with size %s without throwing",
+    async (variant, size) => {
+      const container = await AstroContainer.create();
+      const html = await container.renderToString(Button, {
+        props: { variant, size },
+        slots: { default: "test" },
+      });
+
+      expect(html).toBeTruthy();
+    }
+  );
+
+  it("merges custom className with base classes", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Button, {
+      props: { variant: "primary", className: "my-custom-class" },
+      slots: { default: "styled" },
+    });
+
+    expect(html).toContain("my-custom-class");
+    expect(html).toContain("inline-flex");
+  });
+
+  it("renders loading spinner when loading=true", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Button, {
+      props: { variant: "primary", loading: true },
+      slots: { default: "Loading..." },
+    });
+
+    expect(html).toContain("animate-spin");
+  });
 });

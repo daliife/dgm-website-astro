@@ -1,0 +1,52 @@
+@media print {
+  @page {
+    margin: 14mm 16mm;
+    size: A4;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+    font-size: 12px !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  header,
+  footer,
+  nav,
+  .astro-route-announcer {
+    display: none !important;
+  }
+
+  /* Main content container */
+  .content-wrapper {
+    max-width: none !important;
+  }
+
+  /* Reveal animations: reset so all sections are visible */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  /* Allow sections to break across pages naturally */
+  section {
+    break-inside: auto;
+    orphans: 3;
+    widows: 3;
+  }
+
+  /* Headings should never be orphaned at bottom of page */
+  h2,
+  h3 {
+    break-after: avoid-page;
+  }
+
+  /* Work entries: keep position + summary together */
+  li,
+  p {
+    orphans: 2;
+    widows: 2;
+  }
+}

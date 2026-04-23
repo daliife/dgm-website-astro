@@ -1,0 +1,35 @@
+---
+import type { LanguageEntry } from "../../types/ui";
+
+interface Props {
+  languages: LanguageEntry[];
+}
+
+const { languages } = Astro.props;
+---
+
+<section class="reveal mt-20 print:mt-6">
+  <h2
+    class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10 print:text-[10px] print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:normal-case print:text-black"
+    data-i18n="ui.about.languages"
+  >
+    Languages
+  </h2>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 print:flex print:gap-x-6">
+    {
+      languages.map((lang: LanguageEntry, langIndex: number) => (
+        <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
+          <h3 class="text-text-primary font-medium print:text-[10px] print:text-gray-900">
+            {lang.language}
+          </h3>
+          <p
+            class="text-text-muted text-sm mt-1 print:text-[10px] print:mt-0 print:text-gray-500"
+            data-i18n={`languages.${langIndex}.fluency`}
+          >
+            {lang.fluency}
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</section>

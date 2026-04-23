@@ -5,6 +5,7 @@ import Header from "../components/layout/Header.astro";
 import CookieConsent from "../components/layout/CookieConsent.astro";
 import "../styles/fonts.css";
 import interLatinFontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
+import interLatinExtFontUrl from "@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2?url";
 import { ClientRouter } from "astro:transitions";
 import { basics, work } from "@cv";
 import type { SocialProfile } from "../types/ui";
@@ -17,6 +18,7 @@ interface Props {
   imageHeight?: number;
   type?: string;
   hideFooter?: boolean;
+  noIndex?: boolean;
 }
 
 const {
@@ -27,12 +29,14 @@ const {
   imageHeight = 500,
   type = "website",
   hideFooter = false,
+  noIndex = false,
 } = Astro.props;
 
 const {
   name,
   lastName,
   label,
+  summary,
   profiles,
   location,
   image: profileImage,
@@ -54,7 +58,9 @@ const jsonLd = {
   "@type": "Person",
   name: fullName,
   jobTitle: label,
-  description: `${label} based in ${location?.city}, currently working at ${currentJob?.company}`,
+  description:
+    summary ??
+    `${label} based in ${location?.city}, currently working at ${currentJob?.company}`,
   url: LIVE_URL,
   image: `${LIVE_URL}${profileImage ?? "/david-profile.webp"}`,
   sameAs: [github?.url, linkedin?.url].filter(Boolean),
@@ -76,7 +82,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ca">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -95,10 +101,30 @@ const jsonLd = {
       href={interLatinFontUrl}
       crossorigin
     />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href={interLatinExtFontUrl}
+      crossorigin
+    />
+
+    <!-- hreflang: same URL for all locales (language switching is client-side) -->
+    <link rel="alternate" hreflang="ca" href={Astro.url} />
+    <link rel="alternate" hreflang="es" href={Astro.url} />
+    <link rel="alternate" hreflang="en" href={Astro.url} />
+    <link rel="alternate" hreflang="x-default" href={Astro.url} />
 
     <!-- SEO Meta Tags -->
     <meta name="author" content={fullName} />
-    <meta name="robots" content="index, follow" />
+    <meta
+      name="robots"
+      content={noIndex ? "noindex, nofollow" : "index, follow"}
+    />
+    <meta
+      name="keywords"
+      content={`frontend developer, web developer, Barcelona, React, TypeScript, Astro, Tailwind CSS, Unity, 3D, portfolio, ${fullName}`}
+    />
 
     <meta name="generator" content={Astro.generator} />
     <meta
@@ -119,7 +145,7 @@ const jsonLd = {
     <meta property="og:image:width" content={String(imageWidth)} />
     <meta property="og:image:height" content={String(imageHeight)} />
     <meta property="og:image:alt" content={`Profile photo of ${fullName}`} />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="ca_ES" />
     <meta property="og:site_name" content={`${fullName} — Portfolio`} />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
@@ -195,7 +221,7 @@ const jsonLd = {
       :root {
         --text-primary: 23 23 23;
         --text-secondary: 64 64 64;
-        --text-muted: 115 115 115;
+        --text-muted: 110 110 110;
         --text-accent: 23 23 23;
 
         --bg-primary: 249 249 247;

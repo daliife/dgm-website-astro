@@ -2,9 +2,9 @@ import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import tailwind from "@astrojs/tailwind";
 import { createLogger } from "vite";
+import { LIVE_URL } from "./src/utils/constants.ts";
 
 const SERVER_PORT = 4321;
-const LIVE_URL = "https://davidgimeno.cat";
 const PAGES_URL = "https://daliife.github.io";
 const PAGES_BASE = "/dgm-website-astro";
 
@@ -30,7 +30,7 @@ export default defineConfig({
     port: SERVER_PORT,
   },
   build: {
-    inlineStylesheets: "never",
+    inlineStylesheets: "auto",
   },
   vite: {
     customLogger: logger,

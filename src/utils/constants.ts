@@ -1,4 +1,4 @@
-export const TITLE_PAGE_PREFIX = "David Gimeno Mañé — ";
+export const TITLE_PAGE_PREFIX = "David Gimeno Mañé, Frontend Developer — ";
 export const NAV_LINKS: { href: string; label: string }[] = [
   { href: "about", label: "About" },
   { href: "work", label: "Work" },
@@ -15,9 +15,9 @@ export const PAGE_HEADING_CLASSES =
   "text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase reveal";
 
 export const SUPPORTED_LANGUAGES = [
-  { code: "en", label: "EN", default: true },
+  { code: "ca", label: "CA", default: true },
+  { code: "en", label: "EN", default: false },
   { code: "es", label: "ES", default: false },
-  { code: "ca", label: "CA", default: false },
 ] as const;
 
 export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number]["code"];

@@ -3,3 +3,7 @@ export function formatDate(dateStr?: string): string {
   const d = new Date(dateStr);
   return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 }
+
+export function stripProtocol(url: string): string {
+  return url.replace(/^https?:\/\/(www\.)?/, "");
+}

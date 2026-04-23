@@ -65,11 +65,11 @@ export const CA: Record<string, string> = {
   "basics.label": "Desenvolupador Frontend",
   "basics.location": "Barcelona · Catalunya",
   "basics.summary.0":
-    "Desenvolupador Frontend enfocat en construir interfícies netes, clares i ben elaborades. Em preocupo per crear experiències que no només funcionin bé, sinó que també tinguin bona aparença. Experiència creant components reutilitzables i treballant amb tecnologies web.",
+    "Sóc Desenvolupador Frontend especialitzat en construir interfícies netes, accessibles i cuidades al detall. M'importa que les experiències no només funcionin bé, sinó que siguin un gust de fer servir — des de l'arquitectura de components fins a l'últim píxel.",
   "basics.summary.1":
-    "M'adapto ràpidament a nous entorns i em distingeixo per la meva curiositat i aprenentatge continu, mantenint-me al dia amb noves tecnologies, eines i l'impacte de la IA.",
+    "Aprenc de pressa i m'agrada estar al dia: segueixo de prop les tendències del sector, les noves eines i com la intel·ligència artificial està canviant la manera de desenvolupar.",
   "basics.summary.2":
-    "També treballo amb Unity en projectes interactius, complementat per habilitats de modelat 3D per aportar una perspectiva més enllà del frontend.",
+    "Més enllà del frontend, treballo amb Unity en projectes interactius i tinc coneixements de modelat 3D, cosa que em permet aportar una visió més àmplia a qualsevol producte digital.",
 
   // ── Work experience ───────────────────────────────────────────────────────
   "work.0.position": "Lead Engineer",

@@ -1,0 +1,52 @@
+---
+import type { EducationEntry } from "../../types/ui";
+
+interface Props {
+  education: EducationEntry[];
+}
+
+const { education } = Astro.props;
+---
+
+<section class="reveal mt-20 print:mt-6">
+  <h2
+    class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10 print:text-[10px] print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:normal-case print:text-black"
+    data-i18n="ui.about.education"
+  >
+    Education
+  </h2>
+  <div class="space-y-6 print:space-y-4">
+    {
+      education.map((edu: EducationEntry, eduIndex: number) => (
+        <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
+          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 print:flex-row print:gap-0">
+            <div>
+              <h3
+                class="text-text-primary font-medium print:text-[10px] print:font-semibold print:text-gray-900"
+                data-i18n={`education.${eduIndex}.studyType`}
+              >
+                {edu.studyType}
+              </h3>
+              <p class="text-text-secondary text-sm print:text-[10px] print:text-gray-600">
+                <span data-i18n={`education.${eduIndex}.area`}>{edu.area}</span>{" "}
+                <span class="hidden print:inline">— {edu.institution}</span>
+              </p>
+            </div>
+            <span class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap print:text-[9px] print:text-gray-500">
+              {new Date(edu.startDate).getFullYear()} &mdash;{" "}
+              {new Date(edu.endDate).getFullYear()}
+            </span>
+          </div>
+          <a
+            href={edu.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-text-secondary text-sm underline underline-offset-2 decoration-text-secondary/40 hover:text-text-primary hover:decoration-text-primary transition-all duration-200 print:hidden"
+          >
+            {edu.institution}
+          </a>
+        </div>
+      ))
+    }
+  </div>
+</section>

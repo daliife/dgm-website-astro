@@ -193,6 +193,34 @@ These were part of the previous design and remain available:
 
 ---
 
+## Hydration Strategy
+
+By default, **every component in this project is zero-JS** — pure `.astro` components that render to static HTML. React is reserved for cases where client-side state or browser hooks are genuinely necessary.
+
+### Astro hydration directives
+
+When a React (`.tsx`) island is needed, choose the directive based on when the component must become interactive:
+
+| Directive             | When to use                                        | Examples                                   |
+| --------------------- | -------------------------------------------------- | ------------------------------------------ |
+| `client:load`         | Must be interactive immediately on page load       | Auth forms, critical input fields          |
+| `client:visible`      | Can wait until the element enters the viewport     | Charts, carousels, below-the-fold widgets  |
+| `client:idle`         | Non-critical — hydrate once the browser is idle    | Analytics dashboards, low-priority widgets |
+| `client:only="react"` | Component cannot SSR (uses `window`, browser APIs) | Map embeds, canvas-based components        |
+
+### Current React islands
+
+There are currently **no React islands** in this project. All interactive UI (theme toggle, language toggle, mobile menu) is implemented with vanilla JS inside `.astro` `<script>` tags.
+
+### Guidelines
+
+- Prefer `.astro` + vanilla JS for simple toggle/show-hide interactions.
+- Only introduce a React island if the component needs `useState`, `useEffect`, or a third-party React library.
+- Prefer `client:visible` over `client:load` for below-the-fold content to avoid blocking the main thread.
+- Never use `client:load` for decorative or non-critical elements.
+
+---
+
 ## Internationalisation (i18n)
 
 The site supports **English** (default) and **Catalan** via a lightweight client-side system — no build-time routes, no URL prefixes.

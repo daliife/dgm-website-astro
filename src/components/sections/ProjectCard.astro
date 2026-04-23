@@ -1,10 +1,12 @@
 ---
 import type { ProjectEntry } from "../../types/ui";
 
-const { project, projectIndex } = Astro.props as {
+interface Props {
   project: ProjectEntry;
   projectIndex: number;
-};
+}
+
+const { project, projectIndex } = Astro.props;
 ---
 
 <article class="group border-t border-border-primary py-8">

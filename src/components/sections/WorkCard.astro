@@ -2,7 +2,12 @@
 import { formatDate } from "../../utils/format";
 import type { WorkEntry } from "../../types/ui";
 
-const { job, jobIndex } = Astro.props as { job: WorkEntry; jobIndex: number };
+interface Props {
+  job: WorkEntry;
+  jobIndex: number;
+}
+
+const { job, jobIndex } = Astro.props;
 ---
 
 <article class="border-t border-border-primary py-8">
