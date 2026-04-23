@@ -16,6 +16,9 @@ const CONTACT_ICONS: Record<string, string> = {
   Github: ICON_PATHS.github,
   Linkedin: ICON_PATHS.linkedin,
 };
+
+const CONTACT_ITEM_CLASS =
+  "!flex flex-col !items-start !justify-start gap-1 rounded-none hover:no-underline w-full border-t border-border-primary pt-6 group";
 ---
 
 <Layout
@@ -38,7 +41,7 @@ const CONTACT_ICONS: Record<string, string> = {
         href={`mailto:${email}`}
         variant="simple"
         size="none"
-        className="!flex flex-col !items-start !justify-start gap-1 rounded-none hover:no-underline w-full border-t border-border-primary pt-6 group"
+        className={CONTACT_ITEM_CLASS}
       >
         <span
           class="text-xs uppercase tracking-widest text-text-muted mb-2 flex items-center gap-1.5"
@@ -70,7 +73,7 @@ const CONTACT_ICONS: Record<string, string> = {
               rel="noopener noreferrer"
               variant="simple"
               size="none"
-              className="!flex flex-col !items-start !justify-start gap-1 rounded-none hover:no-underline w-full border-t border-border-primary pt-6 group"
+              className={CONTACT_ITEM_CLASS}
             >
               <span class="text-xs uppercase tracking-widest text-text-muted mb-2 flex items-center gap-1.5">
                 {icon && (
