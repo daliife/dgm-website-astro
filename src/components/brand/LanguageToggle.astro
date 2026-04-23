@@ -54,23 +54,22 @@ const { dropup = false } = Astro.props;
 </div>
 
 <script>
+  import { EN } from "../../i18n/en";
   import { CA } from "../../i18n/ca";
   import { ES } from "../../i18n/es";
 
+  const TRANSLATIONS: Record<string, Record<string, string>> = {
+    en: EN,
+    ca: CA,
+    es: ES,
+  };
+
   function applyI18n(lang: string) {
-    const translations = lang === "ca" ? CA : lang === "es" ? ES : null;
+    const translations = TRANSLATIONS[lang] ?? EN;
     document.querySelectorAll<HTMLElement>("[data-i18n]").forEach(el => {
       const key = el.dataset.i18n!;
-      // Capture the original English text before overwriting it for the first time
-      if (!el.dataset.i18nOrig) {
-        el.dataset.i18nOrig = el.textContent?.trim() ?? "";
-      }
-      if (translations) {
-        const val = translations[key];
-        if (val !== undefined) el.textContent = val;
-      } else {
-        el.textContent = el.dataset.i18nOrig!;
-      }
+      const val = translations[key];
+      if (val !== undefined) el.textContent = val;
     });
 
     document.documentElement.lang = lang;
@@ -120,7 +119,7 @@ const { dropup = false } = Astro.props;
 
   // ── Per-navigation: apply saved language and wire up toggle button once ───
   document.addEventListener("astro:page-load", () => {
-    const lang = localStorage.getItem("lang") ?? "en";
+    const lang = localStorage.getItem("lang") ?? "ca";
     applyI18n(lang);
 
     // Setup each toggle button once, guarded by data-init

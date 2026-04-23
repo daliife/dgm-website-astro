@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { readFileSync, readdirSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
+import { EN } from "../../i18n/en";
 import { CA } from "../../i18n/ca";
 import { ES } from "../../i18n/es";
 
@@ -31,6 +32,11 @@ for (const file of getAstroFiles(srcDir)) {
 describe("i18n key coverage", () => {
   it("finds at least one data-i18n key in .astro files", () => {
     expect(allKeys.size).toBeGreaterThan(0);
+  });
+
+  it("all data-i18n keys exist in EN translations", () => {
+    const missing = [...allKeys].filter(k => !(k in EN));
+    expect(missing, `Missing EN keys: ${missing.join(", ")}`).toEqual([]);
   });
 
   it("all data-i18n keys exist in CA translations", () => {
