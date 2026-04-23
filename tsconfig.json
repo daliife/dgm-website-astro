@@ -2,7 +2,12 @@
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
     "paths": {
-      "@cv": ["./cv.json"]
+      "@cv": ["./cv.json"],
+      "@components/*": ["./src/components/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@i18n/*": ["./src/i18n/*"],
+      "@types/*": ["./src/types/*"]
     }
   }
 }

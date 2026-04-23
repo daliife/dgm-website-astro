@@ -99,3 +99,48 @@ describe("Pages — basic HTML structure", () => {
     expect(html).toMatch(/404|not found|no trobat/i);
   });
 });
+
+describe("Pages — semantic HTML structure", () => {
+  it.each(pages)("$name has exactly one <h1>", async ({ component }) => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(component);
+    const h1matches = html.match(/<h1[\s>]/g) ?? [];
+    expect(h1matches).toHaveLength(1);
+  });
+
+  it.each(pages)("$name has no images without alt", async ({ component }) => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(component);
+    // Match <img> tags that have no alt attribute at all
+    const imgWithoutAlt = html.match(/<img(?![^>]*\balt\s*=)[^>]*>/g) ?? [];
+    expect(imgWithoutAlt).toHaveLength(0);
+  });
+
+  it.each(pages)("$name nav has aria-label", async ({ component }) => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(component);
+    // Every <nav> must have aria-label or aria-labelledby
+    const navTags = [...html.matchAll(/<nav\b([^>]*)>/g)];
+    for (const [, attrs] of navTags) {
+      expect(attrs).toMatch(/aria-label(ledby)?/);
+    }
+  });
+
+  it("/about has correct heading order (h1 before h2)", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(AboutPage);
+    const h1pos = html.indexOf("<h1");
+    const h2pos = html.indexOf("<h2");
+    expect(h1pos).toBeGreaterThan(-1);
+    if (h2pos !== -1) expect(h1pos).toBeLessThan(h2pos);
+  });
+
+  it("/work has correct heading order (h1 before h2)", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(WorkPage);
+    const h1pos = html.indexOf("<h1");
+    const h2pos = html.indexOf("<h2");
+    expect(h1pos).toBeGreaterThan(-1);
+    if (h2pos !== -1) expect(h1pos).toBeLessThan(h2pos);
+  });
+});
