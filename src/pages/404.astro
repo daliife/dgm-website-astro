@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <Layout title="404 — Page Not Found" noIndex={true}>
@@ -11,12 +12,35 @@ import Layout from "../layouts/Layout.astro";
     >
       404
     </h1>
-    <p class="text-text-muted text-base sm:text-lg mb-8">Page not found</p>
-    <a
-      href="/"
-      class="text-sm uppercase tracking-widest text-text-muted hover:text-text-primary border-b border-text-muted hover:border-text-primary pb-1 transition-colors duration-200"
+    <p class="text-text-muted text-base sm:text-lg mb-10">Page not found</p>
+    <nav
+      aria-label="Quick navigation"
+      class="flex flex-col sm:flex-row items-center gap-5 sm:gap-8 mb-10"
     >
-      Back to home
+      <a
+        href={`${base}/work`}
+        class="text-sm uppercase tracking-widest text-text-muted hover:text-text-primary border-b border-border-muted hover:border-text-primary pb-1 transition-colors duration-200"
+      >
+        Work
+      </a>
+      <a
+        href={`${base}/projects`}
+        class="text-sm uppercase tracking-widest text-text-muted hover:text-text-primary border-b border-border-muted hover:border-text-primary pb-1 transition-colors duration-200"
+      >
+        Projects
+      </a>
+      <a
+        href={`${base}/contact`}
+        class="text-sm uppercase tracking-widest text-text-muted hover:text-text-primary border-b border-border-muted hover:border-text-primary pb-1 transition-colors duration-200"
+      >
+        Contact
+      </a>
+    </nav>
+    <a
+      href={`${base}/`}
+      class="text-xs uppercase tracking-widest text-text-muted/50 hover:text-text-muted pb-1 transition-colors duration-200"
+    >
+      ← Back to home
     </a>
   </section>
 </Layout>

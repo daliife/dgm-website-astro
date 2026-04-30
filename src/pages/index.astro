@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { basics } from "@cv";
 const { name, lastName, label, email } = basics;
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <Layout
@@ -37,30 +38,54 @@ const { name, lastName, label, email } = basics;
         <span class="typewriter-cursor" aria-hidden="true"></span>
       </p>
 
-      <!-- CTA -->
-      <Button
-        href={`mailto:${email}`}
-        variant="simple"
-        size="none"
-        className="text-sm uppercase tracking-widest border-b border-border-secondary hover:border-text-primary pb-1 hover:no-underline gap-2 rounded-none"
+      <!-- CTAs -->
+      <div
+        class="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-8"
       >
-        <!-- Mail icon -->
-        <svg
-          class="w-4 h-4 shrink-0"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
+        <Button
+          href={`${base}/work`}
+          variant="simple"
+          size="none"
+          className="text-sm uppercase tracking-widest border-b border-border-secondary hover:border-text-primary pb-1 hover:no-underline gap-2 rounded-none"
         >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-          ></path>
-        </svg>
-        <span data-i18n="ui.home.cta">Get in touch</span>
-      </Button>
+          <span data-i18n="ui.home.cta.work">View my work</span>
+          <svg
+            class="w-4 h-4 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        </Button>
+        <Button
+          href={`mailto:${email}`}
+          variant="simple"
+          size="none"
+          className="text-sm uppercase tracking-widest text-text-muted border-b border-border-muted hover:text-text-primary hover:border-text-primary pb-1 hover:no-underline gap-2 rounded-none"
+        >
+          <svg
+            class="w-4 h-4 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+            ></path>
+          </svg>
+          <span data-i18n="ui.home.cta">Get in touch</span>
+        </Button>
+      </div>
     </div>
   </section>
 </Layout>
@@ -105,29 +130,23 @@ const { name, lastName, label, email } = basics;
             "DESENVOLUPADOR FRONTEND",
             "ENGINYER DE SOFTWARE",
             "ESPECIALISTA EN REACT",
-            "UBICAT A BARCELONA",
             "CLARINETISTA",
             "AMANT DE LA MUNTANYA",
-            "GAMER I CINÈFIL",
           ]
         : lang === "es"
           ? [
               "DESARROLLADOR FRONTEND",
               "INGENIERO DE SOFTWARE",
               "ESPECIALISTA EN REACT",
-              "BASADO EN BARCELONA",
               "CLARINETISTA",
               "AMANTE DE LA MONTAÑA",
-              "GAMER Y CINÉFILO",
             ]
           : [
               "FRONTEND DEVELOPER",
               "SOFTWARE ENGINEER",
               "REACT SPECIALIST",
-              "BARCELONA BASED",
               "CLARINETIST",
               "RUNNER & HIKING LOVER",
-              "GAMER & CINEPHILE",
             ];
 
     // prefers-reduced-motion: show first phrase statically

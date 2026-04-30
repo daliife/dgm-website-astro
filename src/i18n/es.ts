@@ -13,6 +13,7 @@ export const ES: Record<string, string> = {
   // ── Home page ─────────────────────────────────────────────────────────────
   "ui.home.greeting": "Hola, soy",
   "ui.home.cta": "Contáctame",
+  "ui.home.cta.work": "Ver mi trabajo",
 
   // ── Page headings ─────────────────────────────────────────────────────────
   "ui.page.about": "Sobre mí",

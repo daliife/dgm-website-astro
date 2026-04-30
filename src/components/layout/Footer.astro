@@ -67,6 +67,9 @@ const socialLinks = [
                   set:html={link.icon}
                 />
                 {link.name}
+                {link.name !== "Email" && (
+                  <span class="sr-only">(opens in new tab)</span>
+                )}
               </a>
             </li>
           ))
