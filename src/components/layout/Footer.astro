@@ -32,7 +32,7 @@ const socialLinks = [
   >
     <div class="flex items-center gap-4">
       <span class="text-xs text-text-muted">
-        &copy; {currentYear}
+        &copy; <span id="footer-year">{currentYear}</span>
         {basics.name}
         {basics.lastName} &mdash; Built with <span class="footer-cycle-wrapper"
           ><span class="footer-cycle">love ♥</span><span class="footer-cycle"
@@ -78,6 +78,11 @@ const socialLinks = [
     </nav>
   </div>
 </footer>
+
+<script is:inline>
+  var el = document.getElementById("footer-year");
+  if (el) el.textContent = String(new Date().getFullYear());
+</script>
 
 <style>
   .footer-cycle-wrapper {

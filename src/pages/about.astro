@@ -37,12 +37,15 @@ const github = getSocialProfile(profiles as SocialProfile[], "Github");
   >
     <!-- Print-only CV header -->
     <div class="hidden print:flex print:items-start print:gap-4 print:mb-8">
-      <img
-        src={profileImage ?? "/david-profile.webp"}
+      <Image
+        src={profileImgSrc}
         alt="Portrait of David Gimeno"
         class="print:w-16 print:h-[80px] print:object-cover print:rounded"
-        width="56"
-        height="70"
+        width={56}
+        height={70}
+        loading="eager"
+        format="webp"
+        quality={85}
       />
       <div>
         <p
