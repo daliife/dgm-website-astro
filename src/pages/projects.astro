@@ -8,6 +8,7 @@ import {
 import { projects } from "@cv";
 import ProjectCard from "../components/sections/ProjectCard.astro";
 import type { ProjectEntry } from "../types/ui";
+const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <Layout
@@ -25,5 +26,29 @@ import type { ProjectEntry } from "../types/ui";
         ))
       }
     </div>
+
+    <nav
+      aria-label="Related pages"
+      class="border-t border-border-primary pt-8 mt-4 reveal"
+    >
+      <p
+        class="text-xs uppercase tracking-widest text-text-muted mb-5"
+        data-i18n="ui.nextup"
+      >
+        Also explore
+      </p>
+      <div class="flex flex-col sm:flex-row gap-5 sm:gap-8">
+        <a
+          href={`${base}/work`}
+          class="text-sm uppercase tracking-widest text-text-primary border-b border-border-secondary hover:border-text-primary pb-1 transition-colors duration-200 w-fit"
+          data-i18n="ui.nav.work">Work</a
+        >
+        <a
+          href={`${base}/contact`}
+          class="text-sm uppercase tracking-widest text-text-primary border-b border-border-secondary hover:border-text-primary pb-1 transition-colors duration-200 w-fit"
+          data-i18n="ui.nav.contact">Contact</a
+        >
+      </div>
+    </nav>
   </div>
 </Layout>
