@@ -13,7 +13,7 @@ export const CA: Record<string, string> = {
   // ── Home page ─────────────────────────────────────────────────────────────
   "ui.home.greeting": "Hola, sóc en",
   "ui.home.cta": "Contacta'm",
-  "ui.home.cta.work": "Veure la meva feina",
+  "ui.home.cta.work": "Explora els meus projectes",
   "ui.nextup": "Explora també",
 
   // ── Page headings ─────────────────────────────────────────────────────────
@@ -148,13 +148,28 @@ export const CA: Record<string, string> = {
   "work.7.highlights.3": "Control de material i logística dels laboratoris.",
 
   // ── Projects ──────────────────────────────────────────────────────────────
-  "projects.0.description": "Adaptació del minijoc 'Paraulògic'",
-  "projects.1.description": "Pàgina d'aterratge amb un minijoc de cartes",
-  "projects.2.description": "App recomanadora de TV creada amb Tizen Studio",
+  "projects.0.description":
+    "Projecte professional (NTT Data · SEAT) — pàgina web interactiva amb 3 minijocs en Canvas",
+  "projects.1.description":
+    "Projecte professional (NTT Data · Orange) — pàgina de presentació amb un minijoc de cartes",
+  "projects.2.description":
+    "Projecte professional (NTT Data · SEAT) — pàgina web interactiva amb un timeline de cronologia",
   "projects.3.description":
-    "Pàgina web interactiva amb 3 minijocs fent servir canvas",
+    "Projecte universitari — app recomanadora de TV per a Samsung Smart TV amb Tizen Studio",
   "projects.4.description":
-    "Pàgina web interactiva amb 3 minijocs fent servir canvas",
+    "Projecte de màster — prototip de videojoc desenvolupat amb Unreal Engine 4",
+  "projects.5.description":
+    "Projecte personal — adaptació del joc de paraules 'Paraulògic'",
+  "projects.6.description":
+    "Projecte personal — versió anterior del meu portfolio desenvolupada amb Angular",
+  "projects.7.description":
+    "Projecte de màster — videojoc hipercasual de minigolf desenvolupat amb Unity",
+  "projects.8.description":
+    "Projecte personal — web per descobrir famílies d'instruments, desenvolupada amb Angular",
+  "projects.9.description":
+    "Projecte professional (NTT Data · Endesa) — graella filtrable d'elements amb Isotope",
+  "projects.10.description":
+    "Projecte de màster — efectes de postprocessat en temps real amb fragment shaders i ImGui",
 
   // ── Education ─────────────────────────────────────────────────────────────
   "education.0.studyType": "Màster en Desenvolupament Avançat de Videojocs",
