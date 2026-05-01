@@ -149,11 +149,11 @@ export const CA: Record<string, string> = {
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description":
-    "Projecte professional (NTT Data · SEAT) — pàgina web interactiva amb 3 minijocs en Canvas",
+    "Projecte professional — pàgina web interactiva amb 3 minijocs en Canvas (SEAT)",
   "projects.1.description":
-    "Projecte professional (NTT Data · Orange) — pàgina de presentació amb un minijoc de cartes",
+    "Projecte professional — pàgina de presentació amb un minijoc de cartes (Orange)",
   "projects.2.description":
-    "Projecte professional (NTT Data · SEAT) — pàgina web interactiva amb un timeline de cronologia",
+    "Projecte professional — pàgina web interactiva amb un timeline de cronologia (SEAT)",
   "projects.3.description":
     "Projecte universitari — app recomanadora de TV per a Samsung Smart TV amb Tizen Studio",
   "projects.4.description":
@@ -167,7 +167,7 @@ export const CA: Record<string, string> = {
   "projects.8.description":
     "Projecte personal — web per descobrir famílies d'instruments, desenvolupada amb Angular",
   "projects.9.description":
-    "Projecte professional (NTT Data · Endesa) — graella filtrable d'elements amb Isotope",
+    "Projecte professional — graella filtrable d'elements amb Isotope (Endesa)",
   "projects.10.description":
     "Projecte de màster — efectes de postprocessat en temps real amb fragment shaders i ImGui",
 

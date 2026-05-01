@@ -14,7 +14,7 @@ const { project, projectIndex } = Astro.props;
     href={project.url}
     target="_blank"
     rel="noopener noreferrer"
-    class="flex flex-row gap-5 sm:gap-10 items-start"
+    class="flex flex-row gap-5 sm:gap-10 items-start min-w-0 overflow-hidden"
   >
     <div
       class="img-frame relative w-24 h-24 shrink-0 sm:w-48 sm:h-32 overflow-hidden bg-bg-muted"
@@ -63,7 +63,7 @@ const { project, projectIndex } = Astro.props;
           {project.name}
         </h2>
         <span
-          class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap"
+          class="text-xs uppercase tracking-widest text-text-muted sm:whitespace-nowrap"
         >
           {project.technologies?.join(" · ")}
         </span>

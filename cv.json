@@ -209,21 +209,21 @@
   "projects": [
     {
       "name": "Seat RFP",
-      "description": "Professional project (NTT Data · SEAT) — interactive webpage with 3 canvas minigames",
+      "description": "Professional project — interactive webpage with 3 canvas minigames (SEAT)",
       "url": "https://daliife.github.io/rfp-seat",
       "image": "https://raw.githubusercontent.com/daliife/rfp-seat/master/src/assets/finals/first-scene.png",
       "technologies": ["Angular", "TypeScript", "Canvas"]
     },
     {
       "name": "Orange RFP",
-      "description": "Professional project (NTT Data · Orange) — landing page with a card minigame",
+      "description": "Professional project — landing page with a card minigame (Orange)",
       "url": "https://daliife.github.io/rfp-orange/",
       "image": "https://raw.githubusercontent.com/daliife/rfp-orange/master/src/assets/img/final-game/img-juegofinal.png",
       "technologies": ["Angular", "TypeScript", "Lottie"]
     },
     {
       "name": "HMI Seat",
-      "description": "Professional project (NTT Data · SEAT) — interactive webpage with a chronology timeline",
+      "description": "Professional project — interactive webpage with a chronology timeline (SEAT)",
       "url": "https://daliife.github.io/hmi-seat/",
       "image": "https://raw.githubusercontent.com/daliife/hmi-seat/main/src/assets/chronology/50s.png",
       "technologies": ["Angular", "TypeScript", "CSS"]
@@ -272,7 +272,7 @@
     },
     {
       "name": "Light Sorter",
-      "description": "Professional project (NTT Data · Endesa) — filterable grid of elements using Isotope",
+      "description": "Professional project — filterable grid of elements using Isotope (Endesa)",
       "url": "https://daliife.github.io/light-sorter/",
       "image": "https://i.imgur.com/OnphlCH.png",
       "technologies": ["JavaScript", "jQuery", "Handlebars"]
