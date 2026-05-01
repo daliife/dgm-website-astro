@@ -13,16 +13,7 @@ import EducationSection from "../components/sections/EducationSection.astro";
 import CertificatesSection from "../components/sections/CertificatesSection.astro";
 import PrintWorkSection from "../components/sections/PrintWorkSection.astro";
 import type { SocialProfile, WorkEntry } from "../types/ui";
-const {
-  name,
-  lastName,
-  email,
-  summary,
-  profiles,
-  label,
-  location,
-  image: profileImage,
-} = basics;
+const { name, lastName, email, summary, profiles, label, location } = basics;
 
 const linkedin = getSocialProfile(profiles as SocialProfile[], "Linkedin");
 const github = getSocialProfile(profiles as SocialProfile[], "Github");
