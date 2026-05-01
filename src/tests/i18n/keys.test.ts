@@ -49,3 +49,40 @@ describe("i18n key coverage", () => {
     expect(missing, `Missing ES keys: ${missing.join(", ")}`).toEqual([]);
   });
 });
+
+describe("i18n — cv.json project descriptions", () => {
+  const cvPath = join(__dirname, "../../../cv.json");
+  const cv = JSON.parse(readFileSync(cvPath, "utf-8"));
+  const projects: unknown[] = cv.projects ?? [];
+
+  it("every project in cv.json has a description key in EN", () => {
+    const missing = projects
+      .map((_, i) => `projects.${i}.description`)
+      .filter(k => !(k in EN));
+    expect(missing, `Missing EN keys: ${missing.join(", ")}`).toEqual([]);
+  });
+
+  it("every project in cv.json has a description key in CA", () => {
+    const missing = projects
+      .map((_, i) => `projects.${i}.description`)
+      .filter(k => !(k in CA));
+    expect(missing, `Missing CA keys: ${missing.join(", ")}`).toEqual([]);
+  });
+
+  it("every project in cv.json has a description key in ES", () => {
+    const missing = projects
+      .map((_, i) => `projects.${i}.description`)
+      .filter(k => !(k in ES));
+    expect(missing, `Missing ES keys: ${missing.join(", ")}`).toEqual([]);
+  });
+
+  it("no orphan project description keys exist in EN", () => {
+    const orphans = Object.keys(EN)
+      .filter(k => /^projects\.\d+\.description$/.test(k))
+      .filter(k => {
+        const idx = parseInt(k.split(".")[1]);
+        return idx >= projects.length;
+      });
+    expect(orphans, `Orphan EN keys: ${orphans.join(", ")}`).toEqual([]);
+  });
+});

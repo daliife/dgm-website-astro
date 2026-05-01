@@ -14,6 +14,8 @@ export const EN: Record<string, string> = {
   // ── Home page ─────────────────────────────────────────────────────────────
   "ui.home.greeting": "Hello there, it's",
   "ui.home.cta": "Get in touch",
+  "ui.home.cta.work": "Explore my projects",
+  "ui.nextup": "Also explore",
 
   // ── Page headings ─────────────────────────────────────────────────────────
   "ui.page.about": "About",
@@ -144,11 +146,28 @@ export const EN: Record<string, string> = {
     "Control of material and logistics of the laboratories.",
 
   // ── Projects ───────────────────────────────────────────────────────────────
-  "projects.0.description": "Adaptation of the minigame 'Paraulògic'",
-  "projects.1.description": "Landing webpage with a card minigame",
-  "projects.2.description": "TV Recommender App created with Tizen Studio",
-  "projects.3.description": "Interactive webpage with 3 minigames using canvas",
-  "projects.4.description": "Interactive webpage with 3 minigames using canvas",
+  "projects.0.description":
+    "Professional project — interactive webpage with 3 canvas minigames (SEAT)",
+  "projects.1.description":
+    "Professional project — landing page with a card minigame (Orange)",
+  "projects.2.description":
+    "Professional project — interactive webpage with a chronology timeline (SEAT)",
+  "projects.3.description":
+    "University project — TV recommender app for Samsung Smart TV built with Tizen Studio",
+  "projects.4.description":
+    "Master's degree project — video game prototype built with Unreal Engine 4",
+  "projects.5.description":
+    "Personal project — adaptation of the word game 'Paraulògic'",
+  "projects.6.description":
+    "Personal project — previous version of my portfolio built with Angular",
+  "projects.7.description":
+    "Master's degree project — hypercasual minimal minigolf video game built with Unity",
+  "projects.8.description":
+    "Personal project — website to discover instrument families, built with Angular",
+  "projects.9.description":
+    "Professional project — filterable grid of elements using Isotope (Endesa)",
+  "projects.10.description":
+    "Master's degree project — real-time postprocessing FX using fragment shaders and ImGui",
 
   // ── Education ──────────────────────────────────────────────────────────────
   "education.0.studyType": "Master's Degree in Advanced Video Game Development",

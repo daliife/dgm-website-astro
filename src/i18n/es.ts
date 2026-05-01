@@ -13,6 +13,8 @@ export const ES: Record<string, string> = {
   // ── Home page ─────────────────────────────────────────────────────────────
   "ui.home.greeting": "Hola, soy",
   "ui.home.cta": "Contáctame",
+  "ui.home.cta.work": "Explora mis proyectos",
+  "ui.nextup": "Explora también",
 
   // ── Page headings ─────────────────────────────────────────────────────────
   "ui.page.about": "Sobre mí",
@@ -146,13 +148,28 @@ export const ES: Record<string, string> = {
   "work.7.highlights.3": "Control de material y logística de los laboratorios.",
 
   // ── Projects ──────────────────────────────────────────────────────────────
-  "projects.0.description": "Adaptación del minijuego 'Paraulògic'",
-  "projects.1.description": "Página de aterrizaje con un minijuego de cartas",
-  "projects.2.description": "App recomendadora de TV creada con Tizen Studio",
+  "projects.0.description":
+    "Proyecto profesional — página web interactiva con 3 minijuegos en Canvas (SEAT)",
+  "projects.1.description":
+    "Proyecto profesional — página de presentación con un minijuego de cartas (Orange)",
+  "projects.2.description":
+    "Proyecto profesional — página web interactiva con un timeline de cronología (SEAT)",
   "projects.3.description":
-    "Página web interactiva con 3 minijuegos usando canvas",
+    "Proyecto universitario — app recomendadora de TV para Samsung Smart TV con Tizen Studio",
   "projects.4.description":
-    "Página web interactiva con 3 minijuegos usando canvas",
+    "Proyecto de máster — prototipo de videojuego desarrollado con Unreal Engine 4",
+  "projects.5.description":
+    "Proyecto personal — adaptación del juego de palabras 'Paraulògic'",
+  "projects.6.description":
+    "Proyecto personal — versión anterior de mi portfolio desarrollada con Angular",
+  "projects.7.description":
+    "Proyecto de máster — videojuego hipercasual de minigolf desarrollado con Unity",
+  "projects.8.description":
+    "Proyecto personal — web para descubrir familias de instrumentos, desarrollada con Angular",
+  "projects.9.description":
+    "Proyecto profesional — cuadrícula filtrable de elementos con Isotope (Endesa)",
+  "projects.10.description":
+    "Proyecto de máster — efectos de postprocesado en tiempo real con fragment shaders e ImGui",
 
   // ── Education ─────────────────────────────────────────────────────────────
   "education.0.studyType": "Máster en Desarrollo Avanzado de Videojuegos",

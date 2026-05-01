@@ -126,29 +126,29 @@ const navLinkActiveClasses = (active: boolean) =>
           </svg>
         </button>
       </div>
-      <ul class="flex flex-col items-center justify-center gap-8 pt-20">
-        {
-          NAV_LINKS.map(({ href, label }) => {
-            const active = isActivePath(href);
-            return (
-              <li>
-                <a
-                  href={`${base}/${href}`}
-                  class:list={[
-                    "text-2xl uppercase tracking-widest transition-colors duration-200",
-                    navLinkActiveClasses(active),
-                  ]}
-                  aria-current={active ? "page" : undefined}
-                >
-                  <span data-i18n={`ui.nav.${href}`}>{label}</span>
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
-      <!-- Language toggle at bottom of mobile menu -->
-      <div class="absolute bottom-12 left-0 right-0 flex justify-center">
+      <div class="flex flex-col items-center justify-center gap-8 pt-20">
+        <ul class="flex flex-col items-center gap-8">
+          {
+            NAV_LINKS.map(({ href, label }) => {
+              const active = isActivePath(href);
+              return (
+                <li>
+                  <a
+                    href={`${base}/${href}`}
+                    class:list={[
+                      "text-2xl uppercase tracking-widest transition-colors duration-200",
+                      navLinkActiveClasses(active),
+                    ]}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    <span data-i18n={`ui.nav.${href}`}>{label}</span>
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+        <div class="mt-4 border-t border-border-muted pt-6 w-16"></div>
         <LanguageToggle dropup />
       </div>
     </div>

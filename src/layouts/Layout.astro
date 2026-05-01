@@ -82,7 +82,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="ca">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -94,6 +94,7 @@ const jsonLd = {
     <meta name="apple-mobile-web-app-title" content={fullName} />
     <link rel="manifest" href="/site.webmanifest" />
     <link rel="canonical" href={Astro.url} />
+    <link rel="preconnect" href="https://cloud.umami.is" />
     <link
       rel="preload"
       as="font"
@@ -109,23 +110,12 @@ const jsonLd = {
       crossorigin
     />
 
-    <!-- hreflang: same URL for all locales (language switching is client-side) -->
-    <link rel="alternate" hreflang="ca" href={Astro.url} />
-    <link rel="alternate" hreflang="es" href={Astro.url} />
-    <link rel="alternate" hreflang="en" href={Astro.url} />
-    <link rel="alternate" hreflang="x-default" href={Astro.url} />
-
     <!-- SEO Meta Tags -->
     <meta name="author" content={fullName} />
     <meta
       name="robots"
       content={noIndex ? "noindex, nofollow" : "index, follow"}
     />
-    <meta
-      name="keywords"
-      content={`frontend developer, web developer, Barcelona, React, TypeScript, Astro, Tailwind CSS, Unity, 3D, portfolio, ${fullName}`}
-    />
-
     <meta name="generator" content={Astro.generator} />
     <meta
       name="theme-color"
@@ -145,7 +135,7 @@ const jsonLd = {
     <meta property="og:image:width" content={String(imageWidth)} />
     <meta property="og:image:height" content={String(imageHeight)} />
     <meta property="og:image:alt" content={`Profile photo of ${fullName}`} />
-    <meta property="og:locale" content="ca_ES" />
+    <meta property="og:locale" content="en_GB" />
     <meta property="og:site_name" content={`${fullName} — Portfolio`} />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
@@ -251,6 +241,7 @@ const jsonLd = {
       html {
         scroll-behavior: smooth;
         overflow-y: scroll;
+        overflow-x: hidden;
         background-color: rgb(var(--bg-primary));
         color: rgb(var(--text-primary));
         transition:
