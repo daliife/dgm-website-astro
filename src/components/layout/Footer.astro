@@ -81,8 +81,8 @@ const socialLinks = [
   </div>
 </footer>
 
-<script is:inline>
-  var el = document.getElementById("footer-year");
+<script>
+  const el = document.getElementById("footer-year");
   if (el) el.textContent = String(new Date().getFullYear());
 </script>
 
