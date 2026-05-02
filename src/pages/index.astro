@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { basics } from "@cv";
-const { name, lastName, label, email } = basics;
+const { name, lastName, label, email, summary } = basics;
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
@@ -37,6 +37,9 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         <span id="tw-rotating" aria-hidden="true">{label}</span>
         <span class="typewriter-cursor" aria-hidden="true"></span>
       </p>
+
+      <!-- SEO: visually hidden summary for crawlers -->
+      <p class="sr-only">{summary}</p>
 
       <!-- CTAs -->
       <div

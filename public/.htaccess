@@ -1,3 +1,6 @@
+# Charset in HTTP response header
+AddDefaultCharset UTF-8
+
 # Redirect www to non-www (301 permanent)
 RewriteEngine On
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
