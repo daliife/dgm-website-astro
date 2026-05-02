@@ -67,7 +67,7 @@ export const CA: Record<string, string> = {
   "basics.label": "Desenvolupador Frontend",
   "basics.location": "Barcelona · Catalunya",
   "basics.summary.0":
-    "Sóc Desenvolupador Frontend especialitzat en construir interfícies netes, accessibles i cuidades al detall. M'importa que les experiències no només funcionin bé, sinó que siguin un gust de fer servir — des de l'arquitectura de components fins a l'últim píxel.",
+    "Sóc Desenvolupador Frontend especialitzat en construir interfícies netes, accessibles i cuidades al detall. M'importa que les experiències no només funcionin bé sinó que sigui un plaer utilitzar-les — des de l'arquitectura de components fins a l'últim píxel.",
   "basics.summary.1":
     "Aprenc de pressa i m'agrada estar al dia: segueixo de prop les tendències del sector, les noves eines i com la intel·ligència artificial està canviant la manera de desenvolupar.",
   "basics.summary.2":
