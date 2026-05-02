@@ -15,6 +15,10 @@ export const ES: Record<string, string> = {
   "ui.home.cta": "Contáctame",
   "ui.home.cta.work": "Explora mis proyectos",
   "ui.nextup": "Explora también",
+  "ui.nextup.about": "Sobre mí",
+  "ui.nextup.work": "Mi experiencia laboral",
+  "ui.nextup.projects": "Mis proyectos",
+  "ui.nextup.contact": "Contacto",
 
   // ── Page headings ─────────────────────────────────────────────────────────
   "ui.page.about": "Sobre mí",
