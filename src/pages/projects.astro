@@ -32,7 +32,9 @@ const indexed = (projects as ProjectEntry[]).map((project, index) => ({
 }));
 
 const grouped: Record<Category, { project: ProjectEntry; index: number }[]> = {
-  professional: indexed.filter(({ project }) => project.category === "professional"),
+  professional: indexed.filter(
+    ({ project }) => project.category === "professional"
+  ),
   personal: indexed.filter(({ project }) => project.category === "personal"),
   academic: indexed.filter(({ project }) => project.category === "academic"),
 };
@@ -68,22 +70,23 @@ const itemListSchema = {
       Projects
     </h1>
     {
-      CATEGORY_ORDER.map(cat =>
-        grouped[cat].length > 0 && (
-          <section class="reveal">
-            <p
-              class="text-xs uppercase tracking-widest text-text-muted pt-8 pb-0"
-              data-i18n={CATEGORY_I18N[cat]}
-            >
-              {CATEGORY_LABELS[cat]}
-            </p>
-            <div class="space-y-0">
-              {grouped[cat].map(({ project, index }) => (
-                <ProjectCard {project} projectIndex={index} />
-              ))}
-            </div>
-          </section>
-        )
+      CATEGORY_ORDER.map(
+        cat =>
+          grouped[cat].length > 0 && (
+            <section class="reveal">
+              <p
+                class="text-xs uppercase tracking-widest text-text-muted pt-8 pb-0"
+                data-i18n={CATEGORY_I18N[cat]}
+              >
+                {CATEGORY_LABELS[cat]}
+              </p>
+              <div class="space-y-0">
+                {grouped[cat].map(({ project, index }) => (
+                  <ProjectCard {project} projectIndex={index} />
+                ))}
+              </div>
+            </section>
+          )
       )
     }
 
