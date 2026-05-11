@@ -46,8 +46,9 @@ export const CA: Record<string, string> = {
 
   // ── Privacy page ─────────────────────────────────────────────────────────────
   "ui.page.privacy": "Privacitat",
-  "ui.privacy.intro":
-    "Aquest lloc utilitza Umami, una eina d'analítica de codi obert i respectuosa amb la privacitat. No s'utilitzen galetes i no es recullen dades personals.",
+  "ui.privacy.intro.before": "Aquest lloc utilitza ",
+  "ui.privacy.intro.after":
+    ", una eina d'analítica de codi obert i respectuosa amb la privacitat. No s'utilitzen galetes i no es recullen dades personals.",
   "ui.privacy.collected.title": "Què recopilem",
   "ui.privacy.collected.0": "Pàgines visitades i rutes de navegació",
   "ui.privacy.collected.1": "URL de referència (d'on véns)",

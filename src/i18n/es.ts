@@ -46,8 +46,9 @@ export const ES: Record<string, string> = {
 
   // ── Privacy page ─────────────────────────────────────────────────────────────
   "ui.page.privacy": "Privacidad",
-  "ui.privacy.intro":
-    "Este sitio utiliza Umami, una herramienta de analítica de código abierto y respetuosa con la privacidad. No se usan cookies y no se recopilan datos personales.",
+  "ui.privacy.intro.before": "Este sitio utiliza ",
+  "ui.privacy.intro.after":
+    ", una herramienta de analítica de código abierto y respetuosa con la privacidad. No se usan cookies y no se recopilan datos personales.",
   "ui.privacy.collected.title": "Qué recopilamos",
   "ui.privacy.collected.0": "Páginas visitadas y rutas de navegación",
   "ui.privacy.collected.1": "URL de referencia (de dónde vienes)",

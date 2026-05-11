@@ -47,8 +47,9 @@ export const EN: Record<string, string> = {
 
   // ── Privacy page ───────────────────────────────────────────────────────────
   "ui.page.privacy": "Privacy",
-  "ui.privacy.intro":
-    "This site uses Umami, a privacy-focused open-source analytics tool. No cookies are used and no personal data is collected.",
+  "ui.privacy.intro.before": "This site uses ",
+  "ui.privacy.intro.after":
+    ", a privacy-focused open-source analytics tool. No cookies are used and no personal data is collected.",
   "ui.privacy.collected.title": "What we collect",
   "ui.privacy.collected.0": "Page views and navigation paths",
   "ui.privacy.collected.1": "Referrer URL (where you came from)",
