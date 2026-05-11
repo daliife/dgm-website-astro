@@ -153,26 +153,28 @@ export const ES: Record<string, string> = {
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description":
-    "Proyecto profesional — página web interactiva con 3 minijuegos en Canvas (SEAT)",
+    "Proyecto personal — web para un estudio de movimiento Seitai y katsugen",
   "projects.1.description":
-    "Proyecto profesional — página de presentación con un minijuego de cartas (Orange)",
+    "Proyecto profesional — página web interactiva con 3 minijuegos en Canvas (SEAT)",
   "projects.2.description":
-    "Proyecto profesional — página web interactiva con un timeline de cronología (SEAT)",
+    "Proyecto profesional — página de presentación con un minijuego de cartas (Orange)",
   "projects.3.description":
-    "Proyecto universitario — app recomendadora de TV para Samsung Smart TV con Tizen Studio",
+    "Proyecto profesional — página web interactiva con un timeline de cronología (SEAT)",
   "projects.4.description":
-    "Proyecto de máster — prototipo de videojuego desarrollado con Unreal Engine 4",
+    "Proyecto universitario — app recomendadora de TV para Samsung Smart TV con Tizen Studio",
   "projects.5.description":
-    "Proyecto personal — adaptación del juego de palabras 'Paraulògic'",
+    "Proyecto de máster — prototipo de videojuego desarrollado con Unreal Engine 4",
   "projects.6.description":
-    "Proyecto personal — versión anterior de mi portfolio desarrollada con Angular",
+    "Proyecto personal — adaptación del juego de palabras 'Paraulògic'",
   "projects.7.description":
-    "Proyecto de máster — videojuego hipercasual de minigolf desarrollado con Unity",
+    "Proyecto personal — versión anterior de mi portfolio desarrollada con Angular",
   "projects.8.description":
-    "Proyecto personal — web para descubrir familias de instrumentos, desarrollada con Angular",
+    "Proyecto de máster — videojuego hipercasual de minigolf desarrollado con Unity",
   "projects.9.description":
-    "Proyecto profesional — cuadrícula filtrable de elementos con Isotope (Endesa)",
+    "Proyecto personal — web para descubrir familias de instrumentos, desarrollada con Angular",
   "projects.10.description":
+    "Proyecto profesional — cuadrícula filtrable de elementos con Isotope (Endesa)",
+  "projects.11.description":
     "Proyecto de máster — efectos de postprocesado en tiempo real con fragment shaders e ImGui",
 
   // ── Education ─────────────────────────────────────────────────────────────

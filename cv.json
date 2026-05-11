@@ -208,6 +208,13 @@
   ],
   "projects": [
     {
+      "name": "Estudi Seitai",
+      "description": "Personal project — website for a Seitai and katsugen movement studio",
+      "url": "https://estudiseitai.cat/",
+      "image": "https://estudiseitai.cat/images/fons-hero-1920.webp",
+      "technologies": ["Astro", "TypeScript", "Tailwind CSS"]
+    },
+    {
       "name": "Seat RFP",
       "description": "Professional project — interactive webpage with 3 canvas minigames (SEAT)",
       "url": "https://daliife.github.io/rfp-seat",
