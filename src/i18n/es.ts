@@ -26,6 +26,11 @@ export const ES: Record<string, string> = {
   "ui.page.projects": "Proyectos",
   "ui.page.contact": "Contacto",
 
+  // ── Projects categories ─────────────────────────────────────────────────────
+  "ui.projects.category.professional": "Profesional",
+  "ui.projects.category.personal": "Personal",
+  "ui.projects.category.academic": "Académico",
+
   // ── About section headings ────────────────────────────────────────────────
   "ui.about.summary": "Resumen",
   "ui.about.skills": "Habilidades",

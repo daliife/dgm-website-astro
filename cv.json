@@ -212,84 +212,96 @@
       "description": "Personal project — website for a Seitai and katsugen movement studio",
       "url": "https://estudiseitai.cat/",
       "image": "https://estudiseitai.cat/images/fons-hero-1920.webp",
-      "technologies": ["Astro", "TypeScript", "Tailwind CSS"]
+      "technologies": ["Astro", "TypeScript", "Tailwind CSS"],
+      "category": "personal"
     },
     {
       "name": "Seat RFP",
       "description": "Professional project — interactive webpage with 3 canvas minigames (SEAT)",
       "url": "https://daliife.github.io/rfp-seat",
       "image": "https://raw.githubusercontent.com/daliife/rfp-seat/master/src/assets/finals/first-scene.png",
-      "technologies": ["Angular", "TypeScript", "Canvas"]
+      "technologies": ["Angular", "TypeScript", "Canvas"],
+      "category": "professional"
     },
     {
       "name": "Orange RFP",
       "description": "Professional project — landing page with a card minigame (Orange)",
       "url": "https://daliife.github.io/rfp-orange/",
       "image": "https://raw.githubusercontent.com/daliife/rfp-orange/master/src/assets/img/final-game/img-juegofinal.png",
-      "technologies": ["Angular", "TypeScript", "Lottie"]
+      "technologies": ["Angular", "TypeScript", "Lottie"],
+      "category": "professional"
     },
     {
       "name": "HMI Seat",
       "description": "Professional project — interactive webpage with a chronology timeline (SEAT)",
       "url": "https://daliife.github.io/hmi-seat/",
       "image": "https://raw.githubusercontent.com/daliife/hmi-seat/main/src/assets/chronology/50s.png",
-      "technologies": ["Angular", "TypeScript", "CSS"]
+      "technologies": ["Angular", "TypeScript", "CSS"],
+      "category": "professional"
     },
     {
       "name": "Cinemup",
       "description": "University project — TV recommender app for Samsung Smart TV built with Tizen Studio",
       "url": "https://daliife.github.io/Cinemup/cinemup_web",
       "image": "https://i.imgur.com/yUpwhvM.png",
-      "technologies": ["JavaScript", "HTML", "CSS"]
+      "technologies": ["JavaScript", "HTML", "CSS"],
+      "category": "personal"
     },
     {
       "name": "PodRacers",
       "description": "Master's degree project — video game prototype built with Unreal Engine 4",
       "url": "https://github.com/daliife/PodRacers",
       "image": "https://i.imgur.com/2Rr3Ppg.jpg",
-      "technologies": ["Unreal Engine 4", "C++"]
+      "technologies": ["Unreal Engine 4", "C++"],
+      "category": "academic"
     },
     {
       "name": "Ricardlogic",
       "description": "Personal project — adaptation of the word game 'Paraulògic'",
       "url": "https://daliife.github.io/ricardlogic-minigame/",
       "image": "https://raw.githubusercontent.com/daliife/ricardlogic-minigame/main/assets/ricardlogic-screenshot.png",
-      "technologies": ["HTML", "CSS", "JavaScript"]
+      "technologies": ["HTML", "CSS", "JavaScript"],
+      "category": "personal"
     },
     {
       "name": "Portfolio v1",
       "description": "Personal project — previous version of my portfolio built with Angular",
       "url": "https://daliife.github.io/dgm-website-angular/",
       "image": "https://i.imgur.com/xOjLfx4.png",
-      "technologies": ["Angular", "TypeScript", "SCSS"]
+      "technologies": ["Angular", "TypeScript", "SCSS"],
+      "category": "personal"
     },
     {
       "name": "AMIGO",
       "description": "Master's degree project — hypercasual minimal minigolf video game built with Unity",
       "url": "https://dalife.itch.io/amigo",
       "image": "https://i.imgur.com/4Dwf2Uu.png",
-      "technologies": ["Unity", "C#", "HLSL"]
+      "technologies": ["Unity", "C#", "HLSL"],
+      "category": "academic"
     },
     {
       "name": "Instruments List",
       "description": "Personal project — website to discover instrument families, built with Angular",
       "url": "https://daliife.github.io/instrumentslist-website/",
       "image": "https://i.imgur.com/vwxHXuf.png",
-      "technologies": ["Angular", "TypeScript", "CSS"]
+      "technologies": ["Angular", "TypeScript", "CSS"],
+      "category": "academic"
     },
     {
       "name": "Light Sorter",
       "description": "Professional project — filterable grid of elements using Isotope (Endesa)",
       "url": "https://daliife.github.io/light-sorter/",
       "image": "https://i.imgur.com/OnphlCH.png",
-      "technologies": ["JavaScript", "jQuery", "Handlebars"]
+      "technologies": ["JavaScript", "jQuery", "Handlebars"],
+      "category": "academic"
     },
     {
       "name": "Shaders & Postpro",
       "description": "Master's degree project — real-time postprocessing FX using fragment shaders and ImGui",
       "url": "https://github.com/daliife/ShadersAndPostpro",
       "image": "https://i.imgur.com/tNfnzOC.png",
-      "technologies": ["C++", "GLSL", "ImGui"]
+      "technologies": ["C++", "GLSL", "ImGui"],
+      "category": "academic"
     }
   ]
 }

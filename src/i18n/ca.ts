@@ -26,6 +26,11 @@ export const CA: Record<string, string> = {
   "ui.page.projects": "Projectes",
   "ui.page.contact": "Contacte",
 
+  // ── Projects categories ─────────────────────────────────────────────────────
+  "ui.projects.category.professional": "Professional",
+  "ui.projects.category.personal": "Personal",
+  "ui.projects.category.academic": "Acadèmic",
+
   // ── About section headings ────────────────────────────────────────────────
   "ui.about.summary": "Resum",
   "ui.about.skills": "Habilitats",

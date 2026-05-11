@@ -66,6 +66,7 @@ export interface ProjectEntry {
   technologies?: string[];
   startDate?: string;
   endDate?: string;
+  category?: "professional" | "personal" | "academic";
 }
 
 export interface SkillEntry {

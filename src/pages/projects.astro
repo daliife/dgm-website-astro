@@ -11,6 +11,32 @@ import { projects } from "@cv";
 import ProjectCard from "../components/sections/ProjectCard.astro";
 import type { ProjectEntry } from "../types/ui";
 
+const CATEGORY_ORDER = ["professional", "personal", "academic"] as const;
+type Category = (typeof CATEGORY_ORDER)[number];
+
+const CATEGORY_LABELS: Record<Category, string> = {
+  professional: "Professional",
+  personal: "Personal",
+  academic: "Academic",
+};
+
+const CATEGORY_I18N: Record<Category, string> = {
+  professional: "ui.projects.category.professional",
+  personal: "ui.projects.category.personal",
+  academic: "ui.projects.category.academic",
+};
+
+const indexed = (projects as ProjectEntry[]).map((project, index) => ({
+  project,
+  index,
+}));
+
+const grouped: Record<Category, { project: ProjectEntry; index: number }[]> = {
+  professional: indexed.filter(({ project }) => project.category === "professional"),
+  personal: indexed.filter(({ project }) => project.category === "personal"),
+  academic: indexed.filter(({ project }) => project.category === "academic"),
+};
+
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -41,13 +67,25 @@ const itemListSchema = {
     <h1 class={`${PAGE_HEADING_CLASSES} mb-12`} data-i18n="ui.page.projects">
       Projects
     </h1>
-    <div class="space-y-0 reveal">
-      {
-        projects.map((project: ProjectEntry, i: number) => (
-          <ProjectCard {project} projectIndex={i} />
-        ))
-      }
-    </div>
+    {
+      CATEGORY_ORDER.map(cat =>
+        grouped[cat].length > 0 && (
+          <section class="reveal">
+            <p
+              class="text-xs uppercase tracking-widest text-text-muted pt-8 pb-0"
+              data-i18n={CATEGORY_I18N[cat]}
+            >
+              {CATEGORY_LABELS[cat]}
+            </p>
+            <div class="space-y-0">
+              {grouped[cat].map(({ project, index }) => (
+                <ProjectCard {project} projectIndex={index} />
+              ))}
+            </div>
+          </section>
+        )
+      )
+    }
 
     <nav
       aria-label="Related pages"
