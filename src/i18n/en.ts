@@ -65,7 +65,7 @@ export const EN: Record<string, string> = {
 
   // ── Contact ────────────────────────────────────────────────────────────────
   "ui.contact.intro":
-    "Interested in working together? Feel free to reach out through any of the channels below.",
+    "Currently open to new projects and opportunities. Feel free to reach out — I usually respond within 24h.",
 
   // ── Basics ─────────────────────────────────────────────────────────────────
   "basics.label": "Frontend Developer",

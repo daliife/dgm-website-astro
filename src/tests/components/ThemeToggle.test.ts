@@ -18,7 +18,13 @@ describe("ThemeToggle", () => {
   it("has accessible aria-label", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ThemeToggle);
-    expect(html).toContain('aria-label="Toggle dark mode"');
+    expect(html).toContain('aria-label="Switch to dark mode"');
+  });
+
+  it("has aria-pressed attribute for screen readers", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ThemeToggle);
+    expect(html).toContain('aria-pressed="false"');
   });
 
   it("has data-theme-toggle attribute for JS hook", async () => {

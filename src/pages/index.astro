@@ -1,9 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
+import { SITE_BASE } from "../utils/url";
 import { basics } from "@cv";
 const { name, lastName, label, email, summary } = basics;
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <Layout
@@ -46,7 +46,7 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
         class="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-8"
       >
         <Button
-          href={`${base}/projects`}
+          href={`${SITE_BASE}/projects`}
           variant="simple"
           size="none"
           className="text-sm uppercase tracking-widest border-b border-border-secondary hover:border-text-primary pb-1 hover:no-underline gap-2 rounded-none"

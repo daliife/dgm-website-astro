@@ -35,29 +35,6 @@ export interface ActionButtonProps extends BaseButtonProps {
 
 export type ButtonProps = LinkButtonProps & ActionButtonProps;
 
-// Timeline Types
-export interface TimelineItem {
-  startDate?: string;
-  endDate?: string;
-  title: string;
-  description?: string;
-  link?: string;
-  company?: string;
-  highlights?: string[];
-}
-
-// Project Types
-export interface Project {
-  id: string;
-  name: string;
-  description: string;
-  url?: string;
-  githubUrl?: string;
-  image?: string;
-  technologies: string[];
-  featured?: boolean;
-}
-
 // Navigation Types
 export type NavLink = "about" | "projects" | "work" | "contact";
 
