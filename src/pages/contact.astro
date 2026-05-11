@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { basics } from "@cv";
 import {
-  TITLE_PAGE_PREFIX,
+  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
@@ -22,7 +22,7 @@ const CONTACT_ITEM_CLASS =
 ---
 
 <Layout
-  title={`Contact${TITLE_PAGE_PREFIX}`}
+  title={`Contact${TITLE_PAGE_SUFFIX}`}
   description="Contact David Gimeno Mañé — Frontend Developer based in Barcelona. Let’s work together."
 >
   <div class={PAGE_CONTAINER_CLASSES}>

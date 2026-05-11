@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { work } from "@cv";
 import {
-  TITLE_PAGE_PREFIX,
+  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
@@ -12,7 +12,7 @@ import type { WorkEntry } from "../types/ui";
 ---
 
 <Layout
-  title={`Work Experience${TITLE_PAGE_PREFIX}`}
+  title={`Work Experience${TITLE_PAGE_SUFFIX}`}
   description="Professional work experience of David Gimeno Mañé — Frontend Developer based in Barcelona."
 >
   <div class={PAGE_CONTAINER_CLASSES}>
