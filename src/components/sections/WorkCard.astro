@@ -33,6 +33,8 @@ const { job, jobIndex } = Astro.props;
     </div>
     <span
       class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap"
+      data-date-start={job.startDate}
+      data-date-end={job.endDate ?? ""}
     >
       {formatDate(job.startDate)} — {formatDate(job.endDate)}
     </span>

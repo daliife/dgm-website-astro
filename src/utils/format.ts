@@ -1,7 +1,13 @@
-export function formatDate(dateStr?: string): string {
+export const LOCALE_MAP: Record<string, string> = {
+  en: "en-US",
+  ca: "ca-ES",
+  es: "es-ES",
+};
+
+export function formatDate(dateStr?: string, locale = "en-US"): string {
   if (!dateStr) return "Present";
   const d = new Date(dateStr);
-  return d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+  return d.toLocaleDateString(locale, { month: "short", year: "numeric" });
 }
 
 export function stripProtocol(url: string): string {

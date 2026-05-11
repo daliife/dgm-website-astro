@@ -43,7 +43,8 @@ export const ES: Record<string, string> = {
 
   // ── Footer ───────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacidad",
-
+  // ── Dates ──────────────────────────────────────────────────────────────────
+  "ui.date.present": "Actualidad",
   // ── Privacy page ─────────────────────────────────────────────────────────────
   "ui.page.privacy": "Privacidad",
   "ui.privacy.intro.before": "Este sitio utiliza ",

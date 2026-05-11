@@ -85,12 +85,37 @@ const { dropup = false } = Astro.props;
     es: ES,
   };
 
+  const LOCALE_MAP: Record<string, string> = {
+    en: "en-US",
+    ca: "ca-ES",
+    es: "es-ES",
+  };
+
+  function formatDateLocale(
+    raw: string | undefined,
+    locale: string,
+    presentLabel: string
+  ): string {
+    if (!raw) return presentLabel;
+    const d = new Date(raw);
+    return d.toLocaleDateString(locale, { month: "short", year: "numeric" });
+  }
+
   function applyI18n(lang: string) {
     const translations = TRANSLATIONS[lang] ?? EN;
     document.querySelectorAll<HTMLElement>("[data-i18n]").forEach(el => {
       const key = el.dataset.i18n!;
       const val = translations[key];
       if (val !== undefined) el.textContent = val;
+    });
+
+    // Re-format work dates to match the active locale
+    const dateLocale = LOCALE_MAP[lang] ?? "en-US";
+    const presentLabel = translations["ui.date.present"] ?? "Present";
+    document.querySelectorAll<HTMLElement>("[data-date-start]").forEach(el => {
+      const start = el.dataset.dateStart;
+      const end = el.dataset.dateEnd || undefined;
+      el.textContent = `${formatDateLocale(start, dateLocale, presentLabel)} — ${formatDateLocale(end, dateLocale, presentLabel)}`;
     });
 
     document.documentElement.lang = lang;

@@ -5,7 +5,6 @@ import Header from "../components/layout/Header.astro";
 import CookieConsent from "../components/layout/CookieConsent.astro";
 import "../styles/fonts.css";
 import interLatinFontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
-import interLatinExtFontUrl from "@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2?url";
 import { ClientRouter } from "astro:transitions";
 import { basics, work } from "@cv";
 import type { SocialProfile } from "../types/ui";
@@ -102,13 +101,6 @@ const jsonLd = {
       href={interLatinFontUrl}
       crossorigin
     />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href={interLatinExtFontUrl}
-      crossorigin
-    />
 
     <!-- SEO Meta Tags -->
     <meta name="author" content={fullName} />
@@ -161,6 +153,7 @@ const jsonLd = {
       is:inline
       set:html={JSON.stringify(jsonLd)}
     />
+    <slot name="head" />
 
     <!-- Umami Analytics -->
     <script

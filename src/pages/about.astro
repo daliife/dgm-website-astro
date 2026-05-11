@@ -7,6 +7,7 @@ import { TITLE_PAGE_PREFIX, PAGE_CONTAINER_CLASSES } from "../utils/constants";
 import { stripProtocol } from "../utils/format";
 import { getSocialProfile } from "../utils/socialLinks";
 import { SITE_BASE } from "../utils/url";
+import { LIVE_URL } from "../utils/constants";
 import Button from "../components/ui/Button.astro";
 import SkillsSection from "../components/sections/SkillsSection.astro";
 import LanguagesSection from "../components/sections/LanguagesSection.astro";
@@ -18,12 +19,32 @@ const { name, lastName, email, summary, profiles, label, location } = basics;
 
 const linkedin = getSocialProfile(profiles as SocialProfile[], "Linkedin");
 const github = getSocialProfile(profiles as SocialProfile[], "Github");
+
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  name: `About ${name} ${lastName}`,
+  description: `About ${name} ${lastName} — ${label} based in ${location?.city}. Discover my story, skills, and professional background.`,
+  url: `${LIVE_URL}/about`,
+  mainEntity: {
+    "@type": "Person",
+    name: `${name} ${lastName}`,
+    jobTitle: label,
+    url: LIVE_URL,
+  },
+};
 ---
 
 <Layout
   title={`About${TITLE_PAGE_PREFIX}`}
   description={`About ${name} ${lastName} — ${label} based in ${location?.city}. Discover my story, skills, and professional background.`}
 >
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(profilePageSchema)}
+  />
   <div
     class={`${PAGE_CONTAINER_CLASSES} content-wrapper print:pt-0 print:pb-0 print:px-0 print:max-w-none`}
   >

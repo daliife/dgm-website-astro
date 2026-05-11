@@ -43,7 +43,8 @@ export const CA: Record<string, string> = {
 
   // ── Footer ───────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacitat",
-
+  // ── Dates ──────────────────────────────────────────────────────────────────
+  "ui.date.present": "Actualitat",
   // ── Privacy page ─────────────────────────────────────────────────────────────
   "ui.page.privacy": "Privacitat",
   "ui.privacy.intro.before": "Aquest lloc utilitza ",

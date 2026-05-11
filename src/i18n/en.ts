@@ -44,7 +44,8 @@ export const EN: Record<string, string> = {
 
   // ── Footer ─────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacy",
-
+  // ── Dates ──────────────────────────────────────────────────────────────────
+  "ui.date.present": "Present",
   // ── Privacy page ───────────────────────────────────────────────────────────
   "ui.page.privacy": "Privacy",
   "ui.privacy.intro.before": "This site uses ",

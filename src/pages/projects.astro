@@ -4,17 +4,39 @@ import {
   TITLE_PAGE_PREFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
+  LIVE_URL,
 } from "../utils/constants";
 import { SITE_BASE } from "../utils/url";
 import { projects } from "@cv";
 import ProjectCard from "../components/sections/ProjectCard.astro";
 import type { ProjectEntry } from "../types/ui";
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Projects Portfolio",
+  description: "Portfolio of web development projects by David Gimeno Mañé.",
+  url: `${LIVE_URL}/projects`,
+  itemListElement: projects.map((p: ProjectEntry, i: number) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: p.name,
+    description: p.description,
+    ...(p.url ? { url: p.url } : {}),
+  })),
+};
 ---
 
 <Layout
   title={`Projects Portfolio${TITLE_PAGE_PREFIX}`}
   description="Portfolio of web development projects by David Gimeno Mañé — Frontend Developer based in Barcelona."
 >
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(itemListSchema)}
+  />
   <div class={PAGE_CONTAINER_CLASSES}>
     <h1 class={`${PAGE_HEADING_CLASSES} mb-12`} data-i18n="ui.page.projects">
       Projects
