@@ -45,7 +45,7 @@ const itemListSchema = {
   name: "Projects Portfolio",
   description: "Portfolio of web development projects by David Gimeno Mañé.",
   url: `${LIVE_URL}/projects`,
-  itemListElement: projects.map((p: ProjectEntry, i: number) => ({
+  itemListElement: (projects as ProjectEntry[]).map((p, i) => ({
     "@type": "ListItem",
     position: i + 1,
     name: p.name,

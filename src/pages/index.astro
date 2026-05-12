@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { SITE_BASE } from "../utils/url";
 import { basics } from "@cv";
-const { name, lastName, label, email, summary } = basics;
+const { name, lastName, label, email } = basics;
 ---
 
 <Layout
@@ -119,49 +119,59 @@ const { name, lastName, label, email, summary } = basics;
 </style>
 
 <script>
-  document.addEventListener("astro:page-load", () => {
+  const PHRASES: Record<string, string[]> = {
+    ca: [
+      "DESENVOLUPADOR FRONTEND",
+      "ENGINYER DE SOFTWARE",
+      "ESPECIALISTA EN REACT",
+      "CLARINETISTA",
+      "AMANT DE LA MUNTANYA",
+    ],
+    es: [
+      "DESARROLLADOR FRONTEND",
+      "INGENIERO DE SOFTWARE",
+      "ESPECIALISTA EN REACT",
+      "CLARINETISTA",
+      "AMANTE DE LA MONTAÑA",
+    ],
+    en: [
+      "FRONTEND DEVELOPER",
+      "SOFTWARE ENGINEER",
+      "REACT SPECIALIST",
+      "CLARINETIST",
+      "RUNNER & HIKING LOVER",
+    ],
+  };
+
+  let stopCurrent: (() => void) | null = null;
+
+  function startTypewriter(lang: string) {
     const el = document.getElementById("tw-rotating");
     const cursor = document.querySelector<HTMLElement>(".typewriter-cursor");
     if (!el || !cursor) return;
 
-    const lang = localStorage.getItem("lang") ?? "en";
-    const phrases =
-      lang === "ca"
-        ? [
-            "DESENVOLUPADOR FRONTEND",
-            "ENGINYER DE SOFTWARE",
-            "ESPECIALISTA EN REACT",
-            "CLARINETISTA",
-            "AMANT DE LA MUNTANYA",
-          ]
-        : lang === "es"
-          ? [
-              "DESARROLLADOR FRONTEND",
-              "INGENIERO DE SOFTWARE",
-              "ESPECIALISTA EN REACT",
-              "CLARINETISTA",
-              "AMANTE DE LA MONTAÑA",
-            ]
-          : [
-              "FRONTEND DEVELOPER",
-              "SOFTWARE ENGINEER",
-              "REACT SPECIALIST",
-              "CLARINETIST",
-              "RUNNER & HIKING LOVER",
-            ];
+    // Stop any running instance
+    stopCurrent?.();
+    let stopped = false;
+    stopCurrent = () => {
+      stopped = true;
+    };
 
-    // prefers-reduced-motion: show first phrase statically
+    const phrases = PHRASES[lang] ?? PHRASES.en;
+
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       el.textContent = phrases[0];
       cursor.style.display = "none";
       return;
     }
 
+    cursor.style.display = "";
     let charIdx = 0;
     let phraseIdx = 0;
     let isDeleting = false;
 
     function rotate() {
+      if (stopped) return;
       const current = phrases[phraseIdx];
 
       if (isDeleting) {
@@ -179,6 +189,7 @@ const { name, lastName, label, email, summary } = basics;
         el!.textContent = current.slice(0, charIdx);
         if (charIdx === current.length) {
           setTimeout(() => {
+            if (stopped) return;
             isDeleting = true;
             rotate();
           }, 3500);
@@ -189,5 +200,15 @@ const { name, lastName, label, email, summary } = basics;
     }
 
     setTimeout(rotate, 600);
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    const lang = localStorage.getItem("lang") ?? "ca";
+    startTypewriter(lang);
+  });
+
+  window.addEventListener("app:lang-change", (e: Event) => {
+    const { lang } = (e as CustomEvent<{ lang: string }>).detail;
+    startTypewriter(lang);
   });
 </script>
