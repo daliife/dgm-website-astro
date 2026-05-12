@@ -3,7 +3,9 @@
  * Keys use dot notation mirroring the cv.json structure + a "ui." namespace for static strings.
  * Loaded client-side by LanguageToggle.astro and applied to [data-i18n] elements.
  */
-export const CA: Record<string, string> = {
+import type { I18nKey } from "./en";
+
+export const CA: Record<I18nKey, string> = {
   // ── Navigation ────────────────────────────────────────────────────────────
   "ui.nav.about": "Sobre mi",
   "ui.nav.projects": "Projectes",

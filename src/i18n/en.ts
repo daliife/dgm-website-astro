@@ -4,7 +4,7 @@
  * .astro templates. Having them here makes EN a first-class language and
  * allows the i18n key coverage test to validate all three locales.
  */
-export const EN: Record<string, string> = {
+export const EN = {
   // ── Navigation ────────────────────────────────────────────────────────────
   "ui.nav.about": "About",
   "ui.nav.projects": "Projects",
@@ -206,4 +206,6 @@ export const EN: Record<string, string> = {
   "languages.0.fluency": "Native speaker",
   "languages.1.fluency": "Native speaker",
   "languages.2.fluency": "Professional working proficiency",
-};
+} as const;
+
+export type I18nKey = keyof typeof EN;
