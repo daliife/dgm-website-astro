@@ -205,7 +205,7 @@ const jsonLd = {
     </a>
 
     <Header transition:persist />
-    <main id="main-content" class="w-full relative" transition:animate="none">
+    <main id="main-content" class="w-full relative" transition:animate="fade">
       <slot />
     </main>
     {!hideFooter && <Footer />}
@@ -324,6 +324,14 @@ const jsonLd = {
         ).matches;
         if (prefersReduced) return;
 
+        // Pre-mark elements already in the viewport — the page-transition fade
+        // already handled their entrance, so skip the reveal animation for them.
+        document.querySelectorAll<Element>(".reveal").forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight) {
+            el.classList.add("is-visible");
+          }
+        });
+
         revealObserver?.disconnect();
         revealObserver = new IntersectionObserver(
           entries => {
@@ -338,7 +346,7 @@ const jsonLd = {
         );
 
         document
-          .querySelectorAll(".reveal")
+          .querySelectorAll(".reveal:not(.is-visible)")
           .forEach(el => revealObserver!.observe(el));
       });
     </script>
