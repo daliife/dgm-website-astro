@@ -180,7 +180,8 @@ const jsonLd = {
         var lang = localStorage.getItem("lang") || "ca";
         document.documentElement.lang = lang;
         var ogLocale = document.querySelector("[data-og-locale]");
-        if (ogLocale) ogLocale.setAttribute("content", OG_LOCALE_MAP[lang] || "ca_ES");
+        if (ogLocale)
+          ogLocale.setAttribute("content", OG_LOCALE_MAP[lang] || "ca_ES");
       }
       applyTheme();
       applyLang();
