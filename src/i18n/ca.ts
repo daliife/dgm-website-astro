@@ -161,30 +161,28 @@ export const CA: Record<I18nKey, string> = {
   "work.7.highlights.3": "Control de material i logística dels laboratoris.",
 
   // ── Projects ──────────────────────────────────────────────────────────────
-  "projects.0.description":
-    "Projecte personal — web per a un estudi de moviment Seitai i katsugen",
+  "projects.0.description": "Web per a un estudi de moviment Seitai i katsugen",
   "projects.1.description":
-    "Projecte professional — pàgina web interactiva amb 3 minijocs en Canvas (SEAT)",
+    "Pàgina web interactiva amb 3 minijocs en Canvas (SEAT)",
   "projects.2.description":
-    "Projecte professional — pàgina de presentació amb un minijoc de cartes (Orange)",
+    "Pàgina de presentació amb un minijoc de cartes (Orange)",
   "projects.3.description":
-    "Projecte professional — pàgina web interactiva amb un timeline de cronologia (SEAT)",
+    "Pàgina web interactiva amb un timeline de cronologia (SEAT)",
   "projects.4.description":
-    "Projecte universitari — app recomanadora de TV per a Samsung Smart TV amb Tizen Studio",
+    "App recomanadora de TV per a Samsung Smart TV amb Tizen Studio",
   "projects.5.description":
-    "Projecte de màster — prototip de videojoc desenvolupat amb Unreal Engine 4",
-  "projects.6.description":
-    "Projecte personal — adaptació del joc de paraules 'Paraulògic'",
+    "Prototip de videojoc desenvolupat amb Unreal Engine 4",
+  "projects.6.description": "Adaptació del joc de paraules 'Paraulògic'",
   "projects.7.description":
-    "Projecte personal — versió anterior del meu portfolio desenvolupada amb Angular",
+    "Versió anterior del meu portfolio desenvolupada amb Angular",
   "projects.8.description":
-    "Projecte de màster — videojoc hipercasual de minigolf desenvolupat amb Unity",
+    "Videojoc hipercasual de minigolf desenvolupat amb Unity",
   "projects.9.description":
-    "Projecte personal — web per descobrir famílies d'instruments, desenvolupada amb Angular",
+    "Web per descobrir famílies d'instruments, desenvolupada amb Angular",
   "projects.10.description":
-    "Projecte professional — graella filtrable d'elements amb Isotope (Endesa)",
+    "Graella filtrable d'elements amb Isotope (Endesa)",
   "projects.11.description":
-    "Projecte de màster — efectes de postprocessat en temps real amb fragment shaders i ImGui",
+    "Efectes de postprocessat en temps real amb fragment shaders i ImGui",
 
   // ── Education ─────────────────────────────────────────────────────────────
   "education.0.studyType": "Màster en Desenvolupament Avançat de Videojocs",

@@ -157,30 +157,26 @@ export const EN = {
     "Control of material and logistics of the laboratories.",
 
   // ── Projects ───────────────────────────────────────────────────────────────
-  "projects.0.description":
-    "Personal project — website for a Seitai and katsugen movement studio",
+  "projects.0.description": "Website for a Seitai and katsugen movement studio",
   "projects.1.description":
-    "Professional project — interactive webpage with 3 canvas minigames (SEAT)",
-  "projects.2.description":
-    "Professional project — landing page with a card minigame (Orange)",
+    "Interactive webpage with 3 canvas minigames (SEAT)",
+  "projects.2.description": "Landing page with a card minigame (Orange)",
   "projects.3.description":
-    "Professional project — interactive webpage with a chronology timeline (SEAT)",
+    "Interactive webpage with a chronology timeline (SEAT)",
   "projects.4.description":
-    "University project — TV recommender app for Samsung Smart TV built with Tizen Studio",
-  "projects.5.description":
-    "Master's degree project — video game prototype built with Unreal Engine 4",
-  "projects.6.description":
-    "Personal project — adaptation of the word game 'Paraulògic'",
+    "TV recommender app for Samsung Smart TV built with Tizen Studio",
+  "projects.5.description": "Video game prototype built with Unreal Engine 4",
+  "projects.6.description": "Adaptation of the word game 'Paraulògic'",
   "projects.7.description":
-    "Personal project — previous version of my portfolio built with Angular",
+    "Previous version of my portfolio built with Angular",
   "projects.8.description":
-    "Master's degree project — hypercasual minimal minigolf video game built with Unity",
+    "Hypercasual minimal minigolf video game built with Unity",
   "projects.9.description":
-    "Personal project — website to discover instrument families, built with Angular",
+    "Website to discover instrument families, built with Angular",
   "projects.10.description":
-    "Professional project — filterable grid of elements using Isotope (Endesa)",
+    "Filterable grid of elements using Isotope (Endesa)",
   "projects.11.description":
-    "Master's degree project — real-time postprocessing FX using fragment shaders and ImGui",
+    "Real-time postprocessing FX using fragment shaders and ImGui",
 
   // ── Education ──────────────────────────────────────────────────────────────
   "education.0.studyType": "Master's Degree in Advanced Video Game Development",

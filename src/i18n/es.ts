@@ -162,29 +162,28 @@ export const ES: Record<I18nKey, string> = {
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description":
-    "Proyecto personal — web para un estudio de movimiento Seitai y katsugen",
+    "Web para un estudio de movimiento Seitai y katsugen",
   "projects.1.description":
-    "Proyecto profesional — página web interactiva con 3 minijuegos en Canvas (SEAT)",
+    "Página web interactiva con 3 minijuegos en Canvas (SEAT)",
   "projects.2.description":
-    "Proyecto profesional — página de presentación con un minijuego de cartas (Orange)",
+    "Página de presentación con un minijuego de cartas (Orange)",
   "projects.3.description":
-    "Proyecto profesional — página web interactiva con un timeline de cronología (SEAT)",
+    "Página web interactiva con un timeline de cronología (SEAT)",
   "projects.4.description":
-    "Proyecto universitario — app recomendadora de TV para Samsung Smart TV con Tizen Studio",
+    "App recomendadora de TV para Samsung Smart TV con Tizen Studio",
   "projects.5.description":
-    "Proyecto de máster — prototipo de videojuego desarrollado con Unreal Engine 4",
-  "projects.6.description":
-    "Proyecto personal — adaptación del juego de palabras 'Paraulògic'",
+    "Prototipo de videojuego desarrollado con Unreal Engine 4",
+  "projects.6.description": "Adaptación del juego de palabras 'Paraulògic'",
   "projects.7.description":
-    "Proyecto personal — versión anterior de mi portfolio desarrollada con Angular",
+    "Versión anterior de mi portfolio desarrollada con Angular",
   "projects.8.description":
-    "Proyecto de máster — videojuego hipercasual de minigolf desarrollado con Unity",
+    "Videojuego hipercasual de minigolf desarrollado con Unity",
   "projects.9.description":
-    "Proyecto personal — web para descubrir familias de instrumentos, desarrollada con Angular",
+    "Web para descubrir familias de instrumentos, desarrollada con Angular",
   "projects.10.description":
-    "Proyecto profesional — cuadrícula filtrable de elementos con Isotope (Endesa)",
+    "Cuadrícula filtrable de elementos con Isotope (Endesa)",
   "projects.11.description":
-    "Proyecto de máster — efectos de postprocesado en tiempo real con fragment shaders e ImGui",
+    "Efectos de postprocesado en tiempo real con fragment shaders e ImGui",
 
   // ── Education ─────────────────────────────────────────────────────────────
   "education.0.studyType": "Máster en Desarrollo Avanzado de Videojuegos",
