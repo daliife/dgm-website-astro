@@ -74,6 +74,15 @@ const { dropup = false } = Astro.props;
   </div>
 </div>
 
+<script is:inline>
+  {
+    var lang = (document.documentElement.lang || "ca").toUpperCase();
+    document.querySelectorAll("[data-lang-current]").forEach(function (el) {
+      el.textContent = lang;
+    });
+  }
+</script>
+
 <script>
   const LOADERS: Record<string, () => Promise<Record<string, string>>> = {
     en: () => import("../../i18n/en").then(m => m.EN),

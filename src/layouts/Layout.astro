@@ -81,7 +81,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ca">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -127,7 +127,7 @@ const jsonLd = {
     <meta property="og:image:width" content={String(imageWidth)} />
     <meta property="og:image:height" content={String(imageHeight)} />
     <meta property="og:image:alt" content={`Profile photo of ${fullName}`} />
-    <meta property="og:locale" content="en_GB" />
+    <meta property="og:locale" content="ca_ES" data-og-locale />
     <meta property="og:site_name" content={`${fullName} — Portfolio`} />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
@@ -164,8 +164,9 @@ const jsonLd = {
       is:inline></script>
 
     <script is:inline>
+      var OG_LOCALE_MAP = { en: "en_GB", ca: "ca_ES", es: "es_ES" };
       function applyTheme() {
-        const saved = localStorage.getItem("theme");
+        var saved = localStorage.getItem("theme");
         if (
           saved === "dark" ||
           (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)
@@ -175,8 +176,16 @@ const jsonLd = {
           document.documentElement.classList.remove("dark");
         }
       }
+      function applyLang() {
+        var lang = localStorage.getItem("lang") || "ca";
+        document.documentElement.lang = lang;
+        var ogLocale = document.querySelector("[data-og-locale]");
+        if (ogLocale) ogLocale.setAttribute("content", OG_LOCALE_MAP[lang] || "ca_ES");
+      }
       applyTheme();
+      applyLang();
       document.addEventListener("astro:after-swap", applyTheme);
+      document.addEventListener("astro:after-swap", applyLang);
     </script>
     <ClientRouter />
   </head>
