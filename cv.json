@@ -245,7 +245,7 @@
       "url": "https://daliife.github.io/Cinemup/cinemup_web",
       "image": "https://i.imgur.com/yUpwhvM.png",
       "technologies": ["JavaScript", "HTML", "CSS"],
-      "category": "personal"
+      "category": "academic"
     },
     {
       "name": "PodRacers",
@@ -285,7 +285,7 @@
       "url": "https://daliife.github.io/instrumentslist-website/",
       "image": "https://i.imgur.com/vwxHXuf.png",
       "technologies": ["Angular", "TypeScript", "CSS"],
-      "category": "academic"
+      "category": "personal"
     },
     {
       "name": "Light Sorter",
@@ -293,7 +293,7 @@
       "url": "https://daliife.github.io/light-sorter/",
       "image": "https://i.imgur.com/OnphlCH.png",
       "technologies": ["JavaScript", "jQuery", "Handlebars"],
-      "category": "academic"
+      "category": "professional"
     },
     {
       "name": "Shaders & Postpro",
