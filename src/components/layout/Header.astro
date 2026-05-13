@@ -10,7 +10,7 @@ const isActivePath = (href: string) =>
   pathname === `${base}/${href}` || pathname === `${base}/${href}/`;
 const navLinkActiveClasses = (active: boolean) =>
   active
-    ? "text-text-primary font-semibold"
+    ? "text-text-primary font-semibold border-b border-text-primary pb-0.5"
     : "text-text-muted hover:text-text-primary";
 ---
 

@@ -4,7 +4,7 @@
  * .astro templates. Having them here makes EN a first-class language and
  * allows the i18n key coverage test to validate all three locales.
  */
-export const EN: Record<string, string> = {
+export const EN = {
   // ── Navigation ────────────────────────────────────────────────────────────
   "ui.nav.about": "About",
   "ui.nav.projects": "Projects",
@@ -27,6 +27,11 @@ export const EN: Record<string, string> = {
   "ui.page.projects": "Projects",
   "ui.page.contact": "Contact",
 
+  // ── Projects categories ─────────────────────────────────────────────────────
+  "ui.projects.category.professional": "Professional",
+  "ui.projects.category.personal": "Personal",
+  "ui.projects.category.academic": "Academic",
+
   // ── About section headings ────────────────────────────────────────────────
   "ui.about.summary": "Summary",
   "ui.about.skills": "Skills",
@@ -44,11 +49,13 @@ export const EN: Record<string, string> = {
 
   // ── Footer ─────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacy",
-
+  // ── Dates ──────────────────────────────────────────────────────────────────
+  "ui.date.present": "Present",
   // ── Privacy page ───────────────────────────────────────────────────────────
   "ui.page.privacy": "Privacy",
-  "ui.privacy.intro":
-    "This site uses Umami, a privacy-focused open-source analytics tool. No cookies are used and no personal data is collected.",
+  "ui.privacy.intro.before": "This site uses ",
+  "ui.privacy.intro.after":
+    ", a privacy-focused open-source analytics tool. No cookies are used and no personal data is collected.",
   "ui.privacy.collected.title": "What we collect",
   "ui.privacy.collected.0": "Page views and navigation paths",
   "ui.privacy.collected.1": "Referrer URL (where you came from)",
@@ -65,7 +72,7 @@ export const EN: Record<string, string> = {
 
   // ── Contact ────────────────────────────────────────────────────────────────
   "ui.contact.intro":
-    "Interested in working together? Feel free to reach out through any of the channels below.",
+    "Currently open to new projects and opportunities. Feel free to reach out — I usually respond within 24h.",
 
   // ── Basics ─────────────────────────────────────────────────────────────────
   "basics.label": "Frontend Developer",
@@ -150,28 +157,26 @@ export const EN: Record<string, string> = {
     "Control of material and logistics of the laboratories.",
 
   // ── Projects ───────────────────────────────────────────────────────────────
-  "projects.0.description":
-    "Professional project — interactive webpage with 3 canvas minigames (SEAT)",
+  "projects.0.description": "Website for a Seitai and katsugen movement studio",
   "projects.1.description":
-    "Professional project — landing page with a card minigame (Orange)",
-  "projects.2.description":
-    "Professional project — interactive webpage with a chronology timeline (SEAT)",
+    "Interactive webpage with 3 canvas minigames (SEAT)",
+  "projects.2.description": "Landing page with a card minigame (Orange)",
   "projects.3.description":
-    "University project — TV recommender app for Samsung Smart TV built with Tizen Studio",
+    "Interactive webpage with a chronology timeline (SEAT)",
   "projects.4.description":
-    "Master's degree project — video game prototype built with Unreal Engine 4",
-  "projects.5.description":
-    "Personal project — adaptation of the word game 'Paraulògic'",
-  "projects.6.description":
-    "Personal project — previous version of my portfolio built with Angular",
+    "TV recommender app for Samsung Smart TV built with Tizen Studio",
+  "projects.5.description": "Video game prototype built with Unreal Engine 4",
+  "projects.6.description": "Adaptation of the word game 'Paraulògic'",
   "projects.7.description":
-    "Master's degree project — hypercasual minimal minigolf video game built with Unity",
+    "Previous version of my portfolio built with Angular",
   "projects.8.description":
-    "Personal project — website to discover instrument families, built with Angular",
+    "Hypercasual minimal minigolf video game built with Unity",
   "projects.9.description":
-    "Professional project — filterable grid of elements using Isotope (Endesa)",
+    "Website to discover instrument families, built with Angular",
   "projects.10.description":
-    "Master's degree project — real-time postprocessing FX using fragment shaders and ImGui",
+    "Filterable grid of elements using Isotope (Endesa)",
+  "projects.11.description":
+    "Real-time postprocessing FX using fragment shaders and ImGui",
 
   // ── Education ──────────────────────────────────────────────────────────────
   "education.0.studyType": "Master's Degree in Advanced Video Game Development",
@@ -197,4 +202,6 @@ export const EN: Record<string, string> = {
   "languages.0.fluency": "Native speaker",
   "languages.1.fluency": "Native speaker",
   "languages.2.fluency": "Professional working proficiency",
-};
+} as const;
+
+export type I18nKey = keyof typeof EN;

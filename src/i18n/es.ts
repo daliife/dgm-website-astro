@@ -3,7 +3,9 @@
  * Keys use dot notation mirroring the cv.json structure + a "ui." namespace for static strings.
  * Loaded client-side by LanguageToggle.astro and applied to [data-i18n] elements.
  */
-export const ES: Record<string, string> = {
+import type { I18nKey } from "./en";
+
+export const ES: Record<I18nKey, string> = {
   // ── Navigation ────────────────────────────────────────────────────────────
   "ui.nav.about": "Sobre mí",
   "ui.nav.projects": "Proyectos",
@@ -26,6 +28,11 @@ export const ES: Record<string, string> = {
   "ui.page.projects": "Proyectos",
   "ui.page.contact": "Contacto",
 
+  // ── Projects categories ─────────────────────────────────────────────────────
+  "ui.projects.category.professional": "Profesional",
+  "ui.projects.category.personal": "Personal",
+  "ui.projects.category.academic": "Académico",
+
   // ── About section headings ────────────────────────────────────────────────
   "ui.about.summary": "Resumen",
   "ui.about.skills": "Habilidades",
@@ -43,11 +50,13 @@ export const ES: Record<string, string> = {
 
   // ── Footer ───────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacidad",
-
+  // ── Dates ──────────────────────────────────────────────────────────────────
+  "ui.date.present": "Actualidad",
   // ── Privacy page ─────────────────────────────────────────────────────────────
   "ui.page.privacy": "Privacidad",
-  "ui.privacy.intro":
-    "Este sitio utiliza Umami, una herramienta de analítica de código abierto y respetuosa con la privacidad. No se usan cookies y no se recopilan datos personales.",
+  "ui.privacy.intro.before": "Este sitio utiliza ",
+  "ui.privacy.intro.after":
+    ", una herramienta de analítica de código abierto y respetuosa con la privacidad. No se usan cookies y no se recopilan datos personales.",
   "ui.privacy.collected.title": "Qué recopilamos",
   "ui.privacy.collected.0": "Páginas visitadas y rutas de navegación",
   "ui.privacy.collected.1": "URL de referencia (de dónde vienes)",
@@ -65,7 +74,7 @@ export const ES: Record<string, string> = {
 
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":
-    "¿Te interesa colaborar? No dudes en contactarme a través de cualquiera de los siguientes canales.",
+    "Disponible para nuevos proyectos y oportunidades. Escríbeme cuando quieras — suelo responder en menos de 24h.",
 
   // ── Basics ───────────────────────────────────────────────────────────────
   "basics.label": "Desarrollador Frontend",
@@ -153,27 +162,28 @@ export const ES: Record<string, string> = {
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description":
-    "Proyecto profesional — página web interactiva con 3 minijuegos en Canvas (SEAT)",
+    "Web para un estudio de movimiento Seitai y katsugen",
   "projects.1.description":
-    "Proyecto profesional — página de presentación con un minijuego de cartas (Orange)",
+    "Página web interactiva con 3 minijuegos en Canvas (SEAT)",
   "projects.2.description":
-    "Proyecto profesional — página web interactiva con un timeline de cronología (SEAT)",
+    "Página de presentación con un minijuego de cartas (Orange)",
   "projects.3.description":
-    "Proyecto universitario — app recomendadora de TV para Samsung Smart TV con Tizen Studio",
+    "Página web interactiva con un timeline de cronología (SEAT)",
   "projects.4.description":
-    "Proyecto de máster — prototipo de videojuego desarrollado con Unreal Engine 4",
+    "App recomendadora de TV para Samsung Smart TV con Tizen Studio",
   "projects.5.description":
-    "Proyecto personal — adaptación del juego de palabras 'Paraulògic'",
-  "projects.6.description":
-    "Proyecto personal — versión anterior de mi portfolio desarrollada con Angular",
+    "Prototipo de videojuego desarrollado con Unreal Engine 4",
+  "projects.6.description": "Adaptación del juego de palabras 'Paraulògic'",
   "projects.7.description":
-    "Proyecto de máster — videojuego hipercasual de minigolf desarrollado con Unity",
+    "Versión anterior de mi portfolio desarrollada con Angular",
   "projects.8.description":
-    "Proyecto personal — web para descubrir familias de instrumentos, desarrollada con Angular",
+    "Videojuego hipercasual de minigolf desarrollado con Unity",
   "projects.9.description":
-    "Proyecto profesional — cuadrícula filtrable de elementos con Isotope (Endesa)",
+    "Web para descubrir familias de instrumentos, desarrollada con Angular",
   "projects.10.description":
-    "Proyecto de máster — efectos de postprocesado en tiempo real con fragment shaders e ImGui",
+    "Cuadrícula filtrable de elementos con Isotope (Endesa)",
+  "projects.11.description":
+    "Efectos de postprocesado en tiempo real con fragment shaders e ImGui",
 
   // ── Education ─────────────────────────────────────────────────────────────
   "education.0.studyType": "Máster en Desarrollo Avanzado de Videojuegos",

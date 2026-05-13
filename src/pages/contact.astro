@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { basics } from "@cv";
 import {
-  TITLE_PAGE_PREFIX,
+  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
@@ -22,7 +22,7 @@ const CONTACT_ITEM_CLASS =
 ---
 
 <Layout
-  title={`Contact${TITLE_PAGE_PREFIX}`}
+  title={`Contact${TITLE_PAGE_SUFFIX}`}
   description="Contact David Gimeno Mañé — Frontend Developer based in Barcelona. Let’s work together."
 >
   <div class={PAGE_CONTAINER_CLASSES}>
@@ -33,8 +33,8 @@ const CONTACT_ITEM_CLASS =
       class="text-text-secondary text-base sm:text-lg leading-relaxed max-w-xl mb-16 reveal"
       data-i18n="ui.contact.intro"
     >
-      Interested in working together? Feel free to reach out through any of the
-      channels below.
+      Currently open to new projects and opportunities. Feel free to reach out
+      &mdash; I usually respond within 24h.
     </p>
     <div class="space-y-6 reveal">
       <Button
@@ -56,9 +56,7 @@ const CONTACT_ITEM_CLASS =
           </svg>
           Email
         </span>
-        <span
-          class="text-lg sm:text-xl text-text-primary group-hover:opacity-60 transition-opacity duration-200"
-        >
+        <span class="contact-value text-lg sm:text-xl text-text-primary">
           {email}
         </span>
       </Button>
@@ -88,7 +86,7 @@ const CONTACT_ITEM_CLASS =
                 )}
                 {profile.network}
               </span>
-              <span class="text-lg sm:text-xl text-text-primary group-hover:opacity-60 transition-opacity duration-200">
+              <span class="contact-value text-lg sm:text-xl text-text-primary">
                 {profile.username || profile.network}
               </span>
               <span class="sr-only">(opens in new tab)</span>
@@ -99,3 +97,19 @@ const CONTACT_ITEM_CLASS =
     </div>
   </div>
 </Layout>
+
+<style>
+  @media (hover: hover) {
+    .contact-value {
+      background-image: linear-gradient(currentColor, currentColor);
+      background-size: 0% 1px;
+      background-repeat: no-repeat;
+      background-position: left bottom;
+      transition: background-size 0.25s ease;
+      padding-bottom: 1px;
+    }
+    :global(.group):hover .contact-value {
+      background-size: 100% 1px;
+    }
+  }
+</style>

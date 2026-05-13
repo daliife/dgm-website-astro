@@ -5,7 +5,6 @@ import Header from "../components/layout/Header.astro";
 import CookieConsent from "../components/layout/CookieConsent.astro";
 import "../styles/fonts.css";
 import interLatinFontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
-import interLatinExtFontUrl from "@fontsource-variable/inter/files/inter-latin-ext-wght-normal.woff2?url";
 import { ClientRouter } from "astro:transitions";
 import { basics, work } from "@cv";
 import type { SocialProfile } from "../types/ui";
@@ -82,7 +81,7 @@ const jsonLd = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="ca">
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -100,13 +99,6 @@ const jsonLd = {
       as="font"
       type="font/woff2"
       href={interLatinFontUrl}
-      crossorigin
-    />
-    <link
-      rel="preload"
-      as="font"
-      type="font/woff2"
-      href={interLatinExtFontUrl}
       crossorigin
     />
 
@@ -135,7 +127,7 @@ const jsonLd = {
     <meta property="og:image:width" content={String(imageWidth)} />
     <meta property="og:image:height" content={String(imageHeight)} />
     <meta property="og:image:alt" content={`Profile photo of ${fullName}`} />
-    <meta property="og:locale" content="en_GB" />
+    <meta property="og:locale" content="ca_ES" data-og-locale />
     <meta property="og:site_name" content={`${fullName} — Portfolio`} />
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content={Astro.url} />
@@ -161,6 +153,7 @@ const jsonLd = {
       is:inline
       set:html={JSON.stringify(jsonLd)}
     />
+    <slot name="head" />
 
     <!-- Umami Analytics -->
     <script
@@ -171,8 +164,9 @@ const jsonLd = {
       is:inline></script>
 
     <script is:inline>
+      var OG_LOCALE_MAP = { en: "en_GB", ca: "ca_ES", es: "es_ES" };
       function applyTheme() {
-        const saved = localStorage.getItem("theme");
+        var saved = localStorage.getItem("theme");
         if (
           saved === "dark" ||
           (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches)
@@ -182,8 +176,17 @@ const jsonLd = {
           document.documentElement.classList.remove("dark");
         }
       }
+      function applyLang() {
+        var lang = localStorage.getItem("lang") || "ca";
+        document.documentElement.lang = lang;
+        var ogLocale = document.querySelector("[data-og-locale]");
+        if (ogLocale)
+          ogLocale.setAttribute("content", OG_LOCALE_MAP[lang] || "ca_ES");
+      }
       applyTheme();
+      applyLang();
       document.addEventListener("astro:after-swap", applyTheme);
+      document.addEventListener("astro:after-swap", applyLang);
     </script>
     <ClientRouter />
   </head>
@@ -202,7 +205,7 @@ const jsonLd = {
     </a>
 
     <Header transition:persist />
-    <main id="main-content" class="w-full relative" transition:animate="none">
+    <main id="main-content" class="w-full relative" transition:animate="fade">
       <slot />
     </main>
     {!hideFooter && <Footer />}
@@ -321,6 +324,14 @@ const jsonLd = {
         ).matches;
         if (prefersReduced) return;
 
+        // Pre-mark elements already in the viewport — the page-transition fade
+        // already handled their entrance, so skip the reveal animation for them.
+        document.querySelectorAll<Element>(".reveal").forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight) {
+            el.classList.add("is-visible");
+          }
+        });
+
         revealObserver?.disconnect();
         revealObserver = new IntersectionObserver(
           entries => {
@@ -335,7 +346,7 @@ const jsonLd = {
         );
 
         document
-          .querySelectorAll(".reveal")
+          .querySelectorAll(".reveal:not(.is-visible)")
           .forEach(el => revealObserver!.observe(el));
       });
     </script>

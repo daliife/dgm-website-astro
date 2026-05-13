@@ -2,17 +2,17 @@
 import Layout from "../layouts/Layout.astro";
 import { work } from "@cv";
 import {
-  TITLE_PAGE_PREFIX,
+  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
+import { SITE_BASE } from "../utils/url";
 import WorkCard from "../components/sections/WorkCard.astro";
 import type { WorkEntry } from "../types/ui";
-const base = import.meta.env.BASE_URL.replace(/\/$/, "");
 ---
 
 <Layout
-  title={`Work Experience${TITLE_PAGE_PREFIX}`}
+  title={`Work Experience${TITLE_PAGE_SUFFIX}`}
   description="Professional work experience of David Gimeno Mañé — Frontend Developer based in Barcelona."
 >
   <div class={PAGE_CONTAINER_CLASSES}>
@@ -35,12 +35,12 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, "");
       </p>
       <div class="flex flex-col sm:flex-row gap-5 sm:gap-8">
         <a
-          href={`${base}/projects`}
+          href={`${SITE_BASE}/projects`}
           class="text-sm uppercase tracking-widest text-text-primary border-b border-border-secondary hover:border-text-primary pb-1 transition-colors duration-200 w-fit"
           data-i18n="ui.nextup.projects">My projects</a
         >
         <a
-          href={`${base}/contact`}
+          href={`${SITE_BASE}/contact`}
           class="text-sm uppercase tracking-widest text-text-primary border-b border-border-secondary hover:border-text-primary pb-1 transition-colors duration-200 w-fit"
           data-i18n="ui.nextup.contact">Contact</a
         >
