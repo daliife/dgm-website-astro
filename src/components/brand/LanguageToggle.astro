@@ -76,7 +76,7 @@ const { dropup = false } = Astro.props;
 
 <script is:inline>
   {
-    var lang = (document.documentElement.lang || "ca").toUpperCase();
+    const lang = (document.documentElement.lang || "ca").toUpperCase();
     document.querySelectorAll("[data-lang-current]").forEach(function (el) {
       el.textContent = lang;
     });
