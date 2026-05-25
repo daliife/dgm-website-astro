@@ -46,9 +46,11 @@ const fullName = `${name} ${lastName}`;
 const description =
   descriptionProp ??
   `Personal portfolio of ${fullName} — ${label} based in ${location?.city}`;
-const github = (profiles as SocialProfile[])?.find(p => p.network === "Github");
+const github = (profiles as SocialProfile[])?.find(
+  (p) => p.network === "Github",
+);
 const linkedin = (profiles as SocialProfile[])?.find(
-  p => p.network === "Linkedin"
+  (p) => p.network === "Linkedin",
 );
 const currentJob = work?.[0];
 
@@ -199,13 +201,13 @@ const jsonLd = {
   >
     <a
       href="#main-content"
-      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-text-primary focus:text-bg-primary focus:rounded-lg focus:shadow-lg focus:outline-none"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-text-primary focus:px-4 focus:py-2 focus:text-bg-primary focus:shadow-lg focus:outline-none"
     >
       Skip to main content
     </a>
 
     <Header transition:persist />
-    <main id="main-content" class="w-full relative" transition:animate="fade">
+    <main id="main-content" class="relative w-full" transition:animate="fade">
       <slot />
     </main>
     {!hideFooter && <Footer />}
@@ -320,13 +322,13 @@ const jsonLd = {
 
       document.addEventListener("astro:page-load", () => {
         const prefersReduced = window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
+          "(prefers-reduced-motion: reduce)",
         ).matches;
         if (prefersReduced) return;
 
         // Pre-mark elements already in the viewport — the page-transition fade
         // already handled their entrance, so skip the reveal animation for them.
-        document.querySelectorAll<Element>(".reveal").forEach(el => {
+        document.querySelectorAll<Element>(".reveal").forEach((el) => {
           if (el.getBoundingClientRect().top < window.innerHeight) {
             el.classList.add("is-visible");
           }
@@ -334,20 +336,20 @@ const jsonLd = {
 
         revealObserver?.disconnect();
         revealObserver = new IntersectionObserver(
-          entries => {
-            entries.forEach(entry => {
+          (entries) => {
+            entries.forEach((entry) => {
               if (entry.isIntersecting) {
                 entry.target.classList.add("is-visible");
                 revealObserver?.unobserve(entry.target);
               }
             });
           },
-          { threshold: 0.1 }
+          { threshold: 0.1 },
         );
 
         document
           .querySelectorAll(".reveal:not(.is-visible)")
-          .forEach(el => revealObserver!.observe(el));
+          .forEach((el) => revealObserver!.observe(el));
       });
     </script>
   </body>

@@ -70,7 +70,7 @@ describe("Button", () => {
     "ghost",
     "simple",
     "icon",
-  ] as const)("renders variant %s without throwing", async variant => {
+  ] as const)("renders variant %s without throwing", async (variant) => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Button, {
       props: { variant },
@@ -97,7 +97,7 @@ describe("Button", () => {
       });
 
       expect(html).toBeTruthy();
-    }
+    },
   );
 
   it("merges custom className with base classes", async () => {

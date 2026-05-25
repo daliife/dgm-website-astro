@@ -30,13 +30,13 @@ const CONTACT_ITEM_CLASS =
       Contact
     </h1>
     <p
-      class="text-text-secondary text-base sm:text-lg leading-relaxed max-w-xl mb-16 reveal"
+      class="reveal mb-16 max-w-xl text-base leading-relaxed text-text-secondary sm:text-lg"
       data-i18n="ui.contact.intro"
     >
       Currently open to new projects and opportunities. Feel free to reach out
       &mdash; I usually respond within 24h.
     </p>
-    <div class="space-y-6 reveal">
+    <div class="reveal space-y-6">
       <Button
         href={`mailto:${email}`}
         variant="simple"
@@ -44,10 +44,10 @@ const CONTACT_ITEM_CLASS =
         className={CONTACT_ITEM_CLASS}
       >
         <span
-          class="text-xs uppercase tracking-widest text-text-muted mb-2 flex items-center gap-1.5"
+          class="mb-2 flex items-center gap-1.5 text-xs uppercase tracking-widest text-text-muted"
         >
           <svg
-            class="w-3.5 h-3.5 shrink-0"
+            class="h-3.5 w-3.5 shrink-0"
             fill="currentColor"
             viewBox="0 0 24 24"
             aria-hidden="true"
@@ -56,12 +56,12 @@ const CONTACT_ITEM_CLASS =
           </svg>
           Email
         </span>
-        <span class="contact-value text-lg sm:text-xl text-text-primary">
+        <span class="contact-value text-lg text-text-primary sm:text-xl">
           {email}
         </span>
       </Button>
       {
-        (profiles as SocialProfile[]).map(profile => {
+        (profiles as SocialProfile[]).map((profile) => {
           if (profile.network === "Email") return null;
           const icon = CONTACT_ICONS[profile.network];
           return (
@@ -73,10 +73,10 @@ const CONTACT_ITEM_CLASS =
               size="none"
               className={CONTACT_ITEM_CLASS}
             >
-              <span class="text-xs uppercase tracking-widest text-text-muted mb-2 flex items-center gap-1.5">
+              <span class="mb-2 flex items-center gap-1.5 text-xs uppercase tracking-widest text-text-muted">
                 {icon && (
                   <svg
-                    class="w-3.5 h-3.5 shrink-0"
+                    class="h-3.5 w-3.5 shrink-0"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -86,7 +86,7 @@ const CONTACT_ITEM_CLASS =
                 )}
                 {profile.network}
               </span>
-              <span class="contact-value text-lg sm:text-xl text-text-primary">
+              <span class="contact-value text-lg text-text-primary sm:text-xl">
                 {profile.username || profile.network}
               </span>
               <span class="sr-only">(opens in new tab)</span>
