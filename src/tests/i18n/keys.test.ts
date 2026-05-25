@@ -11,7 +11,7 @@ const srcDir = join(__dirname, "../..");
 
 function getAstroFiles(dir: string): string[] {
   const entries = readdirSync(dir, { withFileTypes: true });
-  return entries.flatMap(entry => {
+  return entries.flatMap((entry) => {
     const full = join(dir, entry.name);
     if (entry.isDirectory()) return getAstroFiles(full);
     if (entry.name.endsWith(".astro")) return [full];
@@ -35,17 +35,17 @@ describe("i18n key coverage", () => {
   });
 
   it("all data-i18n keys exist in EN translations", () => {
-    const missing = [...allKeys].filter(k => !(k in EN));
+    const missing = [...allKeys].filter((k) => !(k in EN));
     expect(missing, `Missing EN keys: ${missing.join(", ")}`).toEqual([]);
   });
 
   it("all data-i18n keys exist in CA translations", () => {
-    const missing = [...allKeys].filter(k => !(k in CA));
+    const missing = [...allKeys].filter((k) => !(k in CA));
     expect(missing, `Missing CA keys: ${missing.join(", ")}`).toEqual([]);
   });
 
   it("all data-i18n keys exist in ES translations", () => {
-    const missing = [...allKeys].filter(k => !(k in ES));
+    const missing = [...allKeys].filter((k) => !(k in ES));
     expect(missing, `Missing ES keys: ${missing.join(", ")}`).toEqual([]);
   });
 });
@@ -58,28 +58,28 @@ describe("i18n — cv.json project descriptions", () => {
   it("every project in cv.json has a description key in EN", () => {
     const missing = projects
       .map((_, i) => `projects.${i}.description`)
-      .filter(k => !(k in EN));
+      .filter((k) => !(k in EN));
     expect(missing, `Missing EN keys: ${missing.join(", ")}`).toEqual([]);
   });
 
   it("every project in cv.json has a description key in CA", () => {
     const missing = projects
       .map((_, i) => `projects.${i}.description`)
-      .filter(k => !(k in CA));
+      .filter((k) => !(k in CA));
     expect(missing, `Missing CA keys: ${missing.join(", ")}`).toEqual([]);
   });
 
   it("every project in cv.json has a description key in ES", () => {
     const missing = projects
       .map((_, i) => `projects.${i}.description`)
-      .filter(k => !(k in ES));
+      .filter((k) => !(k in ES));
     expect(missing, `Missing ES keys: ${missing.join(", ")}`).toEqual([]);
   });
 
   it("no orphan project description keys exist in EN", () => {
     const orphans = Object.keys(EN)
-      .filter(k => /^projects\.\d+\.description$/.test(k))
-      .filter(k => {
+      .filter((k) => /^projects\.\d+\.description$/.test(k))
+      .filter((k) => {
         const idx = parseInt(k.split(".")[1]);
         return idx >= projects.length;
       });

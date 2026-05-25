@@ -33,7 +33,7 @@ const indexed = (projects as ProjectEntry[]).map((project, index) => ({
 
 const grouped: Record<Category, { project: ProjectEntry; index: number }[]> = {
   professional: indexed.filter(
-    ({ project }) => project.category === "professional"
+    ({ project }) => project.category === "professional",
   ),
   personal: indexed.filter(({ project }) => project.category === "personal"),
   academic: indexed.filter(({ project }) => project.category === "academic"),
@@ -71,11 +71,11 @@ const itemListSchema = {
     </h1>
     {
       CATEGORY_ORDER.map(
-        cat =>
+        (cat) =>
           grouped[cat].length > 0 && (
             <section class="reveal">
               <p
-                class="text-xs uppercase tracking-widest text-text-muted pt-8 pb-0"
+                class="pb-0 pt-8 text-xs uppercase tracking-widest text-text-muted"
                 data-i18n={CATEGORY_I18N[cat]}
               >
                 {CATEGORY_LABELS[cat]}
@@ -86,29 +86,29 @@ const itemListSchema = {
                 ))}
               </div>
             </section>
-          )
+          ),
       )
     }
 
     <nav
       aria-label="Related pages"
-      class="border-t border-border-primary pt-8 mt-4 reveal"
+      class="reveal mt-4 border-t border-border-primary pt-8"
     >
       <p
-        class="text-xs uppercase tracking-widest text-text-muted mb-5"
+        class="mb-5 text-xs uppercase tracking-widest text-text-muted"
         data-i18n="ui.nextup"
       >
         Also explore
       </p>
-      <div class="flex flex-col sm:flex-row gap-5 sm:gap-8">
+      <div class="flex flex-col gap-5 sm:flex-row sm:gap-8">
         <a
           href={`${SITE_BASE}/work`}
-          class="text-sm uppercase tracking-widest text-text-primary border-b border-border-secondary hover:border-text-primary pb-1 transition-colors duration-200 w-fit"
+          class="w-fit border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary"
           data-i18n="ui.nextup.work">My work experience</a
         >
         <a
           href={`${SITE_BASE}/contact`}
-          class="text-sm uppercase tracking-widest text-text-primary border-b border-border-secondary hover:border-text-primary pb-1 transition-colors duration-200 w-fit"
+          class="w-fit border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary"
           data-i18n="ui.nextup.contact">Contact</a
         >
       </div>

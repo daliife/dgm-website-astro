@@ -11,11 +11,11 @@ const { name, lastName, label, email } = basics;
   type="profile"
   hideFooter={true}
 >
-  <section class="min-h-screen flex flex-col items-center justify-center px-6">
-    <div class="max-w-4xl w-full reveal">
+  <section class="flex min-h-screen flex-col items-center justify-center px-6">
+    <div class="reveal w-full max-w-4xl">
       <!-- Greeting -->
       <p
-        class="text-xs uppercase tracking-widest text-text-muted mb-4"
+        class="mb-4 text-xs uppercase tracking-widest text-text-muted"
         data-i18n="ui.home.greeting"
       >
         Hello there, it's
@@ -23,7 +23,7 @@ const { name, lastName, label, email } = basics;
 
       <!-- Name -->
       <h1
-        class="text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-text-primary uppercase leading-none mb-4"
+        class="mb-4 text-5xl font-bold uppercase leading-none tracking-tight text-text-primary sm:text-7xl lg:text-8xl"
       >
         <span class="block">{name}</span>
         <span class="block font-light">{lastName}</span>
@@ -31,7 +31,7 @@ const { name, lastName, label, email } = basics;
 
       <!-- Rotating descriptor -->
       <p
-        class="text-2xl sm:text-3xl font-light text-text-secondary uppercase tracking-widest mb-10 overflow-hidden whitespace-nowrap min-h-[1.5em] flex items-center"
+        class="mb-10 flex min-h-[1.5em] items-center overflow-hidden whitespace-nowrap text-2xl font-light uppercase tracking-widest text-text-secondary sm:text-3xl"
         aria-live="polite"
       >
         <span id="tw-rotating" aria-hidden="true">{label}</span>
@@ -40,16 +40,16 @@ const { name, lastName, label, email } = basics;
 
       <!-- CTAs -->
       <div
-        class="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-8"
+        class="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
       >
         <Button
           href={`${SITE_BASE}/projects`}
           variant="simple"
           size="none"
-          className="text-sm uppercase tracking-widest border-b border-border-secondary hover:border-text-primary pb-1 hover:no-underline gap-2 rounded-none"
+          className="gap-2 rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest hover:border-text-primary hover:no-underline"
         >
           <svg
-            class="w-4 h-4 shrink-0"
+            class="h-4 w-4 shrink-0"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -68,10 +68,10 @@ const { name, lastName, label, email } = basics;
           href={`mailto:${email}`}
           variant="simple"
           size="none"
-          className="text-sm uppercase tracking-widest text-text-muted border-b border-border-muted hover:text-text-primary hover:border-text-primary pb-1 hover:no-underline gap-2 rounded-none"
+          className="gap-2 rounded-none border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted hover:border-text-primary hover:text-text-primary hover:no-underline"
         >
           <svg
-            class="w-4 h-4 shrink-0"
+            class="h-4 w-4 shrink-0"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"

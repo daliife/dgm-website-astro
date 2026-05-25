@@ -36,12 +36,12 @@ describe("ThemeToggle", () => {
   it("renders the sun icon (shown in dark mode)", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ThemeToggle);
-    expect(html).toContain("hidden dark:block");
+    expect(html).toContain("hidden h-5 w-5 dark:block");
   });
 
   it("renders the moon icon (shown in light mode)", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ThemeToggle);
-    expect(html).toContain("block dark:hidden");
+    expect(html).toContain("block h-5 w-5 dark:hidden");
   });
 });

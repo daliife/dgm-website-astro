@@ -10,7 +10,7 @@ const { education } = Astro.props;
 
 <section class="reveal mt-20 print:mt-6">
   <h2
-    class="text-3xl sm:text-4xl font-bold tracking-tight text-text-primary uppercase mb-10 print:text-[10px] print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:normal-case print:text-black"
+    class="mb-10 text-3xl font-bold uppercase tracking-tight text-text-primary sm:text-4xl print:mb-1.5 print:border-b print:border-gray-300 print:pb-0.5 print:text-[10px] print:font-medium print:normal-case print:tracking-widest print:text-black"
     data-i18n="ui.about.education"
   >
     Education
@@ -19,20 +19,20 @@ const { education } = Astro.props;
     {
       education.map((edu: EducationEntry, eduIndex: number) => (
         <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
-          <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 print:flex-row print:gap-0">
+          <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between print:flex-row print:gap-0">
             <div>
               <h3
-                class="text-text-primary font-medium print:text-[10px] print:font-semibold print:text-gray-900"
+                class="font-medium text-text-primary print:text-[10px] print:font-semibold print:text-gray-900"
                 data-i18n={`education.${eduIndex}.studyType`}
               >
                 {edu.studyType}
               </h3>
-              <p class="text-text-secondary text-sm print:text-[10px] print:text-gray-600">
+              <p class="text-sm text-text-secondary print:text-[10px] print:text-gray-600">
                 <span data-i18n={`education.${eduIndex}.area`}>{edu.area}</span>{" "}
                 <span class="hidden print:inline">— {edu.institution}</span>
               </p>
             </div>
-            <span class="text-xs uppercase tracking-widest text-text-muted whitespace-nowrap print:text-[9px] print:text-gray-500">
+            <span class="whitespace-nowrap text-xs uppercase tracking-widest text-text-muted print:text-[9px] print:text-gray-500">
               {new Date(edu.startDate).getFullYear()} &mdash;{" "}
               {new Date(edu.endDate).getFullYear()}
             </span>
@@ -41,7 +41,7 @@ const { education } = Astro.props;
             href={edu.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-text-secondary text-sm underline underline-offset-2 decoration-text-secondary/40 hover:text-text-primary hover:decoration-text-primary transition-all duration-200 print:hidden"
+            class="text-sm text-text-secondary underline decoration-text-secondary/40 underline-offset-2 transition-all duration-200 hover:text-text-primary hover:decoration-text-primary print:hidden"
           >
             {edu.institution}
           </a>

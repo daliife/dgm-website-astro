@@ -2,7 +2,7 @@ import type { SocialProfile } from "../types/ui";
 
 export function getSocialProfile(
   profiles: SocialProfile[],
-  network: string
+  network: string,
 ): SocialProfile | undefined {
-  return (profiles ?? []).find(p => p.network === network);
+  return (profiles ?? []).find((p) => p.network === network);
 }

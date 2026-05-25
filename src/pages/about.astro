@@ -49,11 +49,11 @@ const profilePageSchema = {
     class={`${PAGE_CONTAINER_CLASSES} content-wrapper print:pt-0 print:pb-0 print:px-0 print:max-w-none`}
   >
     <!-- Print-only CV header -->
-    <div class="hidden print:flex print:items-start print:gap-4 print:mb-8">
+    <div class="hidden print:mb-8 print:flex print:items-start print:gap-4">
       <Image
         src={profileImgSrc}
         alt="Portrait of David Gimeno"
-        class="print:w-16 print:h-[80px] print:object-cover print:rounded"
+        class="print:h-[80px] print:w-16 print:rounded print:object-cover"
         width={56}
         height={70}
         loading="eager"
@@ -62,16 +62,16 @@ const profilePageSchema = {
       />
       <div>
         <p
-          class="print:text-2xl print:font-bold print:uppercase print:text-black print:leading-tight"
+          class="print:text-2xl print:font-bold print:uppercase print:leading-tight print:text-black"
         >
           {name}
           {lastName}
         </p>
-        <p class="print:text-xs print:text-gray-600 print:mt-1">
+        <p class="print:mt-1 print:text-xs print:text-gray-600">
           {label}
         </p>
         <div
-          class="print:flex print:flex-wrap print:gap-x-4 print:mt-1.5 print:text-[11px] print:text-gray-500"
+          class="print:mt-1.5 print:flex print:flex-wrap print:gap-x-4 print:text-[11px] print:text-gray-500"
         >
           <span>{email}</span>
           {
@@ -91,7 +91,7 @@ const profilePageSchema = {
       <!-- Title row -->
       <div class="mb-10 print:mb-1">
         <h1
-          class="text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase print:text-[10px] print:font-medium print:tracking-widest print:border-b print:border-gray-300 print:pb-0.5 print:w-full print:normal-case print:text-black"
+          class="text-4xl font-bold uppercase tracking-tight text-text-primary sm:text-5xl print:w-full print:border-b print:border-gray-300 print:pb-0.5 print:text-[10px] print:font-medium print:normal-case print:tracking-widest print:text-black"
         >
           <span class="print:hidden" data-i18n="ui.page.about">About</span>
           <span class="hidden print:inline" data-i18n="ui.about.summary"
@@ -102,14 +102,14 @@ const profilePageSchema = {
 
       <!-- Content: image left, bio right -->
       <div
-        class="grid grid-cols-1 md:grid-cols-[5fr_7fr] gap-10 md:gap-14 items-start print:block"
+        class="grid grid-cols-1 items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-14 print:block"
       >
         <!-- Image -->
-        <div class="img-frame overflow-hidden bg-bg-muted print:hidden group">
+        <div class="img-frame group overflow-hidden bg-bg-muted print:hidden">
           <Image
             src={profileImgSrc}
             alt="Portrait of David Gimeno"
-            class="w-full aspect-[4/5] object-cover [@media(hover:hover)]:group-hover:grayscale [@media(hover:hover)]:group-hover:scale-[1.04] transition-all duration-300 ease-out"
+            class="aspect-[4/5] w-full object-cover transition-all duration-300 ease-out [@media(hover:hover)]:group-hover:scale-[1.04] [@media(hover:hover)]:group-hover:grayscale"
             width={400}
             height={500}
             loading="eager"
@@ -122,7 +122,7 @@ const profilePageSchema = {
         <!-- Bio text -->
         <div class="flex flex-col justify-start print:space-y-1">
           <p
-            class="text-xs uppercase tracking-widest text-text-muted mb-1 print:hidden"
+            class="mb-1 text-xs uppercase tracking-widest text-text-muted print:hidden"
             data-i18n="basics.label"
           >
             {label}
@@ -130,7 +130,7 @@ const profilePageSchema = {
           {
             location && (
               <p
-                class="text-xs uppercase tracking-widest text-text-muted mb-8 print:hidden"
+                class="mb-8 text-xs uppercase tracking-widest text-text-muted print:hidden"
                 data-i18n="basics.location"
               >
                 {location.city} &middot; {location.region}
@@ -141,7 +141,7 @@ const profilePageSchema = {
             {
               summary.split("\n\n").map((para: string, paraIndex: number) => (
                 <p
-                  class="text-text-secondary text-base leading-relaxed print:text-[10px] print:leading-snug print:text-gray-700"
+                  class="text-base leading-relaxed text-text-secondary print:text-[10px] print:leading-snug print:text-gray-700"
                   data-i18n={`basics.summary.${paraIndex}`}
                 >
                   {para}
@@ -152,7 +152,7 @@ const profilePageSchema = {
           <div class="mt-8 print:hidden">
             <Button id="print-cv" variant="outline" size="sm">
               <svg
-                class="w-4 h-4 shrink-0"
+                class="h-4 w-4 shrink-0"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -180,23 +180,23 @@ const profilePageSchema = {
 
     <nav
       aria-label="Related pages"
-      class="border-t border-border-primary pt-8 mt-12 print:hidden reveal"
+      class="reveal mt-12 border-t border-border-primary pt-8 print:hidden"
     >
       <p
-        class="text-xs uppercase tracking-widest text-text-muted mb-5"
+        class="mb-5 text-xs uppercase tracking-widest text-text-muted"
         data-i18n="ui.nextup"
       >
         Also explore
       </p>
-      <div class="flex flex-col sm:flex-row gap-5 sm:gap-8">
+      <div class="flex flex-col gap-5 sm:flex-row sm:gap-8">
         <a
           href={`${SITE_BASE}/work`}
-          class="text-sm uppercase tracking-widest text-text-primary border-b border-border-secondary hover:border-text-primary pb-1 transition-colors duration-200 w-fit"
+          class="w-fit border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary"
           data-i18n="ui.nextup.work">My work experience</a
         >
         <a
           href={`${SITE_BASE}/projects`}
-          class="text-sm uppercase tracking-widest text-text-primary border-b border-border-secondary hover:border-text-primary pb-1 transition-colors duration-200 w-fit"
+          class="w-fit border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary"
           data-i18n="ui.nextup.projects">My projects</a
         >
       </div>

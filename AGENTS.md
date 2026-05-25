@@ -67,8 +67,13 @@ AGENTS.md                  ← This file
 ---
 // src/pages/new-page.astro
 import Layout from "../layouts/Layout.astro";
-import { TITLE_PAGE_PREFIX, PAGE_CONTAINER_CLASSES, PAGE_HEADING_CLASSES } from "../utils/constants";
+import {
+  TITLE_PAGE_PREFIX,
+  PAGE_CONTAINER_CLASSES,
+  PAGE_HEADING_CLASSES,
+} from "../utils/constants";
 ---
+
 <Layout title={`${TITLE_PAGE_PREFIX}New Page`}>
   <div class={PAGE_CONTAINER_CLASSES}>
     <h1 class={`${PAGE_HEADING_CLASSES} mb-12`}>New Page</h1>
@@ -85,6 +90,7 @@ Then add `"new-page"` to `NAV_LINKS` in `src/utils/constants.ts` and update the 
 ---
 import { basics, work } from "@cv";
 ---
+
 <p>{basics.name}</p>
 <p>{basics.summary}</p>
 ```

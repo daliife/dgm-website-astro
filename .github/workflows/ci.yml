@@ -1,21 +1,15 @@
-name: Deploy → GitHub Pages
+name: CI
 
 on:
-  push:
+  pull_request:
     branches: [main]
-  workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: true
 
 jobs:
-  build:
+  ci:
+    name: Format · Lint · Test · Build
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
@@ -45,23 +39,5 @@ jobs:
       - name: Test
         run: pnpm run test
 
-      - name: Build site
+      - name: Build
         run: pnpm run build
-        env:
-          GITHUB_PAGES: "true"
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4

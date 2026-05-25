@@ -11,7 +11,7 @@ const { work } = Astro.props;
 
 <section class="hidden print:block">
   <h2
-    class="print:text-[10px] print:uppercase print:tracking-widest print:font-medium print:border-b print:border-gray-300 print:pb-0.5 print:mb-1.5 print:text-black"
+    class="print:mb-1.5 print:border-b print:border-gray-300 print:pb-0.5 print:text-[10px] print:font-medium print:uppercase print:tracking-widest print:text-black"
     data-i18n="ui.about.experience"
   >
     Experience
@@ -32,13 +32,13 @@ const { work } = Astro.props;
               — {job.company}
             </span>
           </div>
-          <span class="print:text-[10px] print:text-gray-500 print:whitespace-nowrap">
+          <span class="print:whitespace-nowrap print:text-[10px] print:text-gray-500">
             {formatDate(job.startDate)} — {formatDate(job.endDate)}
           </span>
         </div>
         {job.summary && (
           <p
-            class="print:text-[10px] print:text-gray-600 print:leading-relaxed print:mt-1.5"
+            class="print:mt-1.5 print:text-[10px] print:leading-relaxed print:text-gray-600"
             data-i18n={`work.${jobIndex}.summary`}
           >
             {job.summary}
@@ -48,7 +48,7 @@ const { work } = Astro.props;
           <ul class="print:mt-1.5 print:space-y-1">
             {job.highlights.map((h: string, hIndex: number) => (
               <li
-                class="print:text-[10px] print:text-gray-600 print:leading-snug print:pl-3 print:relative before:content-['–'] before:absolute before:left-0 before:text-gray-400"
+                class="before:absolute before:left-0 before:text-gray-400 before:content-['–'] print:relative print:pl-3 print:text-[10px] print:leading-snug print:text-gray-600"
                 data-i18n={`work.${jobIndex}.highlights.${hIndex}`}
               >
                 {h}

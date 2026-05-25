@@ -3,11 +3,11 @@
   type="button"
   aria-label="Switch to dark mode"
   aria-pressed="false"
-  class="p-2 rounded-full text-text-secondary hover:text-text-primary hover:bg-bg-muted transition-colors duration-200"
+  class="rounded-full p-2 text-text-secondary transition-colors duration-200 hover:bg-bg-muted hover:text-text-primary"
 >
   <!-- Sun icon (shown in dark mode) -->
   <svg
-    class="w-5 h-5 hidden dark:block"
+    class="hidden h-5 w-5 dark:block"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -22,7 +22,7 @@
   </svg>
   <!-- Moon icon (shown in light mode) -->
   <svg
-    class="w-5 h-5 block dark:hidden"
+    class="block h-5 w-5 dark:hidden"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
@@ -41,13 +41,13 @@
   document.addEventListener("astro:page-load", () => {
     document
       .querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")
-      .forEach(toggle => {
+      .forEach((toggle) => {
         // Sync initial state with actual theme
         const setToggleState = (isDark: boolean) => {
           toggle.setAttribute("aria-pressed", String(isDark));
           toggle.setAttribute(
             "aria-label",
-            isDark ? "Switch to light mode" : "Switch to dark mode"
+            isDark ? "Switch to light mode" : "Switch to dark mode",
           );
         };
 
