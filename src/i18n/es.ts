@@ -164,25 +164,27 @@ export const ES: Record<I18nKey, string> = {
   "projects.0.description":
     "Web para un estudio de movimiento Seitai y katsugen",
   "projects.1.description":
-    "Página web interactiva con 3 minijuegos en Canvas (SEAT)",
+    "App web de lectura rápida con la técnica Spritz, construida con metodología SDD",
   "projects.2.description":
-    "Página de presentación con un minijuego de cartas (Orange)",
+    "Página web interactiva con 3 minijuegos en Canvas (SEAT)",
   "projects.3.description":
-    "Página web interactiva con un timeline de cronología (SEAT)",
+    "Página de presentación con un minijuego de cartas (Orange)",
   "projects.4.description":
-    "App recomendadora de TV para Samsung Smart TV con Tizen Studio",
+    "Página web interactiva con un timeline de cronología (SEAT)",
   "projects.5.description":
+    "App recomendadora de TV para Samsung Smart TV con Tizen Studio",
+  "projects.6.description":
     "Prototipo de videojuego desarrollado con Unreal Engine 4",
-  "projects.6.description": "Adaptación del juego de palabras 'Paraulògic'",
-  "projects.7.description":
-    "Versión anterior de mi portfolio desarrollada con Angular",
+  "projects.7.description": "Adaptación del juego de palabras 'Paraulògic'",
   "projects.8.description":
-    "Videojuego hipercasual de minigolf desarrollado con Unity",
+    "Versión anterior de mi portfolio desarrollada con Angular",
   "projects.9.description":
-    "Web para descubrir familias de instrumentos, desarrollada con Angular",
+    "Videojuego hipercasual de minigolf desarrollado con Unity",
   "projects.10.description":
-    "Cuadrícula filtrable de elementos con Isotope (Endesa)",
+    "Web para descubrir familias de instrumentos, desarrollada con Angular",
   "projects.11.description":
+    "Cuadrícula filtrable de elementos con Isotope (Endesa)",
+  "projects.12.description":
     "Efectos de postprocesado en tiempo real con fragment shaders e ImGui",
 
   // ── Education ─────────────────────────────────────────────────────────────

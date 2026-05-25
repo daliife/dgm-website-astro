@@ -216,6 +216,14 @@
       "category": "personal"
     },
     {
+      "name": "Spritz Reader",
+      "description": "Personal project — speed reader web app using the Spritz technique, built with SDD methodology",
+      "url": "https://daliife.github.io/spritz-reader-with-sdd/",
+      "image": "https://raw.githubusercontent.com/daliife/spritz-reader-with-sdd/main/docs/readme-screnshot.jpg",
+      "technologies": ["React", "TypeScript", "Vite", "Tailwind CSS"],
+      "category": "personal"
+    },
+    {
       "name": "Seat RFP",
       "description": "Professional project — interactive webpage with 3 canvas minigames (SEAT)",
       "url": "https://daliife.github.io/rfp-seat",

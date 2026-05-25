@@ -163,25 +163,27 @@ export const CA: Record<I18nKey, string> = {
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description": "Web per a un estudi de moviment Seitai i katsugen",
   "projects.1.description":
-    "Pàgina web interactiva amb 3 minijocs en Canvas (SEAT)",
+    "App web de lectura ràpida amb la tècnica Spritz, construïda amb metodologia SDD",
   "projects.2.description":
-    "Pàgina de presentació amb un minijoc de cartes (Orange)",
+    "Pàgina web interactiva amb 3 minijocs en Canvas (SEAT)",
   "projects.3.description":
-    "Pàgina web interactiva amb un timeline de cronologia (SEAT)",
+    "Pàgina de presentació amb un minijoc de cartes (Orange)",
   "projects.4.description":
-    "App recomanadora de TV per a Samsung Smart TV amb Tizen Studio",
+    "Pàgina web interactiva amb un timeline de cronologia (SEAT)",
   "projects.5.description":
+    "App recomanadora de TV per a Samsung Smart TV amb Tizen Studio",
+  "projects.6.description":
     "Prototip de videojoc desenvolupat amb Unreal Engine 4",
-  "projects.6.description": "Adaptació del joc de paraules 'Paraulògic'",
-  "projects.7.description":
-    "Versió anterior del meu portfolio desenvolupada amb Angular",
+  "projects.7.description": "Adaptació del joc de paraules 'Paraulògic'",
   "projects.8.description":
-    "Videojoc hipercasual de minigolf desenvolupat amb Unity",
+    "Versió anterior del meu portfolio desenvolupada amb Angular",
   "projects.9.description":
-    "Web per descobrir famílies d'instruments, desenvolupada amb Angular",
+    "Videojoc hipercasual de minigolf desenvolupat amb Unity",
   "projects.10.description":
-    "Graella filtrable d'elements amb Isotope (Endesa)",
+    "Web per descobrir famílies d'instruments, desenvolupada amb Angular",
   "projects.11.description":
+    "Graella filtrable d'elements amb Isotope (Endesa)",
+  "projects.12.description":
     "Efectes de postprocessat en temps real amb fragment shaders i ImGui",
 
   // ── Education ─────────────────────────────────────────────────────────────
