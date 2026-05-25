@@ -1,6 +1,10 @@
 # David Gimeno Portfolio
 
-Personal portfolio website built with Astro. Live at [davidgimeno.cat](http://davidgimeno.cat).
+Personal portfolio website built with Astro.
+
+**Live at:** [davidgimeno.cat](https://davidgimeno.cat) · [daliife.github.io/dgm-website-astro](https://daliife.github.io/dgm-website-astro/)
+
+![Homepage screenshot](docs/screenshot-homepage.png)
 
 ## 🚀 Tech Stack
 
