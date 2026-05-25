@@ -1,9 +1,13 @@
-name: Build & Deploy to cdmon via FTP
+name: Deploy → cdmon
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
+
+concurrency:
+  group: deploy-cdmon
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -11,6 +15,7 @@ permissions:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
@@ -28,6 +33,12 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Test
+        run: pnpm run test
 
       - name: Build site
         run: pnpm run build

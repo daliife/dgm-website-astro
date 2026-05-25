@@ -159,23 +159,25 @@ export const EN = {
   // ── Projects ───────────────────────────────────────────────────────────────
   "projects.0.description": "Website for a Seitai and katsugen movement studio",
   "projects.1.description":
+    "Speed reader web app using the Spritz technique, built with SDD methodology",
+  "projects.2.description":
     "Interactive webpage with 3 canvas minigames (SEAT)",
-  "projects.2.description": "Landing page with a card minigame (Orange)",
-  "projects.3.description":
-    "Interactive webpage with a chronology timeline (SEAT)",
+  "projects.3.description": "Landing page with a card minigame (Orange)",
   "projects.4.description":
+    "Interactive webpage with a chronology timeline (SEAT)",
+  "projects.5.description":
     "TV recommender app for Samsung Smart TV built with Tizen Studio",
-  "projects.5.description": "Video game prototype built with Unreal Engine 4",
-  "projects.6.description": "Adaptation of the word game 'Paraulògic'",
-  "projects.7.description":
-    "Previous version of my portfolio built with Angular",
+  "projects.6.description": "Video game prototype built with Unreal Engine 4",
+  "projects.7.description": "Adaptation of the word game 'Paraulògic'",
   "projects.8.description":
-    "Hypercasual minimal minigolf video game built with Unity",
+    "Previous version of my portfolio built with Angular",
   "projects.9.description":
-    "Website to discover instrument families, built with Angular",
+    "Hypercasual minimal minigolf video game built with Unity",
   "projects.10.description":
-    "Filterable grid of elements using Isotope (Endesa)",
+    "Website to discover instrument families, built with Angular",
   "projects.11.description":
+    "Filterable grid of elements using Isotope (Endesa)",
+  "projects.12.description":
     "Real-time postprocessing FX using fragment shaders and ImGui",
 
   // ── Education ──────────────────────────────────────────────────────────────
