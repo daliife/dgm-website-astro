@@ -90,8 +90,13 @@ pnpm run build        # Must succeed (0 errors, 0 warnings)
 ```astro
 ---
 import Layout from "../layouts/Layout.astro";
-import { TITLE_PAGE_PREFIX, PAGE_CONTAINER_CLASSES, PAGE_HEADING_CLASSES } from "../utils/constants";
+import {
+  TITLE_PAGE_PREFIX,
+  PAGE_CONTAINER_CLASSES,
+  PAGE_HEADING_CLASSES,
+} from "../utils/constants";
 ---
+
 <Layout title={`${TITLE_PAGE_PREFIX}My Page`}>
   <div class={PAGE_CONTAINER_CLASSES}>
     <h1 class={`${PAGE_HEADING_CLASSES} mb-12`}>My Page</h1>
