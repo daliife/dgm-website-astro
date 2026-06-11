@@ -1,6 +1,7 @@
 {
   "name": "David Gimeno Mañé",
   "short_name": "DGM",
+  "description": "Personal portfolio of David Gimeno Mañé — Frontend Developer based in Barcelona.",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",

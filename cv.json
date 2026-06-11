@@ -154,15 +154,18 @@
   "certificates": [
     {
       "name": "Cambridge Certificate in Advanced English (CAE)",
-      "issuer": "Cambridge"
+      "issuer": "Cambridge",
+      "url": "https://www.dropbox.com/scl/fi/y8rw25gxx6gw34fkct3zz/Cambridge_Certificate_C1_David_Gimeno_compressed.pdf?rlkey=njiz6bavqf05iq3ewr5199cic&dl=0"
     },
     {
       "name": "CCNA Routing and Switching: Introduction to Networks",
-      "issuer": "Cisco"
+      "issuer": "Cisco",
+      "url": "https://www.dropbox.com/scl/fi/l8ex5axdl5wqsbu79xzhc/ccna_certificate_david_gimeno.jpg?rlkey=25daum5ycyuje585dbve6l7tz&dl=0"
     },
     {
       "name": "ATC (3Ds Max)",
-      "issuer": "Autodesk"
+      "issuer": "Autodesk",
+      "url": "https://www.dropbox.com/scl/fi/w7n9bfwg7en6sc8h9d0rn/certificate_1EUDTZEVE7.pdf?rlkey=4zxrur60a8pdb6937ccthzjms&dl=0"
     }
   ],
   "skills": [

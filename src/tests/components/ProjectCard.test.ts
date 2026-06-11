@@ -68,4 +68,25 @@ describe("ProjectCard", () => {
     expect(html).toContain('alt="My Project"');
     expect(html).toContain("data-use-fallback");
   });
+
+  it("renders aria-labelledby linking <a> to <h2>", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ProjectCard, {
+      props: { project: baseProject, projectIndex: 2 },
+    });
+
+    expect(html).toContain('aria-labelledby="project-title-2"');
+    expect(html).toContain('id="project-title-2"');
+  });
+
+  it("renders no href when project has no url", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ProjectCard, {
+      props: { project: { ...baseProject, url: undefined }, projectIndex: 0 },
+    });
+
+    expect(html).not.toContain('href="');
+    expect(html).not.toContain('target="_blank"');
+    expect(html).not.toContain('rel="noopener noreferrer"');
+  });
 });

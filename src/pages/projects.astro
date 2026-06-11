@@ -9,6 +9,7 @@ import {
 import { SITE_BASE } from "../utils/url";
 import { projects } from "@cv";
 import ProjectCard from "../components/sections/ProjectCard.astro";
+import Button from "../components/ui/Button.astro";
 import type { ProjectEntry } from "../types/ui";
 
 const CATEGORY_ORDER = ["professional", "personal", "academic"] as const;
@@ -101,16 +102,22 @@ const itemListSchema = {
         Also explore
       </p>
       <div class="flex flex-col gap-5 sm:flex-row sm:gap-8">
-        <a
+        <Button
           href={`${SITE_BASE}/work`}
-          class="w-fit border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary"
-          data-i18n="ui.nextup.work">My work experience</a
+          variant="simple"
+          size="none"
+          className="w-fit rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:border-text-primary hover:no-underline"
         >
-        <a
+          <span data-i18n="ui.nextup.work">My work experience</span>
+        </Button>
+        <Button
           href={`${SITE_BASE}/contact`}
-          class="w-fit border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary"
-          data-i18n="ui.nextup.contact">Contact</a
+          variant="simple"
+          size="none"
+          className="w-fit rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:border-text-primary hover:no-underline"
         >
+          <span data-i18n="ui.nextup.contact">Contact</span>
+        </Button>
       </div>
     </nav>
   </div>

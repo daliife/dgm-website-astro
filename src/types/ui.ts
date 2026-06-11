@@ -87,6 +87,7 @@ export interface EducationEntry {
 export interface CertificateEntry {
   name: string;
   issuer: string;
+  url?: string;
 }
 
 export interface LanguageEntry {

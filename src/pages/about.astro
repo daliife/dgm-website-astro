@@ -3,11 +3,14 @@ import Layout from "../layouts/Layout.astro";
 import { Image } from "astro:assets";
 import profileImgSrc from "../assets/images/david-profile.webp";
 import { basics, work, skills, languages, education, certificates } from "@cv";
-import { TITLE_PAGE_SUFFIX, PAGE_CONTAINER_CLASSES } from "../utils/constants";
+import {
+  TITLE_PAGE_SUFFIX,
+  PAGE_CONTAINER_CLASSES,
+  LIVE_URL,
+} from "../utils/constants";
 import { stripProtocol } from "../utils/format";
 import { getSocialProfile } from "../utils/socialLinks";
 import { SITE_BASE } from "../utils/url";
-import { LIVE_URL } from "../utils/constants";
 import Button from "../components/ui/Button.astro";
 import SkillsSection from "../components/sections/SkillsSection.astro";
 import LanguagesSection from "../components/sections/LanguagesSection.astro";

@@ -6,7 +6,7 @@ const testConfig: InlineConfig = {
   include: ["src/tests/**/*.test.ts"],
   coverage: {
     provider: "v8",
-    include: ["src/components/**", "src/utils/**"],
+    include: ["src/components/**", "src/utils/**", "src/pages/**"],
     exclude: ["src/tests/**"],
   },
 };

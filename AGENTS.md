@@ -68,13 +68,13 @@ AGENTS.md                  ← This file
 // src/pages/new-page.astro
 import Layout from "../layouts/Layout.astro";
 import {
-  TITLE_PAGE_PREFIX,
+  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
 ---
 
-<Layout title={`${TITLE_PAGE_PREFIX}New Page`}>
+<Layout title={`New Page${TITLE_PAGE_SUFFIX}`}>
   <div class={PAGE_CONTAINER_CLASSES}>
     <h1 class={`${PAGE_HEADING_CLASSES} mb-12`}>New Page</h1>
     <!-- content here -->
