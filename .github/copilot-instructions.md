@@ -25,13 +25,13 @@ Personal portfolio for David Gimeno Mañé — a static Astro 5 site hosted at [
 ---
 import Layout from "../layouts/Layout.astro";
 import {
-  TITLE_PAGE_PREFIX,
+  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
 ---
 
-<Layout title={`${TITLE_PAGE_PREFIX}Page Title`}>
+<Layout title={`Page Title${TITLE_PAGE_SUFFIX}`}>
   <div class={PAGE_CONTAINER_CLASSES}>
     <h1 class={`${PAGE_HEADING_CLASSES} mb-12`}>Page Title</h1>
     <!-- content -->

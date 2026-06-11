@@ -25,4 +25,16 @@ describe("formatDate", () => {
   it("formats mid-year dates correctly", () => {
     expect(formatDate("2021-07-20")).toBe("Jul 2021");
   });
+
+  it("formats date with Catalan locale", () => {
+    const result = formatDate("2023-03-01", "ca-ES");
+    expect(result).toBeTruthy();
+    expect(result).toMatch(/2023/);
+  });
+
+  it("formats date with Spanish locale", () => {
+    const result = formatDate("2023-03-01", "es-ES");
+    expect(result).toBeTruthy();
+    expect(result).toMatch(/2023/);
+  });
 });
