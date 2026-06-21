@@ -84,7 +84,7 @@ export const ES: Record<I18nKey, string> = {
   "basics.summary.1":
     "Me adapto rápidamente a nuevos entornos y me distingue mi curiosidad y aprendizaje continuo, manteniéndome al día con nuevas tecnologías, herramientas y el impacto de la IA.",
   "basics.summary.2":
-    "También trabajo con Unity en proyectos interactivos, complementado con habilidades de modelado 3D para aportar una perspectiva más allá del frontend.",
+    "Aunque estoy especializado en frontend, también trabajo con Unity en proyectos interactivos y tengo conocimientos de modelado 3D — habilidades de interés y útiles en otros ámbitos que me permiten aportar una visión más amplia a cualquier producto digital.",
 
   // ── Work experience ───────────────────────────────────────────────────────
   "work.0.position": "Lead Engineer",

@@ -80,7 +80,7 @@ export const EN = {
   "basics.summary.1":
     "I adapt quickly to new environments and stand out for my curiosity and continuous learning, keeping up with new technologies, tools, and the impact of AI.",
   "basics.summary.2":
-    "I also work with Unity on interactive projects, supported by 3D modeling skills to bring a perspective beyond frontend.",
+    "While specialized in frontend, I also work with Unity on interactive projects and have 3D modeling knowledge — skills that are valuable in other fields and help me bring a broader perspective to any digital product.",
 
   // ── Work experience ────────────────────────────────────────────────────────
   "work.0.position": "Lead Engineer",
