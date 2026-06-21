@@ -88,6 +88,18 @@ import {
 
 Then add `"new-page"` to `NAV_LINKS` in `src/utils/constants.ts` and update the `NavLink` type in `src/types/ui.ts`.
 
+### Project thumbnails
+
+Project card images are **not** loaded from external URLs at runtime. They live in `public/projects/` as optimized WebP files generated from `cv.json`.
+
+When you add or update a project in `cv.json`:
+
+1. Set `imageSource` to the full remote URL (screenshot source).
+2. Run **`pnpm run images:projects`** — regenerates thumbnails and updates each project's `image` path.
+3. Commit `cv.json`, `public/projects/*.webp`, and any new files from the script.
+
+Re-run the script if you change `imageSource`, rename a project, or add a new entry.
+
 ### Reading cv.json
 
 ```astro
@@ -169,6 +181,7 @@ pnpm run build        # astro check + production build
 pnpm run preview      # serve dist/ locally
 pnpm run lint         # ESLint
 pnpm run format       # Prettier
+pnpm run images:projects  # regenerate public/projects/*.webp from cv.json (run after project changes)
 ```
 
 ## Deployment

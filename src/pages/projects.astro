@@ -41,6 +41,10 @@ const grouped: Record<Category, { project: ProjectEntry; index: number }[]> = {
   academic: indexed.filter(({ project }) => project.category === "academic"),
 };
 
+const firstVisibleProjectIndex = CATEGORY_ORDER.flatMap(
+  (cat) => grouped[cat],
+).find(Boolean)?.index;
+
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -84,7 +88,11 @@ const itemListSchema = {
               </p>
               <div class="space-y-0">
                 {grouped[cat].map(({ project, index }) => (
-                  <ProjectCard {project} projectIndex={index} />
+                  <ProjectCard
+                    {project}
+                    projectIndex={index}
+                    priority={index === firstVisibleProjectIndex}
+                  />
                 ))}
               </div>
             </section>

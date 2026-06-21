@@ -6,9 +6,10 @@ import { t } from "../../utils/i18n";
 interface Props {
   project: ProjectEntry;
   projectIndex: number;
+  priority?: boolean;
 }
 
-const { project, projectIndex } = Astro.props;
+const { project, projectIndex, priority = false } = Astro.props;
 const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
 ---
 
@@ -48,9 +49,11 @@ const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
             src={project.image}
             alt={project.name}
             class="absolute inset-0 h-full w-full object-cover transition-all duration-300 ease-out [@media(hover:hover)]:group-hover:scale-[1.04] [@media(hover:hover)]:group-hover:grayscale"
-            loading="lazy"
+            loading={priority ? "eager" : "lazy"}
+            decoding="async"
             width="192"
             height="128"
+            {...priority ? { fetchpriority: "high" } : {}}
             data-use-fallback
           />
         )
