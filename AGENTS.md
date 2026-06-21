@@ -16,7 +16,7 @@ Before writing any code, internalize these rules:
 | Styling       | **Tailwind utilities only.** No inline styles, no CSS modules, no custom stylesheets.                                    |
 | Color tokens  | Use **semantic tokens** (`text-text-primary`, `bg-bg-secondary`, etc.) — never raw palette classes like `text-gray-900`. |
 | Content       | All personal data lives in **`cv.json`**. Never hardcode names, dates, job titles, or project info in components.        |
-| Interactivity | **`.astro` components first.** Client-side JS only when state or browser APIs are required.                    |
+| Interactivity | **`.astro` components first.** Client-side JS only when state or browser APIs are required.                              |
 | Navigation    | Routes are driven by `NAV_LINKS` in `src/utils/constants.ts`. New pages need an entry there and a file in `src/pages/`.  |
 | Buttons/links | **Always use `<Button>`** component for interactive UI elements. Pass `href` for links, omit for buttons.                |
 | Scripts       | Use `astro:page-load` event, **not** `DOMContentLoaded` (broken with View Transitions).                                  |

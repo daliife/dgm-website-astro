@@ -56,7 +56,7 @@ const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
             decoding="async"
             width="192"
             height="128"
-            {...priority ? { fetchpriority: "high" } : {}}
+            {...(priority ? { fetchpriority: "high" } : {})}
             data-use-fallback
           />
         )

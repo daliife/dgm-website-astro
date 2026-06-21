@@ -1,10 +1,7 @@
 import type { I18nKey } from "../i18n/en";
 import { DEFAULT_LANG, type LangCode, isLangCode } from "./i18n";
 
-const LOADERS: Record<
-  LangCode,
-  () => Promise<Record<I18nKey, string>>
-> = {
+const LOADERS: Record<LangCode, () => Promise<Record<I18nKey, string>>> = {
   en: () => import("../i18n/en").then((m) => m.EN),
   ca: () => import("../i18n/ca").then((m) => m.CA),
   es: () => import("../i18n/es").then((m) => m.ES),
@@ -12,7 +9,9 @@ const LOADERS: Record<
 
 const cache: Partial<Record<LangCode, Record<I18nKey, string>>> = {};
 
-export async function loadLang(lang: LangCode): Promise<Record<I18nKey, string>> {
+export async function loadLang(
+  lang: LangCode,
+): Promise<Record<I18nKey, string>> {
   if (!cache[lang]) {
     cache[lang] = await LOADERS[lang]();
   }
@@ -38,9 +37,11 @@ function formatDateLocale(
 function syncLangChrome(lang: LangCode) {
   document.documentElement.lang = lang;
 
-  document.querySelectorAll<HTMLElement>("[data-lang-current]").forEach((el) => {
-    el.textContent = lang.toUpperCase();
-  });
+  document
+    .querySelectorAll<HTMLElement>("[data-lang-current]")
+    .forEach((el) => {
+      el.textContent = lang.toUpperCase();
+    });
 
   document.querySelectorAll<HTMLElement>("[data-lang-btn]").forEach((btn) => {
     btn.setAttribute("aria-selected", String(btn.dataset.langBtn === lang));
