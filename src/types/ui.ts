@@ -63,6 +63,7 @@ export interface ProjectEntry {
   description: string;
   url?: string;
   image?: string;
+  imageSource?: string;
   technologies?: string[];
   startDate?: string;
   endDate?: string;

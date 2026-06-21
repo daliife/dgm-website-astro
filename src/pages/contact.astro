@@ -9,6 +9,7 @@ import {
 import { ICON_PATHS } from "../utils/icons";
 import type { SocialProfile } from "../types/ui";
 import Button from "../components/ui/Button.astro";
+import { t } from "../utils/i18n";
 const { email, profiles } = basics;
 
 const CONTACT_ICONS: Record<string, string> = {
@@ -27,14 +28,13 @@ const CONTACT_ITEM_CLASS =
 >
   <div class={PAGE_CONTAINER_CLASSES}>
     <h1 class={`${PAGE_HEADING_CLASSES} mb-6`} data-i18n="ui.page.contact">
-      Contact
+      {t("ui.page.contact")}
     </h1>
     <p
       class="reveal mb-16 max-w-xl text-base leading-relaxed text-text-secondary sm:text-lg"
       data-i18n="ui.contact.intro"
     >
-      Currently open to new projects and opportunities. Feel free to reach out
-      &mdash; I usually respond within 24h.
+      {t("ui.contact.intro")}
     </p>
     <div class="reveal space-y-6">
       <Button

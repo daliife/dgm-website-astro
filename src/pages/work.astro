@@ -7,6 +7,7 @@ import {
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
 import { SITE_BASE } from "../utils/url";
+import { t } from "../utils/i18n";
 import WorkCard from "../components/sections/WorkCard.astro";
 import Button from "../components/ui/Button.astro";
 import type { WorkEntry } from "../types/ui";
@@ -18,7 +19,7 @@ import type { WorkEntry } from "../types/ui";
 >
   <div class={PAGE_CONTAINER_CLASSES}>
     <h1 class={`${PAGE_HEADING_CLASSES} mb-12`} data-i18n="ui.page.work">
-      Work
+      {t("ui.page.work")}
     </h1>
     <div class="reveal space-y-0">
       {work.map((job: WorkEntry, i: number) => <WorkCard {job} jobIndex={i} />)}
@@ -32,7 +33,7 @@ import type { WorkEntry } from "../types/ui";
         class="mb-5 text-xs uppercase tracking-widest text-text-muted"
         data-i18n="ui.nextup"
       >
-        Also explore
+        {t("ui.nextup")}
       </p>
       <div class="flex flex-col gap-5 sm:flex-row sm:gap-8">
         <Button
@@ -41,7 +42,7 @@ import type { WorkEntry } from "../types/ui";
           size="none"
           className="w-fit rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:border-text-primary hover:no-underline"
         >
-          <span data-i18n="ui.nextup.projects">My projects</span>
+          <span data-i18n="ui.nextup.projects">{t("ui.nextup.projects")}</span>
         </Button>
         <Button
           href={`${SITE_BASE}/contact`}
@@ -49,7 +50,7 @@ import type { WorkEntry } from "../types/ui";
           size="none"
           className="w-fit rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:border-text-primary hover:no-underline"
         >
-          <span data-i18n="ui.nextup.contact">Contact</span>
+          <span data-i18n="ui.nextup.contact">{t("ui.nextup.contact")}</span>
         </Button>
       </div>
     </nav>

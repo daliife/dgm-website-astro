@@ -84,7 +84,7 @@ export const CA: Record<I18nKey, string> = {
   "basics.summary.1":
     "Aprenc de pressa i m'agrada estar al dia: segueixo de prop les tendències del sector, les noves eines i com la intel·ligència artificial està canviant la manera de desenvolupar.",
   "basics.summary.2":
-    "Més enllà del frontend, treballo amb Unity en projectes interactius i tinc coneixements de modelat 3D, cosa que em permet aportar una visió més àmplia a qualsevol producte digital.",
+    "Tot i estar especialitzat en frontend, també treballo amb Unity en projectes interactius i tinc coneixements de modelat 3D — habilitats d'interès i útils en altres àmbits que em permeten aportar una visió més àmplia a qualsevol producte digital.",
 
   // ── Work experience ───────────────────────────────────────────────────────
   "work.0.position": "Lead Engineer",

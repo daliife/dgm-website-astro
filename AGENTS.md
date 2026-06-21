@@ -4,7 +4,7 @@ This file provides context for AI coding agents (OpenAI Codex, Claude, Gemini, e
 
 ## What is this project?
 
-Personal portfolio website for David Gimeno. Static site built with Astro 5, TypeScript, Tailwind CSS, and React islands. Hosted at [davidgimeno.cat](http://davidgimeno.cat). Deployed automatically via GitHub Actions on every push to `main` (FTP to cdmon + GitHub Pages).
+Personal portfolio website for David Gimeno. Static site built with Astro 6, TypeScript, and Tailwind CSS. Hosted at [davidgimeno.cat](http://davidgimeno.cat). Deployed automatically via GitHub Actions on every push to `main` (FTP to cdmon + GitHub Pages).
 
 ## Non-negotiable constraints
 
@@ -16,7 +16,7 @@ Before writing any code, internalize these rules:
 | Styling       | **Tailwind utilities only.** No inline styles, no CSS modules, no custom stylesheets.                                    |
 | Color tokens  | Use **semantic tokens** (`text-text-primary`, `bg-bg-secondary`, etc.) — never raw palette classes like `text-gray-900`. |
 | Content       | All personal data lives in **`cv.json`**. Never hardcode names, dates, job titles, or project info in components.        |
-| Interactivity | **`.astro` components first.** Use React only when client-side state or hooks are strictly necessary.                    |
+| Interactivity | **`.astro` components first.** Client-side JS only when state or browser APIs are required.                              |
 | Navigation    | Routes are driven by `NAV_LINKS` in `src/utils/constants.ts`. New pages need an entry there and a file in `src/pages/`.  |
 | Buttons/links | **Always use `<Button>`** component for interactive UI elements. Pass `href` for links, omit for buttons.                |
 | Scripts       | Use `astro:page-load` event, **not** `DOMContentLoaded` (broken with View Transitions).                                  |
@@ -37,7 +37,8 @@ src/
     sections/              ← ProjectCard, WorkCard
     ui/                    ← Button, Grid, Section, Typography
   i18n/
-    ca.ts                  ← Catalan translations (flat Record<string, string>)
+    ca.ts                  ← Catalan translations (default SSR locale)
+    en.ts                  ← English translations
     es.ts                  ← Spanish translations
   pages/                   ← File-based routes (index, about, projects, work, contact, 404)
   tests/
@@ -48,6 +49,9 @@ src/
   utils/
     constants.ts           ← NAV_LINKS, PAGE_CONTAINER_CLASSES, PAGE_HEADING_CLASSES, SUPPORTED_LANGUAGES, typography/grid scale
     format.ts              ← formatDate() helper
+    i18n.ts                ← DEFAULT_LANG, t() for SSR Catalan copy
+    i18n-client.ts         ← client-side applyI18n(), lazy locale loading
+    analytics.ts           ← Umami loader (consent-gated)
     socialLinks.ts         ← getSocialProfile() helper
 docs/
   architecture.md          ← Deep-dive architecture reference
@@ -83,6 +87,18 @@ import {
 ```
 
 Then add `"new-page"` to `NAV_LINKS` in `src/utils/constants.ts` and update the `NavLink` type in `src/types/ui.ts`.
+
+### Project thumbnails
+
+Project card images are **not** loaded from external URLs at runtime. They live in `public/projects/` as optimized WebP files generated from `cv.json`.
+
+When you add or update a project in `cv.json`:
+
+1. Set `imageSource` to the full remote URL (screenshot source).
+2. Run **`pnpm run images:projects`** — regenerates thumbnails and updates each project's `image` path.
+3. Commit `cv.json`, `public/projects/*.webp`, and any new files from the script.
+
+Re-run the script if you change `imageSource`, rename a project, or add a new entry.
 
 ### Reading cv.json
 
@@ -134,13 +150,13 @@ Sizes: `sm` `md` (default) `lg` `icon`
 
 ## i18n
 
-The site supports EN (default), ES, and CA via `LanguageToggle`. Translations in `src/i18n/ca.ts` and `src/i18n/es.ts` are flat `Record<string, string>`. In templates use `data-i18n="key"` attributes. Language is persisted in `localStorage`.
+The site supports **CA** (default), **EN**, and **ES** via `LanguageToggle`. SSR HTML uses Catalan via `t()` from `src/utils/i18n.ts`. Translations live in `src/i18n/{ca,en,es}.ts` as flat `Record<string, string>`. Mark translatable nodes with `data-i18n="key"`. Language persists in `localStorage`.
 
 Available languages are driven by `SUPPORTED_LANGUAGES` in `src/utils/constants.ts`:
 
 ```ts
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
-// [{ code: "en", label: "EN", default: true }, { code: "es", ... }, { code: "ca", ... }]
+// [{ code: "ca", label: "CA", default: true }, { code: "en", ... }, { code: "es", ... }]
 ```
 
 ## Useful helpers
@@ -160,12 +176,40 @@ formatDate(undefined); // → "Present"
 ## Commands
 
 ```bash
-pnpm run dev          # http://localhost:4321
-pnpm run build        # astro check + production build
-pnpm run preview      # serve dist/ locally
-pnpm run lint         # ESLint
-pnpm run format       # Prettier
+pnpm run dev              # http://localhost:4321
+pnpm run build            # astro check + production build
+pnpm run preview          # serve dist/ locally
+pnpm run lint             # ESLint
+pnpm run format           # Prettier (write)
+pnpm run format:check     # Prettier (CI — read-only)
+pnpm run test             # Vitest
+pnpm run images:projects  # regenerate public/projects/*.webp from cv.json (run after project changes)
 ```
+
+## Before finishing (CI / deploy gate)
+
+After **any** code change, agents must run the checks that GitHub Actions enforces and fix failures before considering the task done. Do not rely on the user to catch CI breaks.
+
+**Always run** (same order as `.github/workflows/ci.yml`):
+
+```bash
+pnpm run format:check
+pnpm run lint
+pnpm run test
+pnpm run build
+```
+
+If `format:check` fails, run `pnpm run format` and re-check.
+
+**Also run when dependencies change** (`package.json`, `pnpm-lock.yaml`):
+
+```bash
+pnpm audit --audit-level=high
+```
+
+Matches `.github/workflows/security-audit.yml`. Fix or explain high-severity findings before finishing.
+
+**Deploy note:** pushes to `main` run `deploy.yml` and `deploy-pages.yml`, which execute `pnpm run build`. A green local build is required for production deploys to succeed.
 
 ## Deployment
 
@@ -174,7 +218,7 @@ Two GitHub Actions pipelines deploy on every push to `main`:
 - **`deploy.yml`** — builds and uploads `dist/` to cdmon via FTP. Requires secrets: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`, `FTP_SERVER_DIR`.
 - **`deploy-pages.yml`** — builds with `GITHUB_PAGES=true` env var (sets `base: "/dgm-website-astro"`) and deploys to GitHub Pages (`https://daliife.github.io/dgm-website-astro/`). Requires Pages source set to **GitHub Actions** in repo Settings.
 
-Both pipelines use Node.js 24 and pnpm 9.
+Both pipelines use Node.js 24 and pnpm 9. Local development requires **Node.js ≥ 22.12.0** (see `.nvmrc` and `package.json` `engines`).
 
 ## Further reading
 

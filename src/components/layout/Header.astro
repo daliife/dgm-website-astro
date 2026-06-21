@@ -3,6 +3,8 @@ import DgmLogoSimple from "../brand/DgmLogoSimple.astro";
 import ThemeToggle from "../brand/ThemeToggle.astro";
 import LanguageToggle from "../brand/LanguageToggle.astro";
 import { NAV_LINKS } from "../../utils/constants";
+import { t } from "../../utils/i18n";
+import type { I18nKey } from "../../i18n/en";
 const { pathname } = Astro.url;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -50,7 +52,9 @@ const navLinkActiveClasses = (active: boolean) =>
                     ]}
                     aria-current={active ? "page" : undefined}
                   >
-                    <span data-i18n={`ui.nav.${href}`}>{label}</span>
+                    <span data-i18n={`ui.nav.${href}`}>
+                      {t(`ui.nav.${href}` as I18nKey)}
+                    </span>
                   </a>
                 </li>
               );
@@ -129,7 +133,7 @@ const navLinkActiveClasses = (active: boolean) =>
       <div class="flex flex-col items-center justify-center gap-8 pt-20">
         <ul class="flex flex-col items-center gap-8">
           {
-            NAV_LINKS.map(({ href, label }) => {
+            NAV_LINKS.map(({ href }) => {
               const active = isActivePath(href);
               return (
                 <li>
@@ -141,7 +145,9 @@ const navLinkActiveClasses = (active: boolean) =>
                     ]}
                     aria-current={active ? "page" : undefined}
                   >
-                    <span data-i18n={`ui.nav.${href}`}>{label}</span>
+                    <span data-i18n={`ui.nav.${href}`}>
+                      {t(`ui.nav.${href}` as I18nKey)}
+                    </span>
                   </a>
                 </li>
               );

@@ -8,12 +8,13 @@ Personal portfolio website built with Astro.
 
 ## 🚀 Tech Stack
 
-- **Astro 5** — static site generator & file-based routing
+- **Astro 6** — static site generator & file-based routing
 - **TypeScript 5** — type safety throughout
 - **Tailwind CSS 3** — utility-first styling with semantic design tokens
-- **React 18** — used only for interactive islands
 - **Inter** — variable font via `@fontsource-variable/inter`
 - **pnpm** — package manager
+
+Requires **Node.js ≥ 22.12.0** (CI uses Node 24; see `.nvmrc`).
 
 ## 🛠️ Getting Started
 

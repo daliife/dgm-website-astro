@@ -69,14 +69,28 @@ describe("ProjectCard", () => {
     expect(html).toContain("data-use-fallback");
   });
 
-  it("renders aria-labelledby linking <a> to <h2>", async () => {
+  it("uses eager loading and fetchpriority when priority is true", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ProjectCard, {
+      props: {
+        project: { ...baseProject, image: "/projects/test.webp" },
+        projectIndex: 0,
+        priority: true,
+      },
+    });
+
+    expect(html).toContain('loading="eager"');
+    expect(html).toContain('fetchpriority="high"');
+  });
+
+  it("labels each project article with its title heading", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {
       props: { project: baseProject, projectIndex: 2 },
     });
 
-    expect(html).toContain('aria-labelledby="project-title-2"');
-    expect(html).toContain('id="project-title-2"');
+    expect(html).toContain('aria-labelledby="project-2-title"');
+    expect(html).toContain('id="project-2-title"');
   });
 
   it("renders no href when project has no url", async () => {
