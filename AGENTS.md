@@ -4,7 +4,7 @@ This file provides context for AI coding agents (OpenAI Codex, Claude, Gemini, e
 
 ## What is this project?
 
-Personal portfolio website for David Gimeno. Static site built with Astro 5, TypeScript, and Tailwind CSS. Hosted at [davidgimeno.cat](http://davidgimeno.cat). Deployed automatically via GitHub Actions on every push to `main` (FTP to cdmon + GitHub Pages).
+Personal portfolio website for David Gimeno. Static site built with Astro 6, TypeScript, and Tailwind CSS. Hosted at [davidgimeno.cat](http://davidgimeno.cat). Deployed automatically via GitHub Actions on every push to `main` (FTP to cdmon + GitHub Pages).
 
 ## Non-negotiable constraints
 
@@ -191,7 +191,7 @@ Two GitHub Actions pipelines deploy on every push to `main`:
 - **`deploy.yml`** — builds and uploads `dist/` to cdmon via FTP. Requires secrets: `FTP_SERVER`, `FTP_USERNAME`, `FTP_PASSWORD`, `FTP_SERVER_DIR`.
 - **`deploy-pages.yml`** — builds with `GITHUB_PAGES=true` env var (sets `base: "/dgm-website-astro"`) and deploys to GitHub Pages (`https://daliife.github.io/dgm-website-astro/`). Requires Pages source set to **GitHub Actions** in repo Settings.
 
-Both pipelines use Node.js 24 and pnpm 9.
+Both pipelines use Node.js 24 and pnpm 9. Local development requires **Node.js ≥ 22.12.0** (see `.nvmrc` and `package.json` `engines`).
 
 ## Further reading
 

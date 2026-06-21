@@ -6,7 +6,7 @@ Deep-dive reference for the dgm-website-astro codebase. Intended for developers 
 
 ## Overview
 
-Static personal portfolio hosted at [davidgimeno.cat](http://davidgimeno.cat). The build outputs plain HTML/CSS/JS — no server, no API, no runtime Node.js. All content is pre-rendered at build time from `cv.json`.
+Static personal portfolio hosted at [davidgimeno.cat](http://davidgimeno.cat). Built with **Astro 6** (Vite 8). The build outputs plain HTML/CSS/JS — no server, no API, no runtime Node.js. All content is pre-rendered at build time from `cv.json`.
 
 ```
 cv.json  →  Astro build  →  dist/  →  FTP upload  →  hosting server
@@ -338,7 +338,7 @@ Output goes to `dist/`. Deployment is fully automated via GitHub Actions on ever
 - **`deploy-pages.yml`** — builds and deploys to GitHub Pages. Requires Pages source set to **GitHub Actions** in repo Settings.
 - **`security-audit.yml`** — runs `pnpm audit --audit-level=high` on push/PR to `main` and on a weekly schedule (Mondays 08:00 UTC).
 
-All pipelines use Node.js 24 and pnpm (version read from `packageManager` field in `package.json`).
+All pipelines use Node.js 24 and pnpm (version read from `packageManager` field in `package.json`). Astro 6 requires Node.js ≥ 22.12.0 locally (see `.nvmrc`).
 
 ### URL resolution
 

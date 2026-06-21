@@ -4,7 +4,7 @@ This file is automatically loaded by GitHub Copilot when working in this reposit
 
 ## Project
 
-Personal portfolio for David Gimeno Mañé — a static Astro 5 site hosted at [davidgimeno.cat](http://davidgimeno.cat). TypeScript + Tailwind CSS + React islands. Deployed automatically via GitHub Actions on push to `main` (FTP to cdmon via `deploy.yml`, GitHub Pages via `deploy-pages.yml`). Both pipelines use Node.js 24 + pnpm 9.
+Personal portfolio for David Gimeno Mañé — a static Astro 6 site hosted at [davidgimeno.cat](http://davidgimeno.cat). TypeScript + Tailwind CSS, vanilla JS in `.astro` scripts (no React islands). Deployed automatically via GitHub Actions on push to `main` (FTP to cdmon via `deploy.yml`, GitHub Pages via `deploy-pages.yml`). Both pipelines use Node.js 24 + pnpm 9. Local dev requires Node.js ≥ 22.12.0.
 
 ## Hard rules — never break these
 
