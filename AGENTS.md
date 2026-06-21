@@ -176,13 +176,40 @@ formatDate(undefined); // → "Present"
 ## Commands
 
 ```bash
-pnpm run dev          # http://localhost:4321
-pnpm run build        # astro check + production build
-pnpm run preview      # serve dist/ locally
-pnpm run lint         # ESLint
-pnpm run format       # Prettier
+pnpm run dev              # http://localhost:4321
+pnpm run build            # astro check + production build
+pnpm run preview          # serve dist/ locally
+pnpm run lint             # ESLint
+pnpm run format           # Prettier (write)
+pnpm run format:check     # Prettier (CI — read-only)
+pnpm run test             # Vitest
 pnpm run images:projects  # regenerate public/projects/*.webp from cv.json (run after project changes)
 ```
+
+## Before finishing (CI / deploy gate)
+
+After **any** code change, agents must run the checks that GitHub Actions enforces and fix failures before considering the task done. Do not rely on the user to catch CI breaks.
+
+**Always run** (same order as `.github/workflows/ci.yml`):
+
+```bash
+pnpm run format:check
+pnpm run lint
+pnpm run test
+pnpm run build
+```
+
+If `format:check` fails, run `pnpm run format` and re-check.
+
+**Also run when dependencies change** (`package.json`, `pnpm-lock.yaml`):
+
+```bash
+pnpm audit --audit-level=high
+```
+
+Matches `.github/workflows/security-audit.yml`. Fix or explain high-severity findings before finishing.
+
+**Deploy note:** pushes to `main` run `deploy.yml` and `deploy-pages.yml`, which execute `pnpm run build`. A green local build is required for production deploys to succeed.
 
 ## Deployment
 
