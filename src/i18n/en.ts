@@ -1,8 +1,6 @@
 /**
  * English translations — flat Record<key, string>.
- * English is the base language: these strings mirror the hardcoded text in
- * .astro templates. Having them here makes EN a first-class language and
- * allows the i18n key coverage test to validate all three locales.
+ * Used for EN locale switching via applyI18n().
  */
 export const EN = {
   // ── Navigation ────────────────────────────────────────────────────────────

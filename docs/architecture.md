@@ -67,7 +67,7 @@ The `@cv` path alias is configured in `tsconfig.json`.
 
 Every page must be wrapped in `<Layout>`. It provides:
 
-- The full `<html>` shell with `lang="en"`
+- The full `<html>` shell with `lang="ca"` (default locale)
 - All `<head>` content: charset, viewport, fonts, SEO meta, OG tags, Twitter cards, JSON-LD structured data
 - Dark/light mode initialization (localStorage + `prefers-color-scheme`)
 - Astro `<ClientRouter>` for View Transitions with prefetch on hover
@@ -223,16 +223,16 @@ There are currently **no React islands** in this project. All interactive UI (th
 
 ## Internationalisation (i18n)
 
-The site supports **English** (default) and **Catalan** via a lightweight client-side system — no build-time routes, no URL prefixes.
+The site supports **Catalan** (default SSR), **English**, and **Spanish** via a lightweight client-side system — no build-time routes, no URL prefixes.
 
 ### How it works
 
-1. Static strings that need translation get a `data-i18n="key"` attribute in `.astro` templates.
-2. `LanguageToggle.astro` renders an EN/CA dropdown in both the desktop nav and the mobile menu.
-3. On language change, a `<script>` in `LanguageToggle.astro` queries all `[data-i18n]` elements and replaces their `textContent` with the Catalan value from `src/i18n/ca.ts`.
-4. The original English text is preserved in `data-i18n-orig` on first toggle, allowing switching back without a page reload.
+1. Translatable strings use `data-i18n="key"` and SSR fallback text from `t(key)` in `src/utils/i18n.ts` (Catalan).
+2. `LanguageToggle.astro` renders a CA/EN/ES dropdown in desktop nav and mobile menu.
+3. On language change, `applyI18n()` in `src/utils/i18n-client.ts` updates `[data-i18n]` nodes for non-default locales.
+4. On first paint with the default locale (CA), DOM text updates are skipped for performance; dates and chrome still sync.
 5. The selected language is persisted in `localStorage("lang")` and re-applied on `astro:page-load`.
-6. `document.documentElement.lang` is updated to `"ca"` or `"en"` accordingly.
+6. `document.documentElement.lang` is updated to `"ca"`, `"en"`, or `"es"` accordingly.
 
 ### Translation keys
 

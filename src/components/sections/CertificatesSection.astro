@@ -1,5 +1,6 @@
 ---
 import type { CertificateEntry } from "../../types/ui";
+import { t } from "../../utils/i18n";
 
 interface Props {
   certificates: CertificateEntry[];
@@ -13,7 +14,7 @@ const { certificates } = Astro.props;
     class="mb-10 text-3xl font-bold uppercase tracking-tight text-text-primary sm:text-4xl print:mb-1.5 print:border-b print:border-gray-300 print:pb-0.5 print:text-[10px] print:font-medium print:normal-case print:tracking-widest print:text-black"
     data-i18n="ui.about.certificates"
   >
-    Certificates
+    {t("ui.about.certificates")}
   </h2>
   <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 print:flex print:gap-x-6">
     {

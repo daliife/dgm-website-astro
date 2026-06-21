@@ -4,7 +4,7 @@ This file provides context for AI coding agents (OpenAI Codex, Claude, Gemini, e
 
 ## What is this project?
 
-Personal portfolio website for David Gimeno. Static site built with Astro 5, TypeScript, Tailwind CSS, and React islands. Hosted at [davidgimeno.cat](http://davidgimeno.cat). Deployed automatically via GitHub Actions on every push to `main` (FTP to cdmon + GitHub Pages).
+Personal portfolio website for David Gimeno. Static site built with Astro 5, TypeScript, and Tailwind CSS. Hosted at [davidgimeno.cat](http://davidgimeno.cat). Deployed automatically via GitHub Actions on every push to `main` (FTP to cdmon + GitHub Pages).
 
 ## Non-negotiable constraints
 
@@ -16,7 +16,7 @@ Before writing any code, internalize these rules:
 | Styling       | **Tailwind utilities only.** No inline styles, no CSS modules, no custom stylesheets.                                    |
 | Color tokens  | Use **semantic tokens** (`text-text-primary`, `bg-bg-secondary`, etc.) — never raw palette classes like `text-gray-900`. |
 | Content       | All personal data lives in **`cv.json`**. Never hardcode names, dates, job titles, or project info in components.        |
-| Interactivity | **`.astro` components first.** Use React only when client-side state or hooks are strictly necessary.                    |
+| Interactivity | **`.astro` components first.** Client-side JS only when state or browser APIs are required.                    |
 | Navigation    | Routes are driven by `NAV_LINKS` in `src/utils/constants.ts`. New pages need an entry there and a file in `src/pages/`.  |
 | Buttons/links | **Always use `<Button>`** component for interactive UI elements. Pass `href` for links, omit for buttons.                |
 | Scripts       | Use `astro:page-load` event, **not** `DOMContentLoaded` (broken with View Transitions).                                  |
@@ -37,7 +37,8 @@ src/
     sections/              ← ProjectCard, WorkCard
     ui/                    ← Button, Grid, Section, Typography
   i18n/
-    ca.ts                  ← Catalan translations (flat Record<string, string>)
+    ca.ts                  ← Catalan translations (default SSR locale)
+    en.ts                  ← English translations
     es.ts                  ← Spanish translations
   pages/                   ← File-based routes (index, about, projects, work, contact, 404)
   tests/
@@ -48,6 +49,9 @@ src/
   utils/
     constants.ts           ← NAV_LINKS, PAGE_CONTAINER_CLASSES, PAGE_HEADING_CLASSES, SUPPORTED_LANGUAGES, typography/grid scale
     format.ts              ← formatDate() helper
+    i18n.ts                ← DEFAULT_LANG, t() for SSR Catalan copy
+    i18n-client.ts         ← client-side applyI18n(), lazy locale loading
+    analytics.ts           ← Umami loader (consent-gated)
     socialLinks.ts         ← getSocialProfile() helper
 docs/
   architecture.md          ← Deep-dive architecture reference
@@ -134,13 +138,13 @@ Sizes: `sm` `md` (default) `lg` `icon`
 
 ## i18n
 
-The site supports EN (default), ES, and CA via `LanguageToggle`. Translations in `src/i18n/ca.ts` and `src/i18n/es.ts` are flat `Record<string, string>`. In templates use `data-i18n="key"` attributes. Language is persisted in `localStorage`.
+The site supports **CA** (default), **EN**, and **ES** via `LanguageToggle`. SSR HTML uses Catalan via `t()` from `src/utils/i18n.ts`. Translations live in `src/i18n/{ca,en,es}.ts` as flat `Record<string, string>`. Mark translatable nodes with `data-i18n="key"`. Language persists in `localStorage`.
 
 Available languages are driven by `SUPPORTED_LANGUAGES` in `src/utils/constants.ts`:
 
 ```ts
 import { SUPPORTED_LANGUAGES } from "../utils/constants";
-// [{ code: "en", label: "EN", default: true }, { code: "es", ... }, { code: "ca", ... }]
+// [{ code: "ca", label: "CA", default: true }, { code: "en", ... }, { code: "es", ... }]
 ```
 
 ## Useful helpers

@@ -74,97 +74,28 @@ const { dropup = false } = Astro.props;
   </div>
 </div>
 
-<script is:inline>
-  {
-    const lang = (document.documentElement.lang || "ca").toUpperCase();
-    document.querySelectorAll("[data-lang-current]").forEach(function (el) {
-      el.textContent = lang;
-    });
-  }
-</script>
-
 <script>
-  const LOADERS: Record<string, () => Promise<Record<string, string>>> = {
-    en: () => import("../../i18n/en").then((m) => m.EN),
-    ca: () => import("../../i18n/ca").then((m) => m.CA),
-    es: () => import("../../i18n/es").then((m) => m.ES),
-  };
+  import {
+    applyI18n,
+    getStoredLang,
+    preloadStoredLang,
+  } from "../../utils/i18n-client";
+  import type { LangCode } from "../../utils/i18n";
 
-  const cache: Record<string, Record<string, string>> = {};
+  preloadStoredLang();
 
-  async function loadLang(lang: string): Promise<Record<string, string>> {
-    if (!cache[lang]) {
-      cache[lang] = await (LOADERS[lang]?.() ?? Promise.resolve({}));
-    }
-    return cache[lang];
-  }
-
-  const LOCALE_MAP: Record<string, string> = {
-    en: "en-US",
-    ca: "ca-ES",
-    es: "es-ES",
-  };
-
-  function formatDateLocale(
-    raw: string | undefined,
-    locale: string,
-    presentLabel: string,
-  ): string {
-    if (!raw) return presentLabel;
-    const d = new Date(raw);
-    return d.toLocaleDateString(locale, { month: "short", year: "numeric" });
-  }
-
-  async function applyI18n(lang: string) {
-    const translations = await loadLang(lang);
-
-    document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((el) => {
-      const key = el.dataset.i18n!;
-      const val = translations[key];
-      if (val !== undefined) el.textContent = val;
-    });
-
-    // Re-format work dates to match the active locale
-    const dateLocale = LOCALE_MAP[lang] ?? "en-US";
-    const presentLabel = translations["ui.date.present"] ?? "Present";
-    document
-      .querySelectorAll<HTMLElement>("[data-date-start]")
-      .forEach((el) => {
-        const start = el.dataset.dateStart;
-        const end = el.dataset.dateEnd || undefined;
-        el.textContent = `${formatDateLocale(start, dateLocale, presentLabel)} — ${formatDateLocale(end, dateLocale, presentLabel)}`;
-      });
-
-    document.documentElement.lang = lang;
-
-    document
-      .querySelectorAll<HTMLElement>("[data-lang-current]")
-      .forEach((el) => {
-        el.textContent = lang.toUpperCase();
-      });
-
-    document.querySelectorAll<HTMLElement>("[data-lang-btn]").forEach((btn) => {
-      btn.setAttribute("aria-selected", String(btn.dataset.langBtn === lang));
-    });
-  }
-
-  // Pre-warm cache for the saved language on module load
-  loadLang(localStorage.getItem("lang") ?? "ca");
-
-  // ── One-time global delegation for clicks ─────────────────────────────────────
   document.addEventListener("click", async (e) => {
     const langBtn = (e.target as Element).closest(
       "[data-lang-btn]",
     ) as HTMLElement | null;
 
     if (langBtn?.dataset.langBtn) {
-      const lang = langBtn.dataset.langBtn;
+      const lang = langBtn.dataset.langBtn as LangCode;
       localStorage.setItem("lang", lang);
       await applyI18n(lang);
       window.dispatchEvent(
         new CustomEvent("app:lang-change", { detail: { lang } }),
       );
-      // Close the containing dropdown
       const switcher = langBtn.closest("[data-lang-switcher]");
       switcher?.querySelector("[data-lang-dropdown]")?.classList.add("hidden");
       switcher
@@ -173,7 +104,6 @@ const { dropup = false } = Astro.props;
       return;
     }
 
-    // Close all dropdowns when clicking outside any switcher
     if (!(e.target as Element).closest("[data-lang-switcher]")) {
       document
         .querySelectorAll("[data-lang-dropdown]")
@@ -184,9 +114,8 @@ const { dropup = false } = Astro.props;
     }
   });
 
-  // ── Per-navigation: apply saved language and wire up toggle button once ────
   document.addEventListener("astro:page-load", async () => {
-    const lang = localStorage.getItem("lang") ?? "ca";
+    const lang = getStoredLang();
     await applyI18n(lang);
 
     document
@@ -199,7 +128,6 @@ const { dropup = false } = Astro.props;
           const switcher = btn.closest("[data-lang-switcher]");
           const dropdown = switcher?.querySelector("[data-lang-dropdown]");
           const isOpen = !dropdown?.classList.contains("hidden");
-          // Close every open dropdown first
           document
             .querySelectorAll("[data-lang-dropdown]")
             .forEach((d) => d.classList.add("hidden"));

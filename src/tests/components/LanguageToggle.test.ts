@@ -27,12 +27,12 @@ describe("LanguageToggle", () => {
     expect(html).toContain("data-lang-dropdown");
   });
 
-  it("renders EN option as selected by default", async () => {
+  it("renders CA option as selected by default", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(LanguageToggle);
 
-    expect(html).toContain('data-lang-btn="en"');
-    expect(html).toContain('aria-selected="true"');
+    expect(html).toContain('data-lang-btn="ca"');
+    expect(html).toMatch(/data-lang-btn="ca"[^>]*aria-selected="true"/);
   });
 
   it("renders CA option", async () => {

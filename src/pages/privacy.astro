@@ -5,26 +5,24 @@ import {
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
+import { t } from "../utils/i18n";
 ---
 
 <Layout title={`Privacy Policy${TITLE_PAGE_SUFFIX}`}>
   <div class={PAGE_CONTAINER_CLASSES}>
     <h1 class={`${PAGE_HEADING_CLASSES} mb-12`} data-i18n="ui.page.privacy">
-      Privacy
+      {t("ui.page.privacy")}
     </h1>
 
     <div class="max-w-2xl space-y-10">
       <p class="reveal text-base leading-relaxed text-text-secondary">
-        <span data-i18n="ui.privacy.intro.before">This site uses </span><a
+        <span data-i18n="ui.privacy.intro.before">{t("ui.privacy.intro.before")}</span><a
           href="https://umami.is"
           target="_blank"
           rel="noopener noreferrer"
           class="text-text-primary underline underline-offset-4 transition-opacity hover:opacity-70"
           >Umami</a
-        ><span data-i18n="ui.privacy.intro.after"
-          >, a privacy-focused open-source analytics tool. No cookies are used
-          and no personal data is collected.</span
-        >
+        ><span data-i18n="ui.privacy.intro.after">{t("ui.privacy.intro.after")}</span>
       </p>
 
       <section class="reveal">
@@ -32,26 +30,16 @@ import {
           class="mb-3 text-lg font-semibold uppercase tracking-wide text-text-primary"
           data-i18n="ui.privacy.collected.title"
         >
-          What we collect
+          {t("ui.privacy.collected.title")}
         </h2>
         <ul
           class="list-inside list-disc space-y-2 text-sm leading-relaxed text-text-secondary"
         >
-          <li data-i18n="ui.privacy.collected.0">
-            Page views and navigation paths
-          </li>
-          <li data-i18n="ui.privacy.collected.1">
-            Referrer URL (where you came from)
-          </li>
-          <li data-i18n="ui.privacy.collected.2">
-            Browser and operating system (generic)
-          </li>
-          <li data-i18n="ui.privacy.collected.3">
-            Device type (desktop / mobile / tablet)
-          </li>
-          <li data-i18n="ui.privacy.collected.4">
-            Country (approximate, based on anonymised IP)
-          </li>
+          <li data-i18n="ui.privacy.collected.0">{t("ui.privacy.collected.0")}</li>
+          <li data-i18n="ui.privacy.collected.1">{t("ui.privacy.collected.1")}</li>
+          <li data-i18n="ui.privacy.collected.2">{t("ui.privacy.collected.2")}</li>
+          <li data-i18n="ui.privacy.collected.3">{t("ui.privacy.collected.3")}</li>
+          <li data-i18n="ui.privacy.collected.4">{t("ui.privacy.collected.4")}</li>
         </ul>
       </section>
 
@@ -60,27 +48,27 @@ import {
           class="mb-3 text-lg font-semibold uppercase tracking-wide text-text-primary"
           data-i18n="ui.privacy.notcollected.title"
         >
-          What we do NOT collect
+          {t("ui.privacy.notcollected.title")}
         </h2>
         <ul
           class="list-inside list-disc space-y-2 text-sm leading-relaxed text-text-secondary"
         >
           <li data-i18n="ui.privacy.notcollected.0">
-            No cookies or persistent identifiers
+            {t("ui.privacy.notcollected.0")}
           </li>
           <li data-i18n="ui.privacy.notcollected.1">
-            No personal data (name, email, etc.)
+            {t("ui.privacy.notcollected.1")}
           </li>
-          <li data-i18n="ui.privacy.notcollected.2">No IP address storage</li>
-          <li data-i18n="ui.privacy.notcollected.3">No cross-site tracking</li>
+          <li data-i18n="ui.privacy.notcollected.2">{t("ui.privacy.notcollected.2")}</li>
+          <li data-i18n="ui.privacy.notcollected.3">{t("ui.privacy.notcollected.3")}</li>
           <li data-i18n="ui.privacy.notcollected.4">
-            No data sold to third parties
+            {t("ui.privacy.notcollected.4")}
           </li>
         </ul>
       </section>
 
       <p class="reveal text-sm text-text-muted">
-        <span data-i18n="ui.privacy.moreinfo">More details at</span>{" "}
+        <span data-i18n="ui.privacy.moreinfo">{t("ui.privacy.moreinfo")}</span>{" "}
         <a
           href="https://umami.is/privacy"
           target="_blank"

@@ -1,6 +1,8 @@
 ---
 import { formatDate } from "../../utils/format";
 import type { WorkEntry } from "../../types/ui";
+import type { I18nKey } from "../../i18n/en";
+import { t } from "../../utils/i18n";
 
 interface Props {
   job: WorkEntry;
@@ -19,7 +21,7 @@ const { job, jobIndex } = Astro.props;
         class="text-lg font-semibold text-text-primary sm:text-xl"
         data-i18n={`work.${jobIndex}.position`}
       >
-        {job.position}
+        {t(`work.${jobIndex}.position` as I18nKey, job.position)}
       </h2>
       <a
         href={job.url}
@@ -45,7 +47,7 @@ const { job, jobIndex } = Astro.props;
         class="mb-3 max-w-2xl text-sm leading-relaxed text-text-secondary"
         data-i18n={`work.${jobIndex}.summary`}
       >
-        {job.summary}
+        {t(`work.${jobIndex}.summary` as I18nKey, job.summary)}
       </p>
     )
   }
@@ -59,7 +61,7 @@ const { job, jobIndex } = Astro.props;
               class="text-text-secondary"
               data-i18n={`work.${jobIndex}.highlights.${hIndex}`}
             >
-              {h}
+              {t(`work.${jobIndex}.highlights.${hIndex}` as I18nKey, h)}
             </span>
           </li>
         ))}
