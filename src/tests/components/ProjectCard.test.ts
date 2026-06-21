@@ -83,13 +83,14 @@ describe("ProjectCard", () => {
     expect(html).toContain('fetchpriority="high"');
   });
 
-  it("does not use aria-labelledby on project links", async () => {
+  it("labels each project article with its title heading", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {
       props: { project: baseProject, projectIndex: 2 },
     });
 
-    expect(html).not.toContain("aria-labelledby");
+    expect(html).toContain('aria-labelledby="project-2-title"');
+    expect(html).toContain('id="project-2-title"');
   });
 
   it("renders no href when project has no url", async () => {

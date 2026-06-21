@@ -16,6 +16,12 @@ import type { ProjectEntry } from "../types/ui";
 const CATEGORY_ORDER = ["professional", "personal", "academic"] as const;
 type Category = (typeof CATEGORY_ORDER)[number];
 
+const CATEGORY_ICON_PATHS: Record<Category, string> = {
+  professional: `<rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />`,
+  personal: `<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />`,
+  academic: `<path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" />`,
+};
+
 const CATEGORY_LABELS: Record<Category, string> = {
   professional: t("ui.projects.category.professional"),
   personal: t("ui.projects.category.personal"),
@@ -44,6 +50,8 @@ const grouped: Record<Category, { project: ProjectEntry; index: number }[]> = {
 const firstVisibleProjectIndex = CATEGORY_ORDER.flatMap(
   (cat) => grouped[cat],
 ).find(Boolean)?.index;
+
+const firstCategory = CATEGORY_ORDER.find((cat) => grouped[cat].length > 0);
 
 const itemListSchema = {
   "@context": "https://schema.org",
@@ -79,22 +87,49 @@ const itemListSchema = {
       CATEGORY_ORDER.map(
         (cat) =>
           grouped[cat].length > 0 && (
-            <section class="reveal">
-              <p
-                class="pb-0 pt-8 text-xs uppercase tracking-widest text-text-muted"
-                data-i18n={CATEGORY_I18N[cat]}
+            <section
+              class="reveal"
+              aria-labelledby={`projects-category-${cat}`}
+            >
+              <header
+                class:list={[
+                  "border-b border-border-primary pb-5",
+                  cat === firstCategory ? "pt-2" : "pt-12",
+                ]}
               >
-                {CATEGORY_LABELS[cat]}
-              </p>
-              <div class="space-y-0">
+                <h2 id={`projects-category-${cat}`} class="text-sm sm:text-base">
+                  <span
+                    class="inline-flex items-center gap-2 rounded-full border border-border-secondary bg-bg-secondary px-3 py-1.5 text-xs font-medium uppercase tracking-wide text-text-primary sm:gap-2.5 sm:px-4 sm:py-2 sm:text-sm"
+                  >
+                    <svg
+                      class="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <Fragment set:html={CATEGORY_ICON_PATHS[cat]} />
+                    </svg>
+                    <span data-i18n={CATEGORY_I18N[cat]}>
+                      {CATEGORY_LABELS[cat]}
+                    </span>
+                  </span>
+                </h2>
+              </header>
+              <ul class="list-none space-y-0 [&>li:first-child>article]:border-t-0">
                 {grouped[cat].map(({ project, index }) => (
-                  <ProjectCard
-                    {project}
-                    projectIndex={index}
-                    priority={index === firstVisibleProjectIndex}
-                  />
+                  <li>
+                    <ProjectCard
+                      {project}
+                      projectIndex={index}
+                      priority={index === firstVisibleProjectIndex}
+                    />
+                  </li>
                 ))}
-              </div>
+              </ul>
             </section>
           ),
       )
