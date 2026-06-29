@@ -156,7 +156,8 @@ export const ES: Record<I18nKey, string> = {
   "work.7.highlights.1": "Apoyé la docencia de la asignatura de Animación 1.",
   "work.7.highlights.2":
     "Apoyé jornadas de puertas abiertas: visitas a laboratorios, Q&A e información para futuros estudiantes.",
-  "work.7.highlights.3": "Gestioné el material y la logística de los laboratorios.",
+  "work.7.highlights.3":
+    "Gestioné el material y la logística de los laboratorios.",
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description":

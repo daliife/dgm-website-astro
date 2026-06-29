@@ -165,7 +165,8 @@ export const EN = {
   "projects.6.description": "Video game prototype built with Unreal Engine 4",
   "projects.7.description": "Word game inspired by Paraulògic",
   "projects.8.description": "Previous portfolio version built with Angular",
-  "projects.9.description": "Minimal hypercasual minigolf game built with Unity",
+  "projects.9.description":
+    "Minimal hypercasual minigolf game built with Unity",
   "projects.10.description":
     "Site to explore instrument families, built with Angular",
   "projects.11.description": "Filterable element grid using Isotope (Endesa)",
