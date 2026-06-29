@@ -145,20 +145,16 @@ export const CA: Record<I18nKey, string> = {
   "work.6.position": "IT Helpdesk",
   "work.6.highlights.0":
     "Resolució d'incidències informàtiques a les oficines de Wanup.",
-  "work.6.highlights.1":
-    "Documentació per als equips de Sistemes i Helpdesk.",
+  "work.6.highlights.1": "Documentació per als equips de Sistemes i Helpdesk.",
   "work.6.highlights.2":
     "Gestió de l'inventari i els subministraments de maquinari d'oficina.",
 
   "work.7.position": "Pràctiques",
-  "work.7.highlights.0":
-    "Nous exercicis d'aprenentatge per als estudiants.",
-  "work.7.highlights.1":
-    "Suport a la docència de l'assignatura d'Animació 1.",
+  "work.7.highlights.0": "Nous exercicis d'aprenentatge per als estudiants.",
+  "work.7.highlights.1": "Suport a la docència de l'assignatura d'Animació 1.",
   "work.7.highlights.2":
     "Suport a jornades de portes obertes: visites als laboratoris, Q&A i informació per a futurs estudiants.",
-  "work.7.highlights.3":
-    "Gestió del material i la logística dels laboratoris.",
+  "work.7.highlights.3": "Gestió del material i la logística dels laboratoris.",
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description": "Web per a un estudi de moviment Seitai i katsugen",
