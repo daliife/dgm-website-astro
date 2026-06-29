@@ -89,54 +89,54 @@ export const CA: Record<I18nKey, string> = {
   // ── Work experience ───────────────────────────────────────────────────────
   "work.0.position": "Lead Engineer",
   "work.0.highlights.0":
-    "He desenvolupat un nou producte Role-Play integrant SCAI (WebSockets) i AI Factory (LLMs de puntuació).",
+    "Nou producte Role-Play integrant SCAI (WebSockets) i AI Factory (LLMs de puntuació).",
   "work.0.highlights.1":
-    "He creat components i widgets per a Syntphony Learning Tech (PHP, Moodle, HTML, JavaScript).",
+    "Components i widgets per a Syntphony Learning Tech (PHP, Moodle, HTML, JavaScript).",
   "work.0.highlights.2":
-    "He implementat funcionalitats al portal d'administració de Syntphony Immersive Experiences, incloent login OTP.",
+    "Funcionalitats al portal d'administració de Syntphony Immersive Experiences, incloent login OTP.",
   "work.0.highlights.3":
-    "He desenvolupat la versió web de Syntphony Immersive Experiences amb WebGL i Unity.",
+    "Versió web de Syntphony Immersive Experiences amb WebGL i Unity.",
   "work.0.highlights.4":
-    "He mantingut la documentació de Syntphony Immersive Experiences (Nextra, MD/MDX).",
+    "Documentació de Syntphony Immersive Experiences (Nextra, MD/MDX).",
   "work.0.highlights.5":
-    "He migrat el design system del portal Syntphony Immersive Experiences.",
+    "Migració del design system del portal Syntphony Immersive Experiences.",
   "work.0.highlights.6":
-    "He mantingut i optimitzat pipelines CI/CD de frontend: tests E2E, tests unitaris i rendiment de build.",
+    "Manteniment i optimització de pipelines CI/CD de frontend: tests E2E, tests unitaris i rendiment de build.",
 
   "work.1.position": "Engineer",
   "work.1.highlights.0":
-    "He desenvolupat noves funcionalitats per a l'app mòbil eCliente d'Allianz.",
+    "Noves funcionalitats per a l'app mòbil eCliente d'Allianz.",
   "work.1.highlights.1":
-    "He impartit un curs de fonaments d'Angular per als equips d'Allianz.",
+    "Curs de fonaments d'Angular per als equips d'Allianz.",
   "work.1.highlights.2":
-    "He implementat fluxos d'assegurances XL amb Angular 12, correcció d'errors i refactorització de components (MAPFRE).",
+    "Fluxos d'assegurances XL amb Angular 12, correcció d'errors i refactorització de components (MAPFRE).",
   "work.1.highlights.3":
-    "He migrat estils i funcionalitats del portal Servihabitat amb Liferay (CaixaBank).",
+    "Migració d'estils i funcionalitats del portal Servihabitat amb Liferay (CaixaBank).",
   "work.1.highlights.4":
-    "He creat un widget de calendari com a portlet Liferay (Educaixa/CaixaBank).",
+    "Widget de calendari com a portlet Liferay (Educaixa/CaixaBank).",
   "work.1.highlights.5":
-    "He creat SPAs per a llocs Ready-for-Proposal (RFP) amb demos d'alt impacte en Angular 9 (SEAT i Orange).",
-  "work.1.highlights.6": "He creat un design system amb Storybook i Stencil.",
+    "SPAs per a llocs Ready-for-Proposal (RFP) amb demos d'alt impacte en Angular 9 (SEAT i Orange).",
+  "work.1.highlights.6": "Design system amb Storybook i Stencil.",
   "work.1.highlights.7":
-    "He dut a terme una prova de concepte: exportació de design tokens de Figma a un design system.",
+    "Prova de concepte: exportació de design tokens de Figma a un design system.",
 
   "work.2.position": "Junior Engineer",
   "work.2.highlights.0":
-    "He creat components web reutilitzables amb Angular 8 (Allianz).",
+    "Components web reutilitzables amb Angular 8 (Allianz).",
   "work.2.highlights.1":
-    "He investigat i desenvolupat proves de concepte per al departament Phygital.",
+    "Investigació i proves de concepte per al departament Phygital.",
   "work.2.highlights.2":
-    "He desenvolupat apps de formació en VR amb Unity per al projecte USIX 2.0 al sector industrial.",
+    "Apps de formació en VR amb Unity per al projecte USIX 2.0 al sector industrial.",
   "work.2.highlights.3":
-    "He construït el configurador de cotxes Casa SEAT amb Adobe Experience Manager (SEAT: CODE).",
+    "Configurador de cotxes Casa SEAT amb Adobe Experience Manager (SEAT: CODE).",
 
   "work.3.position": "Docent",
   "work.3.summary":
-    "He impartit docència d'Introducció a Unreal Engine al Màster en Desenvolupament Avançat de Videojocs de La Salle Campus Barcelona.",
+    "Docència d'Introducció a Unreal Engine al Màster en Desenvolupament Avançat de Videojocs de La Salle Campus Barcelona.",
 
   "work.4.position": "Pràctiques",
   "work.4.summary":
-    "He creat una app de VR (PhygitApp) per mostrar experiències phygital en banca i atenció al client.",
+    "App de VR (PhygitApp) per mostrar experiències phygital en banca i atenció al client.",
 
   "work.5.position": "Programador Multimèdia",
   "work.5.summary":
@@ -144,21 +144,21 @@ export const CA: Record<I18nKey, string> = {
 
   "work.6.position": "IT Helpdesk",
   "work.6.highlights.0":
-    "He resolt incidències informàtiques a les oficines de Wanup.",
+    "Resolució d'incidències informàtiques a les oficines de Wanup.",
   "work.6.highlights.1":
-    "He redactat documentació per als equips de Sistemes i Helpdesk.",
+    "Documentació per als equips de Sistemes i Helpdesk.",
   "work.6.highlights.2":
-    "He gestionat l'inventari i els subministraments de maquinari d'oficina.",
+    "Gestió de l'inventari i els subministraments de maquinari d'oficina.",
 
   "work.7.position": "Pràctiques",
   "work.7.highlights.0":
-    "He creat nous exercicis d'aprenentatge per als estudiants.",
+    "Nous exercicis d'aprenentatge per als estudiants.",
   "work.7.highlights.1":
-    "He donat suport a la docència de l'assignatura d'Animació 1.",
+    "Suport a la docència de l'assignatura d'Animació 1.",
   "work.7.highlights.2":
-    "He donat suport a jornades de portes obertes: visites als laboratoris, Q&A i informació per a futurs estudiants.",
+    "Suport a jornades de portes obertes: visites als laboratoris, Q&A i informació per a futurs estudiants.",
   "work.7.highlights.3":
-    "He gestionat el material i la logística dels laboratoris.",
+    "Gestió del material i la logística dels laboratoris.",
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description": "Web per a un estudi de moviment Seitai i katsugen",

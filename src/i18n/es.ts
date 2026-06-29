@@ -89,54 +89,54 @@ export const ES: Record<I18nKey, string> = {
   // ── Work experience ───────────────────────────────────────────────────────
   "work.0.position": "Lead Engineer",
   "work.0.highlights.0":
-    "Desarrollé un nuevo producto Role-Play integrando SCAI (WebSockets) y AI Factory (LLMs de puntuación).",
+    "Nuevo producto Role-Play integrando SCAI (WebSockets) y AI Factory (LLMs de puntuación).",
   "work.0.highlights.1":
-    "Creé componentes y widgets para Syntphony Learning Tech (PHP, Moodle, HTML, JavaScript).",
+    "Componentes y widgets para Syntphony Learning Tech (PHP, Moodle, HTML, JavaScript).",
   "work.0.highlights.2":
-    "Implementé funcionalidades en el portal de administración de Syntphony Immersive Experiences, incluyendo login OTP.",
+    "Funcionalidades en el portal de administración de Syntphony Immersive Experiences, incluyendo login OTP.",
   "work.0.highlights.3":
-    "Desarrollé la versión web de Syntphony Immersive Experiences con WebGL y Unity.",
+    "Versión web de Syntphony Immersive Experiences con WebGL y Unity.",
   "work.0.highlights.4":
-    "Mantuve la documentación de Syntphony Immersive Experiences (Nextra, MD/MDX).",
+    "Documentación de Syntphony Immersive Experiences (Nextra, MD/MDX).",
   "work.0.highlights.5":
-    "Migré el design system del portal Syntphony Immersive Experiences.",
+    "Migración del design system del portal Syntphony Immersive Experiences.",
   "work.0.highlights.6":
-    "Mantuve y optimicé pipelines CI/CD de frontend: tests E2E, tests unitarios y rendimiento de build.",
+    "Mantenimiento y optimización de pipelines CI/CD de frontend: tests E2E, tests unitarios y rendimiento de build.",
 
   "work.1.position": "Engineer",
   "work.1.highlights.0":
-    "Desarrollé nuevas funcionalidades para la app móvil eCliente de Allianz.",
+    "Nuevas funcionalidades para la app móvil eCliente de Allianz.",
   "work.1.highlights.1":
-    "Impartí un curso de fundamentos de Angular para los equipos de Allianz.",
+    "Curso de fundamentos de Angular para los equipos de Allianz.",
   "work.1.highlights.2":
-    "Implementé flujos de seguros XL con Angular 12, corrección de errores y refactorización de componentes (MAPFRE).",
+    "Flujos de seguros XL con Angular 12, corrección de errores y refactorización de componentes (MAPFRE).",
   "work.1.highlights.3":
-    "Migré estilos y funcionalidades del portal Servihabitat con Liferay (CaixaBank).",
+    "Migración de estilos y funcionalidades del portal Servihabitat con Liferay (CaixaBank).",
   "work.1.highlights.4":
-    "Creé un widget de calendario como portlet Liferay (Educaixa/CaixaBank).",
+    "Widget de calendario como portlet Liferay (Educaixa/CaixaBank).",
   "work.1.highlights.5":
-    "Creé SPAs para sitios Ready-for-Proposal (RFP) con demos de alto impacto en Angular 9 (SEAT y Orange).",
-  "work.1.highlights.6": "Creé un design system con Storybook y Stencil.",
+    "SPAs para sitios Ready-for-Proposal (RFP) con demos de alto impacto en Angular 9 (SEAT y Orange).",
+  "work.1.highlights.6": "Design system con Storybook y Stencil.",
   "work.1.highlights.7":
-    "Llevé a cabo una prueba de concepto: exportación de design tokens de Figma a un design system.",
+    "Prueba de concepto: exportación de design tokens de Figma a un design system.",
 
   "work.2.position": "Junior Engineer",
   "work.2.highlights.0":
-    "Creé componentes web reutilizables con Angular 8 (Allianz).",
+    "Componentes web reutilizables con Angular 8 (Allianz).",
   "work.2.highlights.1":
-    "Investigué y desarrollé pruebas de concepto para el departamento Phygital.",
+    "Investigación y pruebas de concepto para el departamento Phygital.",
   "work.2.highlights.2":
-    "Desarrollé apps de formación en VR con Unity para el proyecto USIX 2.0 en el sector industrial.",
+    "Apps de formación en VR con Unity para el proyecto USIX 2.0 en el sector industrial.",
   "work.2.highlights.3":
-    "Construí el configurador de coches Casa SEAT con Adobe Experience Manager (SEAT: CODE).",
+    "Configurador de coches Casa SEAT con Adobe Experience Manager (SEAT: CODE).",
 
   "work.3.position": "Docente",
   "work.3.summary":
-    "Impartí docencia de Introducción a Unreal Engine en el Máster en Desarrollo Avanzado de Videojuegos de La Salle Campus Barcelona.",
+    "Docencia de Introducción a Unreal Engine en el Máster en Desarrollo Avanzado de Videojuegos de La Salle Campus Barcelona.",
 
   "work.4.position": "Prácticas",
   "work.4.summary":
-    "Creé una app de VR (PhygitApp) para mostrar experiencias phygital en banca y atención al cliente.",
+    "App de VR (PhygitApp) para mostrar experiencias phygital en banca y atención al cliente.",
 
   "work.5.position": "Programador Multimedia",
   "work.5.summary":
@@ -144,20 +144,20 @@ export const ES: Record<I18nKey, string> = {
 
   "work.6.position": "IT Helpdesk",
   "work.6.highlights.0":
-    "Resolví incidencias informáticas en las oficinas de Wanup.",
+    "Resolución de incidencias informáticas en las oficinas de Wanup.",
   "work.6.highlights.1":
-    "Redacté documentación para los equipos de Sistemas y Helpdesk.",
+    "Documentación para los equipos de Sistemas y Helpdesk.",
   "work.6.highlights.2":
-    "Gestioné el inventario y los suministros de hardware de oficina.",
+    "Gestión del inventario y los suministros de hardware de oficina.",
 
   "work.7.position": "Prácticas",
   "work.7.highlights.0":
-    "Creé nuevos ejercicios de aprendizaje para los estudiantes.",
-  "work.7.highlights.1": "Apoyé la docencia de la asignatura de Animación 1.",
+    "Nuevos ejercicios de aprendizaje para los estudiantes.",
+  "work.7.highlights.1": "Apoyo a la docencia de la asignatura de Animación 1.",
   "work.7.highlights.2":
-    "Apoyé jornadas de puertas abiertas: visitas a laboratorios, Q&A e información para futuros estudiantes.",
+    "Apoyo en jornadas de puertas abiertas: visitas a laboratorios, Q&A e información para futuros estudiantes.",
   "work.7.highlights.3":
-    "Gestioné el material y la logística de los laboratorios.",
+    "Gestión del material y la logística de los laboratorios.",
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description":
