@@ -30,13 +30,20 @@ const { name, lastName, label, email } = basics;
         <span class="block font-light">{lastName}</span>
       </h1>
 
-      <!-- Rotating descriptor -->
+      <!-- Role: static on mobile (avoids clipped typewriter), animated from sm up -->
       <p
-        class="mb-10 flex min-h-[1.5em] items-center overflow-hidden whitespace-nowrap text-2xl font-light uppercase tracking-widest text-text-secondary sm:text-3xl"
+        class="mb-10 flex min-h-[1.5em] items-center text-xl font-light uppercase tracking-wide text-text-secondary sm:min-h-[1.5em] sm:overflow-hidden sm:whitespace-nowrap sm:text-2xl sm:tracking-widest lg:text-3xl"
         aria-live="polite"
       >
-        <span id="tw-rotating" aria-hidden="true">{label}</span>
-        <span class="typewriter-cursor" aria-hidden="true"></span>
+        <span class="sm:hidden" data-i18n="basics.label"
+          >{t("basics.label")}</span
+        >
+        <span id="tw-rotating" class="hidden sm:inline" aria-hidden="true"
+          >{label}</span
+        >
+        <span
+          class="typewriter-cursor hidden sm:inline-block"
+          aria-hidden="true"></span>
       </p>
 
       <!-- CTAs -->
@@ -146,6 +153,8 @@ const { name, lastName, label, email } = basics;
 
   let stopCurrent: (() => void) | null = null;
 
+  const TYPEWRITER_MQ = "(min-width: 640px)";
+
   function startTypewriter(lang: string) {
     const el = document.getElementById("tw-rotating");
     const cursor = document.querySelector<HTMLElement>(".typewriter-cursor");
@@ -159,6 +168,11 @@ const { name, lastName, label, email } = basics;
     };
 
     const phrases = PHRASES[lang] ?? PHRASES.en;
+
+    if (!window.matchMedia(TYPEWRITER_MQ).matches) {
+      el.textContent = phrases[0];
+      return;
+    }
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       el.textContent = phrases[0];
@@ -206,6 +220,16 @@ const { name, lastName, label, email } = basics;
   document.addEventListener("astro:page-load", () => {
     const lang = localStorage.getItem("lang") ?? "ca";
     startTypewriter(lang);
+
+    const mq = window.matchMedia(TYPEWRITER_MQ);
+    const onViewportChange = () =>
+      startTypewriter(localStorage.getItem("lang") ?? "ca");
+    mq.addEventListener("change", onViewportChange);
+    document.addEventListener(
+      "astro:before-swap",
+      () => mq.removeEventListener("change", onViewportChange),
+      { once: true },
+    );
   });
 
   window.addEventListener("app:lang-change", (e: Event) => {
