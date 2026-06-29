@@ -6,22 +6,22 @@ export const EN = {
   // ── Navigation ────────────────────────────────────────────────────────────
   "ui.nav.about": "About",
   "ui.nav.projects": "Projects",
-  "ui.nav.work": "Work",
+  "ui.nav.work": "Experience",
   "ui.nav.contact": "Contact",
 
   // ── Home page ─────────────────────────────────────────────────────────────
-  "ui.home.greeting": "Hello there, it's",
+  "ui.home.greeting": "Hi, I'm",
   "ui.home.cta": "Get in touch",
   "ui.home.cta.work": "Explore my projects",
   "ui.nextup": "Also explore",
   "ui.nextup.about": "About me",
-  "ui.nextup.work": "My work experience",
+  "ui.nextup.work": "My experience",
   "ui.nextup.projects": "My projects",
   "ui.nextup.contact": "Contact",
 
   // ── Page headings ─────────────────────────────────────────────────────────
   "ui.page.about": "About",
-  "ui.page.work": "Work",
+  "ui.page.work": "Experience",
   "ui.page.projects": "Projects",
   "ui.page.contact": "Contact",
 
@@ -70,17 +70,17 @@ export const EN = {
 
   // ── Contact ────────────────────────────────────────────────────────────────
   "ui.contact.intro":
-    "Currently open to new projects and opportunities. Feel free to reach out — I usually respond within 24h.",
+    "Open to new projects and collaborations. Drop me a line — I typically reply within 24 hours.",
 
   // ── Basics ─────────────────────────────────────────────────────────────────
   "basics.label": "Frontend Developer",
   "basics.location": "Barcelona · Catalonia",
   "basics.summary.0":
-    "Frontend Developer focused on building clean, clear, and well-crafted interfaces. I care about creating experiences that not only work well, but also look good. Experience building reusable components and working with web technologies.",
+    "Frontend Developer specialized in building clean, accessible, and meticulously crafted interfaces. I care that experiences not only work well but are a pleasure to use — from component architecture to the last pixel.",
   "basics.summary.1":
-    "I adapt quickly to new environments and stand out for my curiosity and continuous learning, keeping up with new technologies, tools, and the impact of AI.",
+    "I learn quickly and like to stay current: I follow industry trends closely, new tools, and how artificial intelligence is changing the way we build software.",
   "basics.summary.2":
-    "While specialized in frontend, I also work with Unity on interactive projects and have 3D modeling knowledge — skills that are valuable in other fields and help me bring a broader perspective to any digital product.",
+    "Although specialized in frontend, I also work with Unity on interactive projects and have 3D modeling skills — capabilities that let me bring a broader perspective to any digital product.",
 
   // ── Work experience ────────────────────────────────────────────────────────
   "work.0.position": "Lead Engineer",
@@ -103,25 +103,24 @@ export const EN = {
   "work.1.highlights.0":
     "Development of new features for the mobile app 'eCliente' for Allianz.",
   "work.1.highlights.1":
-    "Conduct the 'Angular basics' course for Allianz workers.",
+    "Delivered the 'Angular Basics' course for Allianz staff.",
   "work.1.highlights.2":
-    "Implementation of the XL insurance business with Angular 12, bug fixes and component refactorization (MAPFRE).",
+    "Built XL insurance features in Angular 12 — bug fixes and component refactors (MAPFRE).",
   "work.1.highlights.3":
     "Migration of styles and functionalities for the Servihabitat portal with Liferay (Caixabank).",
   "work.1.highlights.4":
     "Creation of a calendar widget in a Liferay portlet (Educaixa/Caixabank).",
   "work.1.highlights.5":
-    "Creation of different SPAs for RFP type websites with a high 'wow effect' in Angular 9 (SEAT and Orange).",
-  "work.1.highlights.6":
-    "Creation of a Design System using Storybooks and Stencil.",
+    "Built high-impact RFP demo SPAs in Angular 9 (SEAT and Orange).",
+  "work.1.highlights.6": "Built a design system with Storybook and Stencil.",
   "work.1.highlights.7":
-    "PoC: exporting design tokens with Figma towards a Design System.",
+    "PoC: exporting design tokens from Figma into a design system.",
 
   "work.2.position": "Junior Engineer",
   "work.2.highlights.0":
-    "Creation of building blocks (web components) with Angular 8 (Allianz).",
+    "Built reusable web components with Angular 8 (Allianz).",
   "work.2.highlights.1":
-    "Learning and creation of PoC for the Phygital department.",
+    "Researched and built PoCs for the Phygital department.",
   "work.2.highlights.2":
     "Development of VR applications with Unity for the USIX2.0 project, a training app for the industrial sector.",
   "work.2.highlights.3":
@@ -129,15 +128,15 @@ export const EN = {
 
   "work.3.position": "Lecturer",
   "work.3.summary":
-    "Professor of the subject 'Introduction to Unreal Engine' at the Masters degree in Advanced Video Game Development at La Salle Campus BCN",
+    "Taught 'Introduction to Unreal Engine' in the Master's in Advanced Video Game Development at La Salle Campus BCN.",
 
   "work.4.position": "Internship",
   "work.4.summary":
-    "Creation of a VR application (PhygitApp) to show the potential of Phygital experiences in the world of banking and customer service.",
+    "Built a VR application (PhygitApp) showcasing phygital experiences in banking and customer service.",
 
   "work.5.position": "Multimedia Programmer",
   "work.5.summary":
-    "Simulation of the HUD and Digital cockpit screens of a new car for the SEAT client.",
+    "Simulated HUD and digital cockpit screens for a new SEAT vehicle.",
 
   "work.6.position": "IT Helpdesk",
   "work.6.highlights.0": "IT problem resolution within the Wanup offices.",
@@ -148,35 +147,34 @@ export const EN = {
   "work.7.position": "Internship",
   "work.7.highlights.0": "Creation of new didactic exercises for the students.",
   "work.7.highlights.1":
-    "Give support to the teacher in partial teaching of the Animation 1 subject.",
+    "Supported the lecturer in teaching the Animation 1 course.",
   "work.7.highlights.2":
-    "In the open-door sessions I give support by giving information, showing the laboratories, answering questions from future students.",
+    "At open-day events, guided prospective students through labs and answered questions.",
   "work.7.highlights.3":
     "Control of material and logistics of the laboratories.",
 
   // ── Projects ───────────────────────────────────────────────────────────────
   "projects.0.description": "Website for a Seitai and katsugen movement studio",
   "projects.1.description":
-    "Speed reader web app using the Spritz technique, built with SDD methodology",
+    "Speed-reading web app using the Spritz technique, built with spec-driven development",
   "projects.2.description":
-    "Interactive webpage with 3 canvas minigames (SEAT)",
-  "projects.3.description": "Landing page with a card minigame (Orange)",
+    "Interactive RFP demo with three canvas minigames (SEAT)",
+  "projects.3.description":
+    "Interactive RFP landing page with a card minigame (Orange)",
   "projects.4.description":
-    "Interactive webpage with a chronology timeline (SEAT)",
+    "Interactive chronology timeline for SEAT HMI concepts",
   "projects.5.description":
-    "TV recommender app for Samsung Smart TV built with Tizen Studio",
+    "TV recommender app for Samsung Smart TV, built with Tizen Studio",
   "projects.6.description": "Video game prototype built with Unreal Engine 4",
-  "projects.7.description": "Adaptation of the word game 'Paraulògic'",
-  "projects.8.description":
-    "Previous version of my portfolio built with Angular",
-  "projects.9.description":
-    "Hypercasual minimal minigolf video game built with Unity",
+  "projects.7.description": "Word game inspired by Paraulògic",
+  "projects.8.description": "Previous portfolio version built with Angular",
+  "projects.9.description": "Hypercasual minigolf game built with Unity",
   "projects.10.description":
-    "Website to discover instrument families, built with Angular",
+    "Website to explore instrument families, built with Angular",
   "projects.11.description":
-    "Filterable grid of elements using Isotope (Endesa)",
+    "Filterable content grid powered by Isotope (Endesa)",
   "projects.12.description":
-    "Real-time postprocessing FX using fragment shaders and ImGui",
+    "Real-time post-processing effects with fragment shaders and ImGui",
 
   // ── Education ──────────────────────────────────────────────────────────────
   "education.0.studyType": "Master's Degree in Advanced Video Game Development",
@@ -188,7 +186,7 @@ export const EN = {
 
   // ── Skills ─────────────────────────────────────────────────────────────────
   "skills.0.name": "Web Development",
-  "skills.0.level": "Master",
+  "skills.0.level": "Expert",
   "skills.1.name": "Frameworks",
   "skills.1.level": "Expert",
   "skills.2.name": "Tools & DevOps",
@@ -202,6 +200,10 @@ export const EN = {
   "languages.0.fluency": "Native speaker",
   "languages.1.fluency": "Native speaker",
   "languages.2.fluency": "Professional working proficiency",
+
+  // ── 404 page ───────────────────────────────────────────────────────────────
+  "ui.404.message": "Page not found",
+  "ui.404.back": "← Back to home",
 } as const;
 
 export type I18nKey = keyof typeof EN;

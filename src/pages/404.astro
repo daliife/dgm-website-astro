@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { SITE_BASE } from "../utils/url";
+import { t } from "../utils/i18n";
 ---
 
 <Layout title="404 — Page Not Found" noIndex={true}>
@@ -12,7 +13,12 @@ import { SITE_BASE } from "../utils/url";
     >
       404
     </h1>
-    <p class="mb-10 text-base text-text-muted sm:text-lg">Page not found</p>
+    <p
+      class="mb-10 text-base text-text-muted sm:text-lg"
+      data-i18n="ui.404.message"
+    >
+      {t("ui.404.message")}
+    </p>
     <nav
       aria-label="Quick navigation"
       class="mb-10 flex flex-col items-center gap-5 sm:flex-row sm:gap-8"
@@ -20,27 +26,25 @@ import { SITE_BASE } from "../utils/url";
       <a
         href={`${SITE_BASE}/work`}
         class="border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary"
+        data-i18n="ui.nav.work">{t("ui.nav.work")}</a
       >
-        Work
-      </a>
       <a
         href={`${SITE_BASE}/projects`}
         class="border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary"
+        data-i18n="ui.nav.projects">{t("ui.nav.projects")}</a
       >
-        Projects
-      </a>
       <a
         href={`${SITE_BASE}/contact`}
         class="border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary"
+        data-i18n="ui.nav.contact">{t("ui.nav.contact")}</a
       >
-        Contact
-      </a>
     </nav>
     <a
       href={`${SITE_BASE}/`}
       class="pb-1 text-xs uppercase tracking-widest text-text-muted/50 transition-colors duration-200 hover:text-text-muted"
+      data-i18n="ui.404.back"
     >
-      ← Back to home
+      {t("ui.404.back")}
     </a>
   </section>
 </Layout>

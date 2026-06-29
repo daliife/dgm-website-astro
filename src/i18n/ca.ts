@@ -74,7 +74,7 @@ export const CA: Record<I18nKey, string> = {
 
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":
-    "Disponible per a nous projectes i oportunitats. Escriu-me quan vulguis — sol respondre en menys de 24h.",
+    "Obert a nous projectes i col·laboracions. Escriu-me quan vulguis — sol respondre en menys de 24 hores.",
 
   // ── Basics ───────────────────────────────────────────────────────────────
   "basics.label": "Desenvolupador Frontend",
@@ -107,7 +107,7 @@ export const CA: Record<I18nKey, string> = {
   "work.1.highlights.0":
     "Desenvolupament de noves funcionalitats per a l'app mòbil 'eCliente' per a Allianz.",
   "work.1.highlights.1":
-    "Impartició del curs 'Angular basics' per als treballadors d'Allianz.",
+    "Impartició del curs 'Angular Basics' per al personal d'Allianz.",
   "work.1.highlights.2":
     "Implementació del negoci d'assegurances XL amb Angular 12, correccions d'errors i refactorització de components (MAPFRE).",
   "work.1.highlights.3":
@@ -115,17 +115,16 @@ export const CA: Record<I18nKey, string> = {
   "work.1.highlights.4":
     "Creació d'un widget de calendari en un portlet Liferay (Educaixa/Caixabank).",
   "work.1.highlights.5":
-    "Creació de diverses SPAs per a llocs web de tipus RFP amb un alt 'efecte wow' en Angular 9 (SEAT i Orange).",
-  "work.1.highlights.6":
-    "Creació d'un Design System usant Storybooks i Stencil.",
+    "Creació de SPAs d'alta impacte per a webs tipus RFP en Angular 9 (SEAT i Orange).",
+  "work.1.highlights.6": "Creació d'un Design System amb Storybook i Stencil.",
   "work.1.highlights.7":
-    "PoC: exportació de design tokens amb Figma a un Design System.",
+    "PoC: exportació de design tokens des de Figma cap a un Design System.",
 
   "work.2.position": "Junior Engineer",
   "work.2.highlights.0":
-    "Creació de blocs de construcció (components web) amb Angular 8 (Allianz).",
+    "Creació de components web reutilitzables amb Angular 8 (Allianz).",
   "work.2.highlights.1":
-    "Aprenentatge i creació de PoC per al departament Phygital.",
+    "Recerca i creació de PoCs per al departament Phygital.",
   "work.2.highlights.2":
     "Desenvolupament d'aplicacions VR amb Unity per al projecte USIX2.0, una app de formació per al sector industrial.",
   "work.2.highlights.3":
@@ -137,11 +136,11 @@ export const CA: Record<I18nKey, string> = {
 
   "work.4.position": "Pràctiques",
   "work.4.summary":
-    "Creació d'una aplicació de VR (PhygitApp) per mostrar el potencial de les experiències Phygital en el món de la banca i l'atenció al client.",
+    "Creació d'una aplicació de VR (PhygitApp) per mostrar el potencial de les experiències phygital en banca i atenció al client.",
 
   "work.5.position": "Programador Multimèdia",
   "work.5.summary":
-    "Simulació del HUD i les pantalles de cockpit digital d'un nou cotxe per al client SEAT.",
+    "Simulació del HUD i les pantalles de cockpit digital d'un nou vehicle SEAT.",
 
   "work.6.position": "IT Helpdesk",
   "work.6.highlights.0":
@@ -155,34 +154,34 @@ export const CA: Record<I18nKey, string> = {
   "work.7.highlights.0":
     "Creació de nous exercicis didàctics per als estudiants.",
   "work.7.highlights.1":
-    "Suport al professor en l'ensenyament parcial de l'assignatura d'Animació 1.",
+    "Suport al professor en l'ensenyament de l'assignatura d'Animació 1.",
   "work.7.highlights.2":
-    "A les jornades de portes obertes, donava suport oferint informació, mostrant els laboratoris i responent preguntes de futurs estudiants.",
+    "A les jornades de portes obertes, guiava futurs estudiants pels laboratoris i responia preguntes.",
   "work.7.highlights.3": "Control de material i logística dels laboratoris.",
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description": "Web per a un estudi de moviment Seitai i katsugen",
   "projects.1.description":
-    "App web de lectura ràpida amb la tècnica Spritz, construïda amb metodologia SDD",
+    "App web de lectura ràpida amb la tècnica Spritz, construïda amb desenvolupament guiat per especificacions",
   "projects.2.description":
-    "Pàgina web interactiva amb 3 minijocs en Canvas (SEAT)",
+    "Demo RFP interactiva amb tres minijocs en Canvas (SEAT)",
   "projects.3.description":
-    "Pàgina de presentació amb un minijoc de cartes (Orange)",
+    "Landing RFP interactiva amb un minijoc de cartes (Orange)",
   "projects.4.description":
-    "Pàgina web interactiva amb un timeline de cronologia (SEAT)",
+    "Timeline de cronologia interactiva per a conceptes HMI de SEAT",
   "projects.5.description":
-    "App recomanadora de TV per a Samsung Smart TV amb Tizen Studio",
+    "App recomanadora de TV per a Samsung Smart TV, construïda amb Tizen Studio",
   "projects.6.description":
     "Prototip de videojoc desenvolupat amb Unreal Engine 4",
-  "projects.7.description": "Adaptació del joc de paraules 'Paraulògic'",
+  "projects.7.description": "Joc de paraules inspirat en Paraulògic",
   "projects.8.description":
-    "Versió anterior del meu portfolio desenvolupada amb Angular",
+    "Versió anterior del portfolio, desenvolupada amb Angular",
   "projects.9.description":
     "Videojoc hipercasual de minigolf desenvolupat amb Unity",
   "projects.10.description":
-    "Web per descobrir famílies d'instruments, desenvolupada amb Angular",
+    "Web per explorar famílies d'instruments, desenvolupada amb Angular",
   "projects.11.description":
-    "Graella filtrable d'elements amb Isotope (Endesa)",
+    "Graella de contingut filtrable amb Isotope (Endesa)",
   "projects.12.description":
     "Efectes de postprocessat en temps real amb fragment shaders i ImGui",
 
@@ -210,4 +209,8 @@ export const CA: Record<I18nKey, string> = {
   "languages.0.fluency": "Llengua materna",
   "languages.1.fluency": "Llengua materna",
   "languages.2.fluency": "Competència professional",
+
+  // ── 404 page ───────────────────────────────────────────────────────────────
+  "ui.404.message": "Pàgina no trobada",
+  "ui.404.back": "← Tornar a l'inici",
 };
