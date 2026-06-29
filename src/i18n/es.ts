@@ -18,7 +18,7 @@ export const ES: Record<I18nKey, string> = {
   "ui.home.cta.work": "Explora mis proyectos",
   "ui.nextup": "Explora también",
   "ui.nextup.about": "Sobre mí",
-  "ui.nextup.work": "Mi experiencia laboral",
+  "ui.nextup.work": "Mi experiencia",
   "ui.nextup.projects": "Mis proyectos",
   "ui.nextup.contact": "Contacto",
 
@@ -74,17 +74,17 @@ export const ES: Record<I18nKey, string> = {
 
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":
-    "Disponible para nuevos proyectos y oportunidades. Escríbeme cuando quieras — suelo responder en menos de 24h.",
+    "Abierto a nuevos proyectos y colaboraciones. Escríbeme cuando quieras — suelo responder en menos de 24 horas.",
 
   // ── Basics ───────────────────────────────────────────────────────────────
   "basics.label": "Desarrollador Frontend",
   "basics.location": "Barcelona · Cataluña",
   "basics.summary.0":
-    "Desarrollador Frontend enfocado en construir interfaces limpias, claras y bien elaboradas. Me preocupo por crear experiencias que no solo funcionen bien, sino que también tengan buen aspecto. Experiencia creando componentes reutilizables y trabajando con tecnologías web.",
+    "Desarrollador Frontend especializado en construir interfaces limpias, accesibles y cuidadas al detalle. Me importa que las experiencias no solo funcionen bien, sino que sea un placer usarlas — desde la arquitectura de componentes hasta el último píxel.",
   "basics.summary.1":
-    "Me adapto rápidamente a nuevos entornos y me distingue mi curiosidad y aprendizaje continuo, manteniéndome al día con nuevas tecnologías, herramientas y el impacto de la IA.",
+    "Aprendo rápido y me gusta estar al día: sigo de cerca las tendencias del sector, las nuevas herramientas y cómo la inteligencia artificial está cambiando la forma de desarrollar.",
   "basics.summary.2":
-    "Aunque estoy especializado en frontend, también trabajo con Unity en proyectos interactivos y tengo conocimientos de modelado 3D — habilidades de interés y útiles en otros ámbitos que me permiten aportar una visión más amplia a cualquier producto digital.",
+    "Aunque estoy especializado en frontend, también trabajo con Unity en proyectos interactivos y tengo conocimientos de modelado 3D — habilidades que me permiten aportar una visión más amplia a cualquier producto digital.",
 
   // ── Work experience ───────────────────────────────────────────────────────
   "work.0.position": "Lead Engineer",
@@ -107,7 +107,7 @@ export const ES: Record<I18nKey, string> = {
   "work.1.highlights.0":
     "Desarrollo de nuevas funcionalidades para la app móvil 'eCliente' para Allianz.",
   "work.1.highlights.1":
-    "Impartición del curso 'Angular basics' para los empleados de Allianz.",
+    "Impartición del curso 'Angular Basics' para el personal de Allianz.",
   "work.1.highlights.2":
     "Implementación del negocio de seguros XL con Angular 12, correcciones de errores y refactorización de componentes (MAPFRE).",
   "work.1.highlights.3":
@@ -115,17 +115,17 @@ export const ES: Record<I18nKey, string> = {
   "work.1.highlights.4":
     "Creación de un widget de calendario en un portlet Liferay (Educaixa/Caixabank).",
   "work.1.highlights.5":
-    "Creación de diversas SPAs para sitios web de tipo RFP con alto 'efecto wow' en Angular 9 (SEAT y Orange).",
+    "Creación de SPAs de alto impacto para webs tipo RFP en Angular 9 (SEAT y Orange).",
   "work.1.highlights.6":
-    "Creación de un Design System usando Storybooks y Stencil.",
+    "Creación de un Design System con Storybook y Stencil.",
   "work.1.highlights.7":
-    "PoC: exportación de design tokens con Figma a un Design System.",
+    "PoC: exportación de design tokens desde Figma hacia un Design System.",
 
   "work.2.position": "Junior Engineer",
   "work.2.highlights.0":
-    "Creación de building blocks (componentes web) con Angular 8 (Allianz).",
+    "Creación de componentes web reutilizables con Angular 8 (Allianz).",
   "work.2.highlights.1":
-    "Aprendizaje y creación de PoC para el departamento Phygital.",
+    "Investigación y creación de PoCs para el departamento Phygital.",
   "work.2.highlights.2":
     "Desarrollo de aplicaciones VR con Unity para el proyecto USIX2.0, una app de formación para el sector industrial.",
   "work.2.highlights.3":
@@ -137,11 +137,11 @@ export const ES: Record<I18nKey, string> = {
 
   "work.4.position": "Prácticas",
   "work.4.summary":
-    "Creación de una aplicación de VR (PhygitApp) para mostrar el potencial de las experiencias Phygital en el mundo de la banca y la atención al cliente.",
+    "Creación de una aplicación de VR (PhygitApp) para mostrar el potencial de las experiencias phygital en banca y atención al cliente.",
 
   "work.5.position": "Programador Multimedia",
   "work.5.summary":
-    "Simulación del HUD y las pantallas de cockpit digital de un nuevo coche para el cliente SEAT.",
+    "Simulación del HUD y las pantallas de cockpit digital de un nuevo vehículo SEAT.",
 
   "work.6.position": "IT Helpdesk",
   "work.6.highlights.0":
@@ -155,35 +155,35 @@ export const ES: Record<I18nKey, string> = {
   "work.7.highlights.0":
     "Creación de nuevos ejercicios didácticos para los estudiantes.",
   "work.7.highlights.1":
-    "Apoyo al profesor en la enseñanza parcial de la asignatura de Animación 1.",
+    "Apoyo al profesor en la enseñanza de la asignatura de Animación 1.",
   "work.7.highlights.2":
-    "En las jornadas de puertas abiertas, daba apoyo ofreciendo información, mostrando los laboratorios y respondiendo preguntas de futuros estudiantes.",
+    "En las jornadas de puertas abiertas, guiaba a futuros estudiantes por los laboratorios y respondía preguntas.",
   "work.7.highlights.3": "Control de material y logística de los laboratorios.",
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description":
     "Web para un estudio de movimiento Seitai y katsugen",
   "projects.1.description":
-    "App web de lectura rápida con la técnica Spritz, construida con metodología SDD",
+    "App web de lectura rápida con la técnica Spritz, construida con desarrollo guiado por especificaciones",
   "projects.2.description":
-    "Página web interactiva con 3 minijuegos en Canvas (SEAT)",
+    "Demo RFP interactiva con tres minijuegos en Canvas (SEAT)",
   "projects.3.description":
-    "Página de presentación con un minijuego de cartas (Orange)",
+    "Landing RFP interactiva con un minijuego de cartas (Orange)",
   "projects.4.description":
-    "Página web interactiva con un timeline de cronología (SEAT)",
+    "Timeline de cronología interactiva para conceptos HMI de SEAT",
   "projects.5.description":
-    "App recomendadora de TV para Samsung Smart TV con Tizen Studio",
+    "App recomendadora de TV para Samsung Smart TV, construida con Tizen Studio",
   "projects.6.description":
     "Prototipo de videojuego desarrollado con Unreal Engine 4",
-  "projects.7.description": "Adaptación del juego de palabras 'Paraulògic'",
+  "projects.7.description": "Juego de palabras inspirado en Paraulògic",
   "projects.8.description":
-    "Versión anterior de mi portfolio desarrollada con Angular",
+    "Versión anterior del portfolio, desarrollada con Angular",
   "projects.9.description":
     "Videojuego hipercasual de minigolf desarrollado con Unity",
   "projects.10.description":
-    "Web para descubrir familias de instrumentos, desarrollada con Angular",
+    "Web para explorar familias de instrumentos, desarrollada con Angular",
   "projects.11.description":
-    "Cuadrícula filtrable de elementos con Isotope (Endesa)",
+    "Cuadrícula de contenido filtrable con Isotope (Endesa)",
   "projects.12.description":
     "Efectos de postprocesado en tiempo real con fragment shaders e ImGui",
 
@@ -211,4 +211,8 @@ export const ES: Record<I18nKey, string> = {
   "languages.0.fluency": "Lengua materna",
   "languages.1.fluency": "Lengua materna",
   "languages.2.fluency": "Competencia profesional",
+
+  // ── 404 page ───────────────────────────────────────────────────────────────
+  "ui.404.message": "Página no encontrada",
+  "ui.404.back": "← Volver al inicio",
 };
