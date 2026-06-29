@@ -15,10 +15,10 @@ export const ES: Record<I18nKey, string> = {
   // ── Home page ─────────────────────────────────────────────────────────────
   "ui.home.greeting": "Hola, soy",
   "ui.home.cta": "Contáctame",
-  "ui.home.cta.work": "Explora mis proyectos",
+  "ui.home.cta.work": "Ver mis proyectos",
   "ui.nextup": "Explora también",
   "ui.nextup.about": "Sobre mí",
-  "ui.nextup.work": "Mi experiencia laboral",
+  "ui.nextup.work": "Experiencia",
   "ui.nextup.projects": "Mis proyectos",
   "ui.nextup.contact": "Contacto",
 
@@ -27,6 +27,11 @@ export const ES: Record<I18nKey, string> = {
   "ui.page.work": "Experiencia",
   "ui.page.projects": "Proyectos",
   "ui.page.contact": "Contacto",
+
+  // ── 404 ───────────────────────────────────────────────────────────────────
+  "ui.404.title": "404 — Página no encontrada",
+  "ui.404.message": "Página no encontrada",
+  "ui.404.back": "Volver al inicio",
 
   // ── Projects categories ─────────────────────────────────────────────────────
   "ui.projects.category.professional": "Profesional",
@@ -74,112 +79,109 @@ export const ES: Record<I18nKey, string> = {
 
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":
-    "Disponible para nuevos proyectos y oportunidades. Escríbeme cuando quieras — suelo responder en menos de 24h.",
+    "Abierto a nuevos proyectos y oportunidades. Escríbeme cuando quieras — suelo responder en menos de 24 horas.",
 
   // ── Basics ───────────────────────────────────────────────────────────────
   "basics.label": "Desarrollador Frontend",
   "basics.location": "Barcelona · Cataluña",
   "basics.summary.0":
-    "Desarrollador Frontend enfocado en construir interfaces limpias, claras y bien elaboradas. Me preocupo por crear experiencias que no solo funcionen bien, sino que también tengan buen aspecto. Experiencia creando componentes reutilizables y trabajando con tecnologías web.",
+    "Desarrollador frontend especializado en construir interfaces limpias y cuidadas — desde componentes reutilizables hasta los detalles que percibe el usuario. Me importa que las experiencias funcionen bien y sean un placer de usar.",
   "basics.summary.1":
-    "Me adapto rápidamente a nuevos entornos y me distingue mi curiosidad y aprendizaje continuo, manteniéndome al día con nuevas tecnologías, herramientas y el impacto de la IA.",
+    "Me adapto con rapidez y mantengo la curiosidad: sigo las tendencias del sector, las nuevas herramientas y cómo la IA está cambiando la forma de desarrollar.",
   "basics.summary.2":
-    "Aunque estoy especializado en frontend, también trabajo con Unity en proyectos interactivos y tengo conocimientos de modelado 3D — habilidades de interés y útiles en otros ámbitos que me permiten aportar una visión más amplia a cualquier producto digital.",
+    "Además del frontend, trabajo con Unity en proyectos interactivos y aporto conocimientos de modelado 3D — una visión más amplia que ayuda en productos digitales multidisciplinares.",
 
   // ── Work experience ───────────────────────────────────────────────────────
   "work.0.position": "Lead Engineer",
   "work.0.highlights.0":
-    "Desarrollo de un nuevo producto de Role-Plays, integrando SCAI (WebSockets) y AI Factory (LLMs de puntuación).",
+    "Desarrollo de un nuevo producto de Role-Play integrando SCAI (WebSockets) y AI Factory (LLMs de puntuación).",
   "work.0.highlights.1":
     "Creación de componentes y widgets para Syntphony Learning Tech (PHP, Moodle, HTML, JavaScript).",
   "work.0.highlights.2":
     "Implementación de funcionalidades en el portal de administración de Syntphony Immersive Experiences, incluyendo login OTP.",
   "work.0.highlights.3":
-    "Desarrollo de una versión web de Syntphony Immersive Experiences con WebGL y Unity.",
+    "Desarrollo de la versión web de Syntphony Immersive Experiences con WebGL y Unity.",
   "work.0.highlights.4":
     "Mantenimiento de la documentación de Syntphony Immersive Experiences (Nextra, MD/MDX).",
   "work.0.highlights.5":
-    "Migración del Design System del portal Syntphony Immersive Experiences.",
+    "Migración del design system del portal Syntphony Immersive Experiences.",
   "work.0.highlights.6":
-    "Mantenimiento y optimización de pipelines CI/CD de frontend: e2e tests, tests unitarios y optimización de build.",
+    "Mantenimiento y optimización de pipelines CI/CD de frontend: tests E2E, tests unitarios y rendimiento de build.",
 
   "work.1.position": "Engineer",
   "work.1.highlights.0":
-    "Desarrollo de nuevas funcionalidades para la app móvil 'eCliente' para Allianz.",
+    "Nuevas funcionalidades para la app móvil eCliente de Allianz.",
   "work.1.highlights.1":
-    "Impartición del curso 'Angular basics' para los empleados de Allianz.",
+    "Impartición de un curso de fundamentos de Angular para los equipos de Allianz.",
   "work.1.highlights.2":
-    "Implementación del negocio de seguros XL con Angular 12, correcciones de errores y refactorización de componentes (MAPFRE).",
+    "Implementación de flujos de seguros XL con Angular 12, corrección de errores y refactorización de componentes (MAPFRE).",
   "work.1.highlights.3":
-    "Migración de estilos y funcionalidades del portal Servihabitat con Liferay (Caixabank).",
+    "Migración de estilos y funcionalidades del portal Servihabitat con Liferay (CaixaBank).",
   "work.1.highlights.4":
-    "Creación de un widget de calendario en un portlet Liferay (Educaixa/Caixabank).",
+    "Widget de calendario como portlet Liferay (Educaixa/CaixaBank).",
   "work.1.highlights.5":
-    "Creación de diversas SPAs para sitios web de tipo RFP con alto 'efecto wow' en Angular 9 (SEAT y Orange).",
-  "work.1.highlights.6":
-    "Creación de un Design System usando Storybooks y Stencil.",
+    "SPAs para sitios Ready-for-Proposal (RFP) con demos de alto impacto en Angular 9 (SEAT y Orange).",
+  "work.1.highlights.6": "Design system con Storybook y Stencil.",
   "work.1.highlights.7":
-    "PoC: exportación de design tokens con Figma a un Design System.",
+    "Prueba de concepto: exportación de design tokens de Figma a un design system.",
 
   "work.2.position": "Junior Engineer",
   "work.2.highlights.0":
-    "Creación de building blocks (componentes web) con Angular 8 (Allianz).",
+    "Componentes web reutilizables con Angular 8 (Allianz).",
   "work.2.highlights.1":
-    "Aprendizaje y creación de PoC para el departamento Phygital.",
+    "Investigación y desarrollo de pruebas de concepto para el departamento Phygital.",
   "work.2.highlights.2":
-    "Desarrollo de aplicaciones VR con Unity para el proyecto USIX2.0, una app de formación para el sector industrial.",
+    "Apps de formación en VR con Unity para el proyecto USIX 2.0 en el sector industrial.",
   "work.2.highlights.3":
-    "Desarrollo web con Adobe Experience Manager para el proyecto CasaSeat Retail Car Configurator (SEAT: CODE).",
+    "Configurador de coches Casa SEAT con Adobe Experience Manager (SEAT: CODE).",
 
   "work.3.position": "Docente",
   "work.3.summary":
-    "Profesor de la asignatura 'Introducción a Unreal Engine' en el Máster en Desarrollo Avanzado de Videojuegos de La Salle Campus BCN.",
+    "Docencia de Introducción a Unreal Engine en el Máster en Desarrollo Avanzado de Videojuegos de La Salle Campus Barcelona.",
 
   "work.4.position": "Prácticas",
   "work.4.summary":
-    "Creación de una aplicación de VR (PhygitApp) para mostrar el potencial de las experiencias Phygital en el mundo de la banca y la atención al cliente.",
+    "App de VR (PhygitApp) para mostrar experiencias phygital en banca y atención al cliente.",
 
   "work.5.position": "Programador Multimedia",
   "work.5.summary":
-    "Simulación del HUD y las pantallas de cockpit digital de un nuevo coche para el cliente SEAT.",
+    "Simulación del HUD y las pantallas de cockpit digital de un nuevo vehículo SEAT.",
 
   "work.6.position": "IT Helpdesk",
   "work.6.highlights.0":
-    "Resolución de problemas informáticos en las oficinas de Wanup.",
+    "Resolución de incidencias informáticas en las oficinas de Wanup.",
   "work.6.highlights.1":
-    "Creación de documentación relacionada con los departamentos de Sistemas y Helpdesk.",
+    "Documentación para los equipos de Sistemas y Helpdesk.",
   "work.6.highlights.2":
-    "Control y verificación del material de hardware de la oficina.",
+    "Gestión de inventario y suministros de hardware de oficina.",
 
   "work.7.position": "Prácticas",
   "work.7.highlights.0":
-    "Creación de nuevos ejercicios didácticos para los estudiantes.",
-  "work.7.highlights.1":
-    "Apoyo al profesor en la enseñanza parcial de la asignatura de Animación 1.",
+    "Nuevos ejercicios de aprendizaje para los estudiantes.",
+  "work.7.highlights.1": "Apoyo a la docencia de la asignatura de Animación 1.",
   "work.7.highlights.2":
-    "En las jornadas de puertas abiertas, daba apoyo ofreciendo información, mostrando los laboratorios y respondiendo preguntas de futuros estudiantes.",
-  "work.7.highlights.3": "Control de material y logística de los laboratorios.",
+    "Apoyo en jornadas de puertas abiertas: visitas a laboratorios, Q&A e información para futuros estudiantes.",
+  "work.7.highlights.3": "Gestión de material y logística de los laboratorios.",
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description":
     "Web para un estudio de movimiento Seitai y katsugen",
   "projects.1.description":
-    "App web de lectura rápida con la técnica Spritz, construida con metodología SDD",
+    "App de lectura rápida con la técnica Spritz (desarrollo guiado por especificaciones)",
   "projects.2.description":
-    "Página web interactiva con 3 minijuegos en Canvas (SEAT)",
-  "projects.3.description":
-    "Página de presentación con un minijuego de cartas (Orange)",
+    "Página interactiva con tres minijuegos en Canvas (SEAT)",
+  "projects.3.description": "Landing page con un minijuego de cartas (Orange)",
   "projects.4.description":
-    "Página web interactiva con un timeline de cronología (SEAT)",
+    "Página interactiva con una cronología de marca (SEAT)",
   "projects.5.description":
-    "App recomendadora de TV para Samsung Smart TV con Tizen Studio",
+    "App de recomendación de TV para Samsung Smart TV (Tizen Studio)",
   "projects.6.description":
     "Prototipo de videojuego desarrollado con Unreal Engine 4",
-  "projects.7.description": "Adaptación del juego de palabras 'Paraulògic'",
+  "projects.7.description": "Juego de palabras inspirado en Paraulògic",
   "projects.8.description":
-    "Versión anterior de mi portfolio desarrollada con Angular",
+    "Versión anterior del portfolio desarrollada con Angular",
   "projects.9.description":
-    "Videojuego hipercasual de minigolf desarrollado con Unity",
+    "Minijuego hipercasual de minigolf desarrollado con Unity",
   "projects.10.description":
     "Web para descubrir familias de instrumentos, desarrollada con Angular",
   "projects.11.description":

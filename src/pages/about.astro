@@ -29,7 +29,7 @@ const profilePageSchema = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
   name: `About ${name} ${lastName}`,
-  description: `About ${name} ${lastName} — ${label} based in ${location?.city}. Discover my story, skills, and professional background.`,
+  description: `About ${name} ${lastName} — ${label} in ${location?.city}. Skills, background, and professional experience.`,
   url: `${LIVE_URL}/about`,
   mainEntity: {
     "@type": "Person",
@@ -42,7 +42,7 @@ const profilePageSchema = {
 
 <Layout
   title={`About${TITLE_PAGE_SUFFIX}`}
-  description={`About ${name} ${lastName} — ${label} based in ${location?.city}. Discover my story, skills, and professional background.`}
+  description={`About ${name} ${lastName} — ${label} in ${location?.city}. Skills, background, and professional experience.`}
 >
   <script
     slot="head"

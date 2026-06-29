@@ -9,7 +9,7 @@
       "region": "Catalonia",
       "countryCode": "ES"
     },
-    "summary": "Frontend Developer focused on building clean, clear, and well-crafted interfaces. I care about creating experiences that not only work well, but also look good. Experience building reusable components and working with web technologies.\n\nI adapt quickly to new environments and stand out for my curiosity and continuous learning, keeping up with new technologies, tools, and the impact of AI.\n\nWhile specialized in frontend, I also work with Unity on interactive projects and have 3D modeling knowledge — skills that are valuable in other fields and help me bring a broader perspective to any digital product.",
+    "summary": "Frontend developer focused on building clean, thoughtful interfaces — from reusable components to the details users notice. I care that experiences work well and feel good to use.\n\nI adapt quickly and stay curious: I follow industry trends, new tools, and how AI is changing the way we build software.\n\nAlongside frontend work, I use Unity on interactive projects and bring 3D modeling skills — a wider perspective that helps on cross-disciplinary digital products.",
     "image": "/david-profile.webp",
     "profiles": [
       {
@@ -36,13 +36,13 @@
       "url": "https://nttdata.com/",
       "startDate": "2023-03-01",
       "highlights": [
-        "Development of a new Role-Plays product, integrating SCAI (WebSockets) and AI Factory (LLMs for scoring).",
-        "Creation of components and widgets for Syntphony Learning Tech (PHP, Moodle, HTML, JavaScript).",
-        "Implementation of features in the Syntphony Immersive Experiences admin portal, including OTP login.",
-        "Development of a web version of Syntphony Immersive Experiences with WebGL and Unity.",
-        "Maintenance of Syntphony Immersive Experiences documentation (Nextra, MD/MDX).",
-        "Migration of the Design System for the Syntphony Immersive Experiences portal.",
-        "Maintenance and optimization of frontend CI/CD pipelines: e2e tests, unit tests, and build optimization."
+        "Built a new Role-Play product integrating SCAI (WebSockets) and AI Factory (LLMs for scoring).",
+        "Created components and widgets for Syntphony Learning Tech (PHP, Moodle, HTML, JavaScript).",
+        "Shipped features for the Syntphony Immersive Experiences admin portal, including OTP login.",
+        "Developed the web version of Syntphony Immersive Experiences with WebGL and Unity.",
+        "Maintained Syntphony Immersive Experiences documentation (Nextra, MD/MDX).",
+        "Migrated the design system for the Syntphony Immersive Experiences portal.",
+        "Maintained and optimized frontend CI/CD pipelines: E2E tests, unit tests, and build performance."
       ]
     },
     {
@@ -52,14 +52,14 @@
       "startDate": "2021-03-01",
       "endDate": "2023-02-01",
       "highlights": [
-        "Development of new features for the mobile app 'eCliente' for Allianz.",
-        "Conduct the 'Angular basics' course for Allianz workers.",
-        "Implementation of the XL insurance business with Angular 12, bug fixes and component refactorization (MAPFRE).",
-        "Migration of styles and functionalities for the Servihabitat portal with Liferay (Caixabank).",
-        "Creation of a calendar widget in a Liferay portlet (Educaixa/Caixabank).",
-        "Creation of different SPAs for RFP (Ready For Proposal) type websites with a high 'wow effect' in Angular 9 (SEAT and Orange).",
-        "Creation of a Design system using Storybooks and Stencil.",
-        "PoC: exporting design tokens with Figma towards a Design System."
+        "Built new features for the Allianz eCliente mobile app.",
+        "Delivered an Angular fundamentals course for Allianz teams.",
+        "Implemented XL insurance flows in Angular 12, fixing bugs and refactoring components (MAPFRE).",
+        "Migrated styles and features for the Servihabitat portal on Liferay (CaixaBank).",
+        "Built a calendar widget as a Liferay portlet (Educaixa/CaixaBank).",
+        "Created SPAs for Ready-for-Proposal (RFP) sites with high-impact demos in Angular 9 (SEAT and Orange).",
+        "Built a design system with Storybook and Stencil.",
+        "Proof of concept: exporting Figma design tokens into a design system."
       ]
     },
     {
@@ -69,10 +69,10 @@
       "startDate": "2019-10-01",
       "endDate": "2021-02-01",
       "highlights": [
-        "Creation of building blocks (web components) with Angular 8 (Allianz).",
-        "Learning and creation of PoC for the Phygital department.",
-        "Development of VR applications with Unity for the USIX2.0 project, a training app for the industrial sector.",
-        "Web Development with Adobe Experience Manager for the CasaSeat Retail Car Configurator project (SEAT: CODE)."
+        "Built reusable web components with Angular 8 (Allianz).",
+        "Researched and built proof-of-concept demos for the Phygital department.",
+        "Developed VR training apps with Unity for USIX 2.0 in the industrial sector.",
+        "Built the Casa SEAT retail car configurator with Adobe Experience Manager (SEAT: CODE)."
       ]
     },
     {
@@ -81,7 +81,7 @@
       "url": "https://www.linkedin.com/school/la-salle-bcn/",
       "startDate": "2020-03-01",
       "endDate": "2020-10-01",
-      "summary": "Professor of the subject 'Introduction to Unreal Engine' at the Masters degree in Advanced Video Game Development at La Salle Campus BCN"
+      "summary": "Taught Introduction to Unreal Engine in the Master's in Advanced Video Game Development at La Salle Campus Barcelona."
     },
     {
       "company": "NTT Data",
@@ -89,15 +89,15 @@
       "url": "https://nttdata.com/",
       "startDate": "2019-02-01",
       "endDate": "2019-07-01",
-      "summary": "Creation of a VR application (PhygitApp) to show the potential of Phygital experiences in the world of banking and customer service."
+      "summary": "Built a VR app (PhygitApp) showcasing phygital experiences in banking and customer service."
     },
     {
       "company": "RUCKER LYPSA",
-      "position": "Multimedia programmer",
+      "position": "Multimedia Programmer",
       "url": "https://es.edag.com/es/news/la-empresa-ruecker-lypsa-sl-se-convierte-en-edag-engineering-spain-sl",
       "startDate": "2017-10-01",
       "endDate": "2017-12-01",
-      "summary": "Simulation of the HUD and Digital cockpit screens of a new car for the SEAT client."
+      "summary": "Simulated HUD and digital cockpit screens for a new SEAT vehicle."
     },
     {
       "company": "Wanup",
@@ -106,9 +106,9 @@
       "startDate": "2017-07-01",
       "endDate": "2017-09-01",
       "highlights": [
-        "IT problem resolution within the Wanup offices.",
-        "Creation of documentation related to the Systems and Helpdesk department.",
-        "Control and check of office hardware supplies."
+        "Resolved IT issues at Wanup offices.",
+        "Wrote documentation for the Systems and Helpdesk team.",
+        "Managed office hardware inventory and supplies."
       ]
     },
     {
@@ -118,10 +118,10 @@
       "startDate": "2016-09-01",
       "endDate": "2017-05-01",
       "highlights": [
-        "Creation of new didactic exercises for the students.",
-        "Give support to the teacher in partial teaching of the Animation 1 subject.",
-        "In the open-door sessions I give support by giving information, showing the laboratories, answering questions from future students.",
-        "Control of material and logistics of the laboratories."
+        "Created new learning exercises for students.",
+        "Assisted with teaching Animation 1.",
+        "Supported open-day events with lab tours, Q&A, and information for prospective students.",
+        "Managed lab equipment and logistics."
       ]
     }
   ],
@@ -171,7 +171,7 @@
   "skills": [
     {
       "name": "Web Development",
-      "level": "Master",
+      "level": "Expert",
       "keywords": ["HTML", "CSS", "JavaScript", "TypeScript"]
     },
     {
@@ -212,7 +212,7 @@
   "projects": [
     {
       "name": "Estudi Seitai",
-      "description": "Personal project — website for a Seitai and katsugen movement studio",
+      "description": "Website for a Seitai and katsugen movement studio",
       "url": "https://estudiseitai.cat/",
       "image": "/projects/estudi-seitai.webp",
       "technologies": ["Astro", "TypeScript", "Tailwind CSS"],
@@ -221,7 +221,7 @@
     },
     {
       "name": "Spritz Reader",
-      "description": "Personal project — speed reader web app using the Spritz technique, built with SDD methodology",
+      "description": "Speed-reading web app using the Spritz technique (spec-driven development)",
       "url": "https://daliife.github.io/spritz-reader-with-sdd/",
       "image": "/projects/spritz-reader.webp",
       "technologies": ["React", "TypeScript", "Vite", "Tailwind CSS"],
@@ -230,7 +230,7 @@
     },
     {
       "name": "Seat RFP",
-      "description": "Professional project — interactive webpage with 3 canvas minigames (SEAT)",
+      "description": "Interactive page with three Canvas minigames (SEAT)",
       "url": "https://daliife.github.io/rfp-seat",
       "image": "/projects/seat-rfp.webp",
       "technologies": ["Angular", "TypeScript", "Canvas"],
@@ -239,7 +239,7 @@
     },
     {
       "name": "Orange RFP",
-      "description": "Professional project — landing page with a card minigame (Orange)",
+      "description": "Landing page with a card minigame (Orange)",
       "url": "https://daliife.github.io/rfp-orange/",
       "image": "/projects/orange-rfp.webp",
       "technologies": ["Angular", "TypeScript", "Lottie"],
@@ -248,7 +248,7 @@
     },
     {
       "name": "HMI Seat",
-      "description": "Professional project — interactive webpage with a chronology timeline (SEAT)",
+      "description": "Interactive page with a brand chronology timeline (SEAT)",
       "url": "https://daliife.github.io/hmi-seat/",
       "image": "/projects/hmi-seat.webp",
       "technologies": ["Angular", "TypeScript", "CSS"],
@@ -257,7 +257,7 @@
     },
     {
       "name": "Cinemup",
-      "description": "University project — TV recommender app for Samsung Smart TV built with Tizen Studio",
+      "description": "TV recommendation app for Samsung Smart TV (Tizen Studio)",
       "url": "https://daliife.github.io/Cinemup/cinemup_web",
       "image": "/projects/cinemup.webp",
       "technologies": ["JavaScript", "HTML", "CSS"],
@@ -266,7 +266,7 @@
     },
     {
       "name": "PodRacers",
-      "description": "Master's degree project — video game prototype built with Unreal Engine 4",
+      "description": "Video game prototype built with Unreal Engine 4",
       "url": "https://github.com/daliife/PodRacers",
       "image": "/projects/podracers.webp",
       "technologies": ["Unreal Engine 4", "C++"],
@@ -275,7 +275,7 @@
     },
     {
       "name": "Ricardlogic",
-      "description": "Personal project — adaptation of the word game 'Paraulògic'",
+      "description": "Word game inspired by Paraulògic",
       "url": "https://daliife.github.io/ricardlogic-minigame/",
       "image": "/projects/ricardlogic.webp",
       "technologies": ["HTML", "CSS", "JavaScript"],
@@ -284,7 +284,7 @@
     },
     {
       "name": "Portfolio v1",
-      "description": "Personal project — previous version of my portfolio built with Angular",
+      "description": "Previous portfolio version built with Angular",
       "url": "https://daliife.github.io/dgm-website-angular/",
       "image": "/projects/portfolio-v1.webp",
       "technologies": ["Angular", "TypeScript", "SCSS"],
@@ -293,7 +293,7 @@
     },
     {
       "name": "AMIGO",
-      "description": "Master's degree project — hypercasual minimal minigolf video game built with Unity",
+      "description": "Minimal hypercasual minigolf game built with Unity",
       "url": "https://dalife.itch.io/amigo",
       "image": "/projects/amigo.webp",
       "technologies": ["Unity", "C#", "HLSL"],
@@ -302,7 +302,7 @@
     },
     {
       "name": "Instruments List",
-      "description": "Personal project — website to discover instrument families, built with Angular",
+      "description": "Site to explore instrument families, built with Angular",
       "url": "https://daliife.github.io/instrumentslist-website/",
       "image": "/projects/instruments-list.webp",
       "technologies": ["Angular", "TypeScript", "CSS"],
@@ -311,7 +311,7 @@
     },
     {
       "name": "Light Sorter",
-      "description": "Professional project — filterable grid of elements using Isotope (Endesa)",
+      "description": "Filterable element grid using Isotope (Endesa)",
       "url": "https://daliife.github.io/light-sorter/",
       "image": "/projects/light-sorter.webp",
       "technologies": ["JavaScript", "jQuery", "Handlebars"],
@@ -320,7 +320,7 @@
     },
     {
       "name": "Shaders & Postpro",
-      "description": "Master's degree project — real-time postprocessing FX using fragment shaders and ImGui",
+      "description": "Real-time post-processing effects with fragment shaders and ImGui",
       "url": "https://github.com/daliife/ShadersAndPostpro",
       "image": "/projects/shaders-postpro.webp",
       "technologies": ["C++", "GLSL", "ImGui"],

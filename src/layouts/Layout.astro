@@ -46,7 +46,7 @@ const image =
 const fullName = `${name} ${lastName}`;
 const description =
   descriptionProp ??
-  `Personal portfolio of ${fullName} — ${label} based in ${location?.city}`;
+  `Personal portfolio of ${fullName} — ${label} in ${location?.city}`;
 const github = (profiles as SocialProfile[])?.find(
   (p) => p.network === "Github",
 );
