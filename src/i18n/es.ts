@@ -87,6 +87,9 @@ export const ES: Record<I18nKey, string> = {
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":
     "Abierto a nuevos proyectos y colaboraciones. Escríbeme cuando quieras — normalmente respondo en menos de 24 horas.",
+  "ui.contact.network.email": "Correo electrónico",
+  "ui.contact.network.linkedin": "LinkedIn",
+  "ui.contact.network.github": "GitHub",
 
   // ── Basics ───────────────────────────────────────────────────────────────
   "basics.label": "Desarrollador Frontend",

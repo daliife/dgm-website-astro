@@ -92,10 +92,7 @@ const itemListSchema = {
               aria-labelledby={`projects-category-${cat}`}
             >
               <header
-                class:list={[
-                  "border-b border-border-primary pb-5",
-                  cat === firstCategory ? "pt-2" : "pt-12",
-                ]}
+                class:list={["pb-3", cat === firstCategory ? "pt-2" : "pt-12"]}
               >
                 <h2
                   id={`projects-category-${cat}`}

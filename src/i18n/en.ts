@@ -83,6 +83,9 @@ export const EN = {
   // ── Contact ────────────────────────────────────────────────────────────────
   "ui.contact.intro":
     "Open to new projects and collaborations. Drop me a line — I typically reply within 24 hours.",
+  "ui.contact.network.email": "Email",
+  "ui.contact.network.linkedin": "LinkedIn",
+  "ui.contact.network.github": "GitHub",
 
   // ── Basics ─────────────────────────────────────────────────────────────────
   "basics.label": "Frontend Developer",

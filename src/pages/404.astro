@@ -1,7 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Button from "../components/ui/Button.astro";
 import { SITE_BASE } from "../utils/url";
 import { t } from "../utils/i18n";
+
+const NOT_FOUND_NAV_LINK =
+  "w-fit rounded-none border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted hover:border-text-primary hover:text-text-primary hover:no-underline";
+
+const NOT_FOUND_BACK_LINK =
+  "w-fit rounded-none pb-1 text-xs uppercase tracking-widest text-text-muted/50 hover:text-text-muted hover:no-underline";
 ---
 
 <Layout title="404 — Page Not Found" noIndex={true}>
@@ -23,28 +30,38 @@ import { t } from "../utils/i18n";
       aria-label="Quick navigation"
       class="mb-10 flex flex-col items-center gap-5 sm:flex-row sm:gap-8"
     >
-      <a
+      <Button
         href={`${SITE_BASE}/work`}
-        class="border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary"
-        data-i18n="ui.nav.work">{t("ui.nav.work")}</a
+        variant="simple"
+        size="none"
+        className={NOT_FOUND_NAV_LINK}
       >
-      <a
+        <span data-i18n="ui.nav.work">{t("ui.nav.work")}</span>
+      </Button>
+      <Button
         href={`${SITE_BASE}/projects`}
-        class="border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary"
-        data-i18n="ui.nav.projects">{t("ui.nav.projects")}</a
+        variant="simple"
+        size="none"
+        className={NOT_FOUND_NAV_LINK}
       >
-      <a
+        <span data-i18n="ui.nav.projects">{t("ui.nav.projects")}</span>
+      </Button>
+      <Button
         href={`${SITE_BASE}/contact`}
-        class="border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary"
-        data-i18n="ui.nav.contact">{t("ui.nav.contact")}</a
+        variant="simple"
+        size="none"
+        className={NOT_FOUND_NAV_LINK}
       >
+        <span data-i18n="ui.nav.contact">{t("ui.nav.contact")}</span>
+      </Button>
     </nav>
-    <a
+    <Button
       href={`${SITE_BASE}/`}
-      class="pb-1 text-xs uppercase tracking-widest text-text-muted/50 transition-colors duration-200 hover:text-text-muted"
-      data-i18n="ui.404.back"
+      variant="simple"
+      size="none"
+      className={NOT_FOUND_BACK_LINK}
     >
-      {t("ui.404.back")}
-    </a>
+      <span data-i18n="ui.404.back">{t("ui.404.back")}</span>
+    </Button>
   </section>
 </Layout>

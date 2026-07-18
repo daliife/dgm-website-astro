@@ -21,7 +21,7 @@ import type { WorkEntry } from "../types/ui";
     <h1 class={`${PAGE_HEADING_CLASSES} mb-12`} data-i18n="ui.page.work">
       {t("ui.page.work")}
     </h1>
-    <div class="reveal space-y-0">
+    <div class="reveal space-y-0 [&>article:first-child]:border-t-0">
       {work.map((job: WorkEntry, i: number) => <WorkCard {job} jobIndex={i} />)}
     </div>
 

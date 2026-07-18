@@ -6,6 +6,9 @@ import {
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
 import { t } from "../utils/i18n";
+
+const PRIVACY_LIST_ITEM =
+  "flex items-start gap-2.5 text-sm leading-relaxed text-text-secondary";
 ---
 
 <Layout title={`Privacy Policy${TITLE_PAGE_SUFFIX}`}>
@@ -23,7 +26,9 @@ import { t } from "../utils/i18n";
           target="_blank"
           rel="noopener noreferrer"
           class="text-text-primary underline underline-offset-4 transition-opacity hover:opacity-70"
-          >Umami</a
+          >Umami<span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+            {t("ui.a11y.opensNewTab")}
+          </span></a
         ><span data-i18n="ui.privacy.intro.after"
           >{t("ui.privacy.intro.after")}</span
         >
@@ -36,23 +41,46 @@ import { t } from "../utils/i18n";
         >
           {t("ui.privacy.collected.title")}
         </h2>
-        <ul
-          class="list-inside list-disc space-y-2 text-sm leading-relaxed text-text-secondary"
-        >
-          <li data-i18n="ui.privacy.collected.0">
-            {t("ui.privacy.collected.0")}
+        <ul class="space-y-2">
+          <li class={PRIVACY_LIST_ITEM}>
+            <span class="mt-0.5 shrink-0 text-text-muted" aria-hidden="true"
+              >–</span
+            >
+            <span data-i18n="ui.privacy.collected.0">
+              {t("ui.privacy.collected.0")}
+            </span>
           </li>
-          <li data-i18n="ui.privacy.collected.1">
-            {t("ui.privacy.collected.1")}
+          <li class={PRIVACY_LIST_ITEM}>
+            <span class="mt-0.5 shrink-0 text-text-muted" aria-hidden="true"
+              >–</span
+            >
+            <span data-i18n="ui.privacy.collected.1">
+              {t("ui.privacy.collected.1")}
+            </span>
           </li>
-          <li data-i18n="ui.privacy.collected.2">
-            {t("ui.privacy.collected.2")}
+          <li class={PRIVACY_LIST_ITEM}>
+            <span class="mt-0.5 shrink-0 text-text-muted" aria-hidden="true"
+              >–</span
+            >
+            <span data-i18n="ui.privacy.collected.2">
+              {t("ui.privacy.collected.2")}
+            </span>
           </li>
-          <li data-i18n="ui.privacy.collected.3">
-            {t("ui.privacy.collected.3")}
+          <li class={PRIVACY_LIST_ITEM}>
+            <span class="mt-0.5 shrink-0 text-text-muted" aria-hidden="true"
+              >–</span
+            >
+            <span data-i18n="ui.privacy.collected.3">
+              {t("ui.privacy.collected.3")}
+            </span>
           </li>
-          <li data-i18n="ui.privacy.collected.4">
-            {t("ui.privacy.collected.4")}
+          <li class={PRIVACY_LIST_ITEM}>
+            <span class="mt-0.5 shrink-0 text-text-muted" aria-hidden="true"
+              >–</span
+            >
+            <span data-i18n="ui.privacy.collected.4">
+              {t("ui.privacy.collected.4")}
+            </span>
           </li>
         </ul>
       </section>
@@ -64,23 +92,46 @@ import { t } from "../utils/i18n";
         >
           {t("ui.privacy.notcollected.title")}
         </h2>
-        <ul
-          class="list-inside list-disc space-y-2 text-sm leading-relaxed text-text-secondary"
-        >
-          <li data-i18n="ui.privacy.notcollected.0">
-            {t("ui.privacy.notcollected.0")}
+        <ul class="space-y-2">
+          <li class={PRIVACY_LIST_ITEM}>
+            <span class="mt-0.5 shrink-0 text-text-muted" aria-hidden="true"
+              >–</span
+            >
+            <span data-i18n="ui.privacy.notcollected.0">
+              {t("ui.privacy.notcollected.0")}
+            </span>
           </li>
-          <li data-i18n="ui.privacy.notcollected.1">
-            {t("ui.privacy.notcollected.1")}
+          <li class={PRIVACY_LIST_ITEM}>
+            <span class="mt-0.5 shrink-0 text-text-muted" aria-hidden="true"
+              >–</span
+            >
+            <span data-i18n="ui.privacy.notcollected.1">
+              {t("ui.privacy.notcollected.1")}
+            </span>
           </li>
-          <li data-i18n="ui.privacy.notcollected.2">
-            {t("ui.privacy.notcollected.2")}
+          <li class={PRIVACY_LIST_ITEM}>
+            <span class="mt-0.5 shrink-0 text-text-muted" aria-hidden="true"
+              >–</span
+            >
+            <span data-i18n="ui.privacy.notcollected.2">
+              {t("ui.privacy.notcollected.2")}
+            </span>
           </li>
-          <li data-i18n="ui.privacy.notcollected.3">
-            {t("ui.privacy.notcollected.3")}
+          <li class={PRIVACY_LIST_ITEM}>
+            <span class="mt-0.5 shrink-0 text-text-muted" aria-hidden="true"
+              >–</span
+            >
+            <span data-i18n="ui.privacy.notcollected.3">
+              {t("ui.privacy.notcollected.3")}
+            </span>
           </li>
-          <li data-i18n="ui.privacy.notcollected.4">
-            {t("ui.privacy.notcollected.4")}
+          <li class={PRIVACY_LIST_ITEM}>
+            <span class="mt-0.5 shrink-0 text-text-muted" aria-hidden="true"
+              >–</span
+            >
+            <span data-i18n="ui.privacy.notcollected.4">
+              {t("ui.privacy.notcollected.4")}
+            </span>
           </li>
         </ul>
       </section>
@@ -94,7 +145,12 @@ import { t } from "../utils/i18n";
           target="_blank"
           rel="noopener noreferrer"
           class="underline underline-offset-4 transition-colors hover:text-text-secondary"
-          >umami.is/privacy ↗</a
+          >umami.is/privacy ↗<span
+            class="sr-only"
+            data-i18n="ui.a11y.opensNewTab"
+          >
+            {t("ui.a11y.opensNewTab")}
+          </span></a
         >.
       </p>
     </div>
