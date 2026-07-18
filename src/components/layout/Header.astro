@@ -162,7 +162,13 @@ const navLinkActiveClasses = (active: boolean) =>
 </header>
 
 <script>
+  let headerAbort: AbortController | null = null;
+
   document.addEventListener("astro:page-load", () => {
+    headerAbort?.abort();
+    headerAbort = new AbortController();
+    const { signal } = headerAbort;
+
     const nav = document.getElementById("main-nav");
     const menuBtn = document.getElementById("mobile-menu-btn");
     const menuClose = document.getElementById("mobile-menu-close");
@@ -193,40 +199,44 @@ const navLinkActiveClasses = (active: boolean) =>
       menuBtn!.focus();
     }
 
-    menuBtn.addEventListener("click", openMenu);
-    menuClose.addEventListener("click", closeMenu);
+    menuBtn.addEventListener("click", openMenu, { signal });
+    menuClose.addEventListener("click", closeMenu, { signal });
 
-    // Close on link click
     menu.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", closeMenu);
+      link.addEventListener("click", closeMenu, { signal });
     });
 
-    // Close on Escape key
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && !menu!.classList.contains("hidden")) {
-        closeMenu();
-      }
-    });
+    document.addEventListener(
+      "keydown",
+      (e) => {
+        if (e.key === "Escape" && !menu!.classList.contains("hidden")) {
+          closeMenu();
+        }
+      },
+      { signal },
+    );
 
-    // Focus trap inside mobile menu
-    menu.addEventListener("keydown", (e) => {
-      if (e.key !== "Tab") return;
-      const focusable = menu!.querySelectorAll<HTMLElement>(
-        'a[href], button, [tabindex]:not([tabindex="-1"])',
-      );
-      if (focusable.length === 0) return;
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (e.shiftKey && document.activeElement === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && document.activeElement === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    });
+    menu.addEventListener(
+      "keydown",
+      (e) => {
+        if (e.key !== "Tab") return;
+        const focusable = menu!.querySelectorAll<HTMLElement>(
+          'a[href], button, [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      },
+      { signal },
+    );
 
-    // Scroll behavior — add bg on scroll
     function handleScroll() {
       if (window.scrollY > 8) {
         nav!.classList.add("bg-bg-primary/80", "backdrop-blur-md");
@@ -235,7 +245,7 @@ const navLinkActiveClasses = (active: boolean) =>
       }
     }
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("scroll", handleScroll, { passive: true, signal });
     handleScroll();
   });
 </script>

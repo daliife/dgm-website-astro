@@ -42,7 +42,9 @@
     document
       .querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")
       .forEach((toggle) => {
-        // Sync initial state with actual theme
+        if (toggle.dataset.init) return;
+        toggle.dataset.init = "true";
+
         const setToggleState = (isDark: boolean) => {
           toggle.setAttribute("aria-pressed", String(isDark));
           toggle.setAttribute(

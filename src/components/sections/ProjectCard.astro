@@ -96,6 +96,8 @@ const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
     );
     if (!imgs.length) return;
     imgs.forEach((img) => {
+      if (img.dataset.fallbackBound) return;
+      img.dataset.fallbackBound = "true";
       img.addEventListener("error", function () {
         this.remove();
       });

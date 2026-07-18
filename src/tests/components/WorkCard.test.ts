@@ -35,23 +35,23 @@ describe("WorkCard", () => {
     expect(html).toContain('rel="noopener noreferrer"');
   });
 
-  it("renders formatted dates", async () => {
+  it("renders formatted dates in Catalan by default", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(WorkCard, {
-      props: { job: baseJob },
+      props: { job: baseJob, jobIndex: 0 },
     });
 
-    expect(html).toContain("Jan 2022");
-    expect(html).toContain("Jun 2024");
+    expect(html).toContain("gen. del 2022");
+    expect(html).toContain("juny del 2024");
   });
 
-  it("shows Present when endDate is not provided", async () => {
+  it("shows Actualitat when endDate is not provided", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(WorkCard, {
-      props: { job: { ...baseJob, endDate: undefined } },
+      props: { job: { ...baseJob, endDate: undefined }, jobIndex: 0 },
     });
 
-    expect(html).toContain("Present");
+    expect(html).toContain("Actualitat");
   });
 
   it("renders summary when provided", async () => {

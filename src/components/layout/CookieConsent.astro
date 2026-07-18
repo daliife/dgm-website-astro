@@ -53,6 +53,9 @@ import Button from "../ui/Button.astro";
       return;
     }
 
+    if (banner.dataset.init === "true") return;
+    banner.dataset.init = "true";
+
     banner.classList.remove("hidden");
 
     // Trigger slide-up animation on next frame

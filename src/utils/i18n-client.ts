@@ -1,5 +1,7 @@
 import type { I18nKey } from "../i18n/en";
 import { DEFAULT_LANG, type LangCode, isLangCode } from "./i18n";
+import { formatDate } from "./format";
+import { getOgLocale } from "./locale";
 
 const LOADERS: Record<LangCode, () => Promise<Record<I18nKey, string>>> = {
   en: () => import("../i18n/en").then((m) => m.EN),
@@ -18,22 +20,6 @@ export async function loadLang(
   return cache[lang]!;
 }
 
-const LOCALE_MAP: Record<LangCode, string> = {
-  en: "en-US",
-  ca: "ca-ES",
-  es: "es-ES",
-};
-
-function formatDateLocale(
-  raw: string | undefined,
-  locale: string,
-  presentLabel: string,
-): string {
-  if (!raw) return presentLabel;
-  const d = new Date(raw);
-  return d.toLocaleDateString(locale, { month: "short", year: "numeric" });
-}
-
 function syncLangChrome(lang: LangCode) {
   document.documentElement.lang = lang;
 
@@ -48,25 +34,16 @@ function syncLangChrome(lang: LangCode) {
   });
 
   const ogLocale = document.querySelector("[data-og-locale]");
-  const OG_LOCALE_MAP: Record<LangCode, string> = {
-    en: "en_GB",
-    ca: "ca_ES",
-    es: "es_ES",
-  };
   if (ogLocale) {
-    ogLocale.setAttribute("content", OG_LOCALE_MAP[lang] ?? "ca_ES");
+    ogLocale.setAttribute("content", getOgLocale(lang));
   }
 }
 
 async function applyDateFormatting(lang: LangCode) {
-  const translations = await loadLang(lang);
-  const dateLocale = LOCALE_MAP[lang] ?? "ca-ES";
-  const presentLabel = translations["ui.date.present"] ?? "Actualitat";
-
   document.querySelectorAll<HTMLElement>("[data-date-start]").forEach((el) => {
     const start = el.dataset.dateStart;
     const end = el.dataset.dateEnd || undefined;
-    el.textContent = `${formatDateLocale(start, dateLocale, presentLabel)} — ${formatDateLocale(end, dateLocale, presentLabel)}`;
+    el.textContent = `${formatDate(start, lang)} — ${formatDate(end, lang)}`;
   });
 }
 
