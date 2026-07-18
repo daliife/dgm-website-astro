@@ -1,8 +1,9 @@
 ---
-import { formatDate } from "../../utils/format";
 import type { WorkEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
 import { t } from "../../utils/i18n";
+import { WORK_DATES_PRINT_CLASSES } from "../../utils/constants";
+import WorkDates from "./WorkDates.astro";
 
 interface Props {
   work: WorkEntry[];
@@ -34,9 +35,11 @@ const { work } = Astro.props;
               — {job.company}
             </span>
           </div>
-          <span class="print:whitespace-nowrap print:text-[10px] print:text-gray-500">
-            {formatDate(job.startDate)} — {formatDate(job.endDate)}
-          </span>
+          <WorkDates
+            startDate={job.startDate}
+            endDate={job.endDate}
+            className={WORK_DATES_PRINT_CLASSES}
+          />
         </div>
         {job.summary && (
           <p

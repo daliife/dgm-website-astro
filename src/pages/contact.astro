@@ -89,7 +89,9 @@ const CONTACT_ITEM_CLASS =
               <span class="contact-value text-lg text-text-primary sm:text-xl">
                 {profile.username || profile.network}
               </span>
-              <span class="sr-only">(opens in new tab)</span>
+              <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+                {t("ui.a11y.opensNewTab")}
+              </span>
             </Button>
           );
         })

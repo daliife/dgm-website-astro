@@ -86,7 +86,9 @@ const socialLinks = [
                 />
                 {link.name}
                 {link.name !== "Email" && (
-                  <span class="sr-only">(opens in new tab)</span>
+                  <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+                    {t("ui.a11y.opensNewTab")}
+                  </span>
                 )}
               </a>
             </li>

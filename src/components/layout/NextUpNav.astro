@@ -1,0 +1,42 @@
+---
+import Button from "../ui/Button.astro";
+import type { I18nKey } from "../../i18n/en";
+import {
+  NEXTUP_LABEL_CLASSES,
+  NEXTUP_LINK_CLASSES,
+  NEXTUP_NAV_CLASSES,
+} from "../../utils/constants";
+import { t } from "../../utils/i18n";
+
+interface Link {
+  href: string;
+  labelKey: I18nKey;
+}
+
+interface Props {
+  links: Link[];
+  className?: string;
+}
+
+const { links, className = `${NEXTUP_NAV_CLASSES} mt-4` } = Astro.props;
+---
+
+<nav aria-label={t("ui.nextup.aria")} class={className}>
+  <p class={NEXTUP_LABEL_CLASSES} data-i18n="ui.nextup">
+    {t("ui.nextup")}
+  </p>
+  <div class="flex flex-col gap-5 sm:flex-row sm:gap-8">
+    {
+      links.map(({ href, labelKey }) => (
+        <Button
+          href={href}
+          variant="simple"
+          size="none"
+          className={NEXTUP_LINK_CLASSES}
+        >
+          <span data-i18n={labelKey}>{t(labelKey)}</span>
+        </Button>
+      ))
+    }
+  </div>
+</nav>

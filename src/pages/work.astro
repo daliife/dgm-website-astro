@@ -7,9 +7,9 @@ import {
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
 import { SITE_BASE } from "../utils/url";
-import { t } from "../utils/i18n";
 import WorkCard from "../components/sections/WorkCard.astro";
-import Button from "../components/ui/Button.astro";
+import NextUpNav from "../components/layout/NextUpNav.astro";
+import { t } from "../utils/i18n";
 import type { WorkEntry } from "../types/ui";
 ---
 
@@ -25,34 +25,11 @@ import type { WorkEntry } from "../types/ui";
       {work.map((job: WorkEntry, i: number) => <WorkCard {job} jobIndex={i} />)}
     </div>
 
-    <nav
-      aria-label="Related pages"
-      class="reveal mt-4 border-t border-border-primary pt-8"
-    >
-      <p
-        class="mb-5 text-xs uppercase tracking-widest text-text-muted"
-        data-i18n="ui.nextup"
-      >
-        {t("ui.nextup")}
-      </p>
-      <div class="flex flex-col gap-5 sm:flex-row sm:gap-8">
-        <Button
-          href={`${SITE_BASE}/projects`}
-          variant="simple"
-          size="none"
-          className="w-fit rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:border-text-primary hover:no-underline"
-        >
-          <span data-i18n="ui.nextup.projects">{t("ui.nextup.projects")}</span>
-        </Button>
-        <Button
-          href={`${SITE_BASE}/contact`}
-          variant="simple"
-          size="none"
-          className="w-fit rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:border-text-primary hover:no-underline"
-        >
-          <span data-i18n="ui.nextup.contact">{t("ui.nextup.contact")}</span>
-        </Button>
-      </div>
-    </nav>
+    <NextUpNav
+      links={[
+        { href: `${SITE_BASE}/projects`, labelKey: "ui.nextup.projects" },
+        { href: `${SITE_BASE}/contact`, labelKey: "ui.nextup.contact" },
+      ]}
+    />
   </div>
 </Layout>

@@ -16,8 +16,33 @@ Personal portfolio for David Gimeno Mañé — a static Astro 6 site hosted at [
 - **Prefer `.astro` components.** Use React only when client-side state/hooks are genuinely necessary.
 - **View Transitions.** The project uses Astro's `ClientRouter`. Use `astro:page-load` for init scripts, not `DOMContentLoaded`.
 - **pnpm only.** Do not use npm or yarn.
+- **CI gate before PR or push to `main`.** Run locally in order: `pnpm run format:check` → `lint` → `test` → `build`. If `format:check` fails, run `pnpm run format` and re-check. On dependency changes, also run `pnpm audit --audit-level=high`. Pushes to `main` trigger deploy workflows that also run `build` — do not push without a green local build.
 
-## Patterns to follow
+## Before PR or push to `main`
+
+Same checks as `.github/workflows/ci.yml`:
+
+```bash
+pnpm run format:check
+pnpm run lint
+pnpm run test
+pnpm run build
+```
+
+If you changed `package.json` or `pnpm-lock.yaml`:
+
+```bash
+pnpm audit --audit-level=high
+```
+
+| Workflow             | Trigger             | What it runs                       |
+| -------------------- | ------------------- | ---------------------------------- |
+| `ci.yml`             | PR → `main`         | format:check · lint · test · build |
+| `security-audit.yml` | PR → `main`, weekly | `pnpm audit --audit-level=high`    |
+| `deploy.yml`         | push → `main`       | build + FTP deploy                 |
+| `deploy-pages.yml`   | push → `main`       | build + GitHub Pages deploy        |
+
+Full reference: [AGENTS.md](../AGENTS.md) § “Before finishing (CI / deploy gate)”.
 
 ### Creating a page
 
@@ -107,6 +132,8 @@ The site supports EN (default), ES, and CA. Add `data-i18n="key"` to any element
 | `tailwind.config.mjs`                       | Design tokens and color palette                                                                             |
 | `astro.config.mjs`                          | Integrations, Vite, site URL, GitHub Pages base path                                                        |
 | `src/types/ui.ts`                           | `ButtonVariant`, `ButtonSize`, `NavLink`, `SocialProfile`, CV entry types                                   |
+| `.github/workflows/ci.yml`                  | PR gate: format:check · lint · test · build                                                                 |
+| `.github/workflows/security-audit.yml`      | PR + weekly: `pnpm audit --audit-level=high`                                                                |
 | `.github/workflows/deploy.yml`              | CI/CD: build + FTP deploy to cdmon on push to main                                                          |
 | `.github/workflows/deploy-pages.yml`        | CI/CD: build with `GITHUB_PAGES=true` + deploy to GitHub Pages                                              |
 

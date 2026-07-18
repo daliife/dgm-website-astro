@@ -18,7 +18,7 @@ describe("ThemeToggle", () => {
   it("has accessible aria-label", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ThemeToggle);
-    expect(html).toContain('aria-label="Switch to dark mode"');
+    expect(html).toContain('aria-label="Canviar al mode fosc"');
   });
 
   it("has aria-pressed attribute for screen readers", async () => {

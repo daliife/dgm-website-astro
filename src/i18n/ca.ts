@@ -16,7 +16,13 @@ export const CA: Record<I18nKey, string> = {
   "ui.home.greeting": "Hola, sóc en",
   "ui.home.cta": "Contacta'm",
   "ui.home.cta.work": "Explora els meus projectes",
+  "ui.home.typewriter.0": "DESENVOLUPADOR FRONTEND",
+  "ui.home.typewriter.1": "ENGINYER DE SOFTWARE",
+  "ui.home.typewriter.2": "ESPECIALISTA EN REACT",
+  "ui.home.typewriter.3": "CLARINETISTA",
+  "ui.home.typewriter.4": "AMANT DE LA MUNTANYA",
   "ui.nextup": "Explora també",
+  "ui.nextup.aria": "Pàgines relacionades",
   "ui.nextup.about": "Sobre mi",
   "ui.nextup.work": "La meva experiència",
   "ui.nextup.projects": "Els meus projectes",
@@ -47,6 +53,12 @@ export const CA: Record<I18nKey, string> = {
     "Aquest lloc utilitza analítiques anònimes per millorar l'experiència.",
   "ui.cookies.learnmore": "Més informació",
   "ui.cookies.dismiss": "Entès",
+
+  // ── Accessibility ──────────────────────────────────────────────────────────
+  "ui.a11y.opensNewTab": "(s'obre en una pestanya nova)",
+  "ui.a11y.cookieNotice": "Avís de cookies",
+  "ui.a11y.theme.toDark": "Canviar al mode fosc",
+  "ui.a11y.theme.toLight": "Canviar al mode clar",
 
   // ── Footer ───────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacitat",

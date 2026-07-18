@@ -17,6 +17,8 @@ import LanguagesSection from "../components/sections/LanguagesSection.astro";
 import EducationSection from "../components/sections/EducationSection.astro";
 import CertificatesSection from "../components/sections/CertificatesSection.astro";
 import PrintWorkSection from "../components/sections/PrintWorkSection.astro";
+import NextUpNav from "../components/layout/NextUpNav.astro";
+import { NEXTUP_NAV_CLASSES } from "../utils/constants";
 import type { SocialProfile, WorkEntry } from "../types/ui";
 import type { I18nKey } from "../i18n/en";
 import { t } from "../utils/i18n";
@@ -185,29 +187,13 @@ const profilePageSchema = {
     <EducationSection education={education} />
     <CertificatesSection certificates={certificates} />
 
-    <nav
-      aria-label="Related pages"
-      class="reveal mt-12 border-t border-border-primary pt-8 print:hidden"
-    >
-      <p
-        class="mb-5 text-xs uppercase tracking-widest text-text-muted"
-        data-i18n="ui.nextup"
-      >
-        {t("ui.nextup")}
-      </p>
-      <div class="flex flex-col gap-5 sm:flex-row sm:gap-8">
-        <a
-          href={`${SITE_BASE}/work`}
-          class="w-fit border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary"
-          data-i18n="ui.nextup.work">{t("ui.nextup.work")}</a
-        >
-        <a
-          href={`${SITE_BASE}/projects`}
-          class="w-fit border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary"
-          data-i18n="ui.nextup.projects">{t("ui.nextup.projects")}</a
-        >
-      </div>
-    </nav>
+    <NextUpNav
+      className={`${NEXTUP_NAV_CLASSES} mt-12 print:hidden`}
+      links={[
+        { href: `${SITE_BASE}/work`, labelKey: "ui.nextup.work" },
+        { href: `${SITE_BASE}/projects`, labelKey: "ui.nextup.projects" },
+      ]}
+    />
   </div>
 </Layout>
 

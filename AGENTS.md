@@ -21,6 +21,7 @@ Before writing any code, internalize these rules:
 | Buttons/links | **Always use `<Button>`** component for interactive UI elements. Pass `href` for links, omit for buttons.                |
 | Scripts       | Use `astro:page-load` event, **not** `DOMContentLoaded` (broken with View Transitions).                                  |
 | Package mgr   | **pnpm only.** Do not use npm or yarn.                                                                                   |
+| CI / deploy   | **Before any PR or push to `main`**, run `format:check` → `lint` → `test` → `build` locally (see § Before finishing).    |
 
 ## Repository layout
 
@@ -33,9 +34,9 @@ src/
   layouts/Layout.astro     ← Root HTML shell (theme, SEO, fonts, ClientRouter, scroll reveal)
   components/
     brand/                 ← DgmLogoSimple, ThemeToggle, LanguageToggle
-    layout/                ← Header, Footer
-    sections/              ← ProjectCard, WorkCard
-    ui/                    ← Button, Grid, Section, Typography
+    layout/                ← Header, Footer, CookieConsent, NextUpNav
+    sections/              ← ProjectCard, WorkCard, WorkDates, PrintWorkSection, …
+    ui/                    ← Button
   i18n/
     ca.ts                  ← Catalan translations (default SSR locale)
     en.ts                  ← English translations
@@ -47,8 +48,10 @@ src/
     utils/                 ← Utility function tests
   types/ui.ts              ← ButtonVariant, ButtonSize, NavLink, SocialProfile, CV entry types
   utils/
-    constants.ts           ← NAV_LINKS, PAGE_CONTAINER_CLASSES, PAGE_HEADING_CLASSES, SUPPORTED_LANGUAGES, typography/grid scale
-    format.ts              ← formatDate() helper
+    constants.ts           ← NAV_LINKS, PAGE_* classes, NEXTUP_* classes, SUPPORTED_LANGUAGES
+    format.ts              ← formatDate(), stripProtocol()
+    locale.ts              ← DATE_LOCALE_MAP, OG_LOCALE_MAP
+    typewriter.ts          ← getTypewriterPhrases() for home page rotation
     i18n.ts                ← DEFAULT_LANG, t() for SSR Catalan copy
     i18n-client.ts         ← client-side applyI18n(), lazy locale loading
     analytics.ts           ← Umami loader (consent-gated)
@@ -59,6 +62,8 @@ AGENTS.md                  ← This file
 .github/
   copilot-instructions.md  ← GitHub Copilot custom instructions
   workflows/
+    ci.yml                 ← PR gate: format · lint · test · build
+    security-audit.yml     ← PR + weekly: pnpm audit (high)
     deploy.yml             ← Auto-deploy to cdmon via FTP (triggers on push to main)
     deploy-pages.yml       ← Auto-deploy to GitHub Pages with GITHUB_PAGES=true (triggers on push to main)
 ```
@@ -140,13 +145,16 @@ Sizes: `sm` `md` (default) `lg` `icon`
 
 ## Components reference
 
-| Component                   | What it renders                                        |
-| --------------------------- | ------------------------------------------------------ |
-| `layout/Header.astro`       | Fixed nav with logo, desktop/mobile menu, theme toggle |
-| `layout/Footer.astro`       | Copyright + social links from cv.json                  |
-| `brand/DgmLogoSimple.astro` | SVG logo monogram. Props: `className`, `size`          |
-| `brand/ThemeToggle.astro`   | Dark/light mode toggle button with sun/moon icons      |
-| `ui/Button.astro`           | Polymorphic button/link with semantic token styles     |
+| Component                    | What it renders                                        |
+| ---------------------------- | ------------------------------------------------------ |
+| `layout/Header.astro`        | Fixed nav with logo, desktop/mobile menu, theme toggle |
+| `layout/Footer.astro`        | Copyright + social links from cv.json                  |
+| `layout/CookieConsent.astro` | Consent-gated cookie banner + Umami loader trigger     |
+| `layout/NextUpNav.astro`     | “Also explore” footer nav on about/work/projects       |
+| `sections/WorkDates.astro`   | Shared formatted date range for work entries           |
+| `brand/DgmLogoSimple.astro`  | SVG logo monogram. Props: `className`, `size`          |
+| `brand/ThemeToggle.astro`    | Dark/light mode toggle button with sun/moon icons      |
+| `ui/Button.astro`            | Polymorphic button/link with semantic token styles     |
 
 ## i18n
 
@@ -167,10 +175,11 @@ import { getSocialProfile } from "../utils/socialLinks";
 import type { SocialProfile } from "../types/ui";
 const linkedin = getSocialProfile(profiles as SocialProfile[], "Linkedin");
 
-// Format a date string from cv.json
+// Format a date string from cv.json (default locale: Catalan)
 import { formatDate } from "../utils/format";
-formatDate("2023-03-01"); // → "Mar 2023"
-formatDate(undefined); // → "Present"
+formatDate("2023-03-01"); // → "març del 2023"
+formatDate(undefined); // → "Actualitat"
+formatDate("2023-03-01", "en"); // → "Mar 2023"
 ```
 
 ## Commands
@@ -188,9 +197,11 @@ pnpm run images:projects  # regenerate public/projects/*.webp from cv.json (run 
 
 ## Before finishing (CI / deploy gate)
 
-After **any** code change, agents must run the checks that GitHub Actions enforces and fix failures before considering the task done. Do not rely on the user to catch CI breaks.
+After **any** code change, run the same checks GitHub Actions enforces **before opening a PR or pushing to `main`**. Fix all failures locally — do not rely on the user or CI to catch breaks.
 
-**Always run** (same order as `.github/workflows/ci.yml`):
+### Pull requests to `main`
+
+`.github/workflows/ci.yml` runs on every PR:
 
 ```bash
 pnpm run format:check
@@ -201,15 +212,28 @@ pnpm run build
 
 If `format:check` fails, run `pnpm run format` and re-check.
 
-**Also run when dependencies change** (`package.json`, `pnpm-lock.yaml`):
+`.github/workflows/security-audit.yml` also runs on PRs (and weekly). When you change `package.json` or `pnpm-lock.yaml`:
 
 ```bash
 pnpm audit --audit-level=high
 ```
 
-Matches `.github/workflows/security-audit.yml`. Fix or explain high-severity findings before finishing.
+Fix or explain any **high**-severity findings before finishing.
 
-**Deploy note:** pushes to `main` run `deploy.yml` and `deploy-pages.yml`, which execute `pnpm run build`. A green local build is required for production deploys to succeed.
+### Push to `main`
+
+Merging or pushing directly to `main` triggers **`deploy.yml`** and **`deploy-pages.yml`**. Both run `pnpm run build` and deploy — a failed build blocks production deploys. Run the full CI block above before push, even when skipping a PR.
+
+### Quick reference
+
+| Workflow             | Trigger             | What it runs                       |
+| -------------------- | ------------------- | ---------------------------------- |
+| `ci.yml`             | PR → `main`         | format:check · lint · test · build |
+| `security-audit.yml` | PR → `main`, weekly | `pnpm audit --audit-level=high`    |
+| `deploy.yml`         | push → `main`       | build + FTP deploy (cdmon)         |
+| `deploy-pages.yml`   | push → `main`       | build + GitHub Pages deploy        |
+
+**Deploy note:** a green local `pnpm run build` is required for production deploys to succeed.
 
 ## Deployment
 

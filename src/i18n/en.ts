@@ -10,10 +10,16 @@ export const EN = {
   "ui.nav.contact": "Contact",
 
   // ── Home page ─────────────────────────────────────────────────────────────
-  "ui.home.greeting": "Hi, I'm",
+  "ui.home.greeting": "Hello, I'm",
   "ui.home.cta": "Get in touch",
   "ui.home.cta.work": "Explore my projects",
+  "ui.home.typewriter.0": "FRONTEND DEVELOPER",
+  "ui.home.typewriter.1": "SOFTWARE ENGINEER",
+  "ui.home.typewriter.2": "REACT SPECIALIST",
+  "ui.home.typewriter.3": "CLARINETIST",
+  "ui.home.typewriter.4": "MOUNTAIN LOVER",
   "ui.nextup": "Also explore",
+  "ui.nextup.aria": "Related pages",
   "ui.nextup.about": "About me",
   "ui.nextup.work": "My experience",
   "ui.nextup.projects": "My projects",
@@ -44,6 +50,12 @@ export const EN = {
     "This site uses anonymous analytics to improve the experience.",
   "ui.cookies.learnmore": "Learn more",
   "ui.cookies.dismiss": "OK",
+
+  // ── Accessibility ──────────────────────────────────────────────────────────
+  "ui.a11y.opensNewTab": "(opens in new tab)",
+  "ui.a11y.cookieNotice": "Cookie notice",
+  "ui.a11y.theme.toDark": "Switch to dark mode",
+  "ui.a11y.theme.toLight": "Switch to light mode",
 
   // ── Footer ─────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacy",

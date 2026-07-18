@@ -319,6 +319,34 @@ The project uses Astro's built-in `<ClientRouter>`. Key consequences:
 
 ## Build & Deployment
 
+### CI gate (before PR or push to `main`)
+
+Run locally in this order — same as `.github/workflows/ci.yml`:
+
+```bash
+pnpm run format:check   # `pnpm run format` then re-check if it fails
+pnpm run lint
+pnpm run test
+pnpm run build
+```
+
+After dependency changes (`package.json`, `pnpm-lock.yaml`):
+
+```bash
+pnpm audit --audit-level=high
+```
+
+| Workflow             | Trigger             | Checks                             |
+| -------------------- | ------------------- | ---------------------------------- |
+| `ci.yml`             | PR → `main`         | format:check · lint · test · build |
+| `security-audit.yml` | PR → `main`, weekly | `pnpm audit --audit-level=high`    |
+| `deploy.yml`         | push → `main`       | build + FTP deploy                 |
+| `deploy-pages.yml`   | push → `main`       | build + GitHub Pages deploy        |
+
+Pushes to `main` skip `ci.yml` but both deploy workflows run `pnpm run build`. Always run the full CI block locally before push.
+
+See also [AGENTS.md](../AGENTS.md) § “Before finishing (CI / deploy gate)”.
+
 ### Commands
 
 ```bash
@@ -326,7 +354,8 @@ pnpm run dev           # http://localhost:4321
 pnpm run build         # astro check + production build
 pnpm run preview       # serve dist/ locally
 pnpm run lint          # ESLint
-pnpm run format        # Prettier
+pnpm run format        # Prettier (write)
+pnpm run format:check  # Prettier (CI — read-only)
 pnpm run test          # Vitest (run once)
 pnpm run test:watch    # Vitest (watch mode)
 pnpm run test:coverage # Vitest + v8 coverage

@@ -1,8 +1,12 @@
 ---
-import { formatDate } from "../../utils/format";
+import { t } from "../../utils/i18n";
+import {
+  WORK_COMPANY_LINK_CLASSES,
+  WORK_DATES_CLASSES,
+} from "../../utils/constants";
 import type { WorkEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
-import { t } from "../../utils/i18n";
+import WorkDates from "./WorkDates.astro";
 
 interface Props {
   job: WorkEntry;
@@ -27,19 +31,19 @@ const { job, jobIndex } = Astro.props;
         href={job.url}
         target="_blank"
         rel="noopener noreferrer"
-        class="text-sm text-text-secondary underline decoration-text-secondary/40 underline-offset-2 transition-all duration-200 hover:text-text-primary hover:decoration-text-primary"
+        class={WORK_COMPANY_LINK_CLASSES}
       >
         {job.company}
-        <span class="sr-only">(opens in new tab)</span>
+        <span class="sr-only" data-i18n="ui.a11y.opensNewTab"
+          >{t("ui.a11y.opensNewTab")}</span
+        >
       </a>
     </div>
-    <span
-      class="whitespace-nowrap text-xs uppercase tracking-widest text-text-muted"
-      data-date-start={job.startDate}
-      data-date-end={job.endDate ?? ""}
-    >
-      {formatDate(job.startDate)} — {formatDate(job.endDate)}
-    </span>
+    <WorkDates
+      startDate={job.startDate}
+      endDate={job.endDate}
+      className={WORK_DATES_CLASSES}
+    />
   </div>
   {
     job.summary && (

@@ -8,26 +8,6 @@ export default {
         sans: ["Inter Variable", "Inter", "system-ui", "sans-serif"],
       },
       colors: {
-        // Neutral grayscale — primary palette
-        neutral: {
-          50: "#fafafa",
-          100: "#f5f5f5",
-          200: "#e5e5e5",
-          300: "#d4d4d4",
-          400: "#a3a3a3",
-          500: "#737373",
-          600: "#525252",
-          700: "#404040",
-          800: "#262626",
-          900: "#171717",
-          950: "#0a0a0a",
-        },
-        // Subtle accent
-        accent: {
-          400: "#a3a3a3",
-          500: "#737373",
-          600: "#525252",
-        },
         // Semantic tokens via CSS custom properties
         "text-primary": "rgb(var(--text-primary) / <alpha-value>)",
         "text-secondary": "rgb(var(--text-secondary) / <alpha-value>)",

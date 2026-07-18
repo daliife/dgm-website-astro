@@ -16,7 +16,13 @@ export const ES: Record<I18nKey, string> = {
   "ui.home.greeting": "Hola, soy",
   "ui.home.cta": "Contáctame",
   "ui.home.cta.work": "Explora mis proyectos",
+  "ui.home.typewriter.0": "DESARROLLADOR FRONTEND",
+  "ui.home.typewriter.1": "INGENIERO DE SOFTWARE",
+  "ui.home.typewriter.2": "ESPECIALISTA EN REACT",
+  "ui.home.typewriter.3": "CLARINETISTA",
+  "ui.home.typewriter.4": "AMANTE DE LA MONTAÑA",
   "ui.nextup": "Explora también",
+  "ui.nextup.aria": "Páginas relacionadas",
   "ui.nextup.about": "Sobre mí",
   "ui.nextup.work": "Mi experiencia",
   "ui.nextup.projects": "Mis proyectos",
@@ -47,6 +53,12 @@ export const ES: Record<I18nKey, string> = {
     "Este sitio utiliza analíticas anónimas para mejorar la experiencia.",
   "ui.cookies.learnmore": "Más información",
   "ui.cookies.dismiss": "Entendido",
+
+  // ── Accessibility ──────────────────────────────────────────────────────────
+  "ui.a11y.opensNewTab": "(se abre en una pestaña nueva)",
+  "ui.a11y.cookieNotice": "Aviso de cookies",
+  "ui.a11y.theme.toDark": "Cambiar al modo oscuro",
+  "ui.a11y.theme.toLight": "Cambiar al modo claro",
 
   // ── Footer ───────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacidad",

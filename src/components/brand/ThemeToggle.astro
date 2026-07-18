@@ -1,7 +1,11 @@
+---
+import { t } from "../../utils/i18n";
+---
+
 <button
   data-theme-toggle
   type="button"
-  aria-label="Switch to dark mode"
+  aria-label={t("ui.a11y.theme.toDark")}
   aria-pressed="false"
   class="rounded-full p-2 text-text-secondary transition-colors duration-200 hover:bg-bg-muted hover:text-text-primary"
 >
@@ -38,34 +42,61 @@
 </button>
 
 <script>
+  import { getStoredLang, loadLang } from "../../utils/i18n-client";
+  import type { LangCode } from "../../utils/i18n";
+
+  async function setToggleState(
+    toggle: HTMLButtonElement,
+    isDark: boolean,
+    lang: LangCode,
+  ) {
+    const translations = await loadLang(lang);
+    toggle.setAttribute("aria-pressed", String(isDark));
+    toggle.setAttribute(
+      "aria-label",
+      isDark
+        ? translations["ui.a11y.theme.toLight"]
+        : translations["ui.a11y.theme.toDark"],
+    );
+  }
+
+  function initThemeToggle(toggle: HTMLButtonElement) {
+    if (toggle.dataset.init) return;
+    toggle.dataset.init = "true";
+
+    const syncState = () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      void setToggleState(toggle, isDark, getStoredLang());
+    };
+
+    syncState();
+
+    toggle.addEventListener("click", () => {
+      const isDark = document.documentElement.classList.contains("dark");
+      if (isDark) {
+        document.documentElement.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+      } else {
+        document.documentElement.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+      }
+      void setToggleState(toggle, !isDark, getStoredLang());
+    });
+  }
+
   document.addEventListener("astro:page-load", () => {
     document
       .querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")
+      .forEach(initThemeToggle);
+  });
+
+  window.addEventListener("app:lang-change", (e: Event) => {
+    const { lang } = (e as CustomEvent<{ lang: LangCode }>).detail;
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-theme-toggle]")
       .forEach((toggle) => {
-        if (toggle.dataset.init) return;
-        toggle.dataset.init = "true";
-
-        const setToggleState = (isDark: boolean) => {
-          toggle.setAttribute("aria-pressed", String(isDark));
-          toggle.setAttribute(
-            "aria-label",
-            isDark ? "Switch to light mode" : "Switch to dark mode",
-          );
-        };
-
-        setToggleState(document.documentElement.classList.contains("dark"));
-
-        toggle.addEventListener("click", () => {
-          const isDark = document.documentElement.classList.contains("dark");
-          if (isDark) {
-            document.documentElement.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-          } else {
-            document.documentElement.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-          }
-          setToggleState(!isDark);
-        });
+        const isDark = document.documentElement.classList.contains("dark");
+        void setToggleState(toggle, isDark, lang);
       });
   });
 </script>

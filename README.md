@@ -36,6 +36,8 @@ pnpm run preview  # Serve the production build locally
 ├── .github/
 │   ├── copilot-instructions.md  # GitHub Copilot context
 │   └── workflows/
+│       ├── ci.yml                # PR gate: format · lint · test · build
+│       ├── security-audit.yml    # PR + weekly: pnpm audit (high)
 │       ├── deploy.yml            # Auto-deploy to cdmon via FTP (push to main)
 │       └── deploy-pages.yml      # Auto-deploy to GitHub Pages (push to main)
 ├── docs/
@@ -74,13 +76,33 @@ pnpm run preview  # Serve the production build locally
 - Branch from `main`. Use short, descriptive branch names: `feat/projects-filter`, `fix/nav-mobile`.
 - Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `chore:`, `docs:`, `style:`, `refactor:`.
 
-### ✅ Before opening a PR
+### ✅ Before a PR or push to `main`
+
+GitHub Actions must pass. Run the **same checks locally** in this order (matches `.github/workflows/ci.yml`):
 
 ```bash
-pnpm run lint         # Must pass with no errors
-pnpm run format       # Must pass
-pnpm run build        # Must succeed (0 errors, 0 warnings)
+pnpm run format:check   # use `pnpm run format` then re-check if it fails
+pnpm run lint
+pnpm run test
+pnpm run build
 ```
+
+If you changed `package.json` or `pnpm-lock.yaml`, also run (matches `.github/workflows/security-audit.yml`):
+
+```bash
+pnpm audit --audit-level=high
+```
+
+| When              | Workflow             | What runs                          |
+| ----------------- | -------------------- | ---------------------------------- |
+| **PR → `main`**   | `ci.yml`             | format:check · lint · test · build |
+| **PR → `main`**   | `security-audit.yml` | `pnpm audit --audit-level=high`    |
+| **Push → `main`** | `deploy.yml`         | build + FTP deploy (cdmon)         |
+| **Push → `main`** | `deploy-pages.yml`   | build + GitHub Pages deploy        |
+
+Pushes to `main` do **not** run `ci.yml`, but both deploy workflows call `pnpm run build` — run the full block above before push to avoid broken deploys.
+
+See [AGENTS.md](AGENTS.md) for the full agent/CI gate reference.
 
 ### ➕ Adding a page
 

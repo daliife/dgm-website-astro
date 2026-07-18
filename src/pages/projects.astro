@@ -10,7 +10,7 @@ import { SITE_BASE } from "../utils/url";
 import { t } from "../utils/i18n";
 import { projects } from "@cv";
 import ProjectCard from "../components/sections/ProjectCard.astro";
-import Button from "../components/ui/Button.astro";
+import NextUpNav from "../components/layout/NextUpNav.astro";
 import type { ProjectEntry } from "../types/ui";
 
 const CATEGORY_ORDER = ["professional", "personal", "academic"] as const;
@@ -136,34 +136,11 @@ const itemListSchema = {
       )
     }
 
-    <nav
-      aria-label="Related pages"
-      class="reveal mt-4 border-t border-border-primary pt-8"
-    >
-      <p
-        class="mb-5 text-xs uppercase tracking-widest text-text-muted"
-        data-i18n="ui.nextup"
-      >
-        {t("ui.nextup")}
-      </p>
-      <div class="flex flex-col gap-5 sm:flex-row sm:gap-8">
-        <Button
-          href={`${SITE_BASE}/work`}
-          variant="simple"
-          size="none"
-          className="w-fit rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:border-text-primary hover:no-underline"
-        >
-          <span data-i18n="ui.nextup.work">{t("ui.nextup.work")}</span>
-        </Button>
-        <Button
-          href={`${SITE_BASE}/contact`}
-          variant="simple"
-          size="none"
-          className="w-fit rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:border-text-primary hover:no-underline"
-        >
-          <span data-i18n="ui.nextup.contact">{t("ui.nextup.contact")}</span>
-        </Button>
-      </div>
-    </nav>
+    <NextUpNav
+      links={[
+        { href: `${SITE_BASE}/work`, labelKey: "ui.nextup.work" },
+        { href: `${SITE_BASE}/contact`, labelKey: "ui.nextup.contact" },
+      ]}
+    />
   </div>
 </Layout>

@@ -31,7 +31,9 @@ const { certificates } = Astro.props;
               class="mt-1 block text-sm text-text-muted underline decoration-text-muted/30 underline-offset-2 transition-all duration-200 hover:text-text-primary hover:decoration-text-primary print:mt-0 print:text-[10px] print:text-gray-500"
             >
               {cert.name}
-              <span class="sr-only">(opens in new tab)</span>
+              <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+                {t("ui.a11y.opensNewTab")}
+              </span>
             </a>
           ) : (
             <p class="mt-1 text-sm text-text-muted print:mt-0 print:text-[10px] print:text-gray-500">

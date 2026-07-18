@@ -34,8 +34,9 @@ const { name, lastName, label, email } = basics;
       <p
         class="mb-10 flex min-h-[1.5em] items-center overflow-hidden whitespace-nowrap text-2xl font-light uppercase tracking-widest text-text-secondary sm:text-3xl"
         aria-live="polite"
+        aria-atomic="true"
       >
-        <span id="tw-rotating" aria-hidden="true">{label}</span>
+        <span id="tw-rotating">{label}</span>
         <span class="typewriter-cursor" aria-hidden="true"></span>
       </p>
 
@@ -120,45 +121,24 @@ const { name, lastName, label, email } = basics;
 </style>
 
 <script>
-  const PHRASES: Record<string, string[]> = {
-    ca: [
-      "DESENVOLUPADOR FRONTEND",
-      "ENGINYER DE SOFTWARE",
-      "ESPECIALISTA EN REACT",
-      "CLARINETISTA",
-      "AMANT DE LA MUNTANYA",
-    ],
-    es: [
-      "DESARROLLADOR FRONTEND",
-      "INGENIERO DE SOFTWARE",
-      "ESPECIALISTA EN REACT",
-      "CLARINETISTA",
-      "AMANTE DE LA MONTAÑA",
-    ],
-    en: [
-      "FRONTEND DEVELOPER",
-      "SOFTWARE ENGINEER",
-      "REACT SPECIALIST",
-      "CLARINETIST",
-      "MOUNTAIN LOVER",
-    ],
-  };
+  import { getTypewriterPhrases } from "../utils/typewriter";
+  import { getStoredLang } from "../utils/i18n-client";
+  import type { LangCode } from "../utils/i18n";
 
   let stopCurrent: (() => void) | null = null;
 
-  function startTypewriter(lang: string) {
+  async function startTypewriter(lang: LangCode) {
     const el = document.getElementById("tw-rotating");
     const cursor = document.querySelector<HTMLElement>(".typewriter-cursor");
     if (!el || !cursor) return;
 
-    // Stop any running instance
     stopCurrent?.();
     let stopped = false;
     stopCurrent = () => {
       stopped = true;
     };
 
-    const phrases = PHRASES[lang] ?? PHRASES.en;
+    const phrases = await getTypewriterPhrases(lang);
 
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       el.textContent = phrases[0];
@@ -204,12 +184,11 @@ const { name, lastName, label, email } = basics;
   }
 
   document.addEventListener("astro:page-load", () => {
-    const lang = localStorage.getItem("lang") ?? "ca";
-    startTypewriter(lang);
+    startTypewriter(getStoredLang());
   });
 
   window.addEventListener("app:lang-change", (e: Event) => {
-    const { lang } = (e as CustomEvent<{ lang: string }>).detail;
+    const { lang } = (e as CustomEvent<{ lang: LangCode }>).detail;
     startTypewriter(lang);
   });
 </script>

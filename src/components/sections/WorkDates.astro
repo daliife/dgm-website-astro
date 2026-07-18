@@ -1,0 +1,19 @@
+---
+import { formatDate } from "../../utils/format";
+
+interface Props {
+  startDate: string;
+  endDate?: string;
+  className: string;
+}
+
+const { startDate, endDate, className } = Astro.props;
+---
+
+<span
+  class={className}
+  data-date-start={startDate}
+  data-date-end={endDate ?? ""}
+>
+  {formatDate(startDate)} — {formatDate(endDate)}
+</span>
