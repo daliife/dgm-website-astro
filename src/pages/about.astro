@@ -96,24 +96,21 @@ const profilePageSchema = {
       </div>
     </div>
     <!-- About Me -->
-    <section class="reveal">
-      <!-- Title row -->
-      <div class={`${PAGE_HEADING_MARGIN_CLASSES} print:mb-1`}>
-        <h1
-          class={`${PAGE_HEADING_CLASSES} mb-0 print:mb-1 print:w-full print:border-b print:border-gray-300 print:pb-0.5 print:text-[10px] print:font-medium print:normal-case print:tracking-widest print:text-black`}
+    <section>
+      <h1
+        class={`${PAGE_HEADING_CLASSES} ${PAGE_HEADING_MARGIN_CLASSES} print:mb-1 print:w-full print:border-b print:border-gray-300 print:pb-0.5 print:text-[10px] print:font-medium print:normal-case print:tracking-widest print:text-black`}
+      >
+        <span class="print:hidden" data-i18n="ui.page.about"
+          >{t("ui.page.about")}</span
         >
-          <span class="print:hidden" data-i18n="ui.page.about"
-            >{t("ui.page.about")}</span
-          >
-          <span class="hidden print:inline" data-i18n="ui.about.summary"
-            >{t("ui.about.summary")}</span
-          >
-        </h1>
-      </div>
+        <span class="hidden print:inline" data-i18n="ui.about.summary"
+          >{t("ui.about.summary")}</span
+        >
+      </h1>
 
       <!-- Content: image left, bio right -->
       <div
-        class="grid grid-cols-1 items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-14 print:block"
+        class="reveal grid grid-cols-1 items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-14 print:block"
       >
         <!-- Image -->
         <div class="img-frame group overflow-hidden bg-bg-muted print:hidden">
