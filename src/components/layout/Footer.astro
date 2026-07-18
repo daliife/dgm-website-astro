@@ -66,7 +66,10 @@ const socialLinks = [
         <span data-i18n="ui.footer.privacy">{t("ui.footer.privacy")}</span>
       </a>
     </div>
-    <nav aria-label="Footer social links">
+    <nav
+      aria-label={t("ui.a11y.footer.social")}
+      data-i18n-aria="ui.a11y.footer.social"
+    >
       <ul class="flex items-center gap-6">
         {
           socialLinks.map((link) => (

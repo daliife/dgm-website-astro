@@ -4,6 +4,7 @@ import {
   TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
+  PAGE_HEADING_MARGIN_CLASSES,
   LIVE_URL,
 } from "../utils/constants";
 import { SITE_BASE } from "../utils/url";
@@ -80,7 +81,10 @@ const itemListSchema = {
     set:html={JSON.stringify(itemListSchema)}
   />
   <div class={PAGE_CONTAINER_CLASSES}>
-    <h1 class={`${PAGE_HEADING_CLASSES} mb-12`} data-i18n="ui.page.projects">
+    <h1
+      class={`${PAGE_HEADING_CLASSES} ${PAGE_HEADING_MARGIN_CLASSES}`}
+      data-i18n="ui.page.projects"
+    >
       {t("ui.page.projects")}
     </h1>
     {

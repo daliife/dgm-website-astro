@@ -1,5 +1,6 @@
 ---
 import { SUPPORTED_LANGUAGES } from "../../utils/constants";
+import { t } from "../../utils/i18n";
 interface Props {
   dropup?: boolean;
 }
@@ -12,7 +13,8 @@ const { dropup = false } = Astro.props;
     data-lang-toggle-btn
     aria-haspopup="listbox"
     aria-expanded="false"
-    aria-label="Select language"
+    aria-label={t("ui.a11y.lang.select")}
+    data-i18n-aria="ui.a11y.lang.select"
     class="flex items-center gap-1.5 rounded-full p-2 text-text-secondary transition-colors duration-200 hover:bg-bg-muted hover:text-text-primary"
   >
     <svg
@@ -55,7 +57,8 @@ const { dropup = false } = Astro.props;
   <div
     data-lang-dropdown
     role="listbox"
-    aria-label="Language"
+    aria-label={t("ui.a11y.lang.listbox")}
+    data-i18n-aria="ui.a11y.lang.listbox"
     class={`absolute right-0 ${dropup ? "bottom-full mb-1" : "top-full mt-1"} hidden z-50 bg-bg-primary border border-border-primary rounded-lg shadow-lg py-1 min-w-[5.5rem]`}
   >
     {

@@ -7,6 +7,7 @@ import {
   TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
+  PAGE_HEADING_MARGIN_CLASSES,
   LIVE_URL,
 } from "../utils/constants";
 import { stripProtocol } from "../utils/format";
@@ -97,7 +98,7 @@ const profilePageSchema = {
     <!-- About Me -->
     <section class="reveal">
       <!-- Title row -->
-      <div class="mb-10 print:mb-1">
+      <div class={`${PAGE_HEADING_MARGIN_CLASSES} print:mb-1`}>
         <h1
           class={`${PAGE_HEADING_CLASSES} mb-0 print:mb-1 print:w-full print:border-b print:border-gray-300 print:pb-0.5 print:text-[10px] print:font-medium print:normal-case print:tracking-widest print:text-black`}
         >

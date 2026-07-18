@@ -56,6 +56,14 @@ export const EN = {
   "ui.a11y.cookieNotice": "Cookie notice",
   "ui.a11y.theme.toDark": "Switch to dark mode",
   "ui.a11y.theme.toLight": "Switch to light mode",
+  "ui.a11y.nav.main": "Main navigation",
+  "ui.a11y.nav.home": "Home",
+  "ui.a11y.nav.openMenu": "Open navigation menu",
+  "ui.a11y.nav.closeMenu": "Close navigation menu",
+  "ui.a11y.nav.mobileMenu": "Navigation menu",
+  "ui.a11y.lang.select": "Select language",
+  "ui.a11y.lang.listbox": "Language",
+  "ui.a11y.footer.social": "Footer social links",
 
   // ── Footer ─────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacy",
@@ -215,6 +223,7 @@ export const EN = {
 
   // ── 404 page ───────────────────────────────────────────────────────────────
   "ui.404.message": "Page not found",
+  "ui.404.nav.aria": "Quick navigation",
   "ui.404.back": "← Back to home",
 } as const;
 

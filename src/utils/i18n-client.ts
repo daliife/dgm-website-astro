@@ -47,14 +47,12 @@ async function applyDateFormatting(lang: LangCode) {
   });
 }
 
-async function applyTranslations(lang: LangCode) {
-  const translations = await loadLang(lang);
-
-  document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((el) => {
-    const key = el.dataset.i18n as I18nKey | undefined;
+function applyAriaLabels(translations: Record<I18nKey, string>) {
+  document.querySelectorAll<HTMLElement>("[data-i18n-aria]").forEach((el) => {
+    const key = el.dataset.i18nAria as I18nKey | undefined;
     if (!key) return;
     const val = translations[key];
-    if (val !== undefined) el.textContent = val;
+    if (val !== undefined) el.setAttribute("aria-label", val);
   });
 }
 
@@ -72,9 +70,18 @@ export async function applyI18n(lang: LangCode) {
     lang !== DEFAULT_LANG ||
     (activeLang !== null && activeLang !== DEFAULT_LANG);
 
+  const translations = await loadLang(lang);
+
   if (needsTranslation) {
-    await applyTranslations(lang);
+    document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((el) => {
+      const key = el.dataset.i18n as I18nKey | undefined;
+      if (!key) return;
+      const val = translations[key];
+      if (val !== undefined) el.textContent = val;
+    });
   }
+
+  applyAriaLabels(translations);
 
   activeLang = lang;
   await applyDateFormatting(lang);

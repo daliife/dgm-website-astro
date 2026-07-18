@@ -20,14 +20,16 @@ const navLinkActiveClasses = (active: boolean) =>
   <nav
     id="main-nav"
     class="fixed inset-x-0 top-0 z-30 transition-colors duration-300"
-    aria-label="Main navigation"
+    aria-label={t("ui.a11y.nav.main")}
+    data-i18n-aria="ui.a11y.nav.main"
   >
     <div class="mx-auto flex max-w-5xl items-center px-6 py-4">
       <!-- Logo (left) -->
       <a
         href={import.meta.env.BASE_URL}
         class="group flex shrink-0 items-center"
-        aria-label="Home"
+        aria-label={t("ui.a11y.nav.home")}
+        data-i18n-aria="ui.a11y.nav.home"
       >
         <DgmLogoSimple
           className="fill-text-primary transition-opacity duration-200 group-hover:opacity-60"
@@ -75,7 +77,8 @@ const navLinkActiveClasses = (active: boolean) =>
         <button
           id="mobile-menu-btn"
           type="button"
-          aria-label="Open navigation menu"
+          aria-label={t("ui.a11y.nav.openMenu")}
+          data-i18n-aria="ui.a11y.nav.openMenu"
           aria-expanded="false"
           aria-controls="mobile-menu"
           class="p-2 text-text-secondary transition-colors hover:text-text-primary"
@@ -103,16 +106,22 @@ const navLinkActiveClasses = (active: boolean) =>
       class="fixed inset-0 z-50 hidden bg-bg-primary md:hidden"
       role="dialog"
       aria-modal="true"
-      aria-label="Navigation menu"
+      aria-label={t("ui.a11y.nav.mobileMenu")}
+      data-i18n-aria="ui.a11y.nav.mobileMenu"
     >
       <div class="flex items-center justify-between px-6 py-4">
-        <a href={import.meta.env.BASE_URL} aria-label="Home">
+        <a
+          href={import.meta.env.BASE_URL}
+          aria-label={t("ui.a11y.nav.home")}
+          data-i18n-aria="ui.a11y.nav.home"
+        >
           <DgmLogoSimple className="fill-text-primary" size="22px" />
         </a>
         <button
           id="mobile-menu-close"
           type="button"
-          aria-label="Close navigation menu"
+          aria-label={t("ui.a11y.nav.closeMenu")}
+          data-i18n-aria="ui.a11y.nav.closeMenu"
           class="p-2 text-text-secondary transition-colors hover:text-text-primary"
         >
           <svg

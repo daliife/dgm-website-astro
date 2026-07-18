@@ -8,7 +8,7 @@ describe("LanguageToggle", () => {
     const html = await container.renderToString(LanguageToggle);
 
     expect(html).toContain("<button");
-    expect(html).toContain('aria-label="Select language"');
+    expect(html).toContain('aria-label="Seleccionar idioma"');
   });
 
   it("has aria-haspopup and aria-expanded on toggle button", async () => {

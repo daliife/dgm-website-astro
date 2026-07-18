@@ -5,6 +5,7 @@ import {
   TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
+  PAGE_HEADING_MARGIN_CLASSES,
 } from "../utils/constants";
 import { SITE_BASE } from "../utils/url";
 import WorkCard from "../components/sections/WorkCard.astro";
@@ -18,7 +19,10 @@ import type { WorkEntry } from "../types/ui";
   description="Professional work experience of David Gimeno Mañé — Frontend Developer based in Barcelona."
 >
   <div class={PAGE_CONTAINER_CLASSES}>
-    <h1 class={`${PAGE_HEADING_CLASSES} mb-12`} data-i18n="ui.page.work">
+    <h1
+      class={`${PAGE_HEADING_CLASSES} ${PAGE_HEADING_MARGIN_CLASSES}`}
+      data-i18n="ui.page.work"
+    >
       {t("ui.page.work")}
     </h1>
     <div class="reveal space-y-0 [&>article:first-child]:border-t-0">

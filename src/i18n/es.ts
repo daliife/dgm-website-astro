@@ -59,6 +59,14 @@ export const ES: Record<I18nKey, string> = {
   "ui.a11y.cookieNotice": "Aviso de cookies",
   "ui.a11y.theme.toDark": "Cambiar al modo oscuro",
   "ui.a11y.theme.toLight": "Cambiar al modo claro",
+  "ui.a11y.nav.main": "Navegación principal",
+  "ui.a11y.nav.home": "Inicio",
+  "ui.a11y.nav.openMenu": "Abrir menú de navegación",
+  "ui.a11y.nav.closeMenu": "Cerrar menú de navegación",
+  "ui.a11y.nav.mobileMenu": "Menú de navegación",
+  "ui.a11y.lang.select": "Seleccionar idioma",
+  "ui.a11y.lang.listbox": "Idioma",
+  "ui.a11y.footer.social": "Enlaces sociales del pie",
 
   // ── Footer ───────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacidad",
@@ -227,5 +235,6 @@ export const ES: Record<I18nKey, string> = {
 
   // ── 404 page ───────────────────────────────────────────────────────────────
   "ui.404.message": "Página no encontrada",
+  "ui.404.nav.aria": "Navegación rápida",
   "ui.404.back": "← Volver al inicio",
 };

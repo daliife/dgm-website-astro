@@ -21,3 +21,14 @@ export function getDateLocale(lang: LangCode): string {
 export function getOgLocale(lang: LangCode): string {
   return OG_LOCALE_MAP[lang] ?? OG_LOCALE_MAP.ca;
 }
+
+/** Mirrors `ui.date.present` in each locale file — keep in sync. */
+export const PRESENT_LABEL: Record<LangCode, string> = {
+  ca: "Actualitat",
+  en: "Present",
+  es: "Actualidad",
+};
+
+export function getPresentLabel(lang: LangCode): string {
+  return PRESENT_LABEL[lang] ?? PRESENT_LABEL.ca;
+}

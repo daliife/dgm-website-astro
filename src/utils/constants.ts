@@ -14,6 +14,15 @@ export const PAGE_CONTAINER_CLASSES =
 export const PAGE_HEADING_CLASSES =
   "text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase reveal";
 
+/** Standard page title bottom margin (work, projects, privacy, about). */
+export const PAGE_HEADING_MARGIN_CLASSES = "mb-10";
+
+/** Compact title margin when intro copy follows immediately (contact). */
+export const PAGE_HEADING_MARGIN_COMPACT_CLASSES = "mb-6";
+
+/** Vertical spacing between about page sections. */
+export const ABOUT_SECTION_SPACING_CLASSES = "mt-16 md:mt-20 print:mt-6";
+
 export const NEXTUP_NAV_CLASSES = "reveal border-t border-border-primary pt-8";
 
 export const NEXTUP_LABEL_CLASSES =

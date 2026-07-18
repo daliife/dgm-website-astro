@@ -5,6 +5,7 @@ import {
   TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
+  PAGE_HEADING_MARGIN_COMPACT_CLASSES,
 } from "../utils/constants";
 import { ICON_PATHS } from "../utils/icons";
 import type { I18nKey } from "../i18n/en";
@@ -34,7 +35,10 @@ const CONTACT_ITEM_CLASS =
   description="Contact David Gimeno Mañé — Frontend Developer based in Barcelona. Let’s work together."
 >
   <div class={PAGE_CONTAINER_CLASSES}>
-    <h1 class={`${PAGE_HEADING_CLASSES} mb-6`} data-i18n="ui.page.contact">
+    <h1
+      class={`${PAGE_HEADING_CLASSES} ${PAGE_HEADING_MARGIN_COMPACT_CLASSES}`}
+      data-i18n="ui.page.contact"
+    >
       {t("ui.page.contact")}
     </h1>
     <p

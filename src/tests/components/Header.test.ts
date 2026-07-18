@@ -14,7 +14,7 @@ describe("Header", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Header);
 
-    expect(html).toContain('aria-label="Home"');
+    expect(html).toContain('aria-label="Inici"');
   });
 
   it("renders all nav links", async () => {

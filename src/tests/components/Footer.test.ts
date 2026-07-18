@@ -46,6 +46,6 @@ describe("Footer", () => {
   it("renders the footer social nav landmark", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Footer);
-    expect(html).toContain('aria-label="Footer social links"');
+    expect(html).toContain('aria-label="Enllaços socials del peu"');
   });
 });
