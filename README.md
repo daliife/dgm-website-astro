@@ -4,7 +4,9 @@ Personal portfolio website built with Astro.
 
 **Live at:** [davidgimeno.cat](https://davidgimeno.cat) · [daliife.github.io/dgm-website-astro](https://daliife.github.io/dgm-website-astro/)
 
-![Homepage screenshot](docs/screenshot-homepage.png)
+| Light | Dark |
+| ----- | ---- |
+| ![Homepage light mode](docs/screenshot-homepage-light.png) | ![Homepage dark mode](docs/screenshot-homepage-dark.png) |
 
 ## 🚀 Tech Stack
 
