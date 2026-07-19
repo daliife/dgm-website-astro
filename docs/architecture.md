@@ -319,9 +319,9 @@ The project uses Astro's built-in `<ClientRouter>`. Key consequences:
 
 ## Build & Deployment
 
-### CI gate (before PR or push to `main`)
+### CI gate (before finishing any change)
 
-Run locally in this order — same as `.github/workflows/ci.yml`:
+**Required for humans and AI agents.** After any edit (including Markdown), run locally in this order — same as `.github/workflows/ci.yml` — and fix until green before considering the work done:
 
 ```bash
 pnpm run format:check   # `pnpm run format` then re-check if it fails
@@ -343,7 +343,7 @@ pnpm audit --audit-level=high
 | `deploy.yml`         | push → `main`       | build + FTP deploy                 |
 | `deploy-pages.yml`   | push → `main`       | build + GitHub Pages deploy        |
 
-Pushes to `main` skip `ci.yml` but both deploy workflows run `pnpm run build`. Always run the full CI block locally before push.
+Pushes to `main` skip `ci.yml` but both deploy workflows run `pnpm run build`. A green local CI block keeps production (`davidgimeno.cat`) deployable.
 
 See also [AGENTS.md](../AGENTS.md) § “Before finishing (CI / deploy gate)”.
 

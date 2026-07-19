@@ -4,8 +4,8 @@ Personal portfolio website built with Astro.
 
 **Live at:** [davidgimeno.cat](https://davidgimeno.cat) · [daliife.github.io/dgm-website-astro](https://daliife.github.io/dgm-website-astro/)
 
-| Light | Dark |
-| ----- | ---- |
+| Light                                                      | Dark                                                     |
+| ---------------------------------------------------------- | -------------------------------------------------------- |
 | ![Homepage light mode](docs/screenshot-homepage-light.png) | ![Homepage dark mode](docs/screenshot-homepage-dark.png) |
 
 ## 🚀 Tech Stack
@@ -78,12 +78,12 @@ pnpm run preview  # Serve the production build locally
 - Branch from `main`. Use short, descriptive branch names: `feat/projects-filter`, `fix/nav-mobile`.
 - Commit messages follow [Conventional Commits](https://www.conventionalcommits.org/): `feat:`, `fix:`, `chore:`, `docs:`, `style:`, `refactor:`.
 
-### ✅ Before a PR or push to `main`
+### ✅ Before a PR or push to `main` (AI agents: always)
 
-GitHub Actions must pass. Run the **same checks locally** in this order (matches `.github/workflows/ci.yml`):
+GitHub Actions must pass. **AI agents must run this after every change** (code, Markdown, config) and fix failures before finishing — including Prettier on `README.md` / docs. Matches `.github/workflows/ci.yml`:
 
 ```bash
-pnpm run format:check   # use `pnpm run format` then re-check if it fails
+pnpm run format:check   # if it fails: pnpm run format && pnpm run format:check
 pnpm run lint
 pnpm run test
 pnpm run build
@@ -102,9 +102,9 @@ pnpm audit --audit-level=high
 | **Push → `main`** | `deploy.yml`         | build + FTP deploy (cdmon)         |
 | **Push → `main`** | `deploy-pages.yml`   | build + GitHub Pages deploy        |
 
-Pushes to `main` do **not** run `ci.yml`, but both deploy workflows call `pnpm run build` — run the full block above before push to avoid broken deploys.
+Pushes to `main` do **not** run `ci.yml`, but both deploy workflows call `pnpm run build` — run the full block above before push so production stays healthy.
 
-See [AGENTS.md](AGENTS.md) for the full agent/CI gate reference.
+See [AGENTS.md](AGENTS.md) § “Before finishing (CI / deploy gate)” for the full agent checklist.
 
 ### ➕ Adding a page
 

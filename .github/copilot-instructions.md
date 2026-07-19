@@ -16,17 +16,17 @@ Personal portfolio for David Gimeno Mañé — a static Astro 6 site hosted at [
 - **Prefer `.astro` components.** Use React only when client-side state/hooks are genuinely necessary.
 - **View Transitions.** The project uses Astro's `ClientRouter`. Use `astro:page-load` for init scripts, not `DOMContentLoaded`.
 - **pnpm only.** Do not use npm or yarn.
-- **CI gate before PR or push to `main`.** Run locally in order: `pnpm run format:check` → `lint` → `test` → `build`. If `format:check` fails, run `pnpm run format` and re-check. On dependency changes, also run `pnpm audit --audit-level=high`. Pushes to `main` trigger deploy workflows that also run `build` — do not push without a green local build.
+- **CI gate is mandatory before finishing.** After any change (including Markdown / README), run locally: `pnpm run format:check` → `lint` → `test` → `build`. Task is not done until all four pass. If `format:check` fails, run `pnpm run format` and re-check. On dependency changes, also `pnpm audit --audit-level=high`. Pushes to `main` deploy to production — never leave a red pipeline for the user.
 
-## Before PR or push to `main`
+## Before finishing (required — every task)
 
-Same checks as `.github/workflows/ci.yml`:
+Same checks as `.github/workflows/ci.yml`. **Always run after editing files**, not only when opening a PR:
 
 ```bash
-pnpm run format:check
+pnpm run format:check   # Markdown counts — Prettier fails CI if skipped
 pnpm run lint
 pnpm run test
-pnpm run build
+pnpm run build          # required for prod deploy workflows too
 ```
 
 If you changed `package.json` or `pnpm-lock.yaml`:

@@ -197,11 +197,11 @@ pnpm run images:projects  # regenerate public/projects/*.webp from cv.json (run 
 
 ## Before finishing (CI / deploy gate)
 
-After **any** code change, run the same checks GitHub Actions enforces **before opening a PR or pushing to `main`**. Fix all failures locally — do not rely on the user or CI to catch breaks.
+**Mandatory for AI agents.** After **any** change (code, markdown, config, assets, `README.md`, `AGENTS.md`, etc.), run the full CI block below and fix failures **before** saying the task is done. Do not hand work to the user with a red pipeline. Production deploys depend on a green build.
 
-### Pull requests to `main`
+This is not optional polish — it is the release gate for `davidgimeno.cat`.
 
-`.github/workflows/ci.yml` runs on every PR:
+### Always run (same order as `.github/workflows/ci.yml`)
 
 ```bash
 pnpm run format:check
@@ -210,9 +210,11 @@ pnpm run test
 pnpm run build
 ```
 
-If `format:check` fails, run `pnpm run format` and re-check.
+If `format:check` fails (common after editing Markdown or `.astro` files), run `pnpm run format` and re-run `format:check` until it passes. Never leave Prettier warnings for CI to catch.
 
-`.github/workflows/security-audit.yml` also runs on PRs (and weekly). When you change `package.json` or `pnpm-lock.yaml`:
+### Also run when dependencies change
+
+When you touch `package.json` or `pnpm-lock.yaml` (matches `.github/workflows/security-audit.yml`):
 
 ```bash
 pnpm audit --audit-level=high
@@ -220,11 +222,7 @@ pnpm audit --audit-level=high
 
 Fix or explain any **high**-severity findings before finishing.
 
-### Push to `main`
-
-Merging or pushing directly to `main` triggers **`deploy.yml`** and **`deploy-pages.yml`**. Both run `pnpm run build` and deploy — a failed build blocks production deploys. Run the full CI block above before push, even when skipping a PR.
-
-### Quick reference
+### Pull requests vs push to `main`
 
 | Workflow             | Trigger             | What it runs                       |
 | -------------------- | ------------------- | ---------------------------------- |
@@ -233,7 +231,9 @@ Merging or pushing directly to `main` triggers **`deploy.yml`** and **`deploy-pa
 | `deploy.yml`         | push → `main`       | build + FTP deploy (cdmon)         |
 | `deploy-pages.yml`   | push → `main`       | build + GitHub Pages deploy        |
 
-**Deploy note:** a green local `pnpm run build` is required for production deploys to succeed.
+Pushes to `main` skip `ci.yml` but still run both deploy workflows (`pnpm run build`). Run the full CI block locally before every push so production does not break.
+
+**Done means:** all four CI commands exit 0 locally (plus audit when deps changed).
 
 ## Deployment
 
