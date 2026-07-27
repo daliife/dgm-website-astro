@@ -31,6 +31,21 @@ export const EN = {
   "ui.page.projects": "Projects",
   "ui.page.contact": "Contact",
 
+  // ── SEO meta (SSR default locale strings for <title> / description) ───────
+  "ui.meta.portfolio": "Portfolio",
+  "ui.meta.defaultDescription":
+    "Personal portfolio of David Gimeno Mañé — Frontend Developer based in Barcelona.",
+  "ui.meta.about.description":
+    "About David Gimeno Mañé — Frontend Developer based in Barcelona. Discover my story, skills, and professional background.",
+  "ui.meta.work.description":
+    "Professional work experience of David Gimeno Mañé — Frontend Developer based in Barcelona.",
+  "ui.meta.projects.description":
+    "Portfolio of web development projects by David Gimeno Mañé — Frontend Developer based in Barcelona.",
+  "ui.meta.projects.listName": "Projects portfolio",
+  "ui.meta.contact.description":
+    "Contact David Gimeno Mañé — Frontend Developer based in Barcelona. Let’s work together.",
+  "ui.meta.404.title": "404 — Page not found",
+
   // ── Projects categories ─────────────────────────────────────────────────────
   "ui.projects.category.professional": "Professional",
   "ui.projects.category.personal": "Personal",

@@ -2,7 +2,6 @@
 import Layout from "../../layouts/Layout.astro";
 import { projects } from "@cv";
 import {
-  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   WORK_DATES_CLASSES,
@@ -13,6 +12,7 @@ import { t } from "../../utils/i18n";
 import type { I18nKey } from "../../i18n/en";
 import type { ProjectEntry } from "../../types/ui";
 import { findProjectBySlug, getProjectEntries } from "../../utils/projects";
+import { getPageTitle } from "../../utils/seo";
 import WorkDates from "../../components/sections/WorkDates.astro";
 import Button from "../../components/ui/Button.astro";
 import NextUpNav from "../../components/layout/NextUpNav.astro";
@@ -32,6 +32,7 @@ if (!entry) {
 
 const { project, index } = entry;
 const descriptionKey = `projects.${index}.description` as I18nKey;
+const localizedDescription = t(descriptionKey, project.description);
 const categoryKey = project.category
   ? (`ui.projects.category.${project.category}` as I18nKey)
   : undefined;
@@ -42,7 +43,7 @@ const creativeWorkSchema = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
   name: project.name,
-  description: project.description,
+  description: localizedDescription,
   url: `${LIVE_URL}/projects/${slug}`,
   ...(project.image ? { image: `${LIVE_URL}${project.image}` } : {}),
   ...(project.url ? { sameAs: project.url } : {}),
@@ -55,8 +56,8 @@ const creativeWorkSchema = {
 ---
 
 <Layout
-  title={`${project.name}${TITLE_PAGE_SUFFIX}`}
-  description={project.description}
+  title={getPageTitle(project.name)}
+  description={localizedDescription}
   image={ogImage}
   imageWidth={192}
   imageHeight={128}

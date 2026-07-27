@@ -2,7 +2,6 @@
 import Layout from "../layouts/Layout.astro";
 import { work } from "@cv";
 import {
-  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
@@ -11,12 +10,13 @@ import { SITE_BASE } from "../utils/url";
 import WorkCard from "../components/sections/WorkCard.astro";
 import NextUpNav from "../components/layout/NextUpNav.astro";
 import { t } from "../utils/i18n";
+import { getPageTitleFromKey } from "../utils/seo";
 import type { WorkEntry } from "../types/ui";
 ---
 
 <Layout
-  title={`Work Experience${TITLE_PAGE_SUFFIX}`}
-  description="Professional work experience of David Gimeno Mañé — Frontend Developer based in Barcelona."
+  title={getPageTitleFromKey("ui.page.work")}
+  description={t("ui.meta.work.description")}
 >
   <div class={PAGE_CONTAINER_CLASSES}>
     <h1

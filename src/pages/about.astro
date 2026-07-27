@@ -4,7 +4,6 @@ import { Image } from "astro:assets";
 import profileImgSrc from "../assets/images/david-profile.webp";
 import { basics, work, skills, languages, education, certificates } from "@cv";
 import {
-  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
@@ -24,8 +23,9 @@ import { NEXTUP_NAV_CLASSES } from "../utils/constants";
 import type { SocialProfile, WorkEntry } from "../types/ui";
 import type { I18nKey } from "../i18n/en";
 import { t } from "../utils/i18n";
-const { name, lastName, email, summary, profiles, label, location } = basics;
-const fullName = `${name} ${lastName}`;
+import { getFullName, getPageTitleFromKey } from "../utils/seo";
+const { name, lastName, email, summary, profiles, location } = basics;
+const fullName = getFullName();
 const portraitAlt = `${t("ui.a11y.portraitOf")} ${fullName}`;
 
 const linkedin = getSocialProfile(profiles as SocialProfile[], "Linkedin");
@@ -34,21 +34,21 @@ const github = getSocialProfile(profiles as SocialProfile[], "Github");
 const profilePageSchema = {
   "@context": "https://schema.org",
   "@type": "ProfilePage",
-  name: `About ${name} ${lastName}`,
-  description: `About ${name} ${lastName} — ${label} based in ${location?.city}. Discover my story, skills, and professional background.`,
+  name: t("ui.page.about"),
+  description: t("ui.meta.about.description"),
   url: `${LIVE_URL}/about`,
   mainEntity: {
     "@type": "Person",
-    name: `${name} ${lastName}`,
-    jobTitle: label,
+    name: fullName,
+    jobTitle: t("basics.label"),
     url: LIVE_URL,
   },
 };
 ---
 
 <Layout
-  title={`About${TITLE_PAGE_SUFFIX}`}
-  description={`About ${name} ${lastName} — ${label} based in ${location?.city}. Discover my story, skills, and professional background.`}
+  title={getPageTitleFromKey("ui.page.about")}
+  description={t("ui.meta.about.description")}
 >
   <script
     slot="head"
@@ -84,7 +84,7 @@ const profilePageSchema = {
           class="print:mt-1 print:text-xs print:text-gray-600"
           data-i18n="basics.label"
         >
-          {t("basics.label", label)}
+          {t("basics.label")}
         </p>
         <div
           class="print:mt-1.5 print:flex print:flex-wrap print:gap-x-4 print:text-[11px] print:text-gray-500"

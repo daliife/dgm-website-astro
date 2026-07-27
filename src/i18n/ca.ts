@@ -34,6 +34,21 @@ export const CA: Record<I18nKey, string> = {
   "ui.page.projects": "Projectes",
   "ui.page.contact": "Contacte",
 
+  // ── SEO meta (SSR default locale strings for <title> / description) ───────
+  "ui.meta.portfolio": "Portafoli",
+  "ui.meta.defaultDescription":
+    "Portafoli personal de David Gimeno Mañé — Desenvolupador Frontend a Barcelona.",
+  "ui.meta.about.description":
+    "Sobre David Gimeno Mañé — Desenvolupador Frontend a Barcelona. Descobreix la meva història, habilitats i trajectòria professional.",
+  "ui.meta.work.description":
+    "Experiència professional de David Gimeno Mañé — Desenvolupador Frontend a Barcelona.",
+  "ui.meta.projects.description":
+    "Portafoli de projectes de desenvolupament web de David Gimeno Mañé — Desenvolupador Frontend a Barcelona.",
+  "ui.meta.projects.listName": "Portafoli de projectes",
+  "ui.meta.contact.description":
+    "Contacta amb David Gimeno Mañé — Desenvolupador Frontend a Barcelona. Treballem junts.",
+  "ui.meta.404.title": "404 — Pàgina no trobada",
+
   // ── Projects categories ─────────────────────────────────────────────────────
   "ui.projects.category.professional": "Professional",
   "ui.projects.category.personal": "Personal",

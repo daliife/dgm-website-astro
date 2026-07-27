@@ -48,6 +48,16 @@ describe("Pages — i18n", () => {
     expect(html).toContain("data-i18n");
   });
 
+  it("/work uses localized meta description", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(WorkPage);
+
+    expect(html).toContain("Experiència professional de David Gimeno Mañé");
+    expect(html).not.toContain(
+      "Professional work experience of David Gimeno Mañé",
+    );
+  });
+
   it("/contact page intro has data-i18n key", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ContactPage);

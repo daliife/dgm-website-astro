@@ -116,13 +116,13 @@ See [AGENTS.md](AGENTS.md) § “Before finishing (CI / deploy gate)” for the 
 ---
 import Layout from "../layouts/Layout.astro";
 import {
-  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
 } from "../utils/constants";
+import { getPageTitleFromKey } from "../utils/seo";
 ---
 
-<Layout title={`My Page${TITLE_PAGE_SUFFIX}`}>
+<Layout title={getPageTitleFromKey("ui.page.about")}>
   <div class={PAGE_CONTAINER_CLASSES}>
     <h1 class={`${PAGE_HEADING_CLASSES} mb-12`}>My Page</h1>
     <!-- content -->

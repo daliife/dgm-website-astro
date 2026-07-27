@@ -1,7 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import {
-  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
@@ -9,10 +8,12 @@ import {
 } from "../utils/constants";
 import { SITE_BASE } from "../utils/url";
 import { t } from "../utils/i18n";
+import { getPageTitleFromKey } from "../utils/seo";
 import { projects } from "@cv";
 import ProjectCard from "../components/sections/ProjectCard.astro";
 import NextUpNav from "../components/layout/NextUpNav.astro";
 import type { ProjectEntry } from "../types/ui";
+import type { I18nKey } from "../i18n/en";
 import { getProjectEntries } from "../utils/projects";
 
 const CATEGORY_ORDER = ["professional", "personal", "academic"] as const;
@@ -55,22 +56,25 @@ const firstCategory = CATEGORY_ORDER.find((cat) => grouped[cat].length > 0);
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Projects Portfolio",
-  description: "Portfolio of web development projects by David Gimeno Mañé.",
+  name: t("ui.meta.projects.listName"),
+  description: t("ui.meta.projects.description"),
   url: `${LIVE_URL}/projects`,
-  itemListElement: indexed.map(({ project, slug }, i) => ({
+  itemListElement: indexed.map(({ project, slug, index }, i) => ({
     "@type": "ListItem",
     position: i + 1,
     name: project.name,
-    description: project.description,
+    description: t(
+      `projects.${index}.description` as I18nKey,
+      project.description,
+    ),
     url: `${LIVE_URL}/projects/${slug}`,
   })),
 };
 ---
 
 <Layout
-  title={`Projects Portfolio${TITLE_PAGE_SUFFIX}`}
-  description="Portfolio of web development projects by David Gimeno Mañé — Frontend Developer based in Barcelona."
+  title={getPageTitleFromKey("ui.page.projects")}
+  description={t("ui.meta.projects.description")}
 >
   <script
     slot="head"
