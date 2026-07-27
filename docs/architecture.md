@@ -20,19 +20,25 @@ The Vite dev server (`pnpm run dev`) provides HMR and a local preview. The produ
 
 Astro uses file-based routing. `src/pages/` maps directly to URLs:
 
-| File                       | URL         |
-| -------------------------- | ----------- |
-| `src/pages/index.astro`    | `/`         |
-| `src/pages/about.astro`    | `/about`    |
-| `src/pages/projects.astro` | `/projects` |
-| `src/pages/work.astro`     | `/work`     |
-| `src/pages/contact.astro`  | `/contact`  |
-| `src/pages/404.astro`      | `/404`      |
+| File                              | URL                 |
+| --------------------------------- | ------------------- |
+| `src/pages/index.astro`           | `/`                 |
+| `src/pages/about.astro`           | `/about/`           |
+| `src/pages/projects.astro`        | `/projects/`        |
+| `src/pages/projects/[slug].astro` | `/projects/[slug]/` |
+| `src/pages/work.astro`            | `/work/`            |
+| `src/pages/contact.astro`         | `/contact/`         |
+| `src/pages/privacy.astro`         | `/privacy/`         |
+| `src/pages/404.astro`             | `/404`              |
+
+`trailingSlash: "always"` is set in `astro.config.mjs` so local and production URLs match (avoids Apache DirectorySlash 301s). Build `pageHref()` helpers in `src/utils/url.ts` for internal links.
 
 Navigation links are defined in `src/utils/constants.ts → NAV_LINKS`: `["about", "projects", "work", "contact"]`. This array drives the `<Header>` nav. Adding a page requires:
 
 1. A file in `src/pages/`.
 2. An entry in `NAV_LINKS` (only if the page should appear in the nav).
+
+Project detail slugs are derived from project names via `src/utils/projects.ts` (`getStaticPaths` on `[slug].astro`).
 
 ---
 
@@ -40,14 +46,14 @@ Navigation links are defined in `src/utils/constants.ts → NAV_LINKS`: `["about
 
 `cv.json` is the **single source of truth** for all personal content. It uses the [JSON Resume](https://jsonresume.org/) schema (loosely). Key top-level keys:
 
-| Key         | Contents                                                                                |
-| ----------- | --------------------------------------------------------------------------------------- |
-| `basics`    | `name`, `lastName`, `label`, `summary`, `email`, `profiles[]`                           |
-| `work`      | Array of jobs: `company`, `position`, `startDate`, `endDate`, `summary`, `highlights[]` |
-| `projects`  | Array of projects: `name`, `description`, `url`, `highlights[]`, `technologies[]`       |
-| `skills`    | Array of skill groups                                                                   |
-| `education` | Array of education entries                                                              |
-| `languages` | Array of languages with fluency                                                         |
+| Key         | Contents                                                                                                                                                                        |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `basics`    | `name`, `lastName`, `label`, `summary`, `email`, `profiles[]`                                                                                                                   |
+| `work`      | Array of jobs: `company`, `position`, `startDate`, `endDate`, `summary`, `highlights[]`                                                                                         |
+| `projects`  | Array of projects: `name`, `description`, `longDescription?`, `url`, `githubUrl?`, `highlights[]`, `technologies[]`, `startDate`/`endDate`, `image` / `imageSource`, `category` |
+| `skills`    | Array of skill groups                                                                                                                                                           |
+| `education` | Array of education entries                                                                                                                                                      |
+| `languages` | Array of languages with fluency                                                                                                                                                 |
 
 Pages import it directly in the Astro frontmatter:
 
@@ -58,6 +64,10 @@ import { basics, work } from "@cv";
 ```
 
 The `@cv` path alias is configured in `tsconfig.json`.
+
+### Project detail pages
+
+`/projects/[slug]/` is a case-study view for each `cv.json` project: long description, tech stack, visit/GitHub CTAs, screenshot (`public/projects/*.webp` at 960×640), highlights, and prev/next navigation. List cards (`ProjectCard`) link to the detail page; outbound “visit” stays on the detail CTAs.
 
 ---
 
@@ -159,37 +169,26 @@ Components are organized into four subdirectories:
 
 ```
 src/components/
-  brand/          ← Logo, ThemeToggle
-  layout/         ← Header, Footer, HomeContainer, PageContainer
-  sections/       ← Project, Timeline, TimelineItem (legacy, not currently used)
-  ui/             ← Button, Grid, Section, Typography
+  brand/          ← Logo, ThemeToggle, LanguageToggle
+  layout/         ← Header, Footer, CookieConsent, NextUpNav
+  sections/       ← ProjectCard, WorkCard, WorkDates, …
+  ui/             ← Button
 ```
 
 ### Active components
 
-| Component                    | Purpose                                                     |
-| ---------------------------- | ----------------------------------------------------------- |
-| `brand/DgmLogoSimple.astro`  | SVG logo monogram. Props: `className`, `size`               |
-| `brand/ThemeToggle.astro`    | Dark/light mode toggle button                               |
-| `brand/LanguageToggle.astro` | EN/CA language switcher dropdown (client-side i18n)         |
-| `layout/Header.astro`        | Fixed nav: logo (left), nav links (centre), toggles (right) |
-| `layout/Footer.astro`        | Copyright + social links from cv.json                       |
-| `ui/Button.astro`            | Polymorphic button/link component                           |
-
-### Available but unused components
-
-These were part of the previous design and remain available:
-
-| Component                     | Purpose                       |
-| ----------------------------- | ----------------------------- |
-| `layout/HomeContainer.astro`  | Full-viewport hero wrapper    |
-| `layout/PageContainer.astro`  | Max-width centered container  |
-| `ui/Grid.astro`               | Responsive CSS grid           |
-| `ui/Section.astro`            | Section with vertical spacing |
-| `ui/Typography.astro`         | Text with design-system scale |
-| `sections/Project.astro`      | Project card                  |
-| `sections/Timeline.astro`     | Work experience container     |
-| `sections/TimelineItem.astro` | Single work experience row    |
+| Component                    | Purpose                                                                   |
+| ---------------------------- | ------------------------------------------------------------------------- |
+| `brand/DgmLogoSimple.astro`  | SVG logo monogram. Props: `className`, `size`                             |
+| `brand/ThemeToggle.astro`    | Dark/light mode toggle button                                             |
+| `brand/LanguageToggle.astro` | CA/EN/ES language switcher (client-side i18n)                             |
+| `layout/Header.astro`        | Fixed nav: logo, links, language + theme (language also in mobile chrome) |
+| `layout/Footer.astro`        | Copyright + social links from cv.json                                     |
+| `layout/CookieConsent.astro` | Accept / Reject banner; Umami loads only after Accept                     |
+| `layout/NextUpNav.astro`     | “Also explore” footer nav on about / work / projects                      |
+| `sections/ProjectCard.astro` | Project list card → internal detail page                                  |
+| `sections/WorkCard.astro`    | Work experience card                                                      |
+| `ui/Button.astro`            | Polymorphic button/link component                                         |
 
 ---
 
@@ -311,9 +310,11 @@ The project uses Astro's built-in `<ClientRouter>`. Key consequences:
 - Open Graph tags (type, url, title, description, image, site_name)
 - Twitter card tags
 - JSON-LD `Person` schema
-- Canonical URL via `<link rel="canonical">`
+- Canonical URL via `getCanonicalUrl()` in `src/utils/seo.ts` — always `https://davidgimeno.cat/…` (stable across cdmon vs GitHub Pages builds)
+- Page titles / descriptions localized for SSR Catalan via `t()` / `getPageTitle*`
 - `<meta name="theme-color">` with media queries for light/dark
 - Sitemap generated by `@astrojs/sitemap`
+- Production security headers in `public/.htaccess` (CSP, HSTS, X-Frame-Options, etc.)
 
 ---
 
@@ -359,6 +360,8 @@ pnpm run format:check  # Prettier (CI — read-only)
 pnpm run test          # Vitest (run once)
 pnpm run test:watch    # Vitest (watch mode)
 pnpm run test:coverage # Vitest + v8 coverage
+pnpm run images:projects  # WebP thumbs (960×640) from cv.json imageSource
+pnpm run images:capture   # live screenshots → assets/project-shots + webp
 ```
 
 Output goes to `dist/`. Deployment is fully automated via GitHub Actions on every push to `main`:
@@ -384,14 +387,10 @@ Unit tests use **Vitest** with Astro's `experimental_AstroContainer` for SSR ren
 
 ```
 src/tests/
-  components/
-    Button.test.ts         — polymorphic rendering, variants, props
-    Header.test.ts         — nav links, data-i18n, LanguageToggle, mobile menu
-    LanguageToggle.test.ts — ARIA attributes, EN/CA options, listbox role
-    ProjectCard.test.ts    — name, URL, image fallback, technologies
-    WorkCard.test.ts       — position, dates, highlights
-  pages/
-    routes.test.ts         — all 6 pages render, HTML structure, data-i18n keys
+  components/   — Button, Header, CookieConsent, ProjectCard, WorkCard, …
+  pages/        — routes (+ project detail slugs, a11y smoke)
+  utils/        — projects, seo, url, htaccess, …
+  i18n/         — key parity across ca/en/es
 ```
 
 Configuration in `vitest.config.ts` (uses `getViteConfig` from `astro/config`).

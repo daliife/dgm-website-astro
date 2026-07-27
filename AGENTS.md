@@ -41,7 +41,7 @@ src/
     ca.ts                  ← Catalan translations (default SSR locale)
     en.ts                  ← English translations
     es.ts                  ← Spanish translations
-  pages/                   ← File-based routes (index, about, projects, work, contact, 404)
+  pages/                   ← File-based routes (index, about, projects, projects/[slug], work, contact, privacy, 404)
   tests/
     components/            ← AstroContainer unit tests per component
     pages/                 ← Route existence tests

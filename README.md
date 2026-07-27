@@ -48,28 +48,30 @@ pnpm run preview  # Serve the production build locally
 └── src/
     ├── components/
     │   ├── brand/          # DgmLogoSimple, ThemeToggle, LanguageToggle
-    │   ├── layout/         # Header, Footer
-    │   ├── sections/       # ProjectCard, WorkCard
-    │   └── ui/             # Button, Grid, Section, Typography
-    ├── i18n/               # ca.ts, es.ts — client-side translations
+    │   ├── layout/         # Header, Footer, CookieConsent, NextUpNav
+    │   ├── sections/       # ProjectCard, WorkCard, WorkDates, …
+    │   └── ui/             # Button
+    ├── i18n/               # ca.ts, en.ts, es.ts — translations
     ├── layouts/
     │   └── Layout.astro    # Root HTML shell
-    ├── pages/              # One file = one route
+    ├── pages/              # File-based routes (+ projects/[slug])
     ├── tests/              # Vitest unit tests (components + utils + pages)
     ├── types/              # Shared TypeScript interfaces (ui.ts)
-    └── utils/              # constants.ts, format.ts, socialLinks.ts
+    └── utils/              # constants, format, seo, projects, url, i18n, …
 ```
 
 ## 📄 Pages
 
-| Route       | File                       |
-| ----------- | -------------------------- |
-| `/`         | `src/pages/index.astro`    |
-| `/about`    | `src/pages/about.astro`    |
-| `/projects` | `src/pages/projects.astro` |
-| `/work`     | `src/pages/work.astro`     |
-| `/contact`  | `src/pages/contact.astro`  |
-| `/404`      | `src/pages/404.astro`      |
+| Route               | File                              |
+| ------------------- | --------------------------------- |
+| `/`                 | `src/pages/index.astro`           |
+| `/about/`           | `src/pages/about.astro`           |
+| `/projects/`        | `src/pages/projects.astro`        |
+| `/projects/[slug]/` | `src/pages/projects/[slug].astro` |
+| `/work/`            | `src/pages/work.astro`            |
+| `/contact/`         | `src/pages/contact.astro`         |
+| `/privacy/`         | `src/pages/privacy.astro`         |
+| `/404`              | `src/pages/404.astro`             |
 
 ## 🤝 Contributing
 
