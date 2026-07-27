@@ -218,7 +218,13 @@
       "technologies": ["Astro", "TypeScript", "Tailwind CSS"],
       "category": "personal",
       "startDate": "2025-08-24",
-      "imageSource": "https://estudiseitai.cat/images/fons-hero-1920.webp"
+      "imageSource": "assets/project-shots/estudi-seitai.jpg",
+      "highlights": [
+        "Marketing site for a Seitai and katsugen movement studio",
+        "Built as a static Astro site with TypeScript and Tailwind CSS",
+        "Live production site at estudiseitai.cat"
+      ],
+      "longDescription": "Marketing website for Estudi Seitai, a Seitai and katsugen movement practice based in Catalonia. Built as a fast static Astro site with TypeScript and Tailwind, it presents the practice, studios, and contact paths in Catalan with a calm, editorial layout suited to the brand."
     },
     {
       "name": "Spritz Reader",
@@ -229,7 +235,14 @@
       "category": "personal",
       "startDate": "2026-05-17",
       "endDate": "2026-05-25",
-      "imageSource": "https://raw.githubusercontent.com/daliife/spritz-reader-with-sdd/main/docs/readme-screnshot.jpg"
+      "imageSource": "assets/project-shots/spritz-reader.jpg",
+      "githubUrl": "https://github.com/daliife/spritz-reader-with-sdd",
+      "highlights": [
+        "Speed-reading web app based on the Spritz RSVP technique",
+        "Built with a spec-driven development workflow",
+        "React + Vite + TypeScript + Tailwind CSS"
+      ],
+      "longDescription": "Browser speed-reading app based on the Spritz RSVP technique: words appear one at a time around a fixed focal point so readers can raise WPM without eye scanning. Built with React, Vite, TypeScript and Tailwind using a spec-driven workflow, with language switching and adjustable reading speeds."
     },
     {
       "name": "Seat RFP",
@@ -240,7 +253,14 @@
       "category": "professional",
       "startDate": "2020-05-20",
       "endDate": "2021-10-10",
-      "imageSource": "https://raw.githubusercontent.com/daliife/rfp-seat/master/src/assets/finals/first-scene.png"
+      "imageSource": "assets/project-shots/seat-rfp.jpg",
+      "githubUrl": "https://github.com/daliife/rfp-seat",
+      "highlights": [
+        "Interactive proposal page with three Canvas minigames for SEAT",
+        "Angular + TypeScript frontend",
+        "Client-facing demo for an RFP"
+      ],
+      "longDescription": "Interactive RFP experience for SEAT built with Angular and Canvas. Visitors explore a branded narrative through three mini-games that showcase proposal ideas in a playful, client-facing format rather than a static slide deck."
     },
     {
       "name": "Orange RFP",
@@ -251,7 +271,14 @@
       "category": "professional",
       "startDate": "2020-10-26",
       "endDate": "2020-11-12",
-      "imageSource": "https://raw.githubusercontent.com/daliife/rfp-orange/master/src/assets/img/final-game/img-juegofinal.png"
+      "imageSource": "assets/project-shots/orange-rfp.jpg",
+      "githubUrl": "https://github.com/daliife/rfp-orange",
+      "highlights": [
+        "Landing experience with a card-based minigame for Orange",
+        "Angular + TypeScript with Lottie motion",
+        "Client-facing demo for an RFP"
+      ],
+      "longDescription": "Landing experience for Orange featuring a card-based minigame. Built with Angular, TypeScript and Lottie motion to turn an RFP pitch into an interactive story about user-centred services."
     },
     {
       "name": "HMI Seat",
@@ -262,7 +289,14 @@
       "category": "professional",
       "startDate": "2020-10-09",
       "endDate": "2020-10-23",
-      "imageSource": "https://raw.githubusercontent.com/daliife/hmi-seat/main/src/assets/chronology/50s.png"
+      "imageSource": "assets/project-shots/hmi-seat.jpg",
+      "githubUrl": "https://github.com/daliife/hmi-seat",
+      "highlights": [
+        "Interactive brand chronology timeline for SEAT",
+        "Angular + TypeScript UI",
+        "Narrative browsing of historical brand moments"
+      ],
+      "longDescription": "Interactive brand chronology for SEAT that invites visitors to travel through iconic cars and historical moments. An Angular + TypeScript UI frames the timeline as a guided narrative rather than a static archive."
     },
     {
       "name": "Cinemup",
@@ -273,7 +307,13 @@
       "category": "academic",
       "startDate": "2017-01-24",
       "endDate": "2020-10-06",
-      "imageSource": "https://i.imgur.com/yUpwhvM.png"
+      "imageSource": "assets/project-shots/cinemup.jpg",
+      "highlights": [
+        "TV recommendation app targeting Samsung Smart TV (Tizen)",
+        "Built with JavaScript, HTML and CSS",
+        "Academic project focused on living-room UX"
+      ],
+      "longDescription": "TV-oriented recommendation experience aimed at Samsung Smart TV (Tizen). A remote-friendly JavaScript interface helps users browse curated movie and series collections designed for living-room viewing."
     },
     {
       "name": "PodRacers",
@@ -284,7 +324,13 @@
       "category": "academic",
       "startDate": "2019-01-29",
       "endDate": "2019-09-12",
-      "imageSource": "https://i.imgur.com/2Rr3Ppg.jpg"
+      "imageSource": "assets/project-shots/podracers.jpg",
+      "highlights": [
+        "Racing video game prototype in Unreal Engine 4",
+        "Gameplay and systems work in C++",
+        "Academic prototype exploring vehicle feel and track flow"
+      ],
+      "longDescription": "Academic racing prototype in Unreal Engine 4 with C++ gameplay systems. Focuses on vehicle feel, track flow and HUD feedback in a sci-fi canyon setting — a vertical slice rather than a full commercial release."
     },
     {
       "name": "Ricardlogic",
@@ -295,7 +341,14 @@
       "category": "personal",
       "startDate": "2022-02-05",
       "endDate": "2022-02-12",
-      "imageSource": "https://raw.githubusercontent.com/daliife/ricardlogic-minigame/main/assets/ricardlogic-screenshot.png"
+      "imageSource": "assets/project-shots/ricardlogic.jpg",
+      "githubUrl": "https://github.com/daliife/ricardlogic-minigame",
+      "highlights": [
+        "Word game inspired by Paraulògic",
+        "Lightweight HTML / CSS / JavaScript build",
+        "Playable browser minigame"
+      ],
+      "longDescription": "Lightweight browser word game inspired by Paraulògic. Players form Catalan words from a hexagonal letter set with shuffle, delete and score tracking, built with plain HTML, CSS and JavaScript."
     },
     {
       "name": "Portfolio v1",
@@ -306,7 +359,14 @@
       "category": "personal",
       "startDate": "2018-10-13",
       "endDate": "2023-12-28",
-      "imageSource": "https://i.imgur.com/xOjLfx4.png"
+      "imageSource": "assets/project-shots/portfolio-v1.jpg",
+      "githubUrl": "https://github.com/daliife/dgm-website-angular",
+      "highlights": [
+        "Previous personal portfolio built with Angular",
+        "TypeScript + SCSS component architecture",
+        "Superseded by the current Astro site"
+      ],
+      "longDescription": "First long-lived personal portfolio, built with Angular, TypeScript and SCSS. It established the DGM brand system and project storytelling patterns later refined in the current Astro site."
     },
     {
       "name": "AMIGO",
@@ -317,7 +377,13 @@
       "category": "academic",
       "startDate": "2019-04-14",
       "endDate": "2019-04-14",
-      "imageSource": "https://i.imgur.com/4Dwf2Uu.png"
+      "imageSource": "assets/project-shots/amigo.jpg",
+      "highlights": [
+        "Minimal hypercasual minigolf game in Unity",
+        "Gameplay and shaders with C# and HLSL",
+        "Published on itch.io"
+      ],
+      "longDescription": "Hypercasual minigolf game made in Unity with C# and HLSL. Minimal levels, click-and-drag shots and a bright low-poly look — published on itch.io as a short, approachable play session."
     },
     {
       "name": "Instruments List",
@@ -328,7 +394,14 @@
       "category": "personal",
       "startDate": "2018-10-23",
       "endDate": "2021-08-12",
-      "imageSource": "https://i.imgur.com/vwxHXuf.png"
+      "imageSource": "assets/project-shots/instruments-list.jpg",
+      "githubUrl": "https://github.com/daliife/instrumentslist-website",
+      "highlights": [
+        "Browsable catalogue of instrument families",
+        "Angular + TypeScript frontend",
+        "Exploratory UI for musical instrument taxonomy"
+      ],
+      "longDescription": "Catalan catalogue for exploring musical instrument families. An Angular front end presents instrument cards with expandable detail panels for descriptions, links and media."
     },
     {
       "name": "Light Sorter",
@@ -339,7 +412,14 @@
       "category": "professional",
       "startDate": "2020-11-03",
       "endDate": "2020-11-16",
-      "imageSource": "https://i.imgur.com/OnphlCH.png"
+      "imageSource": "assets/project-shots/light-sorter.jpg",
+      "githubUrl": "https://github.com/daliife/light-sorter",
+      "highlights": [
+        "Filterable product/element grid for Endesa",
+        "Isotope-powered layout with jQuery and Handlebars",
+        "Client deliverable focused on browse and filter UX"
+      ],
+      "longDescription": "Filterable element grid delivered for Endesa using Isotope, jQuery and Handlebars. Visitors sort and browse colour-coded values in a dense interactive board built for client demos."
     },
     {
       "name": "Shaders & Postpro",
@@ -350,7 +430,13 @@
       "category": "academic",
       "startDate": "2019-02-10",
       "endDate": "2019-03-05",
-      "imageSource": "https://i.imgur.com/tNfnzOC.png"
+      "imageSource": "assets/project-shots/shaders-postpro.jpg",
+      "highlights": [
+        "Real-time post-processing effects with fragment shaders",
+        "C++ + GLSL with ImGui controls",
+        "Academic exploration of image effects pipelines"
+      ],
+      "longDescription": "Real-time post-processing playground in C++ and GLSL with ImGui controls. Toggles effects such as colour correction, posterize, dithering and pixelize on a 3D scene to study image-effect pipelines."
     }
   ]
 }

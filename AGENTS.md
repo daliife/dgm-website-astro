@@ -100,11 +100,12 @@ Project card images are **not** loaded from external URLs at runtime. They live 
 
 When you add or update a project in `cv.json`:
 
-1. Set `imageSource` to the full remote URL (screenshot source).
-2. Run **`pnpm run images:projects`** — regenerates thumbnails and updates each project's `image` path.
-3. Commit `cv.json`, `public/projects/*.webp`, and any new files from the script.
+1. Set `imageSource` to a remote screenshot URL **or** a local path under `assets/project-shots/` (relative to the repo root).
+2. For live demos, prefer **`pnpm run images:capture`** (Playwright) — captures each project URL into `assets/project-shots/` and regenerates WebP thumbs.
+3. Or run **`pnpm run images:projects`** alone when `imageSource` is already set — regenerates thumbnails and updates each project's `image` path.
+4. Commit `cv.json`, `public/projects/*.webp`, and any new `assets/project-shots/*` sources.
 
-Re-run the script if you change `imageSource`, rename a project, or add a new entry.
+Re-run the scripts if you change `imageSource`, rename a project, or add a new entry.
 
 ### Reading cv.json
 
@@ -193,7 +194,8 @@ pnpm run lint             # ESLint
 pnpm run format           # Prettier (write)
 pnpm run format:check     # Prettier (CI — read-only)
 pnpm run test             # Vitest
-pnpm run images:projects  # regenerate public/projects/*.webp from cv.json (run after project changes)
+pnpm run images:projects  # regenerate public/projects/*.webp from cv.json imageSource
+pnpm run images:capture   # live screenshots → assets/project-shots + webp (needs Playwright)
 ```
 
 ## Before finishing (CI / deploy gate)

@@ -61,13 +61,18 @@ export interface WorkEntry {
 export interface ProjectEntry {
   name: string;
   description: string;
+  /** Longer copy for the project detail page (falls back to description). */
+  longDescription?: string;
   url?: string;
+  githubUrl?: string;
   image?: string;
   imageSource?: string;
   technologies?: string[];
   startDate?: string;
   endDate?: string;
   category?: "professional" | "personal" | "academic";
+  /** Bullet points for the project detail page. */
+  highlights?: string[];
 }
 
 export interface SkillEntry {

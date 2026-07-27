@@ -82,14 +82,16 @@ describe("i18n — cv.json project descriptions", () => {
     expect(missing, `Missing ES keys: ${missing.join(", ")}`).toEqual([]);
   });
 
-  it("no orphan project description keys exist in EN", () => {
-    const orphans = Object.keys(EN)
-      .filter((k) => /^projects\.\d+\.description$/.test(k))
-      .filter((k) => {
-        const idx = parseInt(k.split(".")[1]);
-        return idx >= projects.length;
+  it("every project highlight in cv.json has keys in all locales", () => {
+    for (const locale of [EN, CA, ES] as const) {
+      projects.forEach((project, i) => {
+        const highlights = (project as { highlights?: string[] }).highlights;
+        if (!highlights?.length) return;
+        highlights.forEach((_, j) => {
+          expect(locale).toHaveProperty(`projects.${i}.highlights.${j}`);
+        });
       });
-    expect(orphans, `Orphan EN keys: ${orphans.join(", ")}`).toEqual([]);
+    }
   });
 });
 

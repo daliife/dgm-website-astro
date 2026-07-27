@@ -36,3 +36,28 @@ export function findProjectBySlug(
 ): ProjectMeta | undefined {
   return getProjectEntries(projects).find((entry) => entry.slug === slug);
 }
+
+export function getAdjacentProjects(
+  projects: ProjectEntry[],
+  slug: string,
+): { prev?: ProjectMeta; next?: ProjectMeta } {
+  const entries = getProjectEntries(projects);
+  const index = entries.findIndex((entry) => entry.slug === slug);
+  if (index < 0) return {};
+  return {
+    prev: index > 0 ? entries[index - 1] : undefined,
+    next: index < entries.length - 1 ? entries[index + 1] : undefined,
+  };
+}
+
+/** True when the URL points at a github.com repository (not Pages). */
+export function isGitHubRepoUrl(url: string): boolean {
+  try {
+    const { hostname, pathname } = new URL(url);
+    if (hostname !== "github.com") return false;
+    const parts = pathname.split("/").filter(Boolean);
+    return parts.length >= 2;
+  } catch {
+    return false;
+  }
+}

@@ -3,7 +3,9 @@ import { projects } from "@cv";
 import type { ProjectEntry } from "../../types/ui";
 import {
   findProjectBySlug,
+  getAdjacentProjects,
   getProjectEntries,
+  isGitHubRepoUrl,
   slugifyProjectName,
 } from "../../utils/projects";
 
@@ -46,5 +48,39 @@ describe("findProjectBySlug", () => {
     expect(
       findProjectBySlug(projects as ProjectEntry[], "does-not-exist"),
     ).toBeUndefined();
+  });
+});
+
+describe("getAdjacentProjects", () => {
+  it("returns next only for the first project", () => {
+    const entries = getProjectEntries(projects as ProjectEntry[]);
+    const { prev, next } = getAdjacentProjects(
+      projects as ProjectEntry[],
+      entries[0].slug,
+    );
+    expect(prev).toBeUndefined();
+    expect(next?.slug).toBe(entries[1].slug);
+  });
+
+  it("returns prev only for the last project", () => {
+    const entries = getProjectEntries(projects as ProjectEntry[]);
+    const last = entries[entries.length - 1];
+    const { prev, next } = getAdjacentProjects(
+      projects as ProjectEntry[],
+      last.slug,
+    );
+    expect(next).toBeUndefined();
+    expect(prev?.slug).toBe(entries[entries.length - 2].slug);
+  });
+});
+
+describe("isGitHubRepoUrl", () => {
+  it("detects github.com repository URLs", () => {
+    expect(isGitHubRepoUrl("https://github.com/daliife/PodRacers")).toBe(true);
+  });
+
+  it("rejects GitHub Pages and other hosts", () => {
+    expect(isGitHubRepoUrl("https://daliife.github.io/rfp-seat")).toBe(false);
+    expect(isGitHubRepoUrl("https://estudiseitai.cat/")).toBe(false);
   });
 });
