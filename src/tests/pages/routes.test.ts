@@ -126,6 +126,26 @@ describe("Pages — semantic HTML structure", () => {
     }
   });
 
+  it.each(pages)(
+    "$name has a localized skip link to main",
+    async ({ component }) => {
+      const container = await AstroContainer.create();
+      const html = await container.renderToString(component);
+      expect(html).toContain('href="#main-content"');
+      expect(html).toContain('data-i18n="ui.a11y.skipToContent"');
+      expect(html).toContain("Salta al contingut principal");
+    },
+  );
+
+  it("/about portrait images use localized alt + data-i18n-alt", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(AboutPage);
+    expect(html).not.toContain('alt="Portrait of David Gimeno"');
+    expect(html).toContain("Retrat de");
+    expect(html).toContain('data-i18n-alt="ui.a11y.portraitOf"');
+    expect(html).toContain("data-alt-name=");
+  });
+
   it("/about has correct heading order (h1 before h2)", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(AboutPage);

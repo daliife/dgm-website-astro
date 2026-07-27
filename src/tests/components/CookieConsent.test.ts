@@ -16,6 +16,7 @@ describe("CookieConsent", () => {
     const html = await container.renderToString(CookieConsent);
 
     expect(html).toContain('aria-label="Avís de cookies"');
+    expect(html).toContain('data-i18n-aria="ui.a11y.cookieNotice"');
   });
 
   it("links to the privacy page", async () => {

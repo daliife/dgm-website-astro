@@ -54,6 +54,8 @@ export const EN = {
   // ── Accessibility ──────────────────────────────────────────────────────────
   "ui.a11y.opensNewTab": "(opens in new tab)",
   "ui.a11y.cookieNotice": "Cookie notice",
+  "ui.a11y.skipToContent": "Skip to main content",
+  "ui.a11y.portraitOf": "Portrait of",
   "ui.a11y.theme.toDark": "Switch to dark mode",
   "ui.a11y.theme.toLight": "Switch to light mode",
   "ui.a11y.nav.main": "Main navigation",

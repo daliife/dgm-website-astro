@@ -19,13 +19,19 @@ function getAstroFiles(dir: string): string[] {
   });
 }
 
-const keyRegex = /data-i18n="([^"]+)"/g;
+const keyRegexes = [
+  /data-i18n="([^"]+)"/g,
+  /data-i18n-aria="([^"]+)"/g,
+  /data-i18n-alt="([^"]+)"/g,
+];
 const allKeys = new Set<string>();
 
 for (const file of getAstroFiles(srcDir)) {
   const content = readFileSync(file, "utf-8");
-  for (const match of content.matchAll(keyRegex)) {
-    allKeys.add(match[1]);
+  for (const keyRegex of keyRegexes) {
+    for (const match of content.matchAll(keyRegex)) {
+      allKeys.add(match[1]);
+    }
   }
 }
 
@@ -34,17 +40,17 @@ describe("i18n key coverage", () => {
     expect(allKeys.size).toBeGreaterThan(0);
   });
 
-  it("all data-i18n keys exist in EN translations", () => {
+  it("all data-i18n / data-i18n-aria / data-i18n-alt keys exist in EN translations", () => {
     const missing = [...allKeys].filter((k) => !(k in EN));
     expect(missing, `Missing EN keys: ${missing.join(", ")}`).toEqual([]);
   });
 
-  it("all data-i18n keys exist in CA translations", () => {
+  it("all data-i18n / data-i18n-aria / data-i18n-alt keys exist in CA translations", () => {
     const missing = [...allKeys].filter((k) => !(k in CA));
     expect(missing, `Missing CA keys: ${missing.join(", ")}`).toEqual([]);
   });
 
-  it("all data-i18n keys exist in ES translations", () => {
+  it("all data-i18n / data-i18n-aria / data-i18n-alt keys exist in ES translations", () => {
     const missing = [...allKeys].filter((k) => !(k in ES));
     expect(missing, `Missing ES keys: ${missing.join(", ")}`).toEqual([]);
   });

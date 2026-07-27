@@ -25,6 +25,8 @@ import type { SocialProfile, WorkEntry } from "../types/ui";
 import type { I18nKey } from "../i18n/en";
 import { t } from "../utils/i18n";
 const { name, lastName, email, summary, profiles, label, location } = basics;
+const fullName = `${name} ${lastName}`;
+const portraitAlt = `${t("ui.a11y.portraitOf")} ${fullName}`;
 
 const linkedin = getSocialProfile(profiles as SocialProfile[], "Linkedin");
 const github = getSocialProfile(profiles as SocialProfile[], "Github");
@@ -61,7 +63,9 @@ const profilePageSchema = {
     <div class="hidden print:mb-8 print:flex print:items-start print:gap-4">
       <Image
         src={profileImgSrc}
-        alt="Portrait of David Gimeno"
+        alt={portraitAlt}
+        data-i18n-alt="ui.a11y.portraitOf"
+        data-alt-name={fullName}
         class="print:h-[80px] print:w-16 print:rounded print:object-cover"
         width={56}
         height={70}
@@ -116,7 +120,9 @@ const profilePageSchema = {
         <div class="img-frame group overflow-hidden bg-bg-muted print:hidden">
           <Image
             src={profileImgSrc}
-            alt="Portrait of David Gimeno"
+            alt={portraitAlt}
+            data-i18n-alt="ui.a11y.portraitOf"
+            data-alt-name={fullName}
             class="aspect-[4/5] w-full object-cover transition-all duration-300 ease-out [@media(hover:hover)]:group-hover:scale-[1.04] [@media(hover:hover)]:group-hover:grayscale"
             width={400}
             height={500}

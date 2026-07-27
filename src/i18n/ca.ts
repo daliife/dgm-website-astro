@@ -57,6 +57,8 @@ export const CA: Record<I18nKey, string> = {
   // ── Accessibility ──────────────────────────────────────────────────────────
   "ui.a11y.opensNewTab": "(s'obre en una pestanya nova)",
   "ui.a11y.cookieNotice": "Avís de cookies",
+  "ui.a11y.skipToContent": "Salta al contingut principal",
+  "ui.a11y.portraitOf": "Retrat de",
   "ui.a11y.theme.toDark": "Canviar al mode fosc",
   "ui.a11y.theme.toLight": "Canviar al mode clar",
   "ui.a11y.nav.main": "Navegació principal",

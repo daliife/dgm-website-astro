@@ -21,7 +21,11 @@ interface Props {
 const { links, className = `${NEXTUP_NAV_CLASSES} mt-4` } = Astro.props;
 ---
 
-<nav aria-label={t("ui.nextup.aria")} class={className}>
+<nav
+  aria-label={t("ui.nextup.aria")}
+  data-i18n-aria="ui.nextup.aria"
+  class={className}
+>
   <p class={NEXTUP_LABEL_CLASSES} data-i18n="ui.nextup">
     {t("ui.nextup")}
   </p>

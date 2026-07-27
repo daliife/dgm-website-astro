@@ -56,6 +56,17 @@ function applyAriaLabels(translations: Record<I18nKey, string>) {
   });
 }
 
+function applyAltTexts(translations: Record<I18nKey, string>) {
+  document.querySelectorAll<HTMLElement>("[data-i18n-alt]").forEach((el) => {
+    const key = el.dataset.i18nAlt as I18nKey | undefined;
+    if (!key) return;
+    const val = translations[key];
+    if (val === undefined) return;
+    const name = el.dataset.altName?.trim();
+    el.setAttribute("alt", name ? `${val} ${name}` : val);
+  });
+}
+
 export function getStoredLang(): LangCode {
   if (typeof localStorage === "undefined") return DEFAULT_LANG as LangCode;
   const stored = localStorage.getItem("lang");
@@ -82,6 +93,7 @@ export async function applyI18n(lang: LangCode) {
   }
 
   applyAriaLabels(translations);
+  applyAltTexts(translations);
 
   activeLang = lang;
   await applyDateFormatting(lang);

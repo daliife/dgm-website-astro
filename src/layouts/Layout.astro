@@ -7,7 +7,7 @@ import "../styles/fonts.css";
 import interLatinFontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 import { ClientRouter } from "astro:transitions";
 import { basics, work } from "@cv";
-import { DEFAULT_LANG } from "../utils/i18n";
+import { DEFAULT_LANG, t } from "../utils/i18n";
 import { OG_LOCALE_MAP } from "../utils/locale";
 import type { SocialProfile } from "../types/ui";
 
@@ -195,8 +195,9 @@ const jsonLd = {
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-text-primary focus:px-4 focus:py-2 focus:text-bg-primary focus:shadow-lg focus:outline-none"
+      data-i18n="ui.a11y.skipToContent"
     >
-      Skip to main content
+      {t("ui.a11y.skipToContent")}
     </a>
 
     <Header transition:persist />

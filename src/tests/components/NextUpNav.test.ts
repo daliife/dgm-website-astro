@@ -15,6 +15,7 @@ describe("NextUpNav", () => {
     });
 
     expect(html).toContain('aria-label="Pàgines relacionades"');
+    expect(html).toContain('data-i18n-aria="ui.nextup.aria"');
     expect(html).toContain('href="/work"');
     expect(html).toContain('href="/projects"');
     expect(html).toContain('data-i18n="ui.nextup.work"');

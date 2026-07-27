@@ -57,6 +57,8 @@ export const ES: Record<I18nKey, string> = {
   // ── Accessibility ──────────────────────────────────────────────────────────
   "ui.a11y.opensNewTab": "(se abre en una pestaña nueva)",
   "ui.a11y.cookieNotice": "Aviso de cookies",
+  "ui.a11y.skipToContent": "Saltar al contenido principal",
+  "ui.a11y.portraitOf": "Retrato de",
   "ui.a11y.theme.toDark": "Cambiar al modo oscuro",
   "ui.a11y.theme.toLight": "Cambiar al modo claro",
   "ui.a11y.nav.main": "Navegación principal",
