@@ -3,16 +3,19 @@ import type { ProjectEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
 import { t } from "../../utils/i18n";
 import { WORK_DATES_CLASSES } from "../../utils/constants";
+import { SITE_BASE } from "../../utils/url";
 import WorkDates from "./WorkDates.astro";
 
 interface Props {
   project: ProjectEntry;
   projectIndex: number;
+  slug: string;
   priority?: boolean;
 }
 
-const { project, projectIndex, priority = false } = Astro.props;
+const { project, projectIndex, slug, priority = false } = Astro.props;
 const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
+const detailHref = `${SITE_BASE}/projects/${slug}`;
 ---
 
 <article
@@ -20,9 +23,7 @@ const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
   aria-labelledby={`project-${projectIndex}-title`}
 >
   <a
-    href={project.url ?? undefined}
-    target={project.url ? "_blank" : undefined}
-    rel={project.url ? "noopener noreferrer" : undefined}
+    href={detailHref}
     class="flex min-w-0 flex-row items-start gap-5 overflow-hidden sm:gap-10"
   >
     <div
@@ -98,9 +99,6 @@ const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
         )
       }
     </div>
-    <span class="sr-only" data-i18n="ui.a11y.opensNewTab"
-      >{t("ui.a11y.opensNewTab")}</span
-    >
   </a>
 </article>
 

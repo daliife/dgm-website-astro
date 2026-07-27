@@ -13,6 +13,7 @@ import { projects } from "@cv";
 import ProjectCard from "../components/sections/ProjectCard.astro";
 import NextUpNav from "../components/layout/NextUpNav.astro";
 import type { ProjectEntry } from "../types/ui";
+import { getProjectEntries } from "../utils/projects";
 
 const CATEGORY_ORDER = ["professional", "personal", "academic"] as const;
 type Category = (typeof CATEGORY_ORDER)[number];
@@ -35,12 +36,9 @@ const CATEGORY_I18N: Record<Category, string> = {
   academic: "ui.projects.category.academic",
 };
 
-const indexed = (projects as ProjectEntry[]).map((project, index) => ({
-  project,
-  index,
-}));
+const indexed = getProjectEntries(projects as ProjectEntry[]);
 
-const grouped: Record<Category, { project: ProjectEntry; index: number }[]> = {
+const grouped: Record<Category, typeof indexed> = {
   professional: indexed.filter(
     ({ project }) => project.category === "professional",
   ),
@@ -60,12 +58,12 @@ const itemListSchema = {
   name: "Projects Portfolio",
   description: "Portfolio of web development projects by David Gimeno Mañé.",
   url: `${LIVE_URL}/projects`,
-  itemListElement: (projects as ProjectEntry[]).map((p, i) => ({
+  itemListElement: indexed.map(({ project, slug }, i) => ({
     "@type": "ListItem",
     position: i + 1,
-    name: p.name,
-    description: p.description,
-    ...(p.url ? { url: p.url } : {}),
+    name: project.name,
+    description: project.description,
+    url: `${LIVE_URL}/projects/${slug}`,
   })),
 };
 ---
@@ -122,11 +120,12 @@ const itemListSchema = {
                 </h2>
               </header>
               <ul class="list-none space-y-0 [&>li:first-child>article]:border-t-0">
-                {grouped[cat].map(({ project, index }) => (
+                {grouped[cat].map(({ project, index, slug }) => (
                   <li>
                     <ProjectCard
                       {project}
                       projectIndex={index}
+                      {slug}
                       priority={index === firstVisibleProjectIndex}
                     />
                   </li>

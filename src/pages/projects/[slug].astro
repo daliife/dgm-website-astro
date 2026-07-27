@@ -1,0 +1,176 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { projects } from "@cv";
+import {
+  TITLE_PAGE_SUFFIX,
+  PAGE_CONTAINER_CLASSES,
+  PAGE_HEADING_CLASSES,
+  WORK_DATES_CLASSES,
+  LIVE_URL,
+} from "../../utils/constants";
+import { SITE_BASE } from "../../utils/url";
+import { t } from "../../utils/i18n";
+import type { I18nKey } from "../../i18n/en";
+import type { ProjectEntry } from "../../types/ui";
+import { findProjectBySlug, getProjectEntries } from "../../utils/projects";
+import WorkDates from "../../components/sections/WorkDates.astro";
+import Button from "../../components/ui/Button.astro";
+import NextUpNav from "../../components/layout/NextUpNav.astro";
+
+export function getStaticPaths() {
+  return getProjectEntries(projects as ProjectEntry[]).map(({ slug }) => ({
+    params: { slug },
+  }));
+}
+
+const slug = Astro.params.slug!;
+const entry = findProjectBySlug(projects as ProjectEntry[], slug);
+
+if (!entry) {
+  throw new Error(`Unknown project slug: ${slug}`);
+}
+
+const { project, index } = entry;
+const descriptionKey = `projects.${index}.description` as I18nKey;
+const categoryKey = project.category
+  ? (`ui.projects.category.${project.category}` as I18nKey)
+  : undefined;
+
+const ogImage = project.image ? `${LIVE_URL}${project.image}` : undefined;
+
+const creativeWorkSchema = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: project.name,
+  description: project.description,
+  url: `${LIVE_URL}/projects/${slug}`,
+  ...(project.image ? { image: `${LIVE_URL}${project.image}` } : {}),
+  ...(project.url ? { sameAs: project.url } : {}),
+  ...(project.technologies?.length
+    ? { keywords: project.technologies.join(", ") }
+    : {}),
+  ...(project.startDate ? { dateCreated: project.startDate } : {}),
+  ...(project.endDate ? { dateModified: project.endDate } : {}),
+};
+---
+
+<Layout
+  title={`${project.name}${TITLE_PAGE_SUFFIX}`}
+  description={project.description}
+  image={ogImage}
+  imageWidth={192}
+  imageHeight={128}
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(creativeWorkSchema)}
+  />
+  <div class={PAGE_CONTAINER_CLASSES}>
+    <p class="mb-8">
+      <Button
+        href={`${SITE_BASE}/projects`}
+        variant="simple"
+        size="none"
+        className="text-xs uppercase tracking-widest text-text-muted transition-colors hover:text-text-primary"
+      >
+        <span aria-hidden="true">← </span>
+        <span data-i18n="ui.projects.back">{t("ui.projects.back")}</span>
+      </Button>
+    </p>
+
+    <header class="reveal mb-10 max-w-3xl">
+      {
+        categoryKey && (
+          <p
+            class="mb-3 text-xs uppercase tracking-widest text-text-muted"
+            data-i18n={categoryKey}
+          >
+            {t(categoryKey)}
+          </p>
+        )
+      }
+      <h1 class={PAGE_HEADING_CLASSES}>{project.name}</h1>
+      {
+        project.startDate && (
+          <WorkDates
+            startDate={project.startDate}
+            endDate={project.endDate}
+            className={`${WORK_DATES_CLASSES} mt-3 block`}
+          />
+        )
+      }
+      <p
+        class="mt-6 text-base leading-relaxed text-text-secondary sm:text-lg"
+        data-i18n={descriptionKey}
+      >
+        {t(descriptionKey, project.description)}
+      </p>
+    </header>
+
+    {
+      project.image && (
+        <div class="reveal img-frame mb-10 overflow-hidden bg-bg-muted">
+          <img
+            src={project.image}
+            alt={project.name}
+            class="aspect-[3/2] w-full object-cover sm:aspect-[2/1]"
+            width="960"
+            height="480"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
+      )
+    }
+
+    {
+      project.technologies && project.technologies.length > 0 && (
+        <section class="reveal mb-10" aria-labelledby="project-tech-heading">
+          <h2
+            id="project-tech-heading"
+            class="mb-4 text-xs uppercase tracking-widest text-text-muted"
+            data-i18n="ui.projects.tech"
+          >
+            {t("ui.projects.tech")}
+          </h2>
+          <ul class="flex flex-wrap gap-2">
+            {project.technologies.map((tech) => (
+              <li class="rounded-full border border-border-primary px-3 py-1 text-xs text-text-secondary">
+                {tech}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      project.url && (
+        <div class="reveal mb-4">
+          <Button
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            variant="outline"
+            size="sm"
+          >
+            <span data-i18n="ui.projects.visit">{t("ui.projects.visit")}</span>
+            <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+              {t("ui.a11y.opensNewTab")}
+            </span>
+          </Button>
+        </div>
+      )
+    }
+
+    <NextUpNav
+      links={[
+        { href: `${SITE_BASE}/projects`, labelKey: "ui.nextup.projects" },
+        { href: `${SITE_BASE}/contact`, labelKey: "ui.nextup.contact" },
+      ]}
+    />
+  </div>
+</Layout>

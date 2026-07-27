@@ -35,6 +35,9 @@ export const EN = {
   "ui.projects.category.professional": "Professional",
   "ui.projects.category.personal": "Personal",
   "ui.projects.category.academic": "Academic",
+  "ui.projects.back": "All projects",
+  "ui.projects.visit": "Visit project",
+  "ui.projects.tech": "Technologies",
 
   // ── About section headings ────────────────────────────────────────────────
   "ui.about.summary": "Summary",

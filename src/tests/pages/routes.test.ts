@@ -78,6 +78,15 @@ describe("Pages — basic HTML structure", () => {
     expect(html).toContain("<article");
   });
 
+  it("/projects cards link to internal detail pages", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ProjectsPage);
+
+    expect(html).toContain('href="/projects/orange-rfp"');
+    expect(html).toContain('href="/projects/estudi-seitai"');
+    expect(html).not.toContain('href="https://daliife.github.io/rfp-orange/"');
+  });
+
   it("/work contains work cards", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(WorkPage);

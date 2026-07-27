@@ -38,6 +38,9 @@ export const ES: Record<I18nKey, string> = {
   "ui.projects.category.professional": "Profesional",
   "ui.projects.category.personal": "Personal",
   "ui.projects.category.academic": "Académico",
+  "ui.projects.back": "Todos los proyectos",
+  "ui.projects.visit": "Visitar proyecto",
+  "ui.projects.tech": "Tecnologías",
 
   // ── About section headings ────────────────────────────────────────────────
   "ui.about.summary": "Resumen",
