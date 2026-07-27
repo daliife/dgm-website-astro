@@ -3,7 +3,7 @@ import type { ProjectEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
 import { t } from "../../utils/i18n";
 import { WORK_DATES_CLASSES } from "../../utils/constants";
-import { SITE_BASE } from "../../utils/url";
+import { pageHref } from "../../utils/url";
 import WorkDates from "./WorkDates.astro";
 
 interface Props {
@@ -15,7 +15,7 @@ interface Props {
 
 const { project, projectIndex, slug, priority = false } = Astro.props;
 const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
-const detailHref = `${SITE_BASE}/projects/${slug}`;
+const detailHref = pageHref("projects", slug);
 ---
 
 <article

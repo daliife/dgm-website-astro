@@ -8,7 +8,8 @@ describe("CookieConsent", () => {
     const html = await container.renderToString(CookieConsent);
 
     expect(html).toContain('id="cookie-banner"');
-    expect(html).toContain('id="cookie-dismiss"');
+    expect(html).toContain('id="cookie-accept"');
+    expect(html).toContain('id="cookie-reject"');
   });
 
   it("uses localized cookie notice aria-label", async () => {
@@ -25,5 +26,15 @@ describe("CookieConsent", () => {
 
     expect(html).toContain("/privacy");
     expect(html).toContain('data-i18n="ui.cookies.learnmore"');
+  });
+
+  it("exposes Accept and Reject labels", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(CookieConsent);
+
+    expect(html).toContain('data-i18n="ui.cookies.accept"');
+    expect(html).toContain('data-i18n="ui.cookies.reject"');
+    expect(html).toContain("Acceptar");
+    expect(html).toContain("Rebutjar");
   });
 });

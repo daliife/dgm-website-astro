@@ -20,6 +20,7 @@ export function getPageTitleFromKey(pageHeadingKey: I18nKey): string {
 /**
  * Canonical / OG URL for SEO — always https://davidgimeno.cat, even when
  * the HTML was built for GitHub Pages (different site + base path).
+ * Trailing slash matches Apache directory URLs (avoids DirectorySlash 301).
  */
 export function getCanonicalUrl(pageUrl: URL | string): string {
   const url = typeof pageUrl === "string" ? new URL(pageUrl) : pageUrl;
@@ -29,8 +30,8 @@ export function getCanonicalUrl(pageUrl: URL | string): string {
     path = path.slice(SITE_BASE.length) || "/";
   }
 
-  if (path.length > 1 && path.endsWith("/")) {
-    path = path.slice(0, -1);
+  if (path.length > 1 && !path.endsWith("/")) {
+    path = `${path}/`;
   }
 
   return path === "/" ? `${LIVE_URL}/` : `${LIVE_URL}${path}`;

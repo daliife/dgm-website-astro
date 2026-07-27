@@ -11,7 +11,7 @@ import {
 } from "../utils/constants";
 import { stripProtocol } from "../utils/format";
 import { getSocialProfile } from "../utils/socialLinks";
-import { SITE_BASE } from "../utils/url";
+import { pageHref } from "../utils/url";
 import Button from "../components/ui/Button.astro";
 import SkillsSection from "../components/sections/SkillsSection.astro";
 import LanguagesSection from "../components/sections/LanguagesSection.astro";
@@ -196,8 +196,8 @@ const profilePageSchema = {
     <NextUpNav
       className={`${NEXTUP_NAV_CLASSES} mt-12 print:hidden`}
       links={[
-        { href: `${SITE_BASE}/work`, labelKey: "ui.nextup.work" },
-        { href: `${SITE_BASE}/projects`, labelKey: "ui.nextup.projects" },
+        { href: pageHref("work"), labelKey: "ui.nextup.work" },
+        { href: pageHref("projects"), labelKey: "ui.nextup.projects" },
       ]}
     />
   </div>

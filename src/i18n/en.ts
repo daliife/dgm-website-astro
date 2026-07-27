@@ -67,7 +67,8 @@ export const EN = {
   "ui.cookies.message":
     "This site uses anonymous analytics to improve the experience.",
   "ui.cookies.learnmore": "Learn more",
-  "ui.cookies.dismiss": "OK",
+  "ui.cookies.accept": "Accept",
+  "ui.cookies.reject": "Reject",
 
   // ── Accessibility ──────────────────────────────────────────────────────────
   "ui.a11y.opensNewTab": "(opens in new tab)",
@@ -111,6 +112,8 @@ export const EN = {
   "ui.privacy.notcollected.3": "No cross-site tracking",
   "ui.privacy.notcollected.4": "No data sold to third parties",
   "ui.privacy.moreinfo": "More details at",
+  "ui.privacy.consent":
+    "Analytics only load if you accept the banner. If you reject, the site works the same without loading Umami.",
 
   // ── Contact ────────────────────────────────────────────────────────────────
   "ui.contact.intro":

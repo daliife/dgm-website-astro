@@ -92,8 +92,8 @@ describe("Pages — basic HTML structure", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectsPage);
 
-    expect(html).toContain('href="/projects/orange-rfp"');
-    expect(html).toContain('href="/projects/estudi-seitai"');
+    expect(html).toContain('href="/projects/orange-rfp/"');
+    expect(html).toContain('href="/projects/estudi-seitai/"');
     expect(html).not.toContain('href="https://daliife.github.io/rfp-orange/"');
   });
 

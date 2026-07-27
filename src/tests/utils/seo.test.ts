@@ -33,9 +33,9 @@ describe("getCanonicalUrl", () => {
 
   it("maps production paths to davidgimeno.cat", () => {
     expect(getCanonicalUrl(`${LIVE_URL}/`)).toBe(`${LIVE_URL}/`);
-    expect(getCanonicalUrl(`${LIVE_URL}/about/`)).toBe(`${LIVE_URL}/about`);
+    expect(getCanonicalUrl(`${LIVE_URL}/about/`)).toBe(`${LIVE_URL}/about/`);
     expect(getCanonicalUrl(`${LIVE_URL}/projects/orange-rfp`)).toBe(
-      `${LIVE_URL}/projects/orange-rfp`,
+      `${LIVE_URL}/projects/orange-rfp/`,
     );
   });
 
@@ -52,11 +52,11 @@ describe("getCanonicalUrl", () => {
     ).toBe(`${LIVE_URL}/`);
     expect(
       canonicalWithBase("https://daliife.github.io/dgm-website-astro/about/"),
-    ).toBe(`${LIVE_URL}/about`);
+    ).toBe(`${LIVE_URL}/about/`);
     expect(
       canonicalWithBase(
         "https://daliife.github.io/dgm-website-astro/projects/orange-rfp/",
       ),
-    ).toBe(`${LIVE_URL}/projects/orange-rfp`);
+    ).toBe(`${LIVE_URL}/projects/orange-rfp/`);
   });
 });

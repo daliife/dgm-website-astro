@@ -6,7 +6,7 @@ import {
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
 } from "../utils/constants";
-import { SITE_BASE } from "../utils/url";
+import { pageHref } from "../utils/url";
 import WorkCard from "../components/sections/WorkCard.astro";
 import NextUpNav from "../components/layout/NextUpNav.astro";
 import { t } from "../utils/i18n";
@@ -31,8 +31,8 @@ import type { WorkEntry } from "../types/ui";
 
     <NextUpNav
       links={[
-        { href: `${SITE_BASE}/projects`, labelKey: "ui.nextup.projects" },
-        { href: `${SITE_BASE}/contact`, labelKey: "ui.nextup.contact" },
+        { href: pageHref("projects"), labelKey: "ui.nextup.projects" },
+        { href: pageHref("contact"), labelKey: "ui.nextup.contact" },
       ]}
     />
   </div>

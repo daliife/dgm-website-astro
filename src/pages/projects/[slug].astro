@@ -7,7 +7,7 @@ import {
   WORK_DATES_CLASSES,
   LIVE_URL,
 } from "../../utils/constants";
-import { SITE_BASE } from "../../utils/url";
+import { pageHref } from "../../utils/url";
 import { t } from "../../utils/i18n";
 import type { I18nKey } from "../../i18n/en";
 import type { ProjectEntry } from "../../types/ui";
@@ -71,7 +71,7 @@ const creativeWorkSchema = {
   <div class={PAGE_CONTAINER_CLASSES}>
     <p class="mb-8">
       <Button
-        href={`${SITE_BASE}/projects`}
+        href={pageHref("projects")}
         variant="simple"
         size="none"
         className="text-xs uppercase tracking-widest text-text-muted transition-colors hover:text-text-primary"
@@ -169,8 +169,8 @@ const creativeWorkSchema = {
 
     <NextUpNav
       links={[
-        { href: `${SITE_BASE}/projects`, labelKey: "ui.nextup.projects" },
-        { href: `${SITE_BASE}/contact`, labelKey: "ui.nextup.contact" },
+        { href: pageHref("projects"), labelKey: "ui.nextup.projects" },
+        { href: pageHref("contact"), labelKey: "ui.nextup.contact" },
       ]}
     />
   </div>

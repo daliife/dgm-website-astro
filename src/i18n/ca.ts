@@ -70,7 +70,8 @@ export const CA: Record<I18nKey, string> = {
   "ui.cookies.message":
     "Aquest lloc utilitza analítiques anònimes per millorar l'experiència.",
   "ui.cookies.learnmore": "Més informació",
-  "ui.cookies.dismiss": "Entès",
+  "ui.cookies.accept": "Acceptar",
+  "ui.cookies.reject": "Rebutjar",
 
   // ── Accessibility ──────────────────────────────────────────────────────────
   "ui.a11y.opensNewTab": "(s'obre en una pestanya nova)",
@@ -115,6 +116,8 @@ export const CA: Record<I18nKey, string> = {
   "ui.privacy.notcollected.3": "Sense seguiment entre llocs",
   "ui.privacy.notcollected.4": "Sense venda de dades a tercers",
   "ui.privacy.moreinfo": "Més detalls a",
+  "ui.privacy.consent":
+    "Les analítiques només es carreguen si acceptes el bàner. Si les rebutges, el lloc funciona igual sense carregar Umami.",
 
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":

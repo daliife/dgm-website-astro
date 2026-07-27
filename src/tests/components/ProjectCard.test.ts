@@ -27,7 +27,7 @@ describe("ProjectCard", () => {
       props: { project: baseProject, projectIndex: 0, slug: "my-project" },
     });
 
-    expect(html).toContain('href="/projects/my-project"');
+    expect(html).toContain('href="/projects/my-project/"');
     expect(html).not.toContain('target="_blank"');
     expect(html).not.toContain("https://example.com");
   });

@@ -21,10 +21,10 @@ describe("Header", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Header);
 
-    expect(html).toContain('href="/about"');
-    expect(html).toContain('href="/projects"');
-    expect(html).toContain('href="/work"');
-    expect(html).toContain('href="/contact"');
+    expect(html).toContain('href="/about/"');
+    expect(html).toContain('href="/projects/"');
+    expect(html).toContain('href="/work/"');
+    expect(html).toContain('href="/contact/"');
   });
 
   it("nav links have data-i18n attributes for translation", async () => {
@@ -62,6 +62,19 @@ describe("Header", () => {
     expect(html).toContain("data-lang-switcher");
     expect(html).toContain('data-lang-btn="en"');
     expect(html).toContain('data-lang-btn="ca"');
+  });
+
+  it("shows LanguageToggle in the mobile chrome bar", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Header);
+
+    // Mobile chrome (md:hidden) includes language toggle; menu no longer does.
+    expect(html).toMatch(
+      /md:hidden[\s\S]*data-lang-switcher[\s\S]*id="mobile-menu-btn"/,
+    );
+    expect(html).not.toMatch(
+      /id="mobile-menu"[\s\S]*data-lang-switcher[\s\S]*<\/nav>/,
+    );
   });
 
   it("renders the ThemeToggle", async () => {

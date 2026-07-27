@@ -2,7 +2,7 @@
 import { basics } from "@cv";
 import { getSocialProfile } from "../../utils/socialLinks";
 import { ICON_PATHS } from "../../utils/icons";
-import { SITE_BASE } from "../../utils/url";
+import { pageHref } from "../../utils/url";
 import { t } from "../../utils/i18n";
 import type { SocialProfile } from "../../types/ui";
 const typedProfiles = basics.profiles as SocialProfile[];
@@ -58,7 +58,7 @@ const socialLinks = [
         >
       </span>
       <a
-        href={`${SITE_BASE}/privacy`}
+        href={pageHref("privacy")}
         class="inline-flex shrink-0 items-center gap-1 text-xs text-text-muted transition-colors duration-200 hover:text-text-primary"
       >
         <svg

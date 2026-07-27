@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
-import { SITE_BASE } from "../utils/url";
+import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
 
 const NOT_FOUND_NAV_LINK =
@@ -32,7 +32,7 @@ const NOT_FOUND_BACK_LINK =
       class="mb-10 flex flex-col items-center gap-5 sm:flex-row sm:gap-8"
     >
       <Button
-        href={`${SITE_BASE}/work`}
+        href={pageHref("work")}
         variant="simple"
         size="none"
         className={NOT_FOUND_NAV_LINK}
@@ -40,7 +40,7 @@ const NOT_FOUND_BACK_LINK =
         <span data-i18n="ui.nav.work">{t("ui.nav.work")}</span>
       </Button>
       <Button
-        href={`${SITE_BASE}/projects`}
+        href={pageHref("projects")}
         variant="simple"
         size="none"
         className={NOT_FOUND_NAV_LINK}
@@ -48,7 +48,7 @@ const NOT_FOUND_BACK_LINK =
         <span data-i18n="ui.nav.projects">{t("ui.nav.projects")}</span>
       </Button>
       <Button
-        href={`${SITE_BASE}/contact`}
+        href={pageHref("contact")}
         variant="simple"
         size="none"
         className={NOT_FOUND_NAV_LINK}
@@ -57,7 +57,7 @@ const NOT_FOUND_BACK_LINK =
       </Button>
     </nav>
     <Button
-      href={`${SITE_BASE}/`}
+      href={pageHref()}
       variant="simple"
       size="none"
       className={NOT_FOUND_BACK_LINK}

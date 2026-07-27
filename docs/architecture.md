@@ -228,7 +228,7 @@ The site supports **Catalan** (default SSR), **English**, and **Spanish** via a 
 ### How it works
 
 1. Translatable strings use `data-i18n="key"` and SSR fallback text from `t(key)` in `src/utils/i18n.ts` (Catalan).
-2. `LanguageToggle.astro` renders a CA/EN/ES dropdown in desktop nav and mobile menu.
+2. `LanguageToggle.astro` renders a CA/EN/ES dropdown in the desktop and mobile top bars.
 3. On language change, `applyI18n()` in `src/utils/i18n-client.ts` updates `[data-i18n]` nodes for non-default locales.
 4. On first paint with the default locale (CA), DOM text updates are skipped for performance; dates and chrome still sync.
 5. The selected language is persisted in `localStorage("lang")` and re-applied on `astro:page-load`.

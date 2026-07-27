@@ -6,7 +6,7 @@ import {
   PAGE_HEADING_MARGIN_CLASSES,
   LIVE_URL,
 } from "../utils/constants";
-import { SITE_BASE } from "../utils/url";
+import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
 import { getPageTitleFromKey } from "../utils/seo";
 import { projects } from "@cv";
@@ -142,8 +142,8 @@ const itemListSchema = {
 
     <NextUpNav
       links={[
-        { href: `${SITE_BASE}/work`, labelKey: "ui.nextup.work" },
-        { href: `${SITE_BASE}/contact`, labelKey: "ui.nextup.contact" },
+        { href: pageHref("work"), labelKey: "ui.nextup.work" },
+        { href: pageHref("contact"), labelKey: "ui.nextup.contact" },
       ]}
     />
   </div>

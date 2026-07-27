@@ -1,5 +1,5 @@
 ---
-import { SITE_BASE } from "../../utils/url";
+import { pageHref } from "../../utils/url";
 import { t } from "../../utils/i18n";
 import Button from "../ui/Button.astro";
 ---
@@ -20,21 +20,21 @@ import Button from "../ui/Button.astro";
         <span data-i18n="ui.cookies.message">{t("ui.cookies.message")}</span>
         {" "}
         <a
-          href={`${SITE_BASE}/privacy`}
+          href={pageHref("privacy")}
           class="underline underline-offset-4 transition-colors hover:text-text-primary"
           data-i18n="ui.cookies.learnmore"
         >
           {t("ui.cookies.learnmore")}
         </a>
       </p>
-      <Button
-        id="cookie-dismiss"
-        variant="primary"
-        size="sm"
-        className="shrink-0"
-      >
-        <span data-i18n="ui.cookies.dismiss">{t("ui.cookies.dismiss")}</span>
-      </Button>
+      <div class="flex shrink-0 items-center gap-2">
+        <Button id="cookie-reject" variant="ghost" size="sm">
+          <span data-i18n="ui.cookies.reject">{t("ui.cookies.reject")}</span>
+        </Button>
+        <Button id="cookie-accept" variant="primary" size="sm">
+          <span data-i18n="ui.cookies.accept">{t("ui.cookies.accept")}</span>
+        </Button>
+      </div>
     </div>
   </div>
 </div>
@@ -42,15 +42,47 @@ import Button from "../ui/Button.astro";
 <script>
   import { loadUmamiAnalytics } from "../../utils/analytics";
 
-  const STORAGE_KEY = "cookie-consent-dismissed";
+  const STORAGE_KEY = "cookie-consent";
+  const LEGACY_KEY = "cookie-consent-dismissed";
+
+  type ConsentValue = "accepted" | "rejected";
+
+  function getStoredConsent(): ConsentValue | null {
+    const value = localStorage.getItem(STORAGE_KEY);
+    if (value === "accepted" || value === "rejected") return value;
+
+    // Migrate pre-UX-3 dismissals: they already opted into analytics.
+    if (localStorage.getItem(LEGACY_KEY) === "true") {
+      localStorage.setItem(STORAGE_KEY, "accepted");
+      localStorage.removeItem(LEGACY_KEY);
+      return "accepted";
+    }
+
+    return null;
+  }
+
+  function hideBanner(banner: HTMLElement) {
+    banner.classList.remove("translate-y-0");
+    banner.classList.add("translate-y-full");
+    banner.addEventListener(
+      "transitionend",
+      () => banner.classList.add("hidden"),
+      { once: true },
+    );
+  }
 
   function initBanner() {
     const banner = document.getElementById("cookie-banner");
     if (!banner) return;
 
-    if (localStorage.getItem(STORAGE_KEY) === "true") {
+    const consent = getStoredConsent();
+    if (consent === "accepted") {
       banner.classList.add("hidden");
       loadUmamiAnalytics();
+      return;
+    }
+    if (consent === "rejected") {
+      banner.classList.add("hidden");
       return;
     }
 
@@ -59,7 +91,6 @@ import Button from "../ui/Button.astro";
 
     banner.classList.remove("hidden");
 
-    // Trigger slide-up animation on next frame
     requestAnimationFrame(() => {
       banner.classList.remove("translate-y-full");
       banner.classList.add(
@@ -70,17 +101,17 @@ import Button from "../ui/Button.astro";
       );
     });
 
-    const btn = document.getElementById("cookie-dismiss");
-    btn?.addEventListener("click", () => {
-      localStorage.setItem(STORAGE_KEY, "true");
+    document.getElementById("cookie-accept")?.addEventListener("click", () => {
+      localStorage.setItem(STORAGE_KEY, "accepted");
+      localStorage.removeItem(LEGACY_KEY);
       loadUmamiAnalytics();
-      banner.classList.remove("translate-y-0");
-      banner.classList.add("translate-y-full");
-      banner.addEventListener(
-        "transitionend",
-        () => banner.classList.add("hidden"),
-        { once: true },
-      );
+      hideBanner(banner);
+    });
+
+    document.getElementById("cookie-reject")?.addEventListener("click", () => {
+      localStorage.setItem(STORAGE_KEY, "rejected");
+      localStorage.removeItem(LEGACY_KEY);
+      hideBanner(banner);
     });
   }
 

@@ -70,7 +70,8 @@ export const ES: Record<I18nKey, string> = {
   "ui.cookies.message":
     "Este sitio utiliza analíticas anónimas para mejorar la experiencia.",
   "ui.cookies.learnmore": "Más información",
-  "ui.cookies.dismiss": "Entendido",
+  "ui.cookies.accept": "Aceptar",
+  "ui.cookies.reject": "Rechazar",
 
   // ── Accessibility ──────────────────────────────────────────────────────────
   "ui.a11y.opensNewTab": "(se abre en una pestaña nueva)",
@@ -115,6 +116,8 @@ export const ES: Record<I18nKey, string> = {
   "ui.privacy.notcollected.3": "Sin seguimiento entre sitios",
   "ui.privacy.notcollected.4": "Sin venta de datos a terceros",
   "ui.privacy.moreinfo": "Más detalles en",
+  "ui.privacy.consent":
+    "Las analíticas solo se cargan si aceptas el banner. Si las rechazas, el sitio funciona igual sin cargar Umami.",
 
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":
