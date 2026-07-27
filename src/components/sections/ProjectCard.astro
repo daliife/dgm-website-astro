@@ -2,6 +2,8 @@
 import type { ProjectEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
 import { t } from "../../utils/i18n";
+import { WORK_DATES_CLASSES } from "../../utils/constants";
+import WorkDates from "./WorkDates.astro";
 
 interface Props {
   project: ProjectEntry;
@@ -65,12 +67,23 @@ const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
     <div
       class="grid min-w-0 flex-1 grid-cols-1 gap-1 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-x-2"
     >
-      <h3
-        id={`project-${projectIndex}-title`}
-        class="project-title col-start-1 row-start-1 w-fit max-w-full text-xl font-semibold text-text-primary transition-colors duration-200 ease-out sm:text-2xl"
-      >
-        {project.name}
-      </h3>
+      <div class="col-start-1 row-start-1 flex min-w-0 flex-col gap-1">
+        <h3
+          id={`project-${projectIndex}-title`}
+          class="project-title w-fit max-w-full text-xl font-semibold text-text-primary transition-colors duration-200 ease-out sm:text-2xl"
+        >
+          {project.name}
+        </h3>
+        {
+          project.startDate && (
+            <WorkDates
+              startDate={project.startDate}
+              endDate={project.endDate}
+              className={WORK_DATES_CLASSES}
+            />
+          )
+        }
+      </div>
       <p
         class="col-start-1 row-start-2 text-sm leading-relaxed text-text-secondary sm:col-span-2 sm:text-base"
         data-i18n={descriptionKey}

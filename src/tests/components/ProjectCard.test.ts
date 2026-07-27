@@ -93,6 +93,32 @@ describe("ProjectCard", () => {
     expect(html).toContain('id="project-2-title"');
   });
 
+  it("renders formatted dates when startDate is provided", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ProjectCard, {
+      props: {
+        project: {
+          ...baseProject,
+          startDate: "2020-10-26",
+          endDate: "2020-11-12",
+        },
+        projectIndex: 0,
+      },
+    });
+
+    expect(html).toContain('data-date-start="2020-10-26"');
+    expect(html).toContain('data-date-end="2020-11-12"');
+  });
+
+  it("omits dates when startDate is missing", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ProjectCard, {
+      props: { project: baseProject, projectIndex: 0 },
+    });
+
+    expect(html).not.toContain("data-date-start");
+  });
+
   it("renders no href when project has no url", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {

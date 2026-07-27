@@ -217,6 +217,7 @@
       "image": "/projects/estudi-seitai.webp",
       "technologies": ["Astro", "TypeScript", "Tailwind CSS"],
       "category": "personal",
+      "startDate": "2025-08-24",
       "imageSource": "https://estudiseitai.cat/images/fons-hero-1920.webp"
     },
     {
@@ -226,6 +227,8 @@
       "image": "/projects/spritz-reader.webp",
       "technologies": ["React", "TypeScript", "Vite", "Tailwind CSS"],
       "category": "personal",
+      "startDate": "2026-05-17",
+      "endDate": "2026-05-25",
       "imageSource": "https://raw.githubusercontent.com/daliife/spritz-reader-with-sdd/main/docs/readme-screnshot.jpg"
     },
     {
@@ -235,6 +238,8 @@
       "image": "/projects/seat-rfp.webp",
       "technologies": ["Angular", "TypeScript", "Canvas"],
       "category": "professional",
+      "startDate": "2020-05-20",
+      "endDate": "2021-10-10",
       "imageSource": "https://raw.githubusercontent.com/daliife/rfp-seat/master/src/assets/finals/first-scene.png"
     },
     {
@@ -244,6 +249,8 @@
       "image": "/projects/orange-rfp.webp",
       "technologies": ["Angular", "TypeScript", "Lottie"],
       "category": "professional",
+      "startDate": "2020-10-26",
+      "endDate": "2020-11-12",
       "imageSource": "https://raw.githubusercontent.com/daliife/rfp-orange/master/src/assets/img/final-game/img-juegofinal.png"
     },
     {
@@ -253,6 +260,8 @@
       "image": "/projects/hmi-seat.webp",
       "technologies": ["Angular", "TypeScript", "CSS"],
       "category": "professional",
+      "startDate": "2020-10-09",
+      "endDate": "2020-10-23",
       "imageSource": "https://raw.githubusercontent.com/daliife/hmi-seat/main/src/assets/chronology/50s.png"
     },
     {
@@ -262,6 +271,8 @@
       "image": "/projects/cinemup.webp",
       "technologies": ["JavaScript", "HTML", "CSS"],
       "category": "academic",
+      "startDate": "2017-01-24",
+      "endDate": "2020-10-06",
       "imageSource": "https://i.imgur.com/yUpwhvM.png"
     },
     {
@@ -271,6 +282,8 @@
       "image": "/projects/podracers.webp",
       "technologies": ["Unreal Engine 4", "C++"],
       "category": "academic",
+      "startDate": "2019-01-29",
+      "endDate": "2019-09-12",
       "imageSource": "https://i.imgur.com/2Rr3Ppg.jpg"
     },
     {
@@ -280,6 +293,8 @@
       "image": "/projects/ricardlogic.webp",
       "technologies": ["HTML", "CSS", "JavaScript"],
       "category": "personal",
+      "startDate": "2022-02-05",
+      "endDate": "2022-02-12",
       "imageSource": "https://raw.githubusercontent.com/daliife/ricardlogic-minigame/main/assets/ricardlogic-screenshot.png"
     },
     {
@@ -289,6 +304,8 @@
       "image": "/projects/portfolio-v1.webp",
       "technologies": ["Angular", "TypeScript", "SCSS"],
       "category": "personal",
+      "startDate": "2018-10-13",
+      "endDate": "2023-12-28",
       "imageSource": "https://i.imgur.com/xOjLfx4.png"
     },
     {
@@ -298,6 +315,8 @@
       "image": "/projects/amigo.webp",
       "technologies": ["Unity", "C#", "HLSL"],
       "category": "academic",
+      "startDate": "2019-04-14",
+      "endDate": "2019-04-14",
       "imageSource": "https://i.imgur.com/4Dwf2Uu.png"
     },
     {
@@ -307,6 +326,8 @@
       "image": "/projects/instruments-list.webp",
       "technologies": ["Angular", "TypeScript", "CSS"],
       "category": "personal",
+      "startDate": "2018-10-23",
+      "endDate": "2021-08-12",
       "imageSource": "https://i.imgur.com/vwxHXuf.png"
     },
     {
@@ -316,6 +337,8 @@
       "image": "/projects/light-sorter.webp",
       "technologies": ["JavaScript", "jQuery", "Handlebars"],
       "category": "professional",
+      "startDate": "2020-11-03",
+      "endDate": "2020-11-16",
       "imageSource": "https://i.imgur.com/OnphlCH.png"
     },
     {
@@ -325,6 +348,8 @@
       "image": "/projects/shaders-postpro.webp",
       "technologies": ["C++", "GLSL", "ImGui"],
       "category": "academic",
+      "startDate": "2019-02-10",
+      "endDate": "2019-03-05",
       "imageSource": "https://i.imgur.com/tNfnzOC.png"
     }
   ]
