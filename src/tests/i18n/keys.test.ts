@@ -92,3 +92,27 @@ describe("i18n — cv.json project descriptions", () => {
     expect(orphans, `Orphan EN keys: ${orphans.join(", ")}`).toEqual([]);
   });
 });
+
+describe("i18n — cv.json languages and certificates", () => {
+  const cvPath = join(__dirname, "../../../cv.json");
+  const cv = JSON.parse(readFileSync(cvPath, "utf-8"));
+  const languages: unknown[] = cv.languages ?? [];
+  const certificates: unknown[] = cv.certificates ?? [];
+
+  it("every language has language + fluency keys in all locales", () => {
+    for (const locale of [EN, CA, ES] as const) {
+      for (let i = 0; i < languages.length; i++) {
+        expect(locale).toHaveProperty(`languages.${i}.language`);
+        expect(locale).toHaveProperty(`languages.${i}.fluency`);
+      }
+    }
+  });
+
+  it("every certificate has a name key in all locales", () => {
+    for (const locale of [EN, CA, ES] as const) {
+      for (let i = 0; i < certificates.length; i++) {
+        expect(locale).toHaveProperty(`certificates.${i}.name`);
+      }
+    }
+  });
+});

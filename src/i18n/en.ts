@@ -72,6 +72,10 @@ export const EN = {
 
   // ── Footer ─────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacy",
+  "ui.footer.builtWith": "Built with",
+  "ui.footer.cycle.0": "love ♥",
+  "ui.footer.cycle.1": "Astro 🚀",
+  "ui.footer.cycle.2": "AI ✦",
   // ── Dates ──────────────────────────────────────────────────────────────────
   "ui.date.present": "Present",
   // ── Privacy page ───────────────────────────────────────────────────────────
@@ -222,9 +226,17 @@ export const EN = {
   "skills.4.level": "Intermediate",
 
   // ── Languages ──────────────────────────────────────────────────────────────
+  "languages.0.language": "Catalan",
   "languages.0.fluency": "Native speaker",
+  "languages.1.language": "Spanish",
   "languages.1.fluency": "Native speaker",
+  "languages.2.language": "English",
   "languages.2.fluency": "Professional working proficiency",
+
+  // ── Certificates ───────────────────────────────────────────────────────────
+  "certificates.0.name": "Cambridge Certificate in Advanced English (CAE)",
+  "certificates.1.name": "CCNA Routing and Switching: Introduction to Networks",
+  "certificates.2.name": "ATC (3Ds Max)",
 
   // ── 404 page ───────────────────────────────────────────────────────────────
   "ui.404.message": "Page not found",

@@ -49,6 +49,9 @@ const { education } = Astro.props;
             class="text-sm text-text-secondary underline decoration-text-secondary/40 underline-offset-2 transition-all duration-200 hover:text-text-primary hover:decoration-text-primary print:hidden"
           >
             {edu.institution}
+            <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+              {t("ui.a11y.opensNewTab")}
+            </span>
           </a>
         </div>
       ))

@@ -75,6 +75,10 @@ export const ES: Record<I18nKey, string> = {
 
   // ── Footer ───────────────────────────────────────────────────────────────────
   "ui.footer.privacy": "Privacidad",
+  "ui.footer.builtWith": "Hecho con",
+  "ui.footer.cycle.0": "amor ♥",
+  "ui.footer.cycle.1": "Astro 🚀",
+  "ui.footer.cycle.2": "IA ✦",
   // ── Dates ──────────────────────────────────────────────────────────────────
   "ui.date.present": "Actualidad",
   // ── Privacy page ─────────────────────────────────────────────────────────────
@@ -234,9 +238,17 @@ export const ES: Record<I18nKey, string> = {
   "skills.4.level": "Intermedio",
 
   // ── Languages ─────────────────────────────────────────────────────────────
+  "languages.0.language": "Catalán",
   "languages.0.fluency": "Lengua materna",
+  "languages.1.language": "Castellano",
   "languages.1.fluency": "Lengua materna",
+  "languages.2.language": "Inglés",
   "languages.2.fluency": "Competencia profesional",
+
+  // ── Certificates ──────────────────────────────────────────────────────────
+  "certificates.0.name": "Certificado Cambridge de inglés avanzado (CAE)",
+  "certificates.1.name": "CCNA Routing and Switching: Introducción a las redes",
+  "certificates.2.name": "ATC (3Ds Max)",
 
   // ── 404 page ───────────────────────────────────────────────────────────────
   "ui.404.message": "Página no encontrada",

@@ -12,18 +12,24 @@ const currentYear = new Date().getFullYear();
 const socialLinks = [
   {
     name: "LinkedIn",
+    labelKey: "ui.contact.network.linkedin" as const,
     url: getSocialProfile(typedProfiles, "Linkedin")?.url || "#",
     icon: ICON_PATHS.linkedin,
+    external: true,
   },
   {
     name: "GitHub",
+    labelKey: "ui.contact.network.github" as const,
     url: getSocialProfile(typedProfiles, "Github")?.url || "#",
     icon: ICON_PATHS.github,
+    external: true,
   },
   {
     name: "Email",
+    labelKey: "ui.contact.network.email" as const,
     url: `mailto:${basics.email}`,
     icon: ICON_PATHS.email,
+    external: false,
   },
 ];
 ---
@@ -38,11 +44,17 @@ const socialLinks = [
       <span class="text-center text-xs text-text-muted min-[480px]:text-left">
         &copy; <span id="footer-year">{currentYear}</span>
         {basics.name}
-        {basics.lastName} &mdash; Built with <span
-          class="footer-cycle-wrapper text-text-secondary"
-          ><span class="footer-cycle">love ♥</span><span class="footer-cycle"
-            >Astro 🚀</span
-          ><span class="footer-cycle">AI ✦</span></span
+        {basics.lastName} &mdash;{" "}
+        <span data-i18n="ui.footer.builtWith">{t("ui.footer.builtWith")}</span>
+        {" "}
+        <span class="footer-cycle-wrapper text-text-secondary"
+          ><span class="footer-cycle" data-i18n="ui.footer.cycle.0"
+            >{t("ui.footer.cycle.0")}</span
+          ><span class="footer-cycle" data-i18n="ui.footer.cycle.1"
+            >{t("ui.footer.cycle.1")}</span
+          ><span class="footer-cycle" data-i18n="ui.footer.cycle.2"
+            >{t("ui.footer.cycle.2")}</span
+          ></span
         >
       </span>
       <a
@@ -76,8 +88,8 @@ const socialLinks = [
             <li>
               <a
                 href={link.url}
-                target={link.name !== "Email" ? "_blank" : undefined}
-                rel={link.name !== "Email" ? "noopener noreferrer" : undefined}
+                target={link.external ? "_blank" : undefined}
+                rel={link.external ? "noopener noreferrer" : undefined}
                 class="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-text-muted transition-colors duration-200 hover:text-text-primary"
               >
                 <svg
@@ -87,8 +99,8 @@ const socialLinks = [
                   aria-hidden="true"
                   set:html={link.icon}
                 />
-                {link.name}
-                {link.name !== "Email" && (
+                <span data-i18n={link.labelKey}>{t(link.labelKey)}</span>
+                {link.external && (
                   <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
                     {t("ui.a11y.opensNewTab")}
                   </span>

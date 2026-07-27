@@ -1,5 +1,6 @@
 ---
 import type { CertificateEntry } from "../../types/ui";
+import type { I18nKey } from "../../i18n/en";
 import { ABOUT_SECTION_SPACING_CLASSES } from "../../utils/constants";
 import { t } from "../../utils/i18n";
 
@@ -19,30 +20,37 @@ const { certificates } = Astro.props;
   </h2>
   <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 print:flex print:gap-x-6">
     {
-      certificates.map((cert: CertificateEntry) => (
-        <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
-          <h3 class="text-sm font-medium text-text-primary print:text-[10px] print:text-gray-900">
-            {cert.issuer}
-          </h3>
-          {cert.url ? (
-            <a
-              href={cert.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="mt-1 block text-sm text-text-muted underline decoration-text-muted/30 underline-offset-2 transition-all duration-200 hover:text-text-primary hover:decoration-text-primary print:mt-0 print:text-[10px] print:text-gray-500"
-            >
-              {cert.name}
-              <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
-                {t("ui.a11y.opensNewTab")}
-              </span>
-            </a>
-          ) : (
-            <p class="mt-1 text-sm text-text-muted print:mt-0 print:text-[10px] print:text-gray-500">
-              {cert.name}
-            </p>
-          )}
-        </div>
-      ))
+      certificates.map((cert: CertificateEntry, certIndex: number) => {
+        const nameKey = `certificates.${certIndex}.name` as I18nKey;
+        const name = t(nameKey, cert.name);
+        return (
+          <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
+            <h3 class="text-sm font-medium text-text-primary print:text-[10px] print:text-gray-900">
+              {cert.issuer}
+            </h3>
+            {cert.url ? (
+              <a
+                href={cert.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="mt-1 block text-sm text-text-muted underline decoration-text-muted/30 underline-offset-2 transition-all duration-200 hover:text-text-primary hover:decoration-text-primary print:mt-0 print:text-[10px] print:text-gray-500"
+              >
+                <span data-i18n={nameKey}>{name}</span>
+                <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+                  {t("ui.a11y.opensNewTab")}
+                </span>
+              </a>
+            ) : (
+              <p
+                class="mt-1 text-sm text-text-muted print:mt-0 print:text-[10px] print:text-gray-500"
+                data-i18n={nameKey}
+              >
+                {name}
+              </p>
+            )}
+          </div>
+        );
+      })
     }
   </div>
 </section>

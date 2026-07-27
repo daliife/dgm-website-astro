@@ -80,8 +80,11 @@ const profilePageSchema = {
           {name}
           {lastName}
         </p>
-        <p class="print:mt-1 print:text-xs print:text-gray-600">
-          {label}
+        <p
+          class="print:mt-1 print:text-xs print:text-gray-600"
+          data-i18n="basics.label"
+        >
+          {t("basics.label", label)}
         </p>
         <div
           class="print:mt-1.5 print:flex print:flex-wrap print:gap-x-4 print:text-[11px] print:text-gray-500"
@@ -89,9 +92,7 @@ const profilePageSchema = {
           <span>{email}</span>
           {
             location && (
-              <span>
-                {location.city}, {location.region}
-              </span>
+              <span data-i18n="basics.location">{t("basics.location")}</span>
             )
           }
           {linkedin && <span>{stripProtocol(linkedin.url)}</span>}
