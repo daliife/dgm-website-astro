@@ -2,15 +2,20 @@
 import type { ProjectEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
 import { t } from "../../utils/i18n";
+import { WORK_DATES_CLASSES } from "../../utils/constants";
+import { pageHref } from "../../utils/url";
+import WorkDates from "./WorkDates.astro";
 
 interface Props {
   project: ProjectEntry;
   projectIndex: number;
+  slug: string;
   priority?: boolean;
 }
 
-const { project, projectIndex, priority = false } = Astro.props;
+const { project, projectIndex, slug, priority = false } = Astro.props;
 const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
+const detailHref = pageHref("projects", slug);
 ---
 
 <article
@@ -18,40 +23,18 @@ const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
   aria-labelledby={`project-${projectIndex}-title`}
 >
   <a
-    href={project.url ?? undefined}
-    target={project.url ? "_blank" : undefined}
-    rel={project.url ? "noopener noreferrer" : undefined}
-    class="flex min-w-0 flex-row items-start gap-5 overflow-hidden sm:gap-10"
+    href={detailHref}
+    class="flex min-w-0 flex-row items-start gap-5 sm:gap-10"
   >
-    <div
-      class="img-frame relative h-24 w-24 shrink-0 overflow-hidden bg-bg-muted sm:h-32 sm:w-48"
-    >
-      <div
-        class="flex h-full w-full items-center justify-center text-text-muted"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          aria-hidden="true"
-        >
-          <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-          <circle cx="8.5" cy="8.5" r="1.5"></circle>
-          <polyline points="21 15 16 10 5 21"></polyline>
-        </svg>
-      </div>
+    <div class="relative h-24 w-24 shrink-0 sm:h-32 sm:w-48">
+      <span class="absolute inset-0 block bg-text-primary" aria-hidden="true"
+      ></span>
       {
-        project.image && (
+        project.image ? (
           <img
             src={project.image}
             alt={project.name}
-            class="absolute inset-0 h-full w-full object-cover transition-all duration-300 ease-out [@media(hover:hover)]:group-hover:scale-[1.04] [@media(hover:hover)]:group-hover:grayscale"
+            class="relative z-10 h-full w-full object-cover transition-transform duration-300 ease-out [@media(hover:hover)]:group-hover:-translate-x-1 [@media(hover:hover)]:group-hover:-translate-y-1"
             loading={priority ? "eager" : "lazy"}
             decoding="async"
             width="192"
@@ -59,18 +42,48 @@ const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
             {...(priority ? { fetchpriority: "high" } : {})}
             data-use-fallback
           />
+        ) : (
+          <div class="relative z-10 flex h-full w-full items-center justify-center bg-bg-muted text-text-muted transition-transform duration-300 ease-out [@media(hover:hover)]:group-hover:-translate-x-1 [@media(hover:hover)]:group-hover:-translate-y-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+              <circle cx="8.5" cy="8.5" r="1.5" />
+              <polyline points="21 15 16 10 5 21" />
+            </svg>
+          </div>
         )
       }
     </div>
     <div
       class="grid min-w-0 flex-1 grid-cols-1 gap-1 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-x-2"
     >
-      <h3
-        id={`project-${projectIndex}-title`}
-        class="project-title col-start-1 row-start-1 text-xl font-semibold text-text-primary transition-colors duration-200 ease-out sm:text-2xl"
-      >
-        {project.name}
-      </h3>
+      <div class="col-start-1 row-start-1 flex min-w-0 flex-col gap-2">
+        <h3
+          id={`project-${projectIndex}-title`}
+          class="project-title w-fit max-w-full text-xl font-semibold text-text-primary transition-colors duration-200 ease-out sm:text-2xl"
+        >
+          {project.name}
+        </h3>
+        {
+          project.startDate && (
+            <WorkDates
+              startDate={project.startDate}
+              endDate={project.endDate}
+              className={WORK_DATES_CLASSES}
+            />
+          )
+        }
+      </div>
       <p
         class="col-start-1 row-start-2 text-sm leading-relaxed text-text-secondary sm:col-span-2 sm:text-base"
         data-i18n={descriptionKey}
@@ -85,9 +98,6 @@ const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
         )
       }
     </div>
-    <span class="sr-only" data-i18n="ui.a11y.opensNewTab"
-      >{t("ui.a11y.opensNewTab")}</span
-    >
   </a>
 </article>
 
@@ -113,11 +123,11 @@ const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
       background-image: linear-gradient(currentColor, currentColor);
       background-size: 0% 1px;
       background-repeat: no-repeat;
-      background-position: left bottom;
+      background-position: left 0 bottom 2px;
       transition:
         background-size 0.25s ease,
         color 0.2s ease;
-      padding-bottom: 1px;
+      padding-bottom: 0.2em;
     }
     .group:hover .project-title {
       background-size: 100% 1px;

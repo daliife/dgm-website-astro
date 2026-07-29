@@ -1,21 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import {
-  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
   LIVE_URL,
 } from "../utils/constants";
-import { SITE_BASE } from "../utils/url";
+import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
+import { getPageTitleFromKey } from "../utils/seo";
 import { projects } from "@cv";
 import ProjectCard from "../components/sections/ProjectCard.astro";
 import NextUpNav from "../components/layout/NextUpNav.astro";
 import type { ProjectEntry } from "../types/ui";
+import type { I18nKey } from "../i18n/en";
+import { getProjectEntries, PROJECT_CATEGORY_ORDER } from "../utils/projects";
 
-const CATEGORY_ORDER = ["professional", "personal", "academic"] as const;
-type Category = (typeof CATEGORY_ORDER)[number];
+type Category = (typeof PROJECT_CATEGORY_ORDER)[number];
+
+const CATEGORY_ORDER = PROJECT_CATEGORY_ORDER;
 
 const CATEGORY_ICON_PATHS: Record<Category, string> = {
   professional: `<rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />`,
@@ -35,12 +38,9 @@ const CATEGORY_I18N: Record<Category, string> = {
   academic: "ui.projects.category.academic",
 };
 
-const indexed = (projects as ProjectEntry[]).map((project, index) => ({
-  project,
-  index,
-}));
+const indexed = getProjectEntries(projects as ProjectEntry[]);
 
-const grouped: Record<Category, { project: ProjectEntry; index: number }[]> = {
+const grouped: Record<Category, typeof indexed> = {
   professional: indexed.filter(
     ({ project }) => project.category === "professional",
   ),
@@ -57,22 +57,25 @@ const firstCategory = CATEGORY_ORDER.find((cat) => grouped[cat].length > 0);
 const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Projects Portfolio",
-  description: "Portfolio of web development projects by David Gimeno Mañé.",
+  name: t("ui.meta.projects.listName"),
+  description: t("ui.meta.projects.description"),
   url: `${LIVE_URL}/projects`,
-  itemListElement: (projects as ProjectEntry[]).map((p, i) => ({
+  itemListElement: indexed.map(({ project, slug, index }, i) => ({
     "@type": "ListItem",
     position: i + 1,
-    name: p.name,
-    description: p.description,
-    ...(p.url ? { url: p.url } : {}),
+    name: project.name,
+    description: t(
+      `projects.${index}.description` as I18nKey,
+      project.description,
+    ),
+    url: `${LIVE_URL}/projects/${slug}`,
   })),
 };
 ---
 
 <Layout
-  title={`Projects Portfolio${TITLE_PAGE_SUFFIX}`}
-  description="Portfolio of web development projects by David Gimeno Mañé — Frontend Developer based in Barcelona."
+  title={getPageTitleFromKey("ui.page.projects")}
+  description={t("ui.meta.projects.description")}
 >
   <script
     slot="head"
@@ -122,11 +125,12 @@ const itemListSchema = {
                 </h2>
               </header>
               <ul class="list-none space-y-0 [&>li:first-child>article]:border-t-0">
-                {grouped[cat].map(({ project, index }) => (
+                {grouped[cat].map(({ project, index, slug }) => (
                   <li>
                     <ProjectCard
                       {project}
                       projectIndex={index}
+                      {slug}
                       priority={index === firstVisibleProjectIndex}
                     />
                   </li>
@@ -139,8 +143,8 @@ const itemListSchema = {
 
     <NextUpNav
       links={[
-        { href: `${SITE_BASE}/work`, labelKey: "ui.nextup.work" },
-        { href: `${SITE_BASE}/contact`, labelKey: "ui.nextup.contact" },
+        { href: pageHref("work"), labelKey: "ui.nextup.work" },
+        { href: pageHref("contact"), labelKey: "ui.nextup.contact" },
       ]}
     />
   </div>

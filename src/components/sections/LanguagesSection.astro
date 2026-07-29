@@ -22,8 +22,11 @@ const { languages } = Astro.props;
     {
       languages.map((lang: LanguageEntry, langIndex: number) => (
         <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
-          <h3 class="font-medium text-text-primary print:text-[10px] print:text-gray-900">
-            {lang.language}
+          <h3
+            class="font-medium text-text-primary print:text-[10px] print:text-gray-900"
+            data-i18n={`languages.${langIndex}.language`}
+          >
+            {t(`languages.${langIndex}.language` as I18nKey, lang.language)}
           </h3>
           <p
             class="mt-1 text-sm text-text-muted print:mt-0 print:text-[10px] print:text-gray-500"

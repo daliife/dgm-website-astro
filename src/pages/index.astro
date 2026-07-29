@@ -1,14 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
-import { SITE_BASE } from "../utils/url";
+import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
 import { basics } from "@cv";
-const { name, lastName, label, email } = basics;
+const { name, lastName, email } = basics;
 ---
 
 <Layout
-  title={`${name} ${lastName} — ${label}`}
+  title={`${name} ${lastName} — ${t("basics.label")}`}
   type="profile"
   hideFooter={true}
 >
@@ -36,7 +36,7 @@ const { name, lastName, label, email } = basics;
         aria-live="polite"
         aria-atomic="true"
       >
-        <span id="tw-rotating">{label}</span>
+        <span id="tw-rotating">{t("basics.label")}</span>
         <span class="typewriter-cursor" aria-hidden="true"></span>
       </p>
 
@@ -45,7 +45,7 @@ const { name, lastName, label, email } = basics;
         class="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
       >
         <Button
-          href={`${SITE_BASE}/projects`}
+          href={pageHref("projects")}
           variant="simple"
           size="none"
           className="gap-2 rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest transition-colors duration-200 hover:border-text-primary hover:no-underline"

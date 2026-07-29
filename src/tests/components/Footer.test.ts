@@ -27,8 +27,15 @@ describe("Footer", () => {
   it("renders the Email social link", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Footer);
-    expect(html).toContain("Email");
+    expect(html).toContain('data-i18n="ui.contact.network.email"');
     expect(html).toContain("mailto:");
+  });
+
+  it("renders localized built-with copy", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Footer);
+    expect(html).toContain('data-i18n="ui.footer.builtWith"');
+    expect(html).toContain('data-i18n="ui.footer.cycle.0"');
   });
 
   it("renders the current copyright year", async () => {

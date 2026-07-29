@@ -19,13 +19,19 @@ function getAstroFiles(dir: string): string[] {
   });
 }
 
-const keyRegex = /data-i18n="([^"]+)"/g;
+const keyRegexes = [
+  /data-i18n="([^"]+)"/g,
+  /data-i18n-aria="([^"]+)"/g,
+  /data-i18n-alt="([^"]+)"/g,
+];
 const allKeys = new Set<string>();
 
 for (const file of getAstroFiles(srcDir)) {
   const content = readFileSync(file, "utf-8");
-  for (const match of content.matchAll(keyRegex)) {
-    allKeys.add(match[1]);
+  for (const keyRegex of keyRegexes) {
+    for (const match of content.matchAll(keyRegex)) {
+      allKeys.add(match[1]);
+    }
   }
 }
 
@@ -34,17 +40,17 @@ describe("i18n key coverage", () => {
     expect(allKeys.size).toBeGreaterThan(0);
   });
 
-  it("all data-i18n keys exist in EN translations", () => {
+  it("all data-i18n / data-i18n-aria / data-i18n-alt keys exist in EN translations", () => {
     const missing = [...allKeys].filter((k) => !(k in EN));
     expect(missing, `Missing EN keys: ${missing.join(", ")}`).toEqual([]);
   });
 
-  it("all data-i18n keys exist in CA translations", () => {
+  it("all data-i18n / data-i18n-aria / data-i18n-alt keys exist in CA translations", () => {
     const missing = [...allKeys].filter((k) => !(k in CA));
     expect(missing, `Missing CA keys: ${missing.join(", ")}`).toEqual([]);
   });
 
-  it("all data-i18n keys exist in ES translations", () => {
+  it("all data-i18n / data-i18n-aria / data-i18n-alt keys exist in ES translations", () => {
     const missing = [...allKeys].filter((k) => !(k in ES));
     expect(missing, `Missing ES keys: ${missing.join(", ")}`).toEqual([]);
   });
@@ -76,13 +82,39 @@ describe("i18n — cv.json project descriptions", () => {
     expect(missing, `Missing ES keys: ${missing.join(", ")}`).toEqual([]);
   });
 
-  it("no orphan project description keys exist in EN", () => {
-    const orphans = Object.keys(EN)
-      .filter((k) => /^projects\.\d+\.description$/.test(k))
-      .filter((k) => {
-        const idx = parseInt(k.split(".")[1]);
-        return idx >= projects.length;
+  it("every project highlight in cv.json has keys in all locales", () => {
+    for (const locale of [EN, CA, ES] as const) {
+      projects.forEach((project, i) => {
+        const highlights = (project as { highlights?: string[] }).highlights;
+        if (!highlights?.length) return;
+        highlights.forEach((_, j) => {
+          expect(locale).toHaveProperty(`projects.${i}.highlights.${j}`);
+        });
       });
-    expect(orphans, `Orphan EN keys: ${orphans.join(", ")}`).toEqual([]);
+    }
+  });
+});
+
+describe("i18n — cv.json languages and certificates", () => {
+  const cvPath = join(__dirname, "../../../cv.json");
+  const cv = JSON.parse(readFileSync(cvPath, "utf-8"));
+  const languages: unknown[] = cv.languages ?? [];
+  const certificates: unknown[] = cv.certificates ?? [];
+
+  it("every language has language + fluency keys in all locales", () => {
+    for (const locale of [EN, CA, ES] as const) {
+      for (let i = 0; i < languages.length; i++) {
+        expect(locale).toHaveProperty(`languages.${i}.language`);
+        expect(locale).toHaveProperty(`languages.${i}.fluency`);
+      }
+    }
+  });
+
+  it("every certificate has a name key in all locales", () => {
+    for (const locale of [EN, CA, ES] as const) {
+      for (let i = 0; i < certificates.length; i++) {
+        expect(locale).toHaveProperty(`certificates.${i}.name`);
+      }
+    }
   });
 });

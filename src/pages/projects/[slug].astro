@@ -1,0 +1,335 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { projects } from "@cv";
+import {
+  PAGE_CONTAINER_CLASSES,
+  WORK_DATES_CLASSES,
+  LIVE_URL,
+} from "../../utils/constants";
+import { pageHref } from "../../utils/url";
+import { ICON_PATHS } from "../../utils/icons";
+import { t } from "../../utils/i18n";
+import type { I18nKey } from "../../i18n/en";
+import type { ProjectEntry } from "../../types/ui";
+import {
+  findProjectBySlug,
+  getAdjacentProjects,
+  getProjectEntries,
+  isGitHubRepoUrl,
+} from "../../utils/projects";
+import { getPageTitle } from "../../utils/seo";
+import WorkDates from "../../components/sections/WorkDates.astro";
+import Button from "../../components/ui/Button.astro";
+import NextUpNav from "../../components/layout/NextUpNav.astro";
+
+export function getStaticPaths() {
+  return getProjectEntries(projects as ProjectEntry[]).map(({ slug }) => ({
+    params: { slug },
+  }));
+}
+
+const slug = Astro.params.slug!;
+const entry = findProjectBySlug(projects as ProjectEntry[], slug);
+
+if (!entry) {
+  throw new Error(`Unknown project slug: ${slug}`);
+}
+
+const { project, index } = entry;
+const { prev, next } = getAdjacentProjects(projects as ProjectEntry[], slug);
+
+const descriptionKey = `projects.${index}.description` as I18nKey;
+const longDescriptionKey = `projects.${index}.longDescription` as I18nKey;
+const localizedDescription = t(descriptionKey, project.description);
+const localizedLongDescription = t(
+  longDescriptionKey,
+  project.longDescription ?? project.description,
+);
+const categoryKey = project.category
+  ? (`ui.projects.category.${project.category}` as I18nKey)
+  : undefined;
+
+const githubHref =
+  project.githubUrl ??
+  (project.url && isGitHubRepoUrl(project.url) ? project.url : undefined);
+const visitHref =
+  project.url && (!githubHref || project.url !== githubHref)
+    ? project.url
+    : undefined;
+
+const ogImage = project.image ? `${LIVE_URL}${project.image}` : undefined;
+const hasHighlights = Boolean(project.highlights?.length);
+const hasTech = Boolean(project.technologies?.length);
+
+/** Shared minimal CTA — text + bottom rule, same hover for both actions. */
+const DETAIL_CTA_CLASSES =
+  "gap-2 rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:!no-underline hover:border-text-primary";
+
+const BACK_LINK_CLASSES =
+  "gap-1.5 rounded-none text-xs uppercase tracking-widest text-text-muted hover:!no-underline hover:text-text-primary border-b border-transparent pb-0.5 hover:border-text-muted focus-visible:outline-none focus-visible:border-text-muted";
+
+const creativeWorkSchema = {
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: project.name,
+  description: localizedDescription,
+  url: `${LIVE_URL}/projects/${slug}/`,
+  ...(project.image ? { image: `${LIVE_URL}${project.image}` } : {}),
+  ...(project.url || project.githubUrl
+    ? {
+        sameAs: [project.url, project.githubUrl].filter(Boolean),
+      }
+    : {}),
+  ...(project.technologies?.length
+    ? { keywords: project.technologies.join(", ") }
+    : {}),
+  ...(project.startDate ? { dateCreated: project.startDate } : {}),
+  ...(project.endDate ? { dateModified: project.endDate } : {}),
+};
+---
+
+<Layout
+  title={getPageTitle(project.name)}
+  description={localizedDescription}
+  image={ogImage}
+  imageWidth={960}
+  imageHeight={640}
+>
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(creativeWorkSchema)}
+  />
+  <div class={PAGE_CONTAINER_CLASSES}>
+    <p class="mb-8">
+      <Button
+        href={pageHref("projects")}
+        variant="simple"
+        size="none"
+        className={BACK_LINK_CLASSES}
+      >
+        <span aria-hidden="true">←</span>
+        <span data-i18n="ui.projects.back">{t("ui.projects.back")}</span>
+      </Button>
+    </p>
+
+    <!-- Intro: meta → title → lead → stack → actions -->
+    <header class="reveal mb-10 max-w-3xl">
+      <div
+        class="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs uppercase tracking-widest text-text-muted"
+      >
+        {categoryKey && <span data-i18n={categoryKey}>{t(categoryKey)}</span>}
+        {
+          categoryKey && project.startDate && (
+            <span aria-hidden="true" class="text-border-secondary">
+              ·
+            </span>
+          )
+        }
+        {
+          project.startDate && (
+            <WorkDates
+              startDate={project.startDate}
+              endDate={project.endDate}
+              className={WORK_DATES_CLASSES}
+            />
+          )
+        }
+      </div>
+
+      <h1
+        class="mb-5 text-4xl font-bold uppercase tracking-tight text-text-primary sm:text-5xl"
+      >
+        {project.name}
+      </h1>
+
+      <p
+        class="text-base leading-relaxed text-text-secondary sm:text-lg"
+        data-i18n={longDescriptionKey}
+      >
+        {localizedLongDescription}
+      </p>
+
+      {
+        hasTech && (
+          <p class="mt-5 text-xs uppercase tracking-widest text-text-muted">
+            <span class="sr-only" data-i18n="ui.projects.tech">
+              {t("ui.projects.tech")}
+            </span>
+            {project.technologies!.join(" · ")}
+          </p>
+        )
+      }
+
+      {
+        (visitHref || githubHref) && (
+          <div class="mt-7 flex flex-wrap gap-6">
+            {visitHref && (
+              <Button
+                href={visitHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="simple"
+                size="none"
+                className={DETAIL_CTA_CLASSES}
+              >
+                <svg
+                  class="h-3.5 w-3.5 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <Fragment set:html={ICON_PATHS.external} />
+                </svg>
+                <span data-i18n="ui.projects.visit">
+                  {t("ui.projects.visit")}
+                </span>
+                <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+                  {t("ui.a11y.opensNewTab")}
+                </span>
+              </Button>
+            )}
+            {githubHref && (
+              <Button
+                href={githubHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="simple"
+                size="none"
+                className={DETAIL_CTA_CLASSES}
+              >
+                <svg
+                  class="h-3.5 w-3.5 shrink-0"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <Fragment set:html={ICON_PATHS.github} />
+                </svg>
+                <span data-i18n="ui.projects.github">
+                  {t("ui.projects.github")}
+                </span>
+                <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+                  {t("ui.a11y.opensNewTab")}
+                </span>
+              </Button>
+            )}
+          </div>
+        )
+      }
+    </header>
+
+    <!-- Visual — modest CSS size; asset is 960×640 (@2x) so it stays sharp on retina -->
+    {
+      project.image && (
+        <figure class="reveal mb-10 w-full max-w-sm overflow-hidden">
+          <img
+            src={project.image}
+            alt={project.name}
+            class="aspect-[3/2] h-auto w-full object-cover"
+            width="480"
+            height="320"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </figure>
+      )
+    }
+
+    <!-- Highlights — same list language as WorkCard -->
+    {
+      hasHighlights && (
+        <section
+          class="reveal mb-4 max-w-3xl border-t border-border-primary pt-8"
+          aria-labelledby="project-highlights-heading"
+        >
+          <h2
+            id="project-highlights-heading"
+            class="mb-4 text-xs uppercase tracking-widest text-text-muted"
+            data-i18n="ui.projects.highlights"
+          >
+            {t("ui.projects.highlights")}
+          </h2>
+          <ul class="space-y-2.5">
+            {project.highlights!.map((highlight, highlightIndex) => {
+              const highlightKey =
+                `projects.${index}.highlights.${highlightIndex}` as I18nKey;
+              return (
+                <li class="flex items-start gap-2.5 text-sm leading-relaxed text-text-secondary">
+                  <span
+                    class="mt-2 h-px w-3 shrink-0 bg-border-secondary"
+                    aria-hidden="true"
+                  />
+                  <span data-i18n={highlightKey}>
+                    {t(highlightKey, highlight)}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      (prev || next) && (
+        <nav
+          class="reveal mt-10 border-t border-border-primary pt-6"
+          aria-label={t("ui.a11y.projectNav")}
+          data-i18n-aria="ui.a11y.projectNav"
+        >
+          <div class="flex items-start justify-between gap-6">
+            {prev ? (
+              <a
+                href={pageHref("projects", prev.slug)}
+                class="group max-w-[45%] text-left"
+              >
+                <span
+                  class="mb-1 block text-xs uppercase tracking-widest text-text-muted"
+                  data-i18n="ui.projects.prev"
+                >
+                  {t("ui.projects.prev")}
+                </span>
+                <span class="text-sm text-text-secondary transition-colors group-hover:text-text-primary">
+                  ← {prev.project.name}
+                </span>
+              </a>
+            ) : (
+              <span />
+            )}
+            {next ? (
+              <a
+                href={pageHref("projects", next.slug)}
+                class="group ml-auto max-w-[45%] text-right"
+              >
+                <span
+                  class="mb-1 block text-xs uppercase tracking-widest text-text-muted"
+                  data-i18n="ui.projects.next"
+                >
+                  {t("ui.projects.next")}
+                </span>
+                <span class="text-sm text-text-secondary transition-colors group-hover:text-text-primary">
+                  {next.project.name} →
+                </span>
+              </a>
+            ) : (
+              <span />
+            )}
+          </div>
+        </nav>
+      )
+    }
+
+    <div class="mt-8">
+      <NextUpNav
+        links={[
+          { href: pageHref("projects"), labelKey: "ui.nextup.projects" },
+          { href: pageHref("contact"), labelKey: "ui.nextup.contact" },
+        ]}
+      />
+    </div>
+  </div>
+</Layout>

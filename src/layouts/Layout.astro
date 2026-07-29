@@ -7,8 +7,9 @@ import "../styles/fonts.css";
 import interLatinFontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
 import { ClientRouter } from "astro:transitions";
 import { basics, work } from "@cv";
-import { DEFAULT_LANG } from "../utils/i18n";
+import { DEFAULT_LANG, t } from "../utils/i18n";
 import { OG_LOCALE_MAP } from "../utils/locale";
+import { getFullName, getCanonicalUrl } from "../utils/seo";
 import type { SocialProfile } from "../types/ui";
 
 interface Props {
@@ -36,7 +37,6 @@ const {
 const {
   name,
   lastName,
-  label,
   summary,
   profiles,
   location,
@@ -44,10 +44,11 @@ const {
 } = basics;
 const image =
   imageProp ?? `${LIVE_URL}${profileImage ?? "/david-profile.webp"}`;
-const fullName = `${name} ${lastName}`;
-const description =
-  descriptionProp ??
-  `Personal portfolio of ${fullName} — ${label} based in ${location?.city}`;
+const fullName = getFullName();
+const description = descriptionProp ?? t("ui.meta.defaultDescription");
+const ogImageAlt = `${t("ui.a11y.portraitOf")} ${fullName}`;
+const siteName = `${fullName} — ${t("ui.meta.portfolio")}`;
+const canonicalUrl = getCanonicalUrl(Astro.url);
 const github = (profiles as SocialProfile[])?.find(
   (p) => p.network === "Github",
 );
@@ -60,10 +61,8 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: fullName,
-  jobTitle: label,
-  description:
-    summary ??
-    `${label} based in ${location?.city}, currently working at ${currentJob?.company}`,
+  jobTitle: t("basics.label"),
+  description: t("basics.summary.0", summary),
   url: LIVE_URL,
   image: `${LIVE_URL}${profileImage ?? "/david-profile.webp"}`,
   sameAs: [github?.url, linkedin?.url].filter(Boolean),
@@ -96,7 +95,7 @@ const jsonLd = {
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content={fullName} />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="canonical" href={Astro.url} />
+    <link rel="canonical" href={canonicalUrl} />
 
     <!-- SEO Meta Tags -->
     <meta name="author" content={fullName} />
@@ -116,24 +115,21 @@ const jsonLd = {
       media="(prefers-color-scheme: dark)"
     />
     <meta property="og:type" content={type} />
-    <meta property="og:url" content={Astro.url} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
     <meta property="og:image:width" content={String(imageWidth)} />
     <meta property="og:image:height" content={String(imageHeight)} />
-    <meta property="og:image:alt" content={`Profile photo of ${fullName}`} />
+    <meta property="og:image:alt" content={ogImageAlt} />
     <meta property="og:locale" content="ca_ES" data-og-locale />
-    <meta property="og:site_name" content={`${fullName} — Portfolio`} />
+    <meta property="og:site_name" content={siteName} />
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content={Astro.url} />
+    <meta property="twitter:url" content={canonicalUrl} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
-    <meta
-      property="twitter:image:alt"
-      content={`Profile photo of ${fullName}`}
-    />
+    <meta property="twitter:image:alt" content={ogImageAlt} />
     {
       type === "profile" && (
         <>
@@ -195,8 +191,9 @@ const jsonLd = {
     <a
       href="#main-content"
       class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-text-primary focus:px-4 focus:py-2 focus:text-bg-primary focus:shadow-lg focus:outline-none"
+      data-i18n="ui.a11y.skipToContent"
     >
-      Skip to main content
+      {t("ui.a11y.skipToContent")}
     </a>
 
     <Header transition:persist />

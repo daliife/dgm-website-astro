@@ -33,7 +33,7 @@ describe("CertificatesSection", () => {
     expect(html).toContain('href="https://example.com/cert.pdf"');
     expect(html).toContain('target="_blank"');
     expect(html).toContain('rel="noopener noreferrer"');
-    expect(html).toContain("Cambridge Certificate in Advanced English (CAE)");
+    expect(html).toContain('data-i18n="certificates.0.name"');
   });
 
   it("renders cert name as plain text when no url is provided", async () => {
@@ -42,7 +42,7 @@ describe("CertificatesSection", () => {
       props: { certificates: [certWithoutUrl] },
     });
 
-    expect(html).toContain("Some Course");
+    expect(html).toContain('data-i18n="certificates.0.name"');
     expect(html).not.toContain("<a ");
     expect(html).not.toContain("href=");
   });

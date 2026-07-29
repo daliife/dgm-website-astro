@@ -1,18 +1,18 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import {
-  TITLE_PAGE_SUFFIX,
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
 } from "../utils/constants";
 import { t } from "../utils/i18n";
+import { getPageTitleFromKey } from "../utils/seo";
 
 const PRIVACY_LIST_ITEM =
   "flex items-start gap-2.5 text-sm leading-relaxed text-text-secondary";
 ---
 
-<Layout title={`Privacy Policy${TITLE_PAGE_SUFFIX}`}>
+<Layout title={getPageTitleFromKey("ui.page.privacy")}>
   <div class={PAGE_CONTAINER_CLASSES}>
     <h1
       class={`${PAGE_HEADING_CLASSES} ${PAGE_HEADING_MARGIN_CLASSES}`}
@@ -139,6 +139,13 @@ const PRIVACY_LIST_ITEM =
           </li>
         </ul>
       </section>
+
+      <p
+        class="reveal text-sm leading-relaxed text-text-secondary"
+        data-i18n="ui.privacy.consent"
+      >
+        {t("ui.privacy.consent")}
+      </p>
 
       <p class="reveal text-sm text-text-muted">
         <span data-i18n="ui.privacy.moreinfo">{t("ui.privacy.moreinfo")}</span>{

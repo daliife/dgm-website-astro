@@ -1,4 +1,3 @@
-export const TITLE_PAGE_SUFFIX = " — David Gimeno Mañé | Frontend Developer";
 export const NAV_LINKS: { href: string; label: string }[] = [
   { href: "about", label: "About" },
   { href: "work", label: "Work" },

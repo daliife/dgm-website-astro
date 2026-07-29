@@ -1,16 +1,17 @@
 /**
- * Downloads project thumbnails from cv.json imageSource URLs, optimizes them
- * to WebP (384×256, 3:2), and writes paths to public/projects/.
+ * Reads project thumbnails from cv.json imageSource (HTTP(S) URL or local path
+ * relative to the repo root), optimizes them to WebP (960×640, 3:2 @2x), and writes
+ * paths to public/projects/.
  *
  * Usage: pnpm run images:projects
  *
  * Re-run whenever cv.json projects change:
  * - new project added
- * - imageSource URL updated
+ * - imageSource URL/path updated
  * - project name changed (output filename is derived from name)
  *
- * Workflow: set imageSource to the remote URL → run this script → commit
- * the updated cv.json image paths and public/projects/*.webp files.
+ * Live captures: pnpm run images:capture (Playwright) writes assets/project-shots/
+ * and updates imageSource, then you can re-run images:projects if needed.
  */
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -22,9 +23,9 @@ const ROOT = path.join(__dirname, "..");
 const CV_PATH = path.join(ROOT, "cv.json");
 const OUT_DIR = path.join(ROOT, "public", "projects");
 
-const WIDTH = 384;
-const HEIGHT = 256;
-const WEBP_QUALITY = 80;
+const WIDTH = 960;
+const HEIGHT = 640;
+const WEBP_QUALITY = 85;
 
 function slugify(name) {
   return name
@@ -35,12 +36,19 @@ function slugify(name) {
     .replace(/^-|-$/g, "");
 }
 
-async function downloadBuffer(url) {
-  const res = await fetch(url, { redirect: "follow" });
-  if (!res.ok) {
-    throw new Error(`Failed to fetch ${url}: ${res.status} ${res.statusText}`);
+async function loadSourceBuffer(source) {
+  if (/^https?:\/\//i.test(source)) {
+    const res = await fetch(source, { redirect: "follow" });
+    if (!res.ok) {
+      throw new Error(
+        `Failed to fetch ${source}: ${res.status} ${res.statusText}`,
+      );
+    }
+    return Buffer.from(await res.arrayBuffer());
   }
-  return Buffer.from(await res.arrayBuffer());
+
+  const localPath = path.isAbsolute(source) ? source : path.join(ROOT, source);
+  return fs.readFile(localPath);
 }
 
 async function main() {
@@ -67,7 +75,7 @@ async function main() {
     const publicPath = `/projects/${filename}`;
 
     process.stdout.write(`Optimizing ${project.name}… `);
-    const input = await downloadBuffer(source);
+    const input = await loadSourceBuffer(source);
     await sharp(input)
       .resize(WIDTH, HEIGHT, { fit: "cover", position: "centre" })
       .webp({ quality: WEBP_QUALITY })

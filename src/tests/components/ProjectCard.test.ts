@@ -14,28 +14,28 @@ describe("ProjectCard", () => {
   it("renders project name and description", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {
-      props: { project: baseProject },
+      props: { project: baseProject, projectIndex: 0, slug: "my-project" },
     });
 
     expect(html).toContain("My Project");
-    expect(html).toContain("A test project description.");
+    expect(html).toContain('data-i18n="projects.0.description"');
   });
 
-  it("renders project URL as link", async () => {
+  it("links to the internal project detail page", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {
-      props: { project: baseProject },
+      props: { project: baseProject, projectIndex: 0, slug: "my-project" },
     });
 
-    expect(html).toContain('href="https://example.com"');
-    expect(html).toContain('target="_blank"');
-    expect(html).toContain('rel="noopener noreferrer"');
+    expect(html).toContain('href="/projects/my-project/"');
+    expect(html).not.toContain('target="_blank"');
+    expect(html).not.toContain("https://example.com");
   });
 
   it("renders technologies", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {
-      props: { project: baseProject },
+      props: { project: baseProject, projectIndex: 0, slug: "my-project" },
     });
 
     expect(html).toContain("TypeScript");
@@ -45,7 +45,11 @@ describe("ProjectCard", () => {
   it("shows placeholder SVG when no image is provided", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {
-      props: { project: { ...baseProject, image: undefined } },
+      props: {
+        project: { ...baseProject, image: undefined },
+        projectIndex: 0,
+        slug: "my-project",
+      },
     });
 
     expect(html).toContain("<svg");
@@ -60,6 +64,8 @@ describe("ProjectCard", () => {
           ...baseProject,
           image: "/images/project.png",
         },
+        projectIndex: 0,
+        slug: "my-project",
       },
     });
 
@@ -75,6 +81,7 @@ describe("ProjectCard", () => {
       props: {
         project: { ...baseProject, image: "/projects/test.webp" },
         projectIndex: 0,
+        slug: "my-project",
         priority: true,
       },
     });
@@ -86,21 +93,45 @@ describe("ProjectCard", () => {
   it("labels each project article with its title heading", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {
-      props: { project: baseProject, projectIndex: 2 },
+      props: {
+        project: baseProject,
+        projectIndex: 2,
+        slug: "my-project",
+      },
     });
 
     expect(html).toContain('aria-labelledby="project-2-title"');
     expect(html).toContain('id="project-2-title"');
   });
 
-  it("renders no href when project has no url", async () => {
+  it("renders formatted dates when startDate is provided", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {
-      props: { project: { ...baseProject, url: undefined }, projectIndex: 0 },
+      props: {
+        project: {
+          ...baseProject,
+          startDate: "2020-10-26",
+          endDate: "2020-11-12",
+        },
+        projectIndex: 0,
+        slug: "my-project",
+      },
     });
 
-    expect(html).not.toContain('href="');
-    expect(html).not.toContain('target="_blank"');
-    expect(html).not.toContain('rel="noopener noreferrer"');
+    expect(html).toContain('data-date-start="2020-10-26"');
+    expect(html).toContain('data-date-end="2020-11-12"');
+  });
+
+  it("omits dates when startDate is missing", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ProjectCard, {
+      props: {
+        project: baseProject,
+        projectIndex: 0,
+        slug: "my-project",
+      },
+    });
+
+    expect(html).not.toContain("data-date-start");
   });
 });

@@ -48,6 +48,16 @@ describe("Pages — i18n", () => {
     expect(html).toContain("data-i18n");
   });
 
+  it("/work uses localized meta description", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(WorkPage);
+
+    expect(html).toContain("Experiència professional de David Gimeno Mañé");
+    expect(html).not.toContain(
+      "Professional work experience of David Gimeno Mañé",
+    );
+  });
+
   it("/contact page intro has data-i18n key", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ContactPage);
@@ -76,6 +86,15 @@ describe("Pages — basic HTML structure", () => {
     const html = await container.renderToString(ProjectsPage);
 
     expect(html).toContain("<article");
+  });
+
+  it("/projects cards link to internal detail pages", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ProjectsPage);
+
+    expect(html).toContain('href="/projects/orange-rfp/"');
+    expect(html).toContain('href="/projects/estudi-seitai/"');
+    expect(html).not.toContain('href="https://daliife.github.io/rfp-orange/"');
   });
 
   it("/work contains work cards", async () => {
@@ -124,6 +143,26 @@ describe("Pages — semantic HTML structure", () => {
     for (const [, attrs] of navTags) {
       expect(attrs).toMatch(/aria-label(ledby)?/);
     }
+  });
+
+  it.each(pages)(
+    "$name has a localized skip link to main",
+    async ({ component }) => {
+      const container = await AstroContainer.create();
+      const html = await container.renderToString(component);
+      expect(html).toContain('href="#main-content"');
+      expect(html).toContain('data-i18n="ui.a11y.skipToContent"');
+      expect(html).toContain("Salta al contingut principal");
+    },
+  );
+
+  it("/about portrait images use localized alt + data-i18n-alt", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(AboutPage);
+    expect(html).not.toContain('alt="Portrait of David Gimeno"');
+    expect(html).toContain("Retrat de");
+    expect(html).toContain('data-i18n-alt="ui.a11y.portraitOf"');
+    expect(html).toContain("data-alt-name=");
   });
 
   it("/about has correct heading order (h1 before h2)", async () => {

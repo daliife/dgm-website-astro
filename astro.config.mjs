@@ -20,6 +20,7 @@ logger.warn = (msg, options) => {
 export default defineConfig({
   site: isGitHubPages ? PAGES_URL : LIVE_URL,
   base: isGitHubPages ? PAGES_BASE : "/",
+  trailingSlash: "always",
   integrations: [sitemap(), tailwind()],
   output: "static",
   prefetch: {
