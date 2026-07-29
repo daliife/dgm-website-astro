@@ -14,10 +14,11 @@ import ProjectCard from "../components/sections/ProjectCard.astro";
 import NextUpNav from "../components/layout/NextUpNav.astro";
 import type { ProjectEntry } from "../types/ui";
 import type { I18nKey } from "../i18n/en";
-import { getProjectEntries } from "../utils/projects";
+import { getProjectEntries, PROJECT_CATEGORY_ORDER } from "../utils/projects";
 
-const CATEGORY_ORDER = ["professional", "personal", "academic"] as const;
-type Category = (typeof CATEGORY_ORDER)[number];
+type Category = (typeof PROJECT_CATEGORY_ORDER)[number];
+
+const CATEGORY_ORDER = PROJECT_CATEGORY_ORDER;
 
 const CATEGORY_ICON_PATHS: Record<Category, string> = {
   professional: `<rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />`,

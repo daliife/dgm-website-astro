@@ -6,6 +6,15 @@ export interface ProjectMeta {
   slug: string;
 }
 
+/** Same category order as `/projects/` list sections. */
+export const PROJECT_CATEGORY_ORDER = [
+  "professional",
+  "personal",
+  "academic",
+] as const;
+
+export type ProjectCategory = (typeof PROJECT_CATEGORY_ORDER)[number];
+
 /** URL-safe slug from a project name (no invented content — name only). */
 export function slugifyProjectName(name: string): string {
   return name
@@ -30,6 +39,33 @@ export function getProjectEntries(projects: ProjectEntry[]): ProjectMeta[] {
   });
 }
 
+/**
+ * Projects in the same visual order as `/projects/`:
+ * professional → personal → academic (cv.json order within each group).
+ */
+export function getOrderedProjectEntries(
+  projects: ProjectEntry[],
+): ProjectMeta[] {
+  const entries = getProjectEntries(projects);
+  const ordered: ProjectMeta[] = [];
+
+  for (const category of PROJECT_CATEGORY_ORDER) {
+    ordered.push(
+      ...entries.filter(({ project }) => project.category === category),
+    );
+  }
+
+  ordered.push(
+    ...entries.filter(
+      ({ project }) =>
+        !project.category ||
+        !PROJECT_CATEGORY_ORDER.includes(project.category as ProjectCategory),
+    ),
+  );
+
+  return ordered;
+}
+
 export function findProjectBySlug(
   projects: ProjectEntry[],
   slug: string,
@@ -41,7 +77,7 @@ export function getAdjacentProjects(
   projects: ProjectEntry[],
   slug: string,
 ): { prev?: ProjectMeta; next?: ProjectMeta } {
-  const entries = getProjectEntries(projects);
+  const entries = getOrderedProjectEntries(projects);
   const index = entries.findIndex((entry) => entry.slug === slug);
   if (index < 0) return {};
   return {

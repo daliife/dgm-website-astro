@@ -4,6 +4,7 @@ import type { ProjectEntry } from "../../types/ui";
 import {
   findProjectBySlug,
   getAdjacentProjects,
+  getOrderedProjectEntries,
   getProjectEntries,
   isGitHubRepoUrl,
   slugifyProjectName,
@@ -52,25 +53,25 @@ describe("findProjectBySlug", () => {
 });
 
 describe("getAdjacentProjects", () => {
-  it("returns next only for the first project", () => {
-    const entries = getProjectEntries(projects as ProjectEntry[]);
+  it("uses list order (professional → personal → academic), not cv.json order", () => {
     const { prev, next } = getAdjacentProjects(
       projects as ProjectEntry[],
-      entries[0].slug,
+      "seat-rfp",
     );
+    // First professional item — no previous in list order
     expect(prev).toBeUndefined();
-    expect(next?.slug).toBe(entries[1].slug);
+    expect(next?.slug).toBe("orange-rfp");
   });
 
-  it("returns prev only for the last project", () => {
-    const entries = getProjectEntries(projects as ProjectEntry[]);
-    const last = entries[entries.length - 1];
+  it("returns prev only for the last project in list order", () => {
+    const ordered = getOrderedProjectEntries(projects as ProjectEntry[]);
+    const last = ordered[ordered.length - 1];
     const { prev, next } = getAdjacentProjects(
       projects as ProjectEntry[],
       last.slug,
     );
     expect(next).toBeUndefined();
-    expect(prev?.slug).toBe(entries[entries.length - 2].slug);
+    expect(prev?.slug).toBe(ordered[ordered.length - 2].slug);
   });
 });
 
