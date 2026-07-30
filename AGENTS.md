@@ -196,6 +196,9 @@ pnpm run format:check     # Prettier (CI — read-only)
 pnpm run test             # Vitest
 pnpm run images:projects  # regenerate public/projects/*.webp from cv.json imageSource
 pnpm run images:capture   # live screenshots → assets/project-shots + webp (needs Playwright)
+pnpm run lighthouse:scan  # Unlighthouse site-wide Lighthouse (opens dashboard; default: production)
+pnpm run lighthouse:scan:ci  # headless Unlighthouse report → .unlighthouse/
+pnpm run lighthouse:scan:local  # scan http://localhost:4321 (run preview first)
 ```
 
 ## Before finishing (CI / deploy gate)

@@ -6,7 +6,7 @@ import globals from "globals";
 
 export default [
   {
-    ignores: ["node_modules/", "dist/", ".astro/"],
+    ignores: ["node_modules/", "dist/", ".astro/", ".unlighthouse/"],
   },
   js.configs.recommended,
   {
