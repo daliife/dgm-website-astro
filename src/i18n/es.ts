@@ -114,6 +114,8 @@ export const ES: Record<I18nKey, string> = {
   "ui.privacy.collected.3":
     "Tipo de dispositivo (escritorio / móvil / tableta)",
   "ui.privacy.collected.4": "País (aproximado, basado en IP anonimizada)",
+  "ui.privacy.collected.5":
+    "Idioma preferido del sitio y tema de color (en la visita y al cambiarlo)",
   "ui.privacy.notcollected.title": "Qué NO recopilamos",
   "ui.privacy.notcollected.0": "Sin cookies ni identificadores persistentes",
   "ui.privacy.notcollected.1": "Sin datos personales (nombre, correo, etc.)",

@@ -114,6 +114,8 @@ export const CA: Record<I18nKey, string> = {
   "ui.privacy.collected.3":
     "Tipus de dispositiu (escriptori / mòbil / tauleta)",
   "ui.privacy.collected.4": "País (aproximat, basat en IP anonimitzada)",
+  "ui.privacy.collected.5":
+    "Idioma preferit del lloc i tema de color (en la visita i quan es canvia)",
   "ui.privacy.notcollected.title": "Què NO recopilem",
   "ui.privacy.notcollected.0": "Sense galetes ni identificadors persistents",
   "ui.privacy.notcollected.1": "Sense dades personals (nom, correu, etc.)",

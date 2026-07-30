@@ -110,6 +110,8 @@ export const EN = {
   "ui.privacy.collected.2": "Browser and operating system (generic)",
   "ui.privacy.collected.3": "Device type (desktop / mobile / tablet)",
   "ui.privacy.collected.4": "Country (approximate, based on anonymised IP)",
+  "ui.privacy.collected.5":
+    "Preferred site language and color theme (on visit and when changed)",
   "ui.privacy.notcollected.title": "What we do NOT collect",
   "ui.privacy.notcollected.0": "No cookies or persistent identifiers",
   "ui.privacy.notcollected.1": "No personal data (name, email, etc.)",

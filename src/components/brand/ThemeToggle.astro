@@ -42,6 +42,7 @@ import { t } from "../../utils/i18n";
 </button>
 
 <script>
+  import { trackSessionPreferenceChange } from "../../utils/analytics";
   import { getStoredLang, loadLang } from "../../utils/i18n-client";
   import type { LangCode } from "../../utils/i18n";
 
@@ -81,6 +82,7 @@ import { t } from "../../utils/i18n";
         localStorage.setItem("theme", "dark");
       }
       void setToggleState(toggle, !isDark, getStoredLang());
+      trackSessionPreferenceChange();
     });
   }
 
