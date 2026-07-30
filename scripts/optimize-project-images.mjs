@@ -1,7 +1,7 @@
 /**
  * Reads project thumbnails from cv.json imageSource (HTTP(S) URL or local path
- * relative to the repo root), optimizes them to WebP (960×640, 3:2 @2x), and writes
- * paths to public/projects/.
+ * relative to the repo root), optimizes them to WebP (480×320, 3:2 — fits card +
+ * detail display without oversized downloads), and writes paths to public/projects/.
  *
  * Usage: pnpm run images:projects
  *
@@ -23,9 +23,9 @@ const ROOT = path.join(__dirname, "..");
 const CV_PATH = path.join(ROOT, "cv.json");
 const OUT_DIR = path.join(ROOT, "public", "projects");
 
-const WIDTH = 960;
-const HEIGHT = 640;
-const WEBP_QUALITY = 85;
+const WIDTH = 480;
+const HEIGHT = 320;
+const WEBP_QUALITY = 78;
 
 function slugify(name) {
   return name

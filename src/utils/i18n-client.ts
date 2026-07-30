@@ -47,12 +47,21 @@ async function applyDateFormatting(lang: LangCode) {
   });
 }
 
-function applyAriaLabels(translations: Record<I18nKey, string>) {
+function applyAriaLabels(
+  translations: Record<I18nKey, string>,
+  lang: LangCode,
+) {
   document.querySelectorAll<HTMLElement>("[data-i18n-aria]").forEach((el) => {
     const key = el.dataset.i18nAria as I18nKey | undefined;
     if (!key) return;
     const val = translations[key];
-    if (val !== undefined) el.setAttribute("aria-label", val);
+    if (val === undefined) return;
+    // Visible lang code (e.g. "CA") must be part of the accessible name.
+    if (el.hasAttribute("data-lang-aria-code")) {
+      el.setAttribute("aria-label", `${val}: ${lang.toUpperCase()}`);
+      return;
+    }
+    el.setAttribute("aria-label", val);
   });
 }
 
@@ -92,12 +101,12 @@ export async function applyI18n(lang: LangCode) {
     });
   }
 
-  applyAriaLabels(translations);
+  syncLangChrome(lang);
+  applyAriaLabels(translations, lang);
   applyAltTexts(translations);
 
   activeLang = lang;
   await applyDateFormatting(lang);
-  syncLangChrome(lang);
 }
 
 export function preloadStoredLang() {

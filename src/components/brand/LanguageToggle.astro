@@ -13,8 +13,9 @@ const { dropup = false } = Astro.props;
     data-lang-toggle-btn
     aria-haspopup="listbox"
     aria-expanded="false"
-    aria-label={t("ui.a11y.lang.select")}
+    aria-label={`${t("ui.a11y.lang.select")}: CA`}
     data-i18n-aria="ui.a11y.lang.select"
+    data-lang-aria-code
     class="flex items-center gap-1.5 rounded-full p-2 text-text-secondary transition-colors duration-200 hover:bg-bg-muted hover:text-text-primary"
   >
     <svg

@@ -132,9 +132,11 @@ const socialLinks = [
 
   .footer-cycle {
     grid-area: 1 / 1;
-    opacity: 0;
+    /* Keep full opacity when shown — opacity fades fail contrast mid-animation. */
+    opacity: 1;
+    visibility: hidden;
     transform: translateY(8px);
-    animation: cycle-word 9s ease-in-out infinite;
+    animation: cycle-word 9s linear infinite;
   }
 
   .footer-cycle:nth-child(1) {
@@ -148,24 +150,19 @@ const socialLinks = [
   }
 
   @keyframes cycle-word {
-    0% {
-      opacity: 0;
+    0%,
+    7% {
+      visibility: hidden;
       transform: translateY(8px);
     }
-    8% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    8%,
     25% {
-      opacity: 1;
+      visibility: visible;
       transform: translateY(0);
     }
-    33% {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
+    26%,
     100% {
-      opacity: 0;
+      visibility: hidden;
       transform: translateY(-8px);
     }
   }
@@ -173,10 +170,10 @@ const socialLinks = [
   @media (prefers-reduced-motion: reduce) {
     .footer-cycle {
       animation: none;
-      opacity: 0;
+      visibility: hidden;
     }
     .footer-cycle:nth-child(1) {
-      opacity: 1;
+      visibility: visible;
       transform: none;
     }
   }
