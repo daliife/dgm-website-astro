@@ -127,16 +127,16 @@ const socialLinks = [
     overflow: hidden;
     line-height: 1;
     vertical-align: baseline;
-    min-width: 3.5ch;
+    min-width: 5.5ch;
   }
 
   .footer-cycle {
     grid-area: 1 / 1;
-    /* Keep full opacity when shown — opacity fades fail contrast mid-animation. */
+    /* Opacity stays at 1 (contrast-safe). Motion is transform-only. */
     opacity: 1;
-    visibility: hidden;
-    transform: translateY(8px);
+    transform: translateY(100%);
     animation: cycle-word 9s linear infinite;
+    animation-fill-mode: backwards;
   }
 
   .footer-cycle:nth-child(1) {
@@ -149,32 +149,36 @@ const socialLinks = [
     animation-delay: 6s;
   }
 
+  /*
+   * Each word: enter from below → hold → exit upward.
+   * Exit overlaps the next word's enter (33.3%–38.3%) so the slot never empties.
+   */
   @keyframes cycle-word {
-    0%,
-    7% {
-      visibility: hidden;
-      transform: translateY(8px);
+    0% {
+      transform: translateY(100%);
     }
-    8%,
-    25% {
-      visibility: visible;
+    5% {
       transform: translateY(0);
     }
-    26%,
+    33.333% {
+      transform: translateY(0);
+    }
+    38.333% {
+      transform: translateY(-100%);
+    }
+    38.334%,
     100% {
-      visibility: hidden;
-      transform: translateY(-8px);
+      transform: translateY(-100%);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .footer-cycle {
       animation: none;
-      visibility: hidden;
+      transform: translateY(100%);
     }
     .footer-cycle:nth-child(1) {
-      visibility: visible;
-      transform: none;
+      transform: translateY(0);
     }
   }
 </style>
