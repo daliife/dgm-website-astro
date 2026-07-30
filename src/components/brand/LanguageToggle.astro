@@ -78,6 +78,7 @@ const { dropup = false } = Astro.props;
 </div>
 
 <script>
+  import { trackSessionPreferenceChange } from "../../utils/analytics";
   import {
     applyI18n,
     getStoredLang,
@@ -94,11 +95,15 @@ const { dropup = false } = Astro.props;
 
     if (langBtn?.dataset.langBtn) {
       const lang = langBtn.dataset.langBtn as LangCode;
+      const previousLang = getStoredLang();
       localStorage.setItem("lang", lang);
       await applyI18n(lang);
       window.dispatchEvent(
         new CustomEvent("app:lang-change", { detail: { lang } }),
       );
+      if (lang !== previousLang) {
+        trackSessionPreferenceChange();
+      }
       const switcher = langBtn.closest("[data-lang-switcher]");
       switcher?.querySelector("[data-lang-dropdown]")?.classList.add("hidden");
       switcher
