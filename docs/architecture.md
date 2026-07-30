@@ -67,7 +67,7 @@ The `@cv` path alias is configured in `tsconfig.json`.
 
 ### Project detail pages
 
-`/projects/[slug]/` is a case-study view for each `cv.json` project: long description, tech stack, visit/GitHub CTAs, screenshot (`public/projects/*.webp` at 960×640), highlights, and prev/next navigation. List cards (`ProjectCard`) link to the detail page; outbound “visit” stays on the detail CTAs.
+`/projects/[slug]/` is a case-study view for each `cv.json` project: long description, tech stack, visit/GitHub CTAs, screenshot (`public/projects/*.webp` at 480×320), highlights, and prev/next navigation. List cards (`ProjectCard`) link to the detail page; outbound “visit” stays on the detail CTAs.
 
 ---
 
@@ -360,7 +360,7 @@ pnpm run format:check  # Prettier (CI — read-only)
 pnpm run test          # Vitest (run once)
 pnpm run test:watch    # Vitest (watch mode)
 pnpm run test:coverage # Vitest + v8 coverage
-pnpm run images:projects  # WebP thumbs (960×640) from cv.json imageSource
+pnpm run images:projects  # WebP thumbs (480×320) from cv.json imageSource
 pnpm run images:capture   # live screenshots → assets/project-shots + webp
 ```
 

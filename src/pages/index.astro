@@ -183,12 +183,21 @@ const { name, lastName, email } = basics;
     setTimeout(rotate, 600);
   }
 
+  function scheduleTypewriter(lang: LangCode) {
+    const run = () => startTypewriter(lang);
+    if ("requestIdleCallback" in window) {
+      requestIdleCallback(run, { timeout: 1500 });
+    } else {
+      setTimeout(run, 200);
+    }
+  }
+
   document.addEventListener("astro:page-load", () => {
-    startTypewriter(getStoredLang());
+    scheduleTypewriter(getStoredLang());
   });
 
   window.addEventListener("app:lang-change", (e: Event) => {
     const { lang } = (e as CustomEvent<{ lang: LangCode }>).detail;
-    startTypewriter(lang);
+    scheduleTypewriter(lang);
   });
 </script>

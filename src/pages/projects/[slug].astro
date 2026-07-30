@@ -92,8 +92,8 @@ const creativeWorkSchema = {
   title={getPageTitle(project.name)}
   description={localizedDescription}
   image={ogImage}
-  imageWidth={960}
-  imageHeight={640}
+  imageWidth={480}
+  imageHeight={320}
 >
   <script
     slot="head"
@@ -221,7 +221,7 @@ const creativeWorkSchema = {
       }
     </header>
 
-    <!-- Visual — modest CSS size; asset is 960×640 (@2x) so it stays sharp on retina -->
+    <!-- Visual — asset is 480×320 to match card/detail display sizes -->
     {
       project.image && (
         <figure class="reveal mb-10 w-full max-w-sm overflow-hidden">
