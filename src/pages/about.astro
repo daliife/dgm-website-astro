@@ -119,13 +119,13 @@ const profilePageSchema = {
         class="reveal grid grid-cols-1 items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-14 print:block"
       >
         <!-- Portrait -->
-        <div class="img-frame group overflow-hidden bg-bg-muted print:hidden">
+        <div class="overflow-hidden bg-bg-muted print:hidden">
           <Image
             src={profileImgSrc}
             alt={portraitAlt}
             data-i18n-alt="ui.a11y.portraitOf"
             data-alt-name={fullName}
-            class="aspect-[4/5] w-full object-cover transition-all duration-300 ease-out [@media(hover:hover)]:group-hover:scale-[1.04] [@media(hover:hover)]:group-hover:grayscale"
+            class="aspect-[4/5] w-full object-cover"
             width={280}
             height={350}
             fit="cover"
