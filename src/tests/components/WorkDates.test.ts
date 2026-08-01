@@ -15,8 +15,21 @@ describe("WorkDates", () => {
 
     expect(html).toContain('data-date-start="2023-03-01"');
     expect(html).toContain('data-date-end="2024-01-01"');
-    expect(html).toContain("març del 2023");
-    expect(html).toContain("gen. del 2024");
+    expect(html).toContain("març del 2023 — gen. del 2024");
+  });
+
+  it("collapses same month and year to a single label", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(WorkDates, {
+      props: {
+        startDate: "2020-10-09",
+        endDate: "2020-10-23",
+        className: "dates",
+      },
+    });
+
+    expect(html).toContain("oct. del 2020");
+    expect(html).not.toContain("—");
   });
 
   it("uses present label when endDate is omitted", async () => {
@@ -29,6 +42,6 @@ describe("WorkDates", () => {
     });
 
     expect(html).toMatch(/data-date-end(?:=""|\b)/);
-    expect(html).toContain("Actualitat");
+    expect(html).toContain("març del 2023 — Actualitat");
   });
 });
