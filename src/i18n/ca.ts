@@ -100,6 +100,7 @@ export const CA: Record<I18nKey, string> = {
   "ui.footer.cycle.0": "amor ♥",
   "ui.footer.cycle.1": "Astro 🚀",
   "ui.footer.cycle.2": "IA ✦",
+  "ui.footer.network.email": "C. electrònic",
   // ── Dates ──────────────────────────────────────────────────────────────────
   "ui.date.present": "Actualitat",
   // ── Privacy page ─────────────────────────────────────────────────────────────

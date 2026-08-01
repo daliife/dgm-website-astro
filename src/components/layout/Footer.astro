@@ -26,7 +26,7 @@ const socialLinks = [
   },
   {
     name: "Email",
-    labelKey: "ui.contact.network.email" as const,
+    labelKey: "ui.footer.network.email" as const,
     url: `mailto:${basics.email}`,
     icon: ICON_PATHS.email,
     external: false,
@@ -90,7 +90,7 @@ const socialLinks = [
                 href={link.url}
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
-                class="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-text-muted transition-colors duration-200 hover:text-text-primary"
+                class="inline-flex items-center gap-1.5 whitespace-nowrap text-xs uppercase tracking-widest text-text-muted transition-colors duration-200 hover:text-text-primary"
               >
                 <svg
                   class="h-3.5 w-3.5 shrink-0"

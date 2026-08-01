@@ -97,6 +97,7 @@ export const EN = {
   "ui.footer.cycle.0": "love ♥",
   "ui.footer.cycle.1": "Astro 🚀",
   "ui.footer.cycle.2": "AI ✦",
+  "ui.footer.network.email": "Email",
   // ── Dates ──────────────────────────────────────────────────────────────────
   "ui.date.present": "Present",
   // ── Privacy page ───────────────────────────────────────────────────────────

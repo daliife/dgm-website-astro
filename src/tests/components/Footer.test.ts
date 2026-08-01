@@ -24,10 +24,12 @@ describe("Footer", () => {
     expect(html).toContain("github.com");
   });
 
-  it("renders the Email social link", async () => {
+  it("renders the Email social link with a short footer label", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Footer);
-    expect(html).toContain('data-i18n="ui.contact.network.email"');
+    expect(html).toContain('data-i18n="ui.footer.network.email"');
+    expect(html).toContain("C. electrònic");
+    expect(html).not.toContain("Correu electrònic");
     expect(html).toContain("mailto:");
   });
 
