@@ -19,7 +19,7 @@ applyTo: "**"
 After any file change, before finishing the task, run and fix until green:
 
 ```bash
-pnpm run format:check && pnpm run lint && pnpm run test && pnpm run build
+pnpm run format:check && pnpm run lint && pnpm run test && pnpm run build && pnpm run test:build-urls
 ```
 
 If `format:check` fails: `pnpm run format` then re-check. Do not skip this to stay concise — broken CI is worse than a longer reply. See `AGENTS.md` § “Before finishing”.

@@ -1,0 +1,23 @@
+---
+description: Astro component and page conventions
+globs: "**/*.astro"
+alwaysApply: false
+---
+
+# Astro pages & components
+
+- Prefer `.astro` over client islands; JS only for state/browser APIs
+- Wrap pages in `<Layout>`; use `PAGE_*` / `NEXTUP_*` classes from `src/utils/constants.ts`
+- Internal links: `pageHref(...segments)` from `src/utils/url.ts` (trailing slash)
+- Buttons/links: `<Button>` — variants `primary | outline | ghost | simple`; sizes `sm | md | none`
+- Mark copy with `data-i18n` / `data-i18n-aria` / `data-i18n-alt`; SSR strings via `t()` (Catalan default)
+- Scroll fade-in: `class="reveal"`
+- Keep brief HTML comments only where they orient structure (header zones, page sections)
+
+```astro
+<script>
+  document.addEventListener("astro:page-load", () => {
+    /* init after every navigation */
+  });
+</script>
+```

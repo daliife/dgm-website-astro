@@ -55,4 +55,11 @@ describe("Footer", () => {
     const html = await container.renderToString(Footer);
     expect(html).toContain('aria-label="Enllaços socials del peu"');
   });
+
+  it("links to the privacy page with a trailing slash", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Footer);
+    expect(html).toContain('href="/privacy/"');
+    expect(html).toContain('data-i18n="ui.footer.privacy"');
+  });
 });

@@ -82,6 +82,18 @@ describe("i18n — cv.json project descriptions", () => {
     expect(missing, `Missing ES keys: ${missing.join(", ")}`).toEqual([]);
   });
 
+  it("every project in cv.json has a longDescription key in all locales", () => {
+    for (const locale of [EN, CA, ES] as const) {
+      const missing = projects
+        .map((_, i) => `projects.${i}.longDescription`)
+        .filter((k) => !(k in locale));
+      expect(
+        missing,
+        `Missing longDescription keys: ${missing.join(", ")}`,
+      ).toEqual([]);
+    }
+  });
+
   it("every project highlight in cv.json has keys in all locales", () => {
     for (const locale of [EN, CA, ES] as const) {
       projects.forEach((project, i) => {

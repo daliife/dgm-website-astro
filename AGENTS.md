@@ -10,18 +10,18 @@ Personal portfolio website for David Gimeno. Static site built with Astro 6, Typ
 
 Before writing any code, internalize these rules:
 
-| Constraint    | Rule                                                                                                                     |
-| ------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| Theme         | **Dark/light mode via toggle.** `ThemeToggle.astro` handles switching. Theme persists in `localStorage`.                 |
-| Styling       | **Tailwind utilities only.** No inline styles, no CSS modules, no custom stylesheets.                                    |
-| Color tokens  | Use **semantic tokens** (`text-text-primary`, `bg-bg-secondary`, etc.) — never raw palette classes like `text-gray-900`. |
-| Content       | All personal data lives in **`cv.json`**. Never hardcode names, dates, job titles, or project info in components.        |
-| Interactivity | **`.astro` components first.** Client-side JS only when state or browser APIs are required.                              |
-| Navigation    | Routes are driven by `NAV_LINKS` in `src/utils/constants.ts`. New pages need an entry there and a file in `src/pages/`.  |
-| Buttons/links | **Always use `<Button>`** component for interactive UI elements. Pass `href` for links, omit for buttons.                |
-| Scripts       | Use `astro:page-load` event, **not** `DOMContentLoaded` (broken with View Transitions).                                  |
-| Package mgr   | **pnpm only.** Do not use npm or yarn.                                                                                   |
-| CI / deploy   | **Before any PR or push to `main`**, run `format:check` → `lint` → `test` → `build` locally (see § Before finishing).    |
+| Constraint    | Rule                                                                                                                                      |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| Theme         | **Dark/light mode via toggle.** `ThemeToggle.astro` handles switching. Theme persists in `localStorage`.                                  |
+| Styling       | **Tailwind utilities only.** No inline styles, no CSS modules, no custom stylesheets.                                                     |
+| Color tokens  | Use **semantic tokens** (`text-text-primary`, `bg-bg-secondary`, etc.) — never raw palette classes like `text-gray-900`.                  |
+| Content       | All personal data lives in **`cv.json`**. Never hardcode names, dates, job titles, or project info in components.                         |
+| Interactivity | **`.astro` components first.** Client-side JS only when state or browser APIs are required.                                               |
+| Navigation    | Routes are driven by `NAV_LINKS` in `src/utils/constants.ts`. New pages need an entry there and a file in `src/pages/`.                   |
+| Buttons/links | **Always use `<Button>`** component for interactive UI elements. Pass `href` for links, omit for buttons.                                 |
+| Scripts       | Use `astro:page-load` event, **not** `DOMContentLoaded` (broken with View Transitions).                                                   |
+| Package mgr   | **pnpm only.** Do not use npm or yarn.                                                                                                    |
+| CI / deploy   | **Before any PR or push to `main`**, run `format:check` → `lint` → `test` → `build` → `test:build-urls` locally (see § Before finishing). |
 
 ## Repository layout
 
@@ -58,11 +58,13 @@ src/
     socialLinks.ts         ← getSocialProfile() helper
 docs/
   architecture.md          ← Deep-dive architecture reference
-AGENTS.md                  ← This file
+AGENTS.md                  ← This file (canonical agent guide)
+.cursor/rules/             ← Cursor project rules (core + path-scoped)
 .github/
-  copilot-instructions.md  ← GitHub Copilot custom instructions
+  copilot-instructions.md  ← GitHub Copilot repo-wide instructions
+  instructions/            ← Copilot path-scoped *.instructions.md
   workflows/
-    ci.yml                 ← PR gate: format · lint · test · build
+    ci.yml                 ← PR gate: format · lint · test · build · test:build-urls
     security-audit.yml     ← PR + weekly: pnpm audit (high)
     deploy.yml             ← Auto-deploy to cdmon via FTP (triggers on push to main)
     deploy-pages.yml       ← Auto-deploy to GitHub Pages with GITHUB_PAGES=true (triggers on push to main)
@@ -194,6 +196,7 @@ pnpm run lint             # ESLint
 pnpm run format           # Prettier (write)
 pnpm run format:check     # Prettier (CI — read-only)
 pnpm run test             # Vitest
+pnpm run test:build-urls  # assert dist/ HTML for every route (after build)
 pnpm run images:projects  # regenerate public/projects/*.webp from cv.json imageSource
 pnpm run images:capture   # live screenshots → assets/project-shots + webp (needs Playwright)
 pnpm run lighthouse:scan  # Unlighthouse site-wide Lighthouse (opens dashboard; default: production)
@@ -214,6 +217,7 @@ pnpm run format:check
 pnpm run lint
 pnpm run test
 pnpm run build
+pnpm run test:build-urls
 ```
 
 If `format:check` fails (common after editing Markdown or `.astro` files), run `pnpm run format` and re-run `format:check` until it passes. Never leave Prettier warnings for CI to catch.
@@ -230,16 +234,16 @@ Fix or explain any **high**-severity findings before finishing.
 
 ### Pull requests vs push to `main`
 
-| Workflow             | Trigger             | What it runs                       |
-| -------------------- | ------------------- | ---------------------------------- |
-| `ci.yml`             | PR → `main`         | format:check · lint · test · build |
-| `security-audit.yml` | PR → `main`, weekly | `pnpm audit --audit-level=high`    |
-| `deploy.yml`         | push → `main`       | build + FTP deploy (cdmon)         |
-| `deploy-pages.yml`   | push → `main`       | build + GitHub Pages deploy        |
+| Workflow             | Trigger             | What it runs                                         |
+| -------------------- | ------------------- | ---------------------------------------------------- |
+| `ci.yml`             | PR → `main`         | format:check · lint · test · build · test:build-urls |
+| `security-audit.yml` | PR → `main`, weekly | `pnpm audit --audit-level=high`                      |
+| `deploy.yml`         | push → `main`       | build + FTP deploy (cdmon)                           |
+| `deploy-pages.yml`   | push → `main`       | build + GitHub Pages deploy                          |
 
 Pushes to `main` skip `ci.yml` but still run both deploy workflows (`pnpm run build`). Run the full CI block locally before every push so production does not break.
 
-**Done means:** all four CI commands exit 0 locally (plus audit when deps changed).
+**Done means:** all five CI commands exit 0 locally (plus audit when deps changed).
 
 ## Deployment
 
@@ -249,6 +253,25 @@ Two GitHub Actions pipelines deploy on every push to `main`:
 - **`deploy-pages.yml`** — builds with `GITHUB_PAGES=true` env var (sets `base: "/dgm-website-astro"`) and deploys to GitHub Pages (`https://daliife.github.io/dgm-website-astro/`). Requires Pages source set to **GitHub Actions** in repo Settings.
 
 Both pipelines use Node.js 24 and pnpm 9. Local development requires **Node.js ≥ 22.12.0** (see `.nvmrc` and `package.json` `engines`).
+
+## AI documentation map
+
+Keep these in sync when conventions change. Prefer short, actionable rules; put deep explanation in `docs/architecture.md`.
+
+| Audience                      | File(s)                                  | Role                                      |
+| ----------------------------- | ---------------------------------------- | ----------------------------------------- |
+| All agents (Codex, Claude, …) | `AGENTS.md`                              | Canonical constraints, how-tos, CI gate   |
+| Cursor                        | `.cursor/rules/*.mdc`                    | Always-on core + path-scoped slices       |
+| GitHub Copilot (repo-wide)    | `.github/copilot-instructions.md`        | Hard rules + file map                     |
+| GitHub Copilot (path-scoped)  | `.github/instructions/*.instructions.md` | Astro, i18n, tests, content, concise mode |
+| Humans / deep context         | `docs/architecture.md`, `README.md`      | Architecture + contributing               |
+
+Path-scoped topics (Cursor + Copilot mirrors):
+
+- **astro** — components/pages, `Button`, `pageHref`, `astro:page-load`
+- **i18n** — CA default SSR, EN/ES parity, `data-i18n*`
+- **tests** — Vitest/AstroContainer, full slug coverage, `test:build-urls`
+- **content** — `cv.json`, project image pipeline
 
 ## Further reading
 

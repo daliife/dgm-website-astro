@@ -1,10 +1,10 @@
 # GitHub Copilot Instructions
 
-This file is automatically loaded by GitHub Copilot when working in this repository.
+Repository-wide Copilot context. Path-specific rules live in [`.github/instructions/`](instructions/). Canonical agent guide: [AGENTS.md](../AGENTS.md). Cursor rules: [`.cursor/rules/`](../.cursor/rules/).
 
 ## Project
 
-Personal portfolio for David Gimeno Mañé — a static Astro 6 site hosted at [davidgimeno.cat](http://davidgimeno.cat). TypeScript + Tailwind CSS, vanilla JS in `.astro` scripts (no React islands). Deployed automatically via GitHub Actions on push to `main` (FTP to cdmon via `deploy.yml`, GitHub Pages via `deploy-pages.yml`). Both pipelines use Node.js 24 + pnpm 9. Local dev requires Node.js ≥ 22.12.0.
+Personal portfolio for David Gimeno Mañé — a static Astro 6 site hosted at [davidgimeno.cat](https://davidgimeno.cat). TypeScript + Tailwind CSS, vanilla JS in `.astro` scripts (no React islands). Deployed automatically via GitHub Actions on push to `main` (FTP to cdmon via `deploy.yml`, GitHub Pages via `deploy-pages.yml`). Both pipelines use Node.js 24 + pnpm 9. Local dev requires Node.js ≥ 22.12.0.
 
 ## Hard rules — never break these
 
@@ -16,7 +16,7 @@ Personal portfolio for David Gimeno Mañé — a static Astro 6 site hosted at [
 - **Prefer `.astro` components.** Use React only when client-side state/hooks are genuinely necessary.
 - **View Transitions.** The project uses Astro's `ClientRouter`. Use `astro:page-load` for init scripts, not `DOMContentLoaded`.
 - **pnpm only.** Do not use npm or yarn.
-- **CI gate is mandatory before finishing.** After any change (including Markdown / README), run locally: `pnpm run format:check` → `lint` → `test` → `build`. Task is not done until all four pass. If `format:check` fails, run `pnpm run format` and re-check. On dependency changes, also `pnpm audit --audit-level=high`. Pushes to `main` deploy to production — never leave a red pipeline for the user.
+- **CI gate is mandatory before finishing.** After any change (including Markdown / README), run locally: `pnpm run format:check` → `lint` → `test` → `build` → `test:build-urls`. Task is not done until all five pass. If `format:check` fails, run `pnpm run format` and re-check. On dependency changes, also `pnpm audit --audit-level=high`. Pushes to `main` deploy to production — never leave a red pipeline for the user.
 
 ## Before finishing (required — every task)
 
@@ -27,6 +27,7 @@ pnpm run format:check   # Markdown counts — Prettier fails CI if skipped
 pnpm run lint
 pnpm run test
 pnpm run build          # required for prod deploy workflows too
+pnpm run test:build-urls
 ```
 
 If you changed `package.json` or `pnpm-lock.yaml`:
@@ -35,12 +36,12 @@ If you changed `package.json` or `pnpm-lock.yaml`:
 pnpm audit --audit-level=high
 ```
 
-| Workflow             | Trigger             | What it runs                       |
-| -------------------- | ------------------- | ---------------------------------- |
-| `ci.yml`             | PR → `main`         | format:check · lint · test · build |
-| `security-audit.yml` | PR → `main`, weekly | `pnpm audit --audit-level=high`    |
-| `deploy.yml`         | push → `main`       | build + FTP deploy                 |
-| `deploy-pages.yml`   | push → `main`       | build + GitHub Pages deploy        |
+| Workflow             | Trigger             | What it runs                                         |
+| -------------------- | ------------------- | ---------------------------------------------------- |
+| `ci.yml`             | PR → `main`         | format:check · lint · test · build · test:build-urls |
+| `security-audit.yml` | PR → `main`, weekly | `pnpm audit --audit-level=high`                      |
+| `deploy.yml`         | push → `main`       | build + FTP deploy                                   |
+| `deploy-pages.yml`   | push → `main`       | build + GitHub Pages deploy                          |
 
 Full reference: [AGENTS.md](../AGENTS.md) § “Before finishing (CI / deploy gate)”.
 
@@ -80,7 +81,7 @@ Add the route name to `NAV_LINKS` in `src/utils/constants.ts`, update the `NavLi
 
 ### i18n / translations
 
-The site supports EN (default), ES, and CA. Add `data-i18n="key"` to any element that needs translation. Add the key to both `src/i18n/ca.ts` and `src/i18n/es.ts`. Available languages are driven by `SUPPORTED_LANGUAGES` in `constants.ts` — add a new entry there to expose a new language in the toggle.
+Locales: **CA** (SSR default via `t()`), **EN**, **ES**. Add `data-i18n="key"` (or `-aria` / `-alt`) on translatable nodes and add the same key to `src/i18n/{ca,en,es}.ts`. Languages in the toggle come from `SUPPORTED_LANGUAGES` in `constants.ts`.
 
 ### Button usage
 
@@ -116,26 +117,29 @@ The site supports EN (default), ES, and CA. Add `data-i18n="key"` to any element
 
 ## File map
 
-| File                                        | Purpose                                                                                                     |
-| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `cv.json`                                   | All personal content                                                                                        |
-| `src/layouts/Layout.astro`                  | Root HTML shell, SEO, theme, fonts, scroll reveal                                                           |
-| `src/components/brand/ThemeToggle.astro`    | Dark/light mode toggle                                                                                      |
-| `src/components/brand/LanguageToggle.astro` | EN/ES/CA language switcher, driven by `SUPPORTED_LANGUAGES`                                                 |
-| `src/components/layout/Header.astro`        | Fixed nav with logo, links, theme + language toggles                                                        |
-| `src/components/layout/Footer.astro`        | Copyright + social links from cv.json                                                                       |
-| `src/components/ui/Button.astro`            | Universal button/link component                                                                             |
-| `src/utils/constants.ts`                    | `NAV_LINKS`, `PAGE_CONTAINER_CLASSES`, `PAGE_HEADING_CLASSES`, `SUPPORTED_LANGUAGES`, typography/grid scale |
-| `src/utils/format.ts`                       | `formatDate()` — formats cv.json date strings                                                               |
-| `src/utils/socialLinks.ts`                  | `getSocialProfile()` — typed helper to find a social profile                                                |
-| `src/i18n/ca.ts`, `src/i18n/es.ts`          | Client-side translations as flat `Record<string, string>`                                                   |
-| `tailwind.config.mjs`                       | Design tokens and color palette                                                                             |
-| `astro.config.mjs`                          | Integrations, Vite, site URL, GitHub Pages base path                                                        |
-| `src/types/ui.ts`                           | `ButtonVariant`, `ButtonSize`, `NavLink`, `SocialProfile`, CV entry types                                   |
-| `.github/workflows/ci.yml`                  | PR gate: format:check · lint · test · build                                                                 |
-| `.github/workflows/security-audit.yml`      | PR + weekly: `pnpm audit --audit-level=high`                                                                |
-| `.github/workflows/deploy.yml`              | CI/CD: build + FTP deploy to cdmon on push to main                                                          |
-| `.github/workflows/deploy-pages.yml`        | CI/CD: build with `GITHUB_PAGES=true` + deploy to GitHub Pages                                              |
+| File                                        | Purpose                                                                   |
+| ------------------------------------------- | ------------------------------------------------------------------------- |
+| `cv.json`                                   | All personal content                                                      |
+| `src/layouts/Layout.astro`                  | Root HTML shell, SEO, theme, fonts, scroll reveal                         |
+| `src/components/brand/ThemeToggle.astro`    | Dark/light mode toggle                                                    |
+| `src/components/brand/LanguageToggle.astro` | CA/EN/ES language switcher, driven by `SUPPORTED_LANGUAGES`               |
+| `src/components/layout/Header.astro`        | Fixed nav with logo, links, theme + language toggles                      |
+| `src/components/layout/Footer.astro`        | Copyright + social links from cv.json                                     |
+| `src/components/ui/Button.astro`            | Universal button/link component                                           |
+| `src/utils/constants.ts`                    | `NAV_LINKS`, `PAGE_*` / `NEXTUP_*` classes, `SUPPORTED_LANGUAGES`         |
+| `src/utils/url.ts`                          | `pageHref()`, `SITE_BASE` — trailing-slash internal links                 |
+| `src/utils/projects.ts`                     | Slugs, ordering, adjacency for project detail routes                      |
+| `src/utils/seo.ts`                          | Page titles, canonical URLs                                               |
+| `src/utils/format.ts`                       | `formatDate()`, `stripProtocol()`                                         |
+| `src/utils/socialLinks.ts`                  | `getSocialProfile()`                                                      |
+| `src/i18n/{ca,en,es}.ts`                    | Translations (flat `Record<string, string>`)                              |
+| `src/tests/pages/build-urls.test.ts`        | Post-build `dist/` URL inventory (`pnpm run test:build-urls`)             |
+| `tailwind.config.mjs`                       | Design tokens and color palette                                           |
+| `astro.config.mjs`                          | Integrations, Vite, site URL, GitHub Pages base path                      |
+| `src/types/ui.ts`                           | `ButtonVariant`, `ButtonSize`, `NavLink`, `SocialProfile`, CV entry types |
+| `.github/instructions/*.instructions.md`    | Path-scoped Copilot rules (astro, i18n, tests, content, concise)          |
+| `.cursor/rules/*.mdc`                       | Cursor project rules (mirrors path-scoped guidance)                       |
+| `.github/workflows/ci.yml`                  | PR gate: format:check · lint · test · build · test:build-urls             |
 
 ## Design tokens reference
 

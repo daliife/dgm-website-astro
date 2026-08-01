@@ -36,11 +36,13 @@ describe("LanguageToggle", () => {
     expect(html).toMatch(/data-lang-btn="ca"[^>]*aria-selected="true"/);
   });
 
-  it("renders CA option", async () => {
+  it("renders CA, EN, and ES options", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(LanguageToggle);
 
     expect(html).toContain('data-lang-btn="ca"');
+    expect(html).toContain('data-lang-btn="en"');
+    expect(html).toContain('data-lang-btn="es"');
   });
 
   it("shows current language indicator", async () => {

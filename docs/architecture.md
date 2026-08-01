@@ -331,6 +331,7 @@ pnpm run format:check   # `pnpm run format` then re-check if it fails
 pnpm run lint
 pnpm run test
 pnpm run build
+pnpm run test:build-urls
 ```
 
 After dependency changes (`package.json`, `pnpm-lock.yaml`):
@@ -339,12 +340,12 @@ After dependency changes (`package.json`, `pnpm-lock.yaml`):
 pnpm audit --audit-level=high
 ```
 
-| Workflow             | Trigger             | Checks                             |
-| -------------------- | ------------------- | ---------------------------------- |
-| `ci.yml`             | PR → `main`         | format:check · lint · test · build |
-| `security-audit.yml` | PR → `main`, weekly | `pnpm audit --audit-level=high`    |
-| `deploy.yml`         | push → `main`       | build + FTP deploy                 |
-| `deploy-pages.yml`   | push → `main`       | build + GitHub Pages deploy        |
+| Workflow             | Trigger             | Checks                                               |
+| -------------------- | ------------------- | ---------------------------------------------------- |
+| `ci.yml`             | PR → `main`         | format:check · lint · test · build · test:build-urls |
+| `security-audit.yml` | PR → `main`, weekly | `pnpm audit --audit-level=high`                      |
+| `deploy.yml`         | push → `main`       | build + FTP deploy                                   |
+| `deploy-pages.yml`   | push → `main`       | build + GitHub Pages deploy                          |
 
 Pushes to `main` skip `ci.yml` but both deploy workflows run `pnpm run build`. A green local CI block keeps production (`davidgimeno.cat`) deployable.
 
@@ -362,6 +363,7 @@ pnpm run format:check  # Prettier (CI — read-only)
 pnpm run test          # Vitest (run once)
 pnpm run test:watch    # Vitest (watch mode)
 pnpm run test:coverage # Vitest + v8 coverage
+pnpm run test:build-urls  # assert dist/ HTML for every route (after build)
 pnpm run images:projects  # WebP thumbs (480×320) from cv.json imageSource
 pnpm run images:capture   # live screenshots → assets/project-shots + webp
 ```
@@ -389,13 +391,20 @@ Unit tests use **Vitest** with Astro's `experimental_AstroContainer` for SSR ren
 
 ```
 src/tests/
-  components/   — Button, Header, CookieConsent, ProjectCard, WorkCard, …
-  pages/        — routes (+ project detail slugs, a11y smoke)
-  utils/        — projects, seo, url, htaccess, …
-  i18n/         — key parity across ca/en/es
+  components/   — Button, Header, CookieConsent, ProjectCard, WorkCard, WorkDates, …
+  pages/        — static routes, all project detail slugs, build-urls (dist inventory)
+  utils/        — projects, seo, url, i18n, socialLinks, htaccess, …
+  i18n/         — key parity across ca/en/es (including longDescription)
 ```
 
+- `pnpm run test` — unit/container suite (skips strict `dist/` check if build output is missing)
+- `pnpm run test:build-urls` — requires `dist/`; asserts every nav/privacy/404/project HTML path + sitemap
+
 Configuration in `vitest.config.ts` (uses `getViteConfig` from `astro/config`).
+
+### AI agent documentation
+
+See [AGENTS.md](../AGENTS.md) § “AI documentation map” for Cursor rules (`.cursor/rules/`) and GitHub Copilot instructions (`.github/copilot-instructions.md` + `.github/instructions/`).
 
 ---
 

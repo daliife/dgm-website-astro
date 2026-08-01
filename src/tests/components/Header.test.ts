@@ -62,6 +62,7 @@ describe("Header", () => {
     expect(html).toContain("data-lang-switcher");
     expect(html).toContain('data-lang-btn="en"');
     expect(html).toContain('data-lang-btn="ca"');
+    expect(html).toContain('data-lang-btn="es"');
   });
 
   it("shows LanguageToggle in the mobile chrome bar", async () => {

@@ -41,3 +41,6 @@ jobs:
 
       - name: Build
         run: pnpm run build
+
+      - name: Assert build URLs
+        run: pnpm run test:build-urls
