@@ -1,44 +1,8 @@
-// UI Component Types
-export type ButtonVariant =
-  | "primary"
-  | "secondary"
-  | "outline"
-  | "ghost"
-  | "simple"
-  | "icon";
-export type ButtonSize = "sm" | "md" | "lg" | "icon" | "none";
+export type ButtonVariant = "primary" | "outline" | "ghost" | "simple";
+export type ButtonSize = "sm" | "md" | "none";
 
-// Common Props Types
-export interface BaseButtonProps {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  className?: string;
-  disabled?: boolean;
-  loading?: boolean;
-  id?: string;
-  "aria-label"?: string;
-  "aria-expanded"?: string;
-  "aria-controls"?: string;
-  "data-collapse-toggle"?: string;
-}
-
-export interface LinkButtonProps extends BaseButtonProps {
-  href: string;
-  target?: string;
-  rel?: string;
-  download?: string;
-}
-
-export interface ActionButtonProps extends BaseButtonProps {
-  onclick?: string;
-}
-
-export type ButtonProps = LinkButtonProps & ActionButtonProps;
-
-// Navigation Types
 export type NavLink = "about" | "projects" | "work" | "contact";
 
-// Social Network Types
 export type SocialNetwork = "Linkedin" | "Github" | "Email";
 
 export interface SocialProfile {
@@ -47,7 +11,6 @@ export interface SocialProfile {
   username?: string;
 }
 
-// CV Content Types
 export interface WorkEntry {
   company: string;
   position: string;

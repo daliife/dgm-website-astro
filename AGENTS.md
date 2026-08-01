@@ -142,8 +142,8 @@ Border:  border-border-primary | border-border-secondary | border-border-muted
 
 ## Button variants & sizes
 
-Variants: `primary` `secondary` `outline` `ghost` `simple` `icon`
-Sizes: `sm` `md` (default) `lg` `icon`
+Variants: `primary` `outline` `ghost` `simple`
+Sizes: `sm` `md` (default) `none`
 
 ## Components reference
 

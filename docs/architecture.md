@@ -263,13 +263,15 @@ The universal interactive element. Renders either `<button>` or `<a>` depending 
 
 ```ts
 Props {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "simple" | "icon"
-  size?:    "sm" | "md" | "lg" | "icon"
+  variant?: "primary" | "outline" | "ghost" | "simple"
+  size?:    "sm" | "md" | "none"
   href?:    string          // renders <a> when present
   target?:  string
   rel?:     string
   disabled?: boolean
   className?: string
+  id?: string
+  "aria-label"?: string
 }
 ```
 

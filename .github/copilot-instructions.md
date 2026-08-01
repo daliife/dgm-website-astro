@@ -12,7 +12,7 @@ Personal portfolio for David Gimeno Mañé — a static Astro 6 site hosted at [
 - **No custom CSS.** Use Tailwind utility classes exclusively. Exception: CSS custom property definitions in Layout.astro or configs.
 - **Use semantic color tokens**, not raw palette classes. E.g. `text-text-primary` not `text-gray-900`. Tokens are defined in `tailwind.config.mjs`.
 - **`cv.json` is the single content source.** Do not hardcode bio, job titles, dates, project names, or any personal data inside components.
-- **`<Button>` for all interactive elements.** It is polymorphic — pass `href` for links, omit for `<button>`. Variants: `primary | secondary | outline | ghost | simple | icon`. Sizes: `sm | md | lg | icon`.
+- **`<Button>` for all interactive elements.** It is polymorphic — pass `href` for links, omit for `<button>`. Variants: `primary | outline | ghost | simple`. Sizes: `sm | md | none`.
 - **Prefer `.astro` components.** Use React only when client-side state/hooks are genuinely necessary.
 - **View Transitions.** The project uses Astro's `ClientRouter`. Use `astro:page-load` for init scripts, not `DOMContentLoaded`.
 - **pnpm only.** Do not use npm or yarn.
