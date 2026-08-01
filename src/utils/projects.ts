@@ -13,7 +13,7 @@ export const PROJECT_CATEGORY_ORDER = [
   "academic",
 ] as const;
 
-export type ProjectCategory = (typeof PROJECT_CATEGORY_ORDER)[number];
+type ProjectCategory = (typeof PROJECT_CATEGORY_ORDER)[number];
 
 /** URL-safe slug from a project name (no invented content — name only). */
 export function slugifyProjectName(name: string): string {

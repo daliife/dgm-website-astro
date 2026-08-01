@@ -24,7 +24,7 @@ describe("CookieConsent", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(CookieConsent);
 
-    expect(html).toContain("/privacy");
+    expect(html).toContain('href="/privacy/"');
     expect(html).toContain('data-i18n="ui.cookies.learnmore"');
   });
 

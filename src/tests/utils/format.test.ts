@@ -1,5 +1,9 @@
 import { describe, it, expect } from "vitest";
-import { formatDate } from "../../utils/format";
+import {
+  formatDate,
+  formatDateRange,
+  isSameMonthYear,
+} from "../../utils/format";
 
 describe("formatDate", () => {
   it("returns Catalan present label by default", () => {
@@ -38,5 +42,35 @@ describe("formatDate", () => {
   it("formats date with Spanish locale", () => {
     const result = formatDate("2023-03-01", "es");
     expect(result).toMatch(/2023/);
+  });
+});
+
+describe("isSameMonthYear", () => {
+  it("detects same calendar month and year", () => {
+    expect(isSameMonthYear("2020-10-09", "2020-10-23")).toBe(true);
+    expect(isSameMonthYear("2019-04-14", "2019-04-14")).toBe(true);
+  });
+
+  it("rejects different months, years, or missing end", () => {
+    expect(isSameMonthYear("2020-10-26", "2020-11-12")).toBe(false);
+    expect(isSameMonthYear("2020-05-20", "2021-10-10")).toBe(false);
+    expect(isSameMonthYear("2023-03-01")).toBe(false);
+  });
+});
+
+describe("formatDateRange", () => {
+  it("collapses same month and year to a single label", () => {
+    expect(formatDateRange("2020-10-09", "2020-10-23")).toBe("oct. del 2020");
+    expect(formatDateRange("2026-05-17", "2026-05-25", "en")).toBe("May 2026");
+  });
+
+  it("keeps a range when months differ", () => {
+    expect(formatDateRange("2020-10-26", "2020-11-12")).toBe(
+      "oct. del 2020 — nov. del 2020",
+    );
+  });
+
+  it("uses present label when endDate is omitted", () => {
+    expect(formatDateRange("2023-03-01")).toBe("març del 2023 — Actualitat");
   });
 });

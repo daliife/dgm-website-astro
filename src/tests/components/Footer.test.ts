@@ -24,10 +24,12 @@ describe("Footer", () => {
     expect(html).toContain("github.com");
   });
 
-  it("renders the Email social link", async () => {
+  it("renders the Email social link with a short footer label", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Footer);
-    expect(html).toContain('data-i18n="ui.contact.network.email"');
+    expect(html).toContain('data-i18n="ui.footer.network.email"');
+    expect(html).toContain("C. electrònic");
+    expect(html).not.toContain("Correu electrònic");
     expect(html).toContain("mailto:");
   });
 
@@ -54,5 +56,12 @@ describe("Footer", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Footer);
     expect(html).toContain('aria-label="Enllaços socials del peu"');
+  });
+
+  it("links to the privacy page with a trailing slash", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Footer);
+    expect(html).toContain('href="/privacy/"');
+    expect(html).toContain('data-i18n="ui.footer.privacy"');
   });
 });

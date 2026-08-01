@@ -1,6 +1,6 @@
 import type { I18nKey } from "../i18n/en";
 import { DEFAULT_LANG, type LangCode, isLangCode } from "./i18n";
-import { formatDate } from "./format";
+import { formatDateRange } from "./format";
 import { getOgLocale } from "./locale";
 
 const LOADERS: Record<LangCode, () => Promise<Record<I18nKey, string>>> = {
@@ -42,8 +42,9 @@ function syncLangChrome(lang: LangCode) {
 async function applyDateFormatting(lang: LangCode) {
   document.querySelectorAll<HTMLElement>("[data-date-start]").forEach((el) => {
     const start = el.dataset.dateStart;
+    if (!start) return;
     const end = el.dataset.dateEnd || undefined;
-    el.textContent = `${formatDate(start, lang)} — ${formatDate(end, lang)}`;
+    el.textContent = formatDateRange(start, end, lang);
   });
 }
 

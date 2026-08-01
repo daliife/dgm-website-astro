@@ -1,0 +1,25 @@
+---
+description: Core portfolio constraints and CI gate for every task
+alwaysApply: true
+---
+
+# Core (always)
+
+Canonical detail: [AGENTS.md](../../AGENTS.md). Architecture deep-dive: [docs/architecture.md](../../docs/architecture.md).
+
+## Non-negotiables
+
+- Tailwind utilities + semantic tokens only (`text-text-primary`, not `text-gray-900`)
+- Content from `cv.json` / `@cv` — never hardcode personal data
+- Interactive UI via `<Button>` (`href` → link; omit → button)
+- Client scripts: `astro:page-load`, never `DOMContentLoaded`
+- Package manager: **pnpm** only
+- Theme: light/dark toggle (`ThemeToggle`), not dark-only
+
+## Done means CI green
+
+```bash
+pnpm run format:check && pnpm run lint && pnpm run test && pnpm run build && pnpm run test:build-urls
+```
+
+If `format:check` fails: `pnpm run format` then re-check. Dep changes → also `pnpm audit --audit-level=high`.

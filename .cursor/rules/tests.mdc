@@ -1,0 +1,14 @@
+---
+description: Vitest and route/build URL testing conventions
+globs: "src/tests/**/*.ts"
+alwaysApply: false
+---
+
+# Tests
+
+- Runner: Vitest + `experimental_AstroContainer` for `.astro` SSR
+- Layout: `src/tests/{components,pages,utils,i18n}/**/*.test.ts`
+- New component/util → add a focused unit test in the matching folder
+- New page or `cv.json` project → extend `routes.test.ts` / ensure `getStaticPaths` + list hrefs cover the slug
+- After `pnpm run build`, `pnpm run test:build-urls` asserts every expected file under `dist/`
+- Prefer trailing-slash hrefs (`pageHref`) in assertions; avoid hard-coding only a subset of project slugs

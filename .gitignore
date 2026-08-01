@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # vscode specific files
 .vscode/
+
+# local scratch
+tmp/

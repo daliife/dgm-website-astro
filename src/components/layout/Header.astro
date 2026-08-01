@@ -28,7 +28,7 @@ const navLinkActiveClasses = (active: boolean) =>
     data-i18n-aria="ui.a11y.nav.main"
   >
     <div class="mx-auto flex max-w-5xl items-center px-6 py-4">
-      <!-- Logo (left) -->
+      <!-- Logo -->
       <a
         href={import.meta.env.BASE_URL}
         class="group flex shrink-0 items-center"
@@ -41,7 +41,7 @@ const navLinkActiveClasses = (active: boolean) =>
         />
       </a>
 
-      <!-- Desktop: nav links (centre, grows to fill space) -->
+      <!-- Desktop nav links -->
       <div class="hidden flex-1 items-center justify-center md:flex">
         <ul class="flex items-center gap-6">
           {
@@ -69,13 +69,13 @@ const navLinkActiveClasses = (active: boolean) =>
         </ul>
       </div>
 
-      <!-- Desktop: toggles (right) -->
+      <!-- Desktop language + theme -->
       <div class="hidden shrink-0 items-center gap-2 md:flex">
         <LanguageToggle />
         <ThemeToggle />
       </div>
 
-      <!-- Mobile: language + theme + hamburger (right) -->
+      <!-- Mobile language + theme + menu button -->
       <div class="ml-auto flex items-center gap-2 md:hidden">
         <LanguageToggle />
         <ThemeToggle />
@@ -105,7 +105,7 @@ const navLinkActiveClasses = (active: boolean) =>
       </div>
     </div>
 
-    <!-- Mobile menu -->
+    <!-- Mobile full-screen menu -->
     <div
       id="mobile-menu"
       class="fixed inset-0 z-50 hidden bg-bg-primary md:hidden"

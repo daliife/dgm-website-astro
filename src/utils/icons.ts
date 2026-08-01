@@ -5,5 +5,3 @@ export const ICON_PATHS = {
   /** External-link arrow (stroke icon — use fill="none" stroke="currentColor"). */
   external: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 6H18v4.5M18 6l-7.5 7.5M10.5 6H7.5A1.5 1.5 0 006 7.5v9A1.5 1.5 0 007.5 18h9a1.5 1.5 0 001.5-1.5V13.5"/>`,
 } as const;
-
-export type IconName = keyof typeof ICON_PATHS;

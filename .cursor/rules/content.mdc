@@ -1,0 +1,15 @@
+---
+description: cv.json content and project image pipeline
+globs: "cv.json,scripts/**/*.{mjs,js},public/projects/**"
+alwaysApply: false
+---
+
+# Content (`cv.json`)
+
+- Single source of truth for bio, work, projects, skills, education, languages
+- Components import via `@cv` — do not duplicate facts in UI code
+- New/updated project:
+  1. Set `imageSource` (URL or `assets/project-shots/…`)
+  2. Prefer `pnpm run images:capture` for live demos, or `pnpm run images:projects`
+  3. Commit `cv.json`, `public/projects/*.webp`, and new shot sources
+- Slugs come from `slugifyProjectName` in `src/utils/projects.ts` — renaming a project changes its URL

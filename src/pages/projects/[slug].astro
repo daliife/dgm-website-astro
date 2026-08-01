@@ -61,7 +61,6 @@ const ogImage = project.image ? `${LIVE_URL}${project.image}` : undefined;
 const hasHighlights = Boolean(project.highlights?.length);
 const hasTech = Boolean(project.technologies?.length);
 
-/** Shared minimal CTA — text + bottom rule, same hover for both actions. */
 const DETAIL_CTA_CLASSES =
   "gap-2 rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:!no-underline hover:border-text-primary";
 
@@ -221,7 +220,7 @@ const creativeWorkSchema = {
       }
     </header>
 
-    <!-- Visual — asset is 480×320 to match card/detail display sizes -->
+    <!-- Project screenshot (480×320 asset) -->
     {
       project.image && (
         <figure class="reveal mb-10 w-full max-w-sm overflow-hidden">
@@ -239,7 +238,7 @@ const creativeWorkSchema = {
       )
     }
 
-    <!-- Highlights — same list language as WorkCard -->
+    <!-- Highlights -->
     {
       hasHighlights && (
         <section

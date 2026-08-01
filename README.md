@@ -35,16 +35,15 @@ pnpm run preview  # Serve the production build locally
 ├── cv.json                # All personal content (bio, work, projects…)
 ├── .npmrc                 # pnpm config (shamefully-hoist=true)
 ├── public/                # Static assets (images, favicon, robots.txt)
-├── .github/
-│   ├── copilot-instructions.md  # GitHub Copilot context
-│   └── workflows/
-│       ├── ci.yml                # PR gate: format · lint · test · build
-│       ├── security-audit.yml    # PR + weekly: pnpm audit (high)
-│       ├── deploy.yml            # Auto-deploy to cdmon via FTP (push to main)
-│       └── deploy-pages.yml      # Auto-deploy to GitHub Pages (push to main)
+├── .cursor/rules/         # Cursor project rules (core + path-scoped)
+├── .github/workflows/
+│   ├── ci.yml             # PR gate: format · lint · test · build · test:build-urls
+│   ├── security-audit.yml # PR + weekly: pnpm audit (high)
+│   ├── deploy.yml         # Auto-deploy to cdmon via FTP (push to main)
+│   └── deploy-pages.yml   # Auto-deploy to GitHub Pages (push to main)
 ├── docs/
 │   └── architecture.md    # In-depth architecture reference
-├── AGENTS.md              # AI agent context (Codex, Claude, Gemini…)
+├── AGENTS.md              # Canonical AI agent guide
 └── src/
     ├── components/
     │   ├── brand/          # DgmLogoSimple, ThemeToggle, LanguageToggle
@@ -89,6 +88,7 @@ pnpm run format:check   # if it fails: pnpm run format && pnpm run format:check
 pnpm run lint
 pnpm run test
 pnpm run build
+pnpm run test:build-urls
 ```
 
 If you changed `package.json` or `pnpm-lock.yaml`, also run (matches `.github/workflows/security-audit.yml`):
@@ -97,12 +97,12 @@ If you changed `package.json` or `pnpm-lock.yaml`, also run (matches `.github/wo
 pnpm audit --audit-level=high
 ```
 
-| When              | Workflow             | What runs                          |
-| ----------------- | -------------------- | ---------------------------------- |
-| **PR → `main`**   | `ci.yml`             | format:check · lint · test · build |
-| **PR → `main`**   | `security-audit.yml` | `pnpm audit --audit-level=high`    |
-| **Push → `main`** | `deploy.yml`         | build + FTP deploy (cdmon)         |
-| **Push → `main`** | `deploy-pages.yml`   | build + GitHub Pages deploy        |
+| When              | Workflow             | What runs                                            |
+| ----------------- | -------------------- | ---------------------------------------------------- |
+| **PR → `main`**   | `ci.yml`             | format:check · lint · test · build · test:build-urls |
+| **PR → `main`**   | `security-audit.yml` | `pnpm audit --audit-level=high`                      |
+| **Push → `main`** | `deploy.yml`         | build + FTP deploy (cdmon)                           |
+| **Push → `main`** | `deploy-pages.yml`   | build + GitHub Pages deploy                          |
 
 Pushes to `main` do **not** run `ci.yml`, but both deploy workflows call `pnpm run build` — run the full block above before push so production stays healthy.
 
@@ -164,7 +164,7 @@ import { basics, work, projects } from "@cv";
 - Use `astro:page-load` for initialization scripts, not `DOMContentLoaded`.
 - **pnpm only** — do not use npm or yarn.
 
-See [docs/architecture.md](docs/architecture.md) for a full reference, and [AGENTS.md](AGENTS.md) for the AI/LLM context guide.
+See [docs/architecture.md](docs/architecture.md) for a full reference, and [AGENTS.md](AGENTS.md) for the AI agent guide (with Cursor rules map).
 
 ## 🚢 Deployment
 

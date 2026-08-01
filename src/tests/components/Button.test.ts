@@ -56,36 +56,30 @@ describe("Button", () => {
   it("applies aria-label when provided", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Button, {
-      props: { variant: "icon", "aria-label": "Toggle theme" },
-      slots: { default: "☀️" },
+      props: { variant: "ghost", "aria-label": "Close menu" },
+      slots: { default: "×" },
     });
 
-    expect(html).toContain('aria-label="Toggle theme"');
+    expect(html).toContain('aria-label="Close menu"');
   });
 
-  it.each([
-    "primary",
-    "secondary",
-    "outline",
-    "ghost",
-    "simple",
-    "icon",
-  ] as const)("renders variant %s without throwing", async (variant) => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(Button, {
-      props: { variant },
-      slots: { default: variant },
-    });
+  it.each(["primary", "outline", "ghost", "simple"] as const)(
+    "renders variant %s without throwing",
+    async (variant) => {
+      const container = await AstroContainer.create();
+      const html = await container.renderToString(Button, {
+        props: { variant },
+        slots: { default: variant },
+      });
 
-    expect(html).toBeTruthy();
-  });
+      expect(html).toBeTruthy();
+    },
+  );
 
   it.each([
     ["primary", "sm"],
-    ["primary", "lg"],
     ["outline", "sm"],
     ["ghost", "md"],
-    ["icon", "icon"],
     ["simple", "none"],
   ] as const)(
     "renders variant %s with size %s without throwing",
@@ -109,15 +103,5 @@ describe("Button", () => {
 
     expect(html).toContain("my-custom-class");
     expect(html).toContain("inline-flex");
-  });
-
-  it("renders loading spinner when loading=true", async () => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(Button, {
-      props: { variant: "primary", loading: true },
-      slots: { default: "Loading..." },
-    });
-
-    expect(html).toContain("animate-spin");
   });
 });

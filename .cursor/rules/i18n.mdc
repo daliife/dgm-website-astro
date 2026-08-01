@@ -1,0 +1,14 @@
+---
+description: CA/EN/ES translation and locale conventions
+globs: "src/i18n/**/*.ts,src/utils/i18n*.ts,src/utils/locale.ts"
+alwaysApply: false
+---
+
+# i18n
+
+- Locales: **CA** (SSR default via `t()`), **EN**, **ES** — files in `src/i18n/{ca,en,es}.ts`
+- Flat `Record<string, string>` keys; keep all three files in lockstep for every new key
+- UI language list: `SUPPORTED_LANGUAGES` in `src/utils/constants.ts`
+- Client switch: `LanguageToggle` + `applyI18n()` in `src/utils/i18n-client.ts`
+- Project/CV keyed strings: `projects.${i}.description`, `.longDescription`, `.highlights.${j}`, etc.
+- After adding keys used in `.astro`, ensure `src/tests/i18n/keys.test.ts` still passes

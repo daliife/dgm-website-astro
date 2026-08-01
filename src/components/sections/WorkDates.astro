@@ -1,5 +1,5 @@
 ---
-import { formatDate } from "../../utils/format";
+import { formatDateRange } from "../../utils/format";
 
 interface Props {
   startDate: string;
@@ -15,5 +15,5 @@ const { startDate, endDate, className } = Astro.props;
   data-date-start={startDate}
   data-date-end={endDate ?? ""}
 >
-  {formatDate(startDate)} — {formatDate(endDate)}
+  {formatDateRange(startDate, endDate)}
 </span>

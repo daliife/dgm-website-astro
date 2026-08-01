@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
+import { projects } from "@cv";
+import type { ProjectEntry } from "../../types/ui";
 import IndexPage from "../../pages/index.astro";
 import AboutPage from "../../pages/about.astro";
 import ProjectsPage from "../../pages/projects.astro";
@@ -7,6 +9,17 @@ import WorkPage from "../../pages/work.astro";
 import ContactPage from "../../pages/contact.astro";
 import NotFoundPage from "../../pages/404.astro";
 import PrivacyPage from "../../pages/privacy.astro";
+import * as ProjectDetail from "../../pages/projects/[slug].astro";
+import { getProjectEntries } from "../../utils/projects";
+import { pageHref } from "../../utils/url";
+
+// Named `getStaticPaths` export widens the default export type; cast for container.
+const ProjectDetailPage = ProjectDetail.default as typeof IndexPage;
+const getStaticPaths = (
+  ProjectDetail as unknown as {
+    getStaticPaths: () => { params: { slug: string } }[];
+  }
+).getStaticPaths;
 
 const pages = [
   { name: "/", component: IndexPage },
@@ -17,6 +30,8 @@ const pages = [
   { name: "/404", component: NotFoundPage },
   { name: "/privacy", component: PrivacyPage },
 ];
+
+const projectEntries = getProjectEntries(projects as ProjectEntry[]);
 
 describe("Pages — render without errors", () => {
   for (const { name, component } of pages) {
@@ -88,13 +103,23 @@ describe("Pages — basic HTML structure", () => {
     expect(html).toContain("<article");
   });
 
-  it("/projects cards link to internal detail pages", async () => {
+  it("/projects cards link to every internal detail page", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectsPage);
 
-    expect(html).toContain('href="/projects/orange-rfp/"');
-    expect(html).toContain('href="/projects/estudi-seitai/"');
+    expect(projectEntries.length).toBeGreaterThan(0);
+    for (const { slug } of projectEntries) {
+      expect(html).toContain(`href="${pageHref("projects", slug)}"`);
+    }
     expect(html).not.toContain('href="https://daliife.github.io/rfp-orange/"');
+  });
+
+  it("/privacy links and copy are present", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(PrivacyPage);
+
+    expect(html).toContain('data-i18n="ui.page.privacy"');
+    expect(html).toMatch(/privacitat|privacy|privacidad/i);
   });
 
   it("/work contains work cards", async () => {
@@ -181,5 +206,41 @@ describe("Pages — semantic HTML structure", () => {
     const h2pos = html.indexOf("<h2");
     expect(h1pos).toBeGreaterThan(-1);
     if (h2pos !== -1) expect(h1pos).toBeLessThan(h2pos);
+  });
+});
+
+describe("Project detail pages", () => {
+  it("getStaticPaths emits one path per project slug", () => {
+    const paths = getStaticPaths();
+    expect(paths).toHaveLength(projectEntries.length);
+    expect(paths.map((p) => p.params.slug).sort()).toEqual(
+      projectEntries.map((e) => e.slug).sort(),
+    );
+  });
+
+  it.each(projectEntries)(
+    "renders /projects/$slug/",
+    async ({ slug, project }) => {
+      const container = await AstroContainer.create();
+      const html = await container.renderToString(ProjectDetailPage, {
+        params: { slug },
+      });
+
+      expect(html).toBeTruthy();
+      expect(html).toContain("<h1");
+      expect(html).toContain(project.name);
+      expect(html).toContain(`href="${pageHref("projects")}"`);
+      expect(html).toContain(`/projects/${slug}/`);
+      expect(html).toMatch(/"@type"\s*:\s*"CreativeWork"/);
+    },
+  );
+
+  it("throws for an unknown project slug", async () => {
+    const container = await AstroContainer.create();
+    await expect(
+      container.renderToString(ProjectDetailPage, {
+        params: { slug: "does-not-exist" },
+      }),
+    ).rejects.toThrow(/Unknown project slug/);
   });
 });

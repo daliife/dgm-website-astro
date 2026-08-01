@@ -44,5 +44,3 @@ export const SUPPORTED_LANGUAGES = [
   { code: "en", label: "EN", nativeName: "English", default: false },
   { code: "es", label: "ES", nativeName: "Español", default: false },
 ] as const;
-
-export type SupportedLanguage = (typeof SUPPORTED_LANGUAGES)[number]["code"];
