@@ -1,6 +1,6 @@
 # AGENTS.md — AI Agent Context
 
-This file provides context for AI coding agents (OpenAI Codex, Claude, Gemini, etc.) working on this repository.
+This file provides context for AI coding agents working on this repository. Cursor-specific rules live in `.cursor/rules/`.
 
 ## What is this project?
 
@@ -60,14 +60,11 @@ docs/
   architecture.md          ← Deep-dive architecture reference
 AGENTS.md                  ← This file (canonical agent guide)
 .cursor/rules/             ← Cursor project rules (core + path-scoped)
-.github/
-  copilot-instructions.md  ← GitHub Copilot repo-wide instructions
-  instructions/            ← Copilot path-scoped *.instructions.md
-  workflows/
-    ci.yml                 ← PR gate: format · lint · test · build · test:build-urls
-    security-audit.yml     ← PR + weekly: pnpm audit (high)
-    deploy.yml             ← Auto-deploy to cdmon via FTP (triggers on push to main)
-    deploy-pages.yml       ← Auto-deploy to GitHub Pages with GITHUB_PAGES=true (triggers on push to main)
+.github/workflows/
+  ci.yml                   ← PR gate: format · lint · test · build · test:build-urls
+  security-audit.yml       ← PR + weekly: pnpm audit (high)
+  deploy.yml               ← Auto-deploy to cdmon via FTP (triggers on push to main)
+  deploy-pages.yml         ← Auto-deploy to GitHub Pages with GITHUB_PAGES=true (triggers on push to main)
 ```
 
 ## How to add things
@@ -258,15 +255,13 @@ Both pipelines use Node.js 24 and pnpm 9. Local development requires **Node.js �
 
 Keep these in sync when conventions change. Prefer short, actionable rules; put deep explanation in `docs/architecture.md`.
 
-| Audience                      | File(s)                                  | Role                                      |
-| ----------------------------- | ---------------------------------------- | ----------------------------------------- |
-| All agents (Codex, Claude, …) | `AGENTS.md`                              | Canonical constraints, how-tos, CI gate   |
-| Cursor                        | `.cursor/rules/*.mdc`                    | Always-on core + path-scoped slices       |
-| GitHub Copilot (repo-wide)    | `.github/copilot-instructions.md`        | Hard rules + file map                     |
-| GitHub Copilot (path-scoped)  | `.github/instructions/*.instructions.md` | Astro, i18n, tests, content, concise mode |
-| Humans / deep context         | `docs/architecture.md`, `README.md`      | Architecture + contributing               |
+| Audience              | File(s)                             | Role                                    |
+| --------------------- | ----------------------------------- | --------------------------------------- |
+| Agents (generic)      | `AGENTS.md`                         | Canonical constraints, how-tos, CI gate |
+| Cursor                | `.cursor/rules/*.mdc`               | Always-on core + path-scoped slices     |
+| Humans / deep context | `docs/architecture.md`, `README.md` | Architecture + contributing             |
 
-Path-scoped topics (Cursor + Copilot mirrors):
+Cursor path-scoped rules:
 
 - **astro** — components/pages, `Button`, `pageHref`, `astro:page-load`
 - **i18n** — CA default SSR, EN/ES parity, `data-i18n*`

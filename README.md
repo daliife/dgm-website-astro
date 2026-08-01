@@ -36,17 +36,14 @@ pnpm run preview  # Serve the production build locally
 ├── .npmrc                 # pnpm config (shamefully-hoist=true)
 ├── public/                # Static assets (images, favicon, robots.txt)
 ├── .cursor/rules/         # Cursor project rules (core + path-scoped)
-├── .github/
-│   ├── copilot-instructions.md  # GitHub Copilot repo-wide context
-│   ├── instructions/            # Copilot path-scoped *.instructions.md
-│   └── workflows/
-│       ├── ci.yml                # PR gate: format · lint · test · build · test:build-urls
-│       ├── security-audit.yml    # PR + weekly: pnpm audit (high)
-│       ├── deploy.yml            # Auto-deploy to cdmon via FTP (push to main)
-│       └── deploy-pages.yml      # Auto-deploy to GitHub Pages (push to main)
+├── .github/workflows/
+│   ├── ci.yml             # PR gate: format · lint · test · build · test:build-urls
+│   ├── security-audit.yml # PR + weekly: pnpm audit (high)
+│   ├── deploy.yml         # Auto-deploy to cdmon via FTP (push to main)
+│   └── deploy-pages.yml   # Auto-deploy to GitHub Pages (push to main)
 ├── docs/
 │   └── architecture.md    # In-depth architecture reference
-├── AGENTS.md              # Canonical AI agent guide (Codex, Claude, Cursor…)
+├── AGENTS.md              # Canonical AI agent guide
 └── src/
     ├── components/
     │   ├── brand/          # DgmLogoSimple, ThemeToggle, LanguageToggle
@@ -167,7 +164,7 @@ import { basics, work, projects } from "@cv";
 - Use `astro:page-load` for initialization scripts, not `DOMContentLoaded`.
 - **pnpm only** — do not use npm or yarn.
 
-See [docs/architecture.md](docs/architecture.md) for a full reference, and [AGENTS.md](AGENTS.md) for the AI/LLM context guide (includes the Cursor + Copilot documentation map).
+See [docs/architecture.md](docs/architecture.md) for a full reference, and [AGENTS.md](AGENTS.md) for the AI agent guide (with Cursor rules map).
 
 ## 🚢 Deployment
 

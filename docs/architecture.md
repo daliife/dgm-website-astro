@@ -404,7 +404,7 @@ Configuration in `vitest.config.ts` (uses `getViteConfig` from `astro/config`).
 
 ### AI agent documentation
 
-See [AGENTS.md](../AGENTS.md) § “AI documentation map” for Cursor rules (`.cursor/rules/`) and GitHub Copilot instructions (`.github/copilot-instructions.md` + `.github/instructions/`).
+See [AGENTS.md](../AGENTS.md) § “AI documentation map” for the generic agent guide and Cursor rules (`.cursor/rules/`).
 
 ---
 
