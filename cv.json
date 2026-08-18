@@ -227,6 +227,41 @@
       "longDescription": "Marketing website for Estudi Seitai, a Seitai and katsugen movement practice based in Catalonia. Built as a fast static Astro site with TypeScript and Tailwind, it presents the practice, studios, and contact paths in Catalan with a calm, editorial layout suited to the brand."
     },
     {
+      "name": "Eclipse Viewer",
+      "description": "Interactive 3D visualizer of solar and lunar eclipses",
+      "url": "https://daliife.github.io/eclipse-viewer/",
+      "image": "/projects/eclipse-viewer.webp",
+      "technologies": ["React", "TypeScript", "Three.js", "Vite"],
+      "category": "personal",
+      "startDate": "2026-08-13",
+      "imageSource": "assets/project-shots/eclipse-viewer.jpg",
+      "githubUrl": "https://github.com/daliife/eclipse-viewer",
+      "highlights": [
+        "Interactive 3D visualizer of solar and lunar eclipses",
+        "Classroom scale vs true scale, with orbit and camera controls",
+        "React + TypeScript + Three.js (React Three Fiber)"
+      ],
+      "longDescription": "Interactive 3D visualizer of solar and lunar eclipses. Distances and sizes use a classroom scale by default so the Moon's 5° orbital tilt is easy to see, with a true-scale toggle for real size and distance ratios. Built with React, TypeScript, Three.js and React Three Fiber, it starts paused on the 12 August 2026 total solar eclipse, with English and Catalan UI."
+    },
+    {
+      "name": "Stashly",
+      "description": "Mobile-first static app to find household items with QR-tagged storage",
+      "url": "https://daliife.github.io/whereis-app/",
+      "image": "/projects/stashly.webp",
+      "technologies": ["Next.js", "TypeScript", "Tailwind CSS"],
+      "category": "personal",
+      "startDate": "2026-06-15",
+      "endDate": "2026-06-21",
+      "imageSource": "assets/project-shots/stashly.jpg",
+      "githubUrl": "https://github.com/daliife/whereis-app",
+      "highlights": [
+        "Mobile-first static app to find household items",
+        "QR codes for storage spaces and client-side fuzzy search",
+        "Next.js + TypeScript, deployed to GitHub Pages"
+      ],
+      "longDescription": "Mobile-first static web app for finding where household items are stored. Tag cupboards and drawers with QR codes, then scan and search by keyword with client-side fuzzy matching. Built with Next.js, TypeScript and Tailwind CSS, with Catalan inventory data and a Catalan, Spanish and English UI, deployed as a static PWA on GitHub Pages."
+    },
+    {
       "name": "Spritz Reader",
       "description": "Speed-reading web app using the Spritz technique (spec-driven development)",
       "url": "https://daliife.github.io/spritz-reader-with-sdd/",
@@ -308,6 +343,7 @@
       "startDate": "2017-01-24",
       "endDate": "2020-10-06",
       "imageSource": "assets/project-shots/cinemup.jpg",
+      "githubUrl": "https://github.com/daliife/Cinemup",
       "highlights": [
         "TV recommendation app targeting Samsung Smart TV (Tizen)",
         "Built with JavaScript, HTML and CSS",
@@ -378,6 +414,7 @@
       "startDate": "2019-04-14",
       "endDate": "2019-04-14",
       "imageSource": "assets/project-shots/amigo.jpg",
+      "githubUrl": "https://github.com/daliife/AMIGO",
       "highlights": [
         "Minimal hypercasual minigolf game in Unity",
         "Gameplay and shaders with C# and HLSL",

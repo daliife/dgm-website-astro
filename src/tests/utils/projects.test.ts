@@ -14,6 +14,8 @@ describe("slugifyProjectName", () => {
   it("slugifies plain names", () => {
     expect(slugifyProjectName("Orange RFP")).toBe("orange-rfp");
     expect(slugifyProjectName("Spritz Reader")).toBe("spritz-reader");
+    expect(slugifyProjectName("Eclipse Viewer")).toBe("eclipse-viewer");
+    expect(slugifyProjectName("Stashly")).toBe("stashly");
   });
 
   it("strips punctuation and ampersands", () => {

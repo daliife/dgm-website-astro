@@ -214,47 +214,55 @@ export const EN = {
   "projects.0.longDescription":
     "Marketing website for Estudi Seitai, a Seitai and katsugen movement practice based in Catalonia. Built as a fast static Astro site with TypeScript and Tailwind, it presents the practice, studios, and contact paths in Catalan with a calm, editorial layout suited to the brand.",
   "projects.1.description":
-    "Speed-reading web app using the Spritz technique (spec-driven development)",
+    "Interactive 3D visualizer of solar and lunar eclipses",
   "projects.1.longDescription":
-    "Browser speed-reading app based on the Spritz RSVP technique: words appear one at a time around a fixed focal point so readers can raise WPM without eye scanning. Built with React, Vite, TypeScript and Tailwind using a spec-driven workflow, with language switching and adjustable reading speeds.",
+    "Interactive 3D visualizer of solar and lunar eclipses. Distances and sizes use a classroom scale by default so the Moon's 5° orbital tilt is easy to see, with a true-scale toggle for real size and distance ratios. Built with React, TypeScript, Three.js and React Three Fiber, it starts paused on the 12 August 2026 total solar eclipse, with English and Catalan UI.",
   "projects.2.description":
-    "Interactive page with three Canvas minigames (SEAT)",
+    "Mobile-first static app to find household items with QR-tagged storage",
   "projects.2.longDescription":
-    "Interactive RFP experience for SEAT built with Angular and Canvas. Visitors explore a branded narrative through three mini-games that showcase proposal ideas in a playful, client-facing format rather than a static slide deck.",
-  "projects.3.description": "Landing page with a card minigame (Orange)",
+    "Mobile-first static web app for finding where household items are stored. Tag cupboards and drawers with QR codes, then scan and search by keyword with client-side fuzzy matching. Built with Next.js, TypeScript and Tailwind CSS, with Catalan inventory data and a Catalan, Spanish and English UI, deployed as a static PWA on GitHub Pages.",
+  "projects.3.description":
+    "Speed-reading web app using the Spritz technique (spec-driven development)",
   "projects.3.longDescription":
-    "Landing experience for Orange featuring a card-based minigame. Built with Angular, TypeScript and Lottie motion to turn an RFP pitch into an interactive story about user-centred services.",
+    "Browser speed-reading app based on the Spritz RSVP technique: words appear one at a time around a fixed focal point so readers can raise WPM without eye scanning. Built with React, Vite, TypeScript and Tailwind using a spec-driven workflow, with language switching and adjustable reading speeds.",
   "projects.4.description":
-    "Interactive page with a brand chronology timeline (SEAT)",
+    "Interactive page with three Canvas minigames (SEAT)",
   "projects.4.longDescription":
-    "Interactive brand chronology for SEAT that invites visitors to travel through iconic cars and historical moments. An Angular + TypeScript UI frames the timeline as a guided narrative rather than a static archive.",
-  "projects.5.description":
-    "TV recommendation app for Samsung Smart TV (Tizen Studio)",
+    "Interactive RFP experience for SEAT built with Angular and Canvas. Visitors explore a branded narrative through three mini-games that showcase proposal ideas in a playful, client-facing format rather than a static slide deck.",
+  "projects.5.description": "Landing page with a card minigame (Orange)",
   "projects.5.longDescription":
-    "TV-oriented recommendation experience aimed at Samsung Smart TV (Tizen). A remote-friendly JavaScript interface helps users browse curated movie and series collections designed for living-room viewing.",
-  "projects.6.description": "Video game prototype built with Unreal Engine 4",
+    "Landing experience for Orange featuring a card-based minigame. Built with Angular, TypeScript and Lottie motion to turn an RFP pitch into an interactive story about user-centred services.",
+  "projects.6.description":
+    "Interactive page with a brand chronology timeline (SEAT)",
   "projects.6.longDescription":
-    "Academic racing prototype in Unreal Engine 4 with C++ gameplay systems. Focuses on vehicle feel, track flow and HUD feedback in a sci-fi canyon setting — a vertical slice rather than a full commercial release.",
-  "projects.7.description": "Word game inspired by Paraulògic",
+    "Interactive brand chronology for SEAT that invites visitors to travel through iconic cars and historical moments. An Angular + TypeScript UI frames the timeline as a guided narrative rather than a static archive.",
+  "projects.7.description":
+    "TV recommendation app for Samsung Smart TV (Tizen Studio)",
   "projects.7.longDescription":
-    "Lightweight browser word game inspired by Paraulògic. Players form Catalan words from a hexagonal letter set with shuffle, delete and score tracking, built with plain HTML, CSS and JavaScript.",
-  "projects.8.description": "Previous portfolio version built with Angular",
+    "TV-oriented recommendation experience aimed at Samsung Smart TV (Tizen). A remote-friendly JavaScript interface helps users browse curated movie and series collections designed for living-room viewing.",
+  "projects.8.description": "Video game prototype built with Unreal Engine 4",
   "projects.8.longDescription":
-    "First long-lived personal portfolio, built with Angular, TypeScript and SCSS. It established the DGM brand system and project storytelling patterns later refined in the current Astro site.",
-  "projects.9.description":
-    "Minimal hypercasual minigolf game built with Unity",
+    "Academic racing prototype in Unreal Engine 4 with C++ gameplay systems. Focuses on vehicle feel, track flow and HUD feedback in a sci-fi canyon setting — a vertical slice rather than a full commercial release.",
+  "projects.9.description": "Word game inspired by Paraulògic",
   "projects.9.longDescription":
-    "Hypercasual minigolf game made in Unity with C# and HLSL. Minimal levels, click-and-drag shots and a bright low-poly look — published on itch.io as a short, approachable play session.",
-  "projects.10.description":
-    "Site to explore instrument families, built with Angular",
+    "Lightweight browser word game inspired by Paraulògic. Players form Catalan words from a hexagonal letter set with shuffle, delete and score tracking, built with plain HTML, CSS and JavaScript.",
+  "projects.10.description": "Previous portfolio version built with Angular",
   "projects.10.longDescription":
-    "Catalan catalogue for exploring musical instrument families. An Angular front end presents instrument cards with expandable detail panels for descriptions, links and media.",
-  "projects.11.description": "Filterable element grid using Isotope (Endesa)",
+    "First long-lived personal portfolio, built with Angular, TypeScript and SCSS. It established the DGM brand system and project storytelling patterns later refined in the current Astro site.",
+  "projects.11.description":
+    "Minimal hypercasual minigolf game built with Unity",
   "projects.11.longDescription":
-    "Filterable element grid delivered for Endesa using Isotope, jQuery and Handlebars. Visitors sort and browse colour-coded values in a dense interactive board built for client demos.",
+    "Hypercasual minigolf game made in Unity with C# and HLSL. Minimal levels, click-and-drag shots and a bright low-poly look — published on itch.io as a short, approachable play session.",
   "projects.12.description":
-    "Real-time post-processing effects with fragment shaders and ImGui",
+    "Site to explore instrument families, built with Angular",
   "projects.12.longDescription":
+    "Catalan catalogue for exploring musical instrument families. An Angular front end presents instrument cards with expandable detail panels for descriptions, links and media.",
+  "projects.13.description": "Filterable element grid using Isotope (Endesa)",
+  "projects.13.longDescription":
+    "Filterable element grid delivered for Endesa using Isotope, jQuery and Handlebars. Visitors sort and browse colour-coded values in a dense interactive board built for client demos.",
+  "projects.14.description":
+    "Real-time post-processing effects with fragment shaders and ImGui",
+  "projects.14.longDescription":
     "Real-time post-processing playground in C++ and GLSL with ImGui controls. Toggles effects such as colour correction, posterize, dithering and pixelize on a 3D scene to study image-effect pipelines.",
   "projects.0.highlights.0":
     "Marketing site for a Seitai and katsugen movement studio",
@@ -262,49 +270,59 @@ export const EN = {
     "Built as a static Astro site with TypeScript and Tailwind CSS",
   "projects.0.highlights.2": "Live production site at estudiseitai.cat",
   "projects.1.highlights.0":
-    "Speed-reading web app based on the Spritz RSVP technique",
-  "projects.1.highlights.1": "Built with a spec-driven development workflow",
-  "projects.1.highlights.2": "React + Vite + TypeScript + Tailwind CSS",
-  "projects.2.highlights.0":
-    "Interactive proposal page with three Canvas minigames for SEAT",
-  "projects.2.highlights.1": "Angular + TypeScript frontend",
-  "projects.2.highlights.2": "Client-facing demo for an RFP",
+    "Interactive 3D visualizer of solar and lunar eclipses",
+  "projects.1.highlights.1":
+    "Classroom scale vs true scale, with orbit and camera controls",
+  "projects.1.highlights.2":
+    "React + TypeScript + Three.js (React Three Fiber)",
+  "projects.2.highlights.0": "Mobile-first static app to find household items",
+  "projects.2.highlights.1":
+    "QR codes for storage spaces and client-side fuzzy search",
+  "projects.2.highlights.2": "Next.js + TypeScript, deployed to GitHub Pages",
   "projects.3.highlights.0":
-    "Landing experience with a card-based minigame for Orange",
-  "projects.3.highlights.1": "Angular + TypeScript with Lottie motion",
-  "projects.3.highlights.2": "Client-facing demo for an RFP",
-  "projects.4.highlights.0": "Interactive brand chronology timeline for SEAT",
-  "projects.4.highlights.1": "Angular + TypeScript UI",
-  "projects.4.highlights.2": "Narrative browsing of historical brand moments",
+    "Speed-reading web app based on the Spritz RSVP technique",
+  "projects.3.highlights.1": "Built with a spec-driven development workflow",
+  "projects.3.highlights.2": "React + Vite + TypeScript + Tailwind CSS",
+  "projects.4.highlights.0":
+    "Interactive proposal page with three Canvas minigames for SEAT",
+  "projects.4.highlights.1": "Angular + TypeScript frontend",
+  "projects.4.highlights.2": "Client-facing demo for an RFP",
   "projects.5.highlights.0":
+    "Landing experience with a card-based minigame for Orange",
+  "projects.5.highlights.1": "Angular + TypeScript with Lottie motion",
+  "projects.5.highlights.2": "Client-facing demo for an RFP",
+  "projects.6.highlights.0": "Interactive brand chronology timeline for SEAT",
+  "projects.6.highlights.1": "Angular + TypeScript UI",
+  "projects.6.highlights.2": "Narrative browsing of historical brand moments",
+  "projects.7.highlights.0":
     "TV recommendation app targeting Samsung Smart TV (Tizen)",
-  "projects.5.highlights.1": "Built with JavaScript, HTML and CSS",
-  "projects.5.highlights.2": "Academic project focused on living-room UX",
-  "projects.6.highlights.0": "Racing video game prototype in Unreal Engine 4",
-  "projects.6.highlights.1": "Gameplay and systems work in C++",
-  "projects.6.highlights.2":
+  "projects.7.highlights.1": "Built with JavaScript, HTML and CSS",
+  "projects.7.highlights.2": "Academic project focused on living-room UX",
+  "projects.8.highlights.0": "Racing video game prototype in Unreal Engine 4",
+  "projects.8.highlights.1": "Gameplay and systems work in C++",
+  "projects.8.highlights.2":
     "Academic prototype exploring vehicle feel and track flow",
-  "projects.7.highlights.0": "Word game inspired by Paraulògic",
-  "projects.7.highlights.1": "Lightweight HTML / CSS / JavaScript build",
-  "projects.7.highlights.2": "Playable browser minigame",
-  "projects.8.highlights.0": "Previous personal portfolio built with Angular",
-  "projects.8.highlights.1": "TypeScript + SCSS component architecture",
-  "projects.8.highlights.2": "Superseded by the current Astro site",
-  "projects.9.highlights.0": "Minimal hypercasual minigolf game in Unity",
-  "projects.9.highlights.1": "Gameplay and shaders with C# and HLSL",
-  "projects.9.highlights.2": "Published on itch.io",
-  "projects.10.highlights.0": "Browsable catalogue of instrument families",
-  "projects.10.highlights.1": "Angular + TypeScript frontend",
-  "projects.10.highlights.2": "Exploratory UI for musical instrument taxonomy",
-  "projects.11.highlights.0": "Filterable product/element grid for Endesa",
-  "projects.11.highlights.1":
+  "projects.9.highlights.0": "Word game inspired by Paraulògic",
+  "projects.9.highlights.1": "Lightweight HTML / CSS / JavaScript build",
+  "projects.9.highlights.2": "Playable browser minigame",
+  "projects.10.highlights.0": "Previous personal portfolio built with Angular",
+  "projects.10.highlights.1": "TypeScript + SCSS component architecture",
+  "projects.10.highlights.2": "Superseded by the current Astro site",
+  "projects.11.highlights.0": "Minimal hypercasual minigolf game in Unity",
+  "projects.11.highlights.1": "Gameplay and shaders with C# and HLSL",
+  "projects.11.highlights.2": "Published on itch.io",
+  "projects.12.highlights.0": "Browsable catalogue of instrument families",
+  "projects.12.highlights.1": "Angular + TypeScript frontend",
+  "projects.12.highlights.2": "Exploratory UI for musical instrument taxonomy",
+  "projects.13.highlights.0": "Filterable product/element grid for Endesa",
+  "projects.13.highlights.1":
     "Isotope-powered layout with jQuery and Handlebars",
-  "projects.11.highlights.2":
+  "projects.13.highlights.2":
     "Client deliverable focused on browse and filter UX",
-  "projects.12.highlights.0":
+  "projects.14.highlights.0":
     "Real-time post-processing effects with fragment shaders",
-  "projects.12.highlights.1": "C++ + GLSL with ImGui controls",
-  "projects.12.highlights.2": "Academic exploration of image effects pipelines",
+  "projects.14.highlights.1": "C++ + GLSL with ImGui controls",
+  "projects.14.highlights.2": "Academic exploration of image effects pipelines",
 
   // ── Education ──────────────────────────────────────────────────────────────
   "education.0.studyType": "Master's Degree in Advanced Video Game Development",
