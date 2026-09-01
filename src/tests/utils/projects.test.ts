@@ -16,6 +16,9 @@ describe("slugifyProjectName", () => {
     expect(slugifyProjectName("Spritz Reader")).toBe("spritz-reader");
     expect(slugifyProjectName("Eclipse Viewer")).toBe("eclipse-viewer");
     expect(slugifyProjectName("Stashly")).toBe("stashly");
+    expect(slugifyProjectName("LCARS Weather Console")).toBe(
+      "lcars-weather-console",
+    );
   });
 
   it("strips punctuation and ampersands", () => {
@@ -62,7 +65,7 @@ describe("getAdjacentProjects", () => {
     );
     // First professional item — no previous in list order
     expect(prev).toBeUndefined();
-    expect(next?.slug).toBe("orange-rfp");
+    expect(next?.slug).toBe("hmi-seat");
   });
 
   it("returns prev only for the last project in list order", () => {
