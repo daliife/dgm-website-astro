@@ -211,20 +211,21 @@
   ],
   "projects": [
     {
-      "name": "Estudi Seitai",
-      "description": "Website for a Seitai and katsugen movement studio",
-      "url": "https://estudiseitai.cat/",
-      "image": "/projects/estudi-seitai.webp",
-      "technologies": ["Astro", "TypeScript", "Tailwind CSS"],
+      "name": "LCARS Weather Console",
+      "description": "TNG LCARS weather console for a backyard station in Cabacés",
+      "url": "https://daliife.github.io/star-trek-weather-station/",
+      "image": "/projects/lcars-weather-console.webp",
+      "technologies": ["Astro", "TypeScript", "CSS"],
       "category": "personal",
-      "startDate": "2025-08-24",
-      "imageSource": "assets/project-shots/estudi-seitai.jpg",
+      "startDate": "2026-08-30",
+      "imageSource": "assets/project-shots/lcars-weather-console.jpg",
+      "githubUrl": "https://github.com/daliife/star-trek-weather-station",
       "highlights": [
-        "Marketing site for a Seitai and katsugen movement studio",
-        "Built as a static Astro site with TypeScript and Tailwind CSS",
-        "Live production site at estudiseitai.cat"
+        "Full-screen TNG LCARS console for live weather in Cabacés",
+        "Astro + TypeScript with a custom LCARS interface",
+        "Live snapshot pipeline with CA / ES / EN and metric or imperial units"
       ],
-      "longDescription": "Marketing website for Estudi Seitai, a Seitai and katsugen movement practice based in Catalonia. Built as a fast static Astro site with TypeScript and Tailwind, it presents the practice, studios, and contact paths in Catalan with a calm, editorial layout suited to the brand."
+      "longDescription": "Weather from a backyard personal weather station in Cabacés (Priorat), drawn as a full-screen Star Trek TNG LCARS ops desk. Live conditions, forecast and history from Weather Underground (with Open-Meteo fallback), English / Catalan / Spanish labels, and metric or imperial units. Built as a static Astro site with TypeScript and a custom LCARS frame — a fan project, not affiliated with Paramount or Weather Underground."
     },
     {
       "name": "Eclipse Viewer",
@@ -242,6 +243,22 @@
         "React + TypeScript + Three.js (React Three Fiber)"
       ],
       "longDescription": "Interactive 3D visualizer of solar and lunar eclipses. Distances and sizes use a classroom scale by default so the Moon's 5° orbital tilt is easy to see, with a true-scale toggle for real size and distance ratios. Built with React, TypeScript, Three.js and React Three Fiber, it starts paused on the 12 August 2026 total solar eclipse, with English and Catalan UI."
+    },
+    {
+      "name": "Estudi Seitai",
+      "description": "Website for a Seitai and katsugen movement studio",
+      "url": "https://estudiseitai.cat/",
+      "image": "/projects/estudi-seitai.webp",
+      "technologies": ["Astro", "TypeScript", "Tailwind CSS"],
+      "category": "personal",
+      "startDate": "2025-08-24",
+      "imageSource": "assets/project-shots/estudi-seitai.jpg",
+      "highlights": [
+        "Marketing site for a Seitai and katsugen movement studio",
+        "Built as a static Astro site with TypeScript and Tailwind CSS",
+        "Live production site at estudiseitai.cat"
+      ],
+      "longDescription": "Marketing website for Estudi Seitai, a Seitai and katsugen movement practice based in Catalonia. Built as a fast static Astro site with TypeScript and Tailwind, it presents the practice, studios, and contact paths in Catalan with a calm, editorial layout suited to the brand."
     },
     {
       "name": "Stashly",
@@ -298,24 +315,6 @@
       "longDescription": "Interactive RFP experience for SEAT built with Angular and Canvas. Visitors explore a branded narrative through three mini-games that showcase proposal ideas in a playful, client-facing format rather than a static slide deck."
     },
     {
-      "name": "Orange RFP",
-      "description": "Landing page with a card minigame (Orange)",
-      "url": "https://daliife.github.io/rfp-orange/",
-      "image": "/projects/orange-rfp.webp",
-      "technologies": ["Angular", "TypeScript", "Lottie"],
-      "category": "professional",
-      "startDate": "2020-10-26",
-      "endDate": "2020-11-12",
-      "imageSource": "assets/project-shots/orange-rfp.jpg",
-      "githubUrl": "https://github.com/daliife/rfp-orange",
-      "highlights": [
-        "Landing experience with a card-based minigame for Orange",
-        "Angular + TypeScript with Lottie motion",
-        "Client-facing demo for an RFP"
-      ],
-      "longDescription": "Landing experience for Orange featuring a card-based minigame. Built with Angular, TypeScript and Lottie motion to turn an RFP pitch into an interactive story about user-centred services."
-    },
-    {
       "name": "HMI Seat",
       "description": "Interactive page with a brand chronology timeline (SEAT)",
       "url": "https://daliife.github.io/hmi-seat/",
@@ -332,6 +331,24 @@
         "Narrative browsing of historical brand moments"
       ],
       "longDescription": "Interactive brand chronology for SEAT that invites visitors to travel through iconic cars and historical moments. An Angular + TypeScript UI frames the timeline as a guided narrative rather than a static archive."
+    },
+    {
+      "name": "Orange RFP",
+      "description": "Landing page with a card minigame (Orange)",
+      "url": "https://daliife.github.io/rfp-orange/",
+      "image": "/projects/orange-rfp.webp",
+      "technologies": ["Angular", "TypeScript", "Lottie"],
+      "category": "professional",
+      "startDate": "2020-10-26",
+      "endDate": "2020-11-12",
+      "imageSource": "assets/project-shots/orange-rfp.jpg",
+      "githubUrl": "https://github.com/daliife/rfp-orange",
+      "highlights": [
+        "Landing experience with a card-based minigame for Orange",
+        "Angular + TypeScript with Lottie motion",
+        "Client-facing demo for an RFP"
+      ],
+      "longDescription": "Landing experience for Orange featuring a card-based minigame. Built with Angular, TypeScript and Lottie motion to turn an RFP pitch into an interactive story about user-centred services."
     },
     {
       "name": "Cinemup",

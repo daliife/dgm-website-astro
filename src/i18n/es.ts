@@ -219,68 +219,73 @@ export const ES: Record<I18nKey, string> = {
 
   // ── Projects ──────────────────────────────────────────────────────────────
   "projects.0.description":
-    "Web para un estudio de movimiento Seitai y katsugen",
+    "Consola meteorológica LCARS (TNG) para una estación en Cabacés",
   "projects.0.longDescription":
-    "Web de marketing para Estudi Seitai, una práctica de movimiento Seitai y katsugen en Cataluña. Hecha como sitio estático rápido con Astro, TypeScript y Tailwind, presenta la práctica, los estudios y el contacto en catalán, con un tono editorial calmado acorde a la marca.",
+    "El tiempo de una estación meteorológica de patio en Cabacés (Priorat), dibujado como un pupitre de operaciones LCARS de Star Trek TNG a pantalla completa. Condiciones en directo, previsión e histórico desde Weather Underground (con fallback a Open-Meteo), etiquetas en catalán, castellano e inglés, y unidades métricas o imperiales. Hecho como sitio estático con Astro, TypeScript y un marco LCARS a medida — un proyecto de fan, sin afiliación con Paramount ni Weather Underground.",
   "projects.1.description":
     "Visualizador 3D interactivo de eclipses solares y lunares",
   "projects.1.longDescription":
     "Visualizador 3D interactivo de eclipses solares y lunares. Distancias y tamaños usan una escala de aula por defecto para que la inclinación orbital de 5° de la Luna se vea bien, con un conmutador de escala real para las ratios reales. Hecho con React, TypeScript, Three.js y React Three Fiber, se abre en pausa en el eclipse solar total del 12 de agosto de 2026, con interfaz en inglés y catalán.",
   "projects.2.description":
-    "App estática mobile-first para encontrar objetos de casa con espacios etiquetados con QR",
+    "Web para un estudio de movimiento Seitai y katsugen",
   "projects.2.longDescription":
-    "App web estática mobile-first para encontrar dónde tienes guardadas las cosas de casa. Pega un QR en armarios y cajoneras, escanea y busca por palabra clave con coincidencia fuzzy en el cliente. Hecha con Next.js, TypeScript y Tailwind CSS, con inventario en catalán e interfaz en catalán, castellano e inglés, desplegada como PWA estática en GitHub Pages.",
+    "Web de marketing para Estudi Seitai, una práctica de movimiento Seitai y katsugen en Cataluña. Hecha como sitio estático rápido con Astro, TypeScript y Tailwind, presenta la práctica, los estudios y el contacto en catalán, con un tono editorial calmado acorde a la marca.",
   "projects.3.description":
-    "App de lectura rápida con la técnica Spritz (desarrollo guiado por especificaciones)",
+    "App estática mobile-first para encontrar objetos de casa con espacios etiquetados con QR",
   "projects.3.longDescription":
-    "App de lectura rápida en el navegador basada en la técnica Spritz (RSVP): las palabras aparecen de una en una alrededor de un punto fijo para subir la velocidad sin mover la mirada. Hecha con React, Vite, TypeScript y Tailwind con un flujo guiado por especificaciones, con cambio de idioma y velocidades ajustables.",
+    "App web estática mobile-first para encontrar dónde tienes guardadas las cosas de casa. Pega un QR en armarios y cajoneras, escanea y busca por palabra clave con coincidencia fuzzy en el cliente. Hecha con Next.js, TypeScript y Tailwind CSS, con inventario en catalán e interfaz en catalán, castellano e inglés, desplegada como PWA estática en GitHub Pages.",
   "projects.4.description":
-    "Página interactiva con tres minijuegos en Canvas (SEAT)",
+    "App de lectura rápida con la técnica Spritz (desarrollo guiado por especificaciones)",
   "projects.4.longDescription":
-    "Experiencia interactiva de RFP para SEAT con Angular y Canvas. Los visitantes exploran una narrativa de marca a través de tres minijuegos que presentan ideas de propuesta en un formato jugable orientado al cliente, en lugar de un deck estático.",
-  "projects.5.description": "Landing page con un minijuego de cartas (Orange)",
+    "App de lectura rápida en el navegador basada en la técnica Spritz (RSVP): las palabras aparecen de una en una alrededor de un punto fijo para subir la velocidad sin mover la mirada. Hecha con React, Vite, TypeScript y Tailwind con un flujo guiado por especificaciones, con cambio de idioma y velocidades ajustables.",
+  "projects.5.description":
+    "Página interactiva con tres minijuegos en Canvas (SEAT)",
   "projects.5.longDescription":
-    "Landing para Orange con un minijuego de cartas. Hecha con Angular, TypeScript y animaciones Lottie para convertir un pitch de RFP en una historia interactiva sobre servicios centrados en el usuario.",
+    "Experiencia interactiva de RFP para SEAT con Angular y Canvas. Los visitantes exploran una narrativa de marca a través de tres minijuegos que presentan ideas de propuesta en un formato jugable orientado al cliente, en lugar de un deck estático.",
   "projects.6.description":
     "Página interactiva con una cronología de marca (SEAT)",
   "projects.6.longDescription":
     "Cronología interactiva de marca para SEAT que invita a viajar por coches icónicos y momentos históricos. Una interfaz Angular + TypeScript presenta la línea temporal como narrativa guiada, no como un archivo estático.",
-  "projects.7.description":
-    "App de recomendación de TV para Samsung Smart TV (Tizen Studio)",
+  "projects.7.description": "Landing page con un minijuego de cartas (Orange)",
   "projects.7.longDescription":
-    "Experiencia de recomendación pensada para Samsung Smart TV (Tizen). Una interfaz JavaScript amigable con el mando ayuda a navegar colecciones de películas y series pensadas para el sofá.",
+    "Landing para Orange con un minijuego de cartas. Hecha con Angular, TypeScript y animaciones Lottie para convertir un pitch de RFP en una historia interactiva sobre servicios centrados en el usuario.",
   "projects.8.description":
-    "Prototipo de videojuego desarrollado con Unreal Engine 4",
+    "App de recomendación de TV para Samsung Smart TV (Tizen Studio)",
   "projects.8.longDescription":
-    "Prototipo académico de carreras con Unreal Engine 4 y sistemas de gameplay en C++. Se centra en el feeling del vehículo, el flujo de la pista y el HUD en un entorno de cañón sci-fi — un corte vertical, no un lanzamiento comercial completo.",
-  "projects.9.description": "Juego de palabras inspirado en Paraulògic",
+    "Experiencia de recomendación pensada para Samsung Smart TV (Tizen). Una interfaz JavaScript amigable con el mando ayuda a navegar colecciones de películas y series pensadas para el sofá.",
+  "projects.9.description":
+    "Prototipo de videojuego desarrollado con Unreal Engine 4",
   "projects.9.longDescription":
-    "Minijuego de palabras en el navegador inspirado en Paraulògic. Los jugadores forman palabras en catalán a partir de un juego hexagonal de letras, con mezcla, borrado y puntuación, hecho con HTML, CSS y JavaScript.",
-  "projects.10.description":
-    "Versión anterior del portfolio desarrollada con Angular",
+    "Prototipo académico de carreras con Unreal Engine 4 y sistemas de gameplay en C++. Se centra en el feeling del vehículo, el flujo de la pista y el HUD en un entorno de cañón sci-fi — un corte vertical, no un lanzamiento comercial completo.",
+  "projects.10.description": "Juego de palabras inspirado en Paraulògic",
   "projects.10.longDescription":
-    "Primer portfolio personal de larga duración, hecho con Angular, TypeScript y SCSS. Estableció el sistema de marca DGM y los patrones de narración de proyectos que después se refinaron en el sitio actual en Astro.",
+    "Minijuego de palabras en el navegador inspirado en Paraulògic. Los jugadores forman palabras en catalán a partir de un juego hexagonal de letras, con mezcla, borrado y puntuación, hecho con HTML, CSS y JavaScript.",
   "projects.11.description":
-    "Minijuego hipercasual de minigolf desarrollado con Unity",
+    "Versión anterior del portfolio desarrollada con Angular",
   "projects.11.longDescription":
-    "Minijuego hipercasual de minigolf hecho con Unity, C# y HLSL. Niveles mínimos, disparos con clic y arrastre y una estética low-poly viva — publicado en itch.io como una sesión corta y accesible.",
+    "Primer portfolio personal de larga duración, hecho con Angular, TypeScript y SCSS. Estableció el sistema de marca DGM y los patrones de narración de proyectos que después se refinaron en el sitio actual en Astro.",
   "projects.12.description":
-    "Web para descubrir familias de instrumentos, desarrollada con Angular",
+    "Minijuego hipercasual de minigolf desarrollado con Unity",
   "projects.12.longDescription":
-    "Catálogo en catalán para explorar familias de instrumentos musicales. Un frontend Angular muestra cartas de instrumentos con paneles de detalle expansibles para descripciones, enlaces y medios.",
+    "Minijuego hipercasual de minigolf hecho con Unity, C# y HLSL. Niveles mínimos, disparos con clic y arrastre y una estética low-poly viva — publicado en itch.io como una sesión corta y accesible.",
   "projects.13.description":
-    "Cuadrícula filtrable de elementos con Isotope (Endesa)",
+    "Web para descubrir familias de instrumentos, desarrollada con Angular",
   "projects.13.longDescription":
-    "Cuadrícula filtrable de elementos para Endesa con Isotope, jQuery y Handlebars. Los visitantes ordenan y exploran valores codificados por color en un tablero interactivo denso pensado para demos de cliente.",
+    "Catálogo en catalán para explorar familias de instrumentos musicales. Un frontend Angular muestra cartas de instrumentos con paneles de detalle expansibles para descripciones, enlaces y medios.",
   "projects.14.description":
-    "Efectos de postprocesado en tiempo real con fragment shaders e ImGui",
+    "Cuadrícula filtrable de elementos con Isotope (Endesa)",
   "projects.14.longDescription":
+    "Cuadrícula filtrable de elementos para Endesa con Isotope, jQuery y Handlebars. Los visitantes ordenan y exploran valores codificados por color en un tablero interactivo denso pensado para demos de cliente.",
+  "projects.15.description":
+    "Efectos de postprocesado en tiempo real con fragment shaders e ImGui",
+  "projects.15.longDescription":
     "Laboratorio de postprocesado en tiempo real con C++ y GLSL y controles ImGui. Permite activar efectos como corrección de color, posterización, dithering y pixelización sobre una escena 3D para estudiar pipelines de efectos de imagen.",
   "projects.0.highlights.0":
-    "Web de marketing para un estudio de movimiento Seitai y katsugen",
+    "Consola LCARS TNG a pantalla completa para el tiempo de Cabacés",
   "projects.0.highlights.1":
-    "Sitio estático hecho con Astro, TypeScript y Tailwind CSS",
-  "projects.0.highlights.2": "En producción en estudiseitai.cat",
+    "Astro y TypeScript con una interfaz LCARS a medida",
+  "projects.0.highlights.2":
+    "Pipeline de snapshots en directo con CA / ES / EN y unidades métricas o imperiales",
   "projects.1.highlights.0":
     "Visualizador 3D interactivo de eclipses solares y lunares",
   "projects.1.highlights.1":
@@ -288,61 +293,67 @@ export const ES: Record<I18nKey, string> = {
   "projects.1.highlights.2":
     "React + TypeScript + Three.js (React Three Fiber)",
   "projects.2.highlights.0":
-    "App estática mobile-first para encontrar objetos de casa",
+    "Web de marketing para un estudio de movimiento Seitai y katsugen",
   "projects.2.highlights.1":
-    "Códigos QR para los espacios y búsqueda fuzzy en el cliente",
-  "projects.2.highlights.2": "Next.js + TypeScript, desplegada en GitHub Pages",
+    "Sitio estático hecho con Astro, TypeScript y Tailwind CSS",
+  "projects.2.highlights.2": "En producción en estudiseitai.cat",
   "projects.3.highlights.0":
-    "App web de lectura rápida basada en la técnica Spritz (RSVP)",
+    "App estática mobile-first para encontrar objetos de casa",
   "projects.3.highlights.1":
-    "Desarrollada con un flujo de trabajo guiado por especificaciones",
-  "projects.3.highlights.2": "React + Vite + TypeScript + Tailwind CSS",
+    "Códigos QR para los espacios y búsqueda fuzzy en el cliente",
+  "projects.3.highlights.2": "Next.js + TypeScript, desplegada en GitHub Pages",
   "projects.4.highlights.0":
-    "Página interactiva de propuesta con tres minijuegos en Canvas para SEAT",
-  "projects.4.highlights.1": "Frontend con Angular y TypeScript",
-  "projects.4.highlights.2": "Demo orientada al cliente para un RFP",
+    "App web de lectura rápida basada en la técnica Spritz (RSVP)",
+  "projects.4.highlights.1":
+    "Desarrollada con un flujo de trabajo guiado por especificaciones",
+  "projects.4.highlights.2": "React + Vite + TypeScript + Tailwind CSS",
   "projects.5.highlights.0":
-    "Experiencia de landing con un minijuego de cartas para Orange",
-  "projects.5.highlights.1": "Angular y TypeScript con animaciones Lottie",
+    "Página interactiva de propuesta con tres minijuegos en Canvas para SEAT",
+  "projects.5.highlights.1": "Frontend con Angular y TypeScript",
   "projects.5.highlights.2": "Demo orientada al cliente para un RFP",
   "projects.6.highlights.0": "Cronología interactiva de marca para SEAT",
   "projects.6.highlights.1": "Interfaz con Angular y TypeScript",
   "projects.6.highlights.2":
     "Navegación narrativa de momentos históricos de la marca",
   "projects.7.highlights.0":
-    "App de recomendación de TV para Samsung Smart TV (Tizen)",
-  "projects.7.highlights.1": "Hecha con JavaScript, HTML y CSS",
-  "projects.7.highlights.2":
-    "Proyecto académico centrado en la experiencia de salón",
+    "Experiencia de landing con un minijuego de cartas para Orange",
+  "projects.7.highlights.1": "Angular y TypeScript con animaciones Lottie",
+  "projects.7.highlights.2": "Demo orientada al cliente para un RFP",
   "projects.8.highlights.0":
-    "Prototipo de videojuego de carreras con Unreal Engine 4",
-  "projects.8.highlights.1": "Gameplay y sistemas en C++",
+    "App de recomendación de TV para Samsung Smart TV (Tizen)",
+  "projects.8.highlights.1": "Hecha con JavaScript, HTML y CSS",
   "projects.8.highlights.2":
+    "Proyecto académico centrado en la experiencia de salón",
+  "projects.9.highlights.0":
+    "Prototipo de videojuego de carreras con Unreal Engine 4",
+  "projects.9.highlights.1": "Gameplay y sistemas en C++",
+  "projects.9.highlights.2":
     "Prototipo académico para explorar sensación de vehículo y ritmo de pista",
-  "projects.9.highlights.0": "Juego de palabras inspirado en el Paraulògic",
-  "projects.9.highlights.1": "Implementación ligera con HTML, CSS y JavaScript",
-  "projects.9.highlights.2": "Minijuego jugable en el navegador",
-  "projects.10.highlights.0":
-    "Versión anterior del portfolio personal hecha con Angular",
+  "projects.10.highlights.0": "Juego de palabras inspirado en el Paraulògic",
   "projects.10.highlights.1":
+    "Implementación ligera con HTML, CSS y JavaScript",
+  "projects.10.highlights.2": "Minijuego jugable en el navegador",
+  "projects.11.highlights.0":
+    "Versión anterior del portfolio personal hecha con Angular",
+  "projects.11.highlights.1":
     "Arquitectura de componentes con TypeScript y SCSS",
-  "projects.10.highlights.2": "Sustituida por el sitio actual en Astro",
-  "projects.11.highlights.0": "Minijuego hipercasual de minigolf con Unity",
-  "projects.11.highlights.1": "Gameplay y shaders con C# y HLSL",
-  "projects.11.highlights.2": "Publicado en itch.io",
-  "projects.12.highlights.0": "Catálogo navegable de familias de instrumentos",
-  "projects.12.highlights.1": "Frontend con Angular y TypeScript",
-  "projects.12.highlights.2":
-    "Interfaz exploratoria para una taxonomía de instrumentos",
-  "projects.13.highlights.0":
-    "Cuadrícula filtrable de productos/elementos para Endesa",
-  "projects.13.highlights.1": "Layout con Isotope, jQuery y Handlebars",
+  "projects.11.highlights.2": "Sustituida por el sitio actual en Astro",
+  "projects.12.highlights.0": "Minijuego hipercasual de minigolf con Unity",
+  "projects.12.highlights.1": "Gameplay y shaders con C# y HLSL",
+  "projects.12.highlights.2": "Publicado en itch.io",
+  "projects.13.highlights.0": "Catálogo navegable de familias de instrumentos",
+  "projects.13.highlights.1": "Frontend con Angular y TypeScript",
   "projects.13.highlights.2":
-    "Entrega de cliente centrada en la navegación y el filtrado",
+    "Interfaz exploratoria para una taxonomía de instrumentos",
   "projects.14.highlights.0":
-    "Efectos de postprocesado en tiempo real con fragment shaders",
-  "projects.14.highlights.1": "C++ y GLSL con controles ImGui",
+    "Cuadrícula filtrable de productos/elementos para Endesa",
+  "projects.14.highlights.1": "Layout con Isotope, jQuery y Handlebars",
   "projects.14.highlights.2":
+    "Entrega de cliente centrada en la navegación y el filtrado",
+  "projects.15.highlights.0":
+    "Efectos de postprocesado en tiempo real con fragment shaders",
+  "projects.15.highlights.1": "C++ y GLSL con controles ImGui",
+  "projects.15.highlights.2":
     "Exploración académica de pipelines de efectos de imagen",
 
   // ── Education ─────────────────────────────────────────────────────────────
