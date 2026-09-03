@@ -14,7 +14,7 @@ jobs:
   audit:
     name: pnpm audit
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 5
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -28,21 +28,4 @@ jobs:
           node-version: 24
 
       - name: Run security audit
-        run: |
-          set +e
-          for attempt in 1 2 3 4 5; do
-            output="$(pnpm audit --audit-level=high 2>&1)"
-            code=$?
-            printf '%s\n' "$output"
-            if [ "$code" -eq 0 ]; then
-              exit 0
-            fi
-            if printf '%s' "$output" | grep -Eq 'ERR_SOCKET_TIMEOUT|error \(500\)|ECONNRESET|ENOTFOUND'; then
-              echo "Transient npm audit API error on attempt ${attempt}; retrying..."
-              sleep $((attempt * 20))
-              continue
-            fi
-            exit "$code"
-          done
-          echo "npm audit API stayed unreachable after retries"
-          exit 1
+        run: pnpm audit --audit-level=high
