@@ -28,4 +28,16 @@ jobs:
           node-version: 24
 
       - name: Run security audit
-        run: pnpm audit --audit-level=high
+        run: |
+          set +e
+          output="$(pnpm audit --audit-level=high --fetch-retries=0 --fetch-timeout=20000 2>&1)"
+          code=$?
+          printf '%s\n' "$output"
+          if [ "$code" -eq 0 ]; then
+            exit 0
+          fi
+          if printf '%s' "$output" | grep -Eq 'ERR_SOCKET_TIMEOUT|ERR_PNPM_AUDIT_BAD_RESPONSE|Service Unavailable|error \(50[0-9]\)'; then
+            echo "::warning::npm audit API unreachable; not failing this run on a registry outage"
+            exit 0
+          fi
+          exit "$code"
