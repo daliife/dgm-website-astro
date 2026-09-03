@@ -22,5 +22,6 @@ describe("public/.htaccess security headers", () => {
     expect(htaccess).toContain("default-src 'self'");
     expect(htaccess).toContain("frame-ancestors 'none'");
     expect(htaccess).toContain("https://cloud.umami.is");
+    expect(htaccess).toContain("https://gateway.umami.is");
   });
 });
