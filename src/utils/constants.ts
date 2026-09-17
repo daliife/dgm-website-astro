@@ -19,26 +19,30 @@ export const PAGE_HEADING_MARGIN_CLASSES = "mb-10";
 /** Compact title margin when intro copy follows immediately (contact). */
 export const PAGE_HEADING_MARGIN_COMPACT_CLASSES = "mb-6";
 
-/** Vertical spacing between about page sections (legacy; prefer ABOUT_MAJOR_SECTION_CLASSES). */
-export const ABOUT_SECTION_SPACING_CLASSES = "mt-16 md:mt-20 print:mt-6";
-
 /** About page major blocks: vertical spacing only (no section rules). */
 export const ABOUT_MAJOR_SECTION_CLASSES = "reveal mt-16 md:mt-20 print:mt-6";
-
-/** Optional label above section titles (About chapters). */
-export const SECTION_LABEL_CLASSES =
-  "mb-2 text-xs uppercase tracking-widest text-text-muted print:hidden";
 
 /** Scroll offset for in-page anchors under the fixed header. */
 export const SCROLL_ANCHOR_MARGIN_CLASSES = "scroll-mt-28 md:scroll-mt-36";
 
-/** Projects list: jump links to category sections. */
-export const PROJECT_CATEGORY_JUMP_LINK_CLASSES =
-  "rounded-none border-b border-transparent pb-0.5 text-xs uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary hover:no-underline focus-visible:border-text-primary";
+/**
+ * Uppercase editorial links: bottom border always visible; hover darkens border/text.
+ * (Contrast: `.link-underline-hover` in Layout — underline grows on hover for prose links.)
+ */
+export const EDITORIAL_LINK_SM_CLASSES =
+  "w-fit rounded-none border-b border-border-muted pb-0.5 text-xs uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary hover:no-underline";
 
-/** Project detail breadcrumb link (parent segment). */
-export const BREADCRUMB_LINK_CLASSES =
-  "rounded-none border-b border-border-muted pb-0.5 text-xs uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary hover:no-underline";
+export const EDITORIAL_LINK_MD_CLASSES =
+  "w-fit rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary hover:no-underline";
+
+export const EDITORIAL_LINK_MD_MUTED_CLASSES =
+  "w-fit rounded-none border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary hover:no-underline";
+
+export const PROJECT_CATEGORY_JUMP_LINK_CLASSES = EDITORIAL_LINK_SM_CLASSES;
+
+export const BREADCRUMB_LINK_CLASSES = EDITORIAL_LINK_SM_CLASSES;
+
+export const NEXTUP_LINK_CLASSES = EDITORIAL_LINK_MD_CLASSES;
 
 /** About page section titles (below page H1 in visual weight). */
 export const ABOUT_SECTION_HEADING_CLASSES =
@@ -48,7 +52,7 @@ export const ABOUT_SECTION_HEADING_CLASSES =
 export const PROJECTS_CATEGORY_HEADING_CLASSES =
   "mb-6 text-2xl font-bold uppercase tracking-tight text-text-primary sm:text-3xl";
 
-/** Framed media (portrait, screenshots) — matches project thumbnails. */
+/** Framed media (project screenshots). */
 export const CARD_FRAME_CLASSES =
   "overflow-hidden border border-border-secondary bg-bg-muted";
 
@@ -57,16 +61,14 @@ export const HOME_CTA_PRIMARY_CLASSES =
   "gap-2 rounded-none border-b border-text-primary pb-1 text-sm font-medium uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary hover:no-underline";
 
 /** Home hero secondary CTA (contact). */
-export const HOME_CTA_SECONDARY_CLASSES =
-  "gap-2 rounded-none border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary hover:no-underline";
+export const HOME_CTA_SECONDARY_CLASSES = `gap-2 ${EDITORIAL_LINK_MD_MUTED_CLASSES}`;
+
+export const PROJECT_DETAIL_CTA_CLASSES = `gap-2 ${EDITORIAL_LINK_MD_CLASSES} hover:!no-underline`;
 
 export const NEXTUP_NAV_CLASSES = "reveal border-t border-border-primary pt-8";
 
 export const NEXTUP_LABEL_CLASSES =
   "mb-5 text-xs uppercase tracking-widest text-text-muted";
-
-export const NEXTUP_LINK_CLASSES =
-  "w-fit rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:border-text-primary hover:no-underline";
 
 export const WORK_COMPANY_LINK_CLASSES =
   "link-underline-hover w-fit text-sm text-text-secondary transition-colors duration-200 hover:text-text-primary";

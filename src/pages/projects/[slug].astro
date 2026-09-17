@@ -5,6 +5,7 @@ import {
   BREADCRUMB_LINK_CLASSES,
   CARD_FRAME_CLASSES,
   PAGE_CONTAINER_CLASSES,
+  PROJECT_DETAIL_CTA_CLASSES,
   WORK_DATES_CLASSES,
   LIVE_URL,
 } from "../../utils/constants";
@@ -63,9 +64,6 @@ const visitHref =
 const ogImage = project.image ? `${LIVE_URL}${project.image}` : undefined;
 const hasHighlights = Boolean(project.highlights?.length);
 const hasTech = Boolean(project.technologies?.length);
-
-const DETAIL_CTA_CLASSES =
-  "gap-2 rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:!no-underline hover:border-text-primary";
 
 const creativeWorkSchema = {
   "@context": "https://schema.org",
@@ -204,7 +202,7 @@ const creativeWorkSchema = {
                 rel="noopener noreferrer"
                 variant="simple"
                 size="none"
-                className={DETAIL_CTA_CLASSES}
+                className={PROJECT_DETAIL_CTA_CLASSES}
               >
                 <svg
                   class="h-3.5 w-3.5 shrink-0"
@@ -230,7 +228,7 @@ const creativeWorkSchema = {
                 rel="noopener noreferrer"
                 variant="simple"
                 size="none"
-                className={DETAIL_CTA_CLASSES}
+                className={PROJECT_DETAIL_CTA_CLASSES}
               >
                 <svg
                   class="h-3.5 w-3.5 shrink-0"
