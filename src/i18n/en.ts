@@ -57,7 +57,6 @@ export const EN = {
   "ui.projects.highlights": "Highlights",
   "ui.projects.prev": "Previous",
   "ui.projects.next": "Next",
-  "ui.projects.jumpNav.aria": "Jump to project category",
   "ui.projects.filter.all": "All",
   "ui.projects.filter.aria": "Filter projects by category",
   "ui.a11y.projectNav": "Project navigation",

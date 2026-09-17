@@ -159,7 +159,7 @@ import { basics, work, projects } from "@cv";
 - Use **semantic color tokens** (`text-text-primary`, `bg-bg-secondary`, etc.) — never raw palette classes like `text-gray-900`.
 - Use `<Button>` for every interactive element. Pass `href` to render as `<a>`.
 - **Dark/light mode via toggle** (`ThemeToggle.astro`). Theme persists in `localStorage`. Do not switch to dark-only.
-- Add `class="reveal"` to elements for scroll-triggered fade-in animations (respects `prefers-reduced-motion`).
+- Client-side route changes use a short main-content crossfade via Astro View Transitions (respects `prefers-reduced-motion`).
 - Prefer `.astro` components. Use React only when client-side state is genuinely needed.
 - Use `astro:page-load` for initialization scripts, not `DOMContentLoaded`.
 - **pnpm only** — do not use npm or yarn.

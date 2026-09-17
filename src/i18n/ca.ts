@@ -60,7 +60,6 @@ export const CA: Record<I18nKey, string> = {
   "ui.projects.highlights": "Destacats",
   "ui.projects.prev": "Anterior",
   "ui.projects.next": "Següent",
-  "ui.projects.jumpNav.aria": "Salta a la categoria de projectes",
   "ui.projects.filter.all": "Tots",
   "ui.projects.filter.aria": "Filtra projectes per categoria",
   "ui.a11y.projectNav": "Navegació entre projectes",

@@ -16,8 +16,8 @@ const isActivePath = (href: string) => {
 };
 const navLinkActiveClasses = (active: boolean) =>
   active
-    ? "text-text-primary font-semibold border-b border-text-primary pb-0.5"
-    : "text-text-muted hover:text-text-primary pb-0.5";
+    ? "text-text-primary font-semibold"
+    : "text-text-muted hover:text-text-primary";
 ---
 
 <header>
@@ -59,7 +59,7 @@ const navLinkActiveClasses = (active: boolean) =>
                     aria-current={active ? "page" : undefined}
                   >
                     <span
-                      class:list={[!active && "link-underline-hover"]}
+                      class="nav-link-label link-underline-hover"
                       data-i18n={`ui.nav.${href}`}
                     >
                       {t(`ui.nav.${href}` as I18nKey)}
@@ -163,7 +163,7 @@ const navLinkActiveClasses = (active: boolean) =>
                     aria-current={active ? "page" : undefined}
                   >
                     <span
-                      class:list={[!active && "link-underline-hover"]}
+                      class="nav-link-label link-underline-hover"
                       data-i18n={`ui.nav.${href}`}
                     >
                       {t(`ui.nav.${href}` as I18nKey)}

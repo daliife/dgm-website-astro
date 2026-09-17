@@ -83,7 +83,7 @@ Every page must be wrapped in `<Layout>`. It provides:
 - Astro `<ClientRouter>` for View Transitions with prefetch on hover
 - `<Header>` (persisted across navigations) and `<Footer>` (can be hidden with `hideFooter={true}`)
 - Skip-to-content accessibility link
-- Scroll-reveal animation system (`.reveal` class + Intersection Observer)
+- Short page crossfade on `<main>` via Astro View Transitions (~150ms)
 - `prefers-reduced-motion` support
 - Mobile: page transitions disabled via `@media (max-width: 767px)` CSS override
 
@@ -157,9 +157,9 @@ All other subsets (Cyrillic, Greek, Vietnamese) are excluded to reduce download 
 The Latin woff2 is preloaded via `<link rel="preload">` in `Layout.astro` to eliminate FOIT.
 `font-display: swap` is set on both `@font-face` rules.
 
-### Scroll reveal
+### Page motion
 
-Add `class="reveal"` to any element to get a fade-in-up animation on scroll. Handled by an `IntersectionObserver` in `Layout.astro`. Respects `prefers-reduced-motion`.
+Route changes use Astro `<ClientRouter />` with a brief crossfade on `<main>` only (`fade({ duration: "0.15s" })`). Header and cookie banner persist. No project image morph. Disabled when `prefers-reduced-motion` is set.
 
 ---
 
