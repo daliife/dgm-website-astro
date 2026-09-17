@@ -33,6 +33,9 @@ export const LINK_UNDERLINE_CLASSES = `${LINK_UNDERLINE_CORE} border-border-mute
 
 export const LINK_UNDERLINE_MUTED_CLASSES = `${LINK_UNDERLINE_CLASSES} text-text-muted hover:text-text-primary`;
 
+/** Wrapped link text — omit w-fit so border-b spans each line, not only the last. */
+export const LINK_UNDERLINE_MUTED_WRAP_CLASSES = `${LINK_UNDERLINE_CORE} inline max-w-full border-border-muted text-text-muted hover:text-text-primary`;
+
 export const LINK_UNDERLINE_SECONDARY_CLASSES = `${LINK_UNDERLINE_CLASSES} text-text-secondary hover:text-text-primary`;
 
 /** Uppercase editorial links — same static underline, editorial typography. */

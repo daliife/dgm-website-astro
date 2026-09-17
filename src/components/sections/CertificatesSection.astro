@@ -3,7 +3,7 @@ import type { CertificateEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
 import {
   ABOUT_MAJOR_SECTION_CLASSES,
-  LINK_UNDERLINE_MUTED_CLASSES,
+  LINK_UNDERLINE_MUTED_WRAP_CLASSES,
 } from "../../utils/constants";
 import { t } from "../../utils/i18n";
 import SectionHeader from "./SectionHeader.astro";
@@ -32,7 +32,7 @@ const { certificates } = Astro.props;
                 href={cert.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class={`${LINK_UNDERLINE_MUTED_CLASSES} mt-1 block text-sm print:mt-0 print:text-[10px] print:text-gray-500`}
+                class={`${LINK_UNDERLINE_MUTED_WRAP_CLASSES} mt-1 text-sm print:mt-0 print:text-[10px] print:text-gray-500`}
               >
                 <span data-i18n={nameKey}>{name}</span>
                 <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
