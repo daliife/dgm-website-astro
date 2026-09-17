@@ -212,6 +212,7 @@
   "projects": [
     {
       "name": "LCARS Weather Console",
+      "accentPattern": "lcars",
       "description": "TNG LCARS weather console for a backyard station in Cabacés",
       "url": "https://daliife.github.io/star-trek-weather-station/",
       "image": "/projects/lcars-weather-console.webp",
@@ -229,6 +230,7 @@
     },
     {
       "name": "Eclipse Viewer",
+      "accentPattern": "orbit",
       "description": "Interactive 3D visualizer of solar and lunar eclipses",
       "url": "https://daliife.github.io/eclipse-viewer/",
       "image": "/projects/eclipse-viewer.webp",
@@ -298,6 +300,7 @@
     },
     {
       "name": "Seat RFP",
+      "accentPattern": "grid",
       "description": "Interactive page with three Canvas minigames (SEAT)",
       "url": "https://daliife.github.io/rfp-seat",
       "image": "/projects/seat-rfp.webp",
@@ -316,6 +319,7 @@
     },
     {
       "name": "HMI Seat",
+      "accentPattern": "circuit",
       "description": "Interactive page with a brand chronology timeline (SEAT)",
       "url": "https://daliife.github.io/hmi-seat/",
       "image": "/projects/hmi-seat.webp",
@@ -459,6 +463,7 @@
     },
     {
       "name": "Light Sorter",
+      "accentPattern": "grid",
       "description": "Filterable element grid using Isotope (Endesa)",
       "url": "https://daliife.github.io/light-sorter/",
       "image": "/projects/light-sorter.webp",
@@ -477,6 +482,7 @@
     },
     {
       "name": "Shaders & Postpro",
+      "accentPattern": "wave",
       "description": "Real-time post-processing effects with fragment shaders and ImGui",
       "url": "https://github.com/daliife/ShadersAndPostpro",
       "image": "/projects/shaders-postpro.webp",

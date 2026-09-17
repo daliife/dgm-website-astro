@@ -5,6 +5,7 @@ import {
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
+  WORK_TIMELINE_LIST_CLASSES,
 } from "../utils/constants";
 import { pageHref } from "../utils/url";
 import WorkCard from "../components/sections/WorkCard.astro";
@@ -25,8 +26,14 @@ import type { WorkEntry } from "../types/ui";
     >
       {t("ui.page.experience")}
     </h1>
-    <div class="reveal-stagger space-y-0 [&>article:first-child]:border-t-0">
-      {work.map((job: WorkEntry, i: number) => <WorkCard {job} jobIndex={i} />)}
+    <div
+      class={`${WORK_TIMELINE_LIST_CLASSES} reveal-stagger space-y-0 [&>article:first-child]:border-t-0`}
+    >
+      {
+        work.map((job: WorkEntry, i: number) => (
+          <WorkCard {job} jobIndex={i} isCurrent={i === 0} />
+        ))
+      }
     </div>
 
     <NextUpNav

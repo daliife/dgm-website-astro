@@ -11,12 +11,20 @@ import WorkDates from "./WorkDates.astro";
 interface Props {
   job: WorkEntry;
   jobIndex: number;
+  /** Highlights the current role on the experience timeline. */
+  isCurrent?: boolean;
 }
 
-const { job, jobIndex } = Astro.props;
+const { job, jobIndex, isCurrent = false } = Astro.props;
 ---
 
-<article class="border-t border-border-primary py-8">
+<article class="relative border-t border-border-primary py-8">
+  <span
+    aria-hidden="true"
+    class:list={[
+      "absolute -left-8 top-9 size-2.5 -translate-x-1/2 rounded-full border-2 border-border-secondary bg-bg-primary md:-left-10 md:top-10",
+      isCurrent && "border-text-primary bg-text-primary",
+    ]}></span>
   <div
     class="mb-3 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between"
   >

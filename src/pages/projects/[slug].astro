@@ -25,6 +25,7 @@ import { getPageTitle } from "../../utils/seo";
 import WorkDates from "../../components/sections/WorkDates.astro";
 import Button from "../../components/ui/Button.astro";
 import NextUpNav from "../../components/layout/NextUpNav.astro";
+import ProjectAccent from "../../components/decor/ProjectAccent.astro";
 
 export function getStaticPaths() {
   return getProjectEntries(projects as ProjectEntry[]).map(({ slug }) => ({
@@ -128,128 +129,131 @@ const creativeWorkSchema = {
     </nav>
 
     <!-- Intro: meta → title → lead → stack → actions -->
-    <header class="reveal mb-10 max-w-3xl">
-      <div
-        class="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs uppercase tracking-widest text-text-muted"
-      >
-        {categoryKey && <span data-i18n={categoryKey}>{t(categoryKey)}</span>}
+    <div class="relative mb-10">
+      <ProjectAccent pattern={project.accentPattern} idSuffix={slug} />
+      <header class="reveal relative max-w-3xl">
+        <div
+          class="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs uppercase tracking-widest text-text-muted"
+        >
+          {categoryKey && <span data-i18n={categoryKey}>{t(categoryKey)}</span>}
+          {
+            categoryKey && project.startDate && (
+              <span aria-hidden="true" class="text-border-secondary">
+                ·
+              </span>
+            )
+          }
+          {
+            project.startDate && (
+              <WorkDates
+                startDate={project.startDate}
+                endDate={project.endDate}
+                className={WORK_DATES_CLASSES}
+              />
+            )
+          }
+        </div>
+
+        <h1
+          class="mb-5 text-4xl font-bold uppercase tracking-tight text-text-primary sm:text-5xl"
+        >
+          {project.name}
+        </h1>
+
         {
-          categoryKey && project.startDate && (
-            <span aria-hidden="true" class="text-border-secondary">
-              ·
-            </span>
+          project.image && (
+            <figure class={`${CARD_FRAME_CLASSES} mb-6 w-full`}>
+              <img
+                src={project.image}
+                alt={project.name}
+                class="aspect-[3/2] h-auto w-full object-cover"
+                width="480"
+                height="320"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async"
+              />
+            </figure>
           )
         }
+
+        <p
+          class="text-base leading-relaxed text-text-secondary sm:text-lg"
+          data-i18n={longDescriptionKey}
+        >
+          {localizedLongDescription}
+        </p>
+
         {
-          project.startDate && (
-            <WorkDates
-              startDate={project.startDate}
-              endDate={project.endDate}
-              className={WORK_DATES_CLASSES}
-            />
+          hasTech && (
+            <p class="mt-5 text-xs uppercase tracking-widest text-text-muted">
+              <span class="sr-only" data-i18n="ui.projects.tech">
+                {t("ui.projects.tech")}
+              </span>
+              {project.technologies!.join(" · ")}
+            </p>
           )
         }
-      </div>
 
-      <h1
-        class="mb-5 text-4xl font-bold uppercase tracking-tight text-text-primary sm:text-5xl"
-      >
-        {project.name}
-      </h1>
-
-      {
-        project.image && (
-          <figure class={`${CARD_FRAME_CLASSES} mb-6 w-full`}>
-            <img
-              src={project.image}
-              alt={project.name}
-              class="aspect-[3/2] h-auto w-full object-cover"
-              width="480"
-              height="320"
-              loading="eager"
-              fetchpriority="high"
-              decoding="async"
-            />
-          </figure>
-        )
-      }
-
-      <p
-        class="text-base leading-relaxed text-text-secondary sm:text-lg"
-        data-i18n={longDescriptionKey}
-      >
-        {localizedLongDescription}
-      </p>
-
-      {
-        hasTech && (
-          <p class="mt-5 text-xs uppercase tracking-widest text-text-muted">
-            <span class="sr-only" data-i18n="ui.projects.tech">
-              {t("ui.projects.tech")}
-            </span>
-            {project.technologies!.join(" · ")}
-          </p>
-        )
-      }
-
-      {
-        (visitHref || githubHref) && (
-          <div class="mt-7 flex flex-wrap gap-6">
-            {visitHref && (
-              <Button
-                href={visitHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="simple"
-                size="none"
-                className={PROJECT_DETAIL_CTA_CLASSES}
-              >
-                <svg
-                  class="h-3.5 w-3.5 shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
+        {
+          (visitHref || githubHref) && (
+            <div class="mt-7 flex flex-wrap gap-6">
+              {visitHref && (
+                <Button
+                  href={visitHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="simple"
+                  size="none"
+                  className={PROJECT_DETAIL_CTA_CLASSES}
                 >
-                  <Fragment set:html={ICON_PATHS.external} />
-                </svg>
-                <span data-i18n="ui.projects.visit">
-                  {t("ui.projects.visit")}
-                </span>
-                <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
-                  {t("ui.a11y.opensNewTab")}
-                </span>
-              </Button>
-            )}
-            {githubHref && (
-              <Button
-                href={githubHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="simple"
-                size="none"
-                className={PROJECT_DETAIL_CTA_CLASSES}
-              >
-                <svg
-                  class="h-3.5 w-3.5 shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
+                  <svg
+                    class="h-3.5 w-3.5 shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <Fragment set:html={ICON_PATHS.external} />
+                  </svg>
+                  <span data-i18n="ui.projects.visit">
+                    {t("ui.projects.visit")}
+                  </span>
+                  <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+                    {t("ui.a11y.opensNewTab")}
+                  </span>
+                </Button>
+              )}
+              {githubHref && (
+                <Button
+                  href={githubHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variant="simple"
+                  size="none"
+                  className={PROJECT_DETAIL_CTA_CLASSES}
                 >
-                  <Fragment set:html={ICON_PATHS.github} />
-                </svg>
-                <span data-i18n="ui.projects.github">
-                  {t("ui.projects.github")}
-                </span>
-                <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
-                  {t("ui.a11y.opensNewTab")}
-                </span>
-              </Button>
-            )}
-          </div>
-        )
-      }
-    </header>
+                  <svg
+                    class="h-3.5 w-3.5 shrink-0"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <Fragment set:html={ICON_PATHS.github} />
+                  </svg>
+                  <span data-i18n="ui.projects.github">
+                    {t("ui.projects.github")}
+                  </span>
+                  <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+                    {t("ui.a11y.opensNewTab")}
+                  </span>
+                </Button>
+              )}
+            </div>
+          )
+        }
+      </header>
+    </div>
 
     <!-- Highlights -->
     {

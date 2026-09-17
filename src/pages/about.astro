@@ -20,6 +20,7 @@ import EducationSection from "../components/sections/EducationSection.astro";
 import CertificatesSection from "../components/sections/CertificatesSection.astro";
 import PrintWorkSection from "../components/sections/PrintWorkSection.astro";
 import NextUpNav from "../components/layout/NextUpNav.astro";
+import AboutPortrait from "../components/sections/AboutPortrait.astro";
 import type { SocialProfile, WorkEntry } from "../types/ui";
 import type { I18nKey } from "../i18n/en";
 import { t } from "../utils/i18n";
@@ -119,9 +120,7 @@ const profilePageSchema = {
         class="reveal grid grid-cols-1 items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-14 print:block"
       >
         <!-- Portrait -->
-        <div
-          class="mx-auto max-w-[351px] overflow-hidden bg-bg-muted md:mx-0 print:hidden"
-        >
+        <AboutPortrait>
           <Image
             src={profileImgSrc}
             alt={portraitAlt}
@@ -138,7 +137,7 @@ const profilePageSchema = {
             format="webp"
             quality={92}
           />
-        </div>
+        </AboutPortrait>
 
         <!-- Bio -->
         <div class="flex flex-col justify-start print:space-y-1">

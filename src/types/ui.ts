@@ -21,6 +21,14 @@ export interface WorkEntry {
   highlights?: string[];
 }
 
+export type ProjectAccentPattern =
+  | "default"
+  | "grid"
+  | "orbit"
+  | "wave"
+  | "lcars"
+  | "circuit";
+
 export interface ProjectEntry {
   name: string;
   description: string;
@@ -34,6 +42,8 @@ export interface ProjectEntry {
   startDate?: string;
   endDate?: string;
   category?: "professional" | "personal" | "academic";
+  /** Decorative SVG motif on the project detail hero (optional). */
+  accentPattern?: ProjectAccentPattern;
   /** Bullet points for the project detail page. */
   highlights?: string[];
 }

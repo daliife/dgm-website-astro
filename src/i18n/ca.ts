@@ -60,8 +60,7 @@ export const CA: Record<I18nKey, string> = {
   "ui.projects.highlights": "Destacats",
   "ui.projects.prev": "Anterior",
   "ui.projects.next": "Següent",
-  "ui.projects.filter.all": "Tots",
-  "ui.projects.filter.aria": "Filtra projectes per categoria",
+  "ui.projects.jumpNav.aria": "Salta a una categoria de projectes",
   "ui.a11y.projectNav": "Navegació entre projectes",
   "ui.a11y.breadcrumb": "Fil d'Ariadna",
 
@@ -86,6 +85,7 @@ export const CA: Record<I18nKey, string> = {
   "ui.a11y.cookieNotice": "Avís de cookies",
   "ui.a11y.skipToContent": "Salta al contingut principal",
   "ui.a11y.portraitOf": "Retrat de",
+  "ui.a11y.portraitFlip": "Gira el retrat horitzontalment",
   "ui.a11y.theme.toDark": "Canviar al mode fosc",
   "ui.a11y.theme.toLight": "Canviar al mode clar",
   "ui.a11y.nav.main": "Navegació principal",

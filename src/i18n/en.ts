@@ -57,8 +57,7 @@ export const EN = {
   "ui.projects.highlights": "Highlights",
   "ui.projects.prev": "Previous",
   "ui.projects.next": "Next",
-  "ui.projects.filter.all": "All",
-  "ui.projects.filter.aria": "Filter projects by category",
+  "ui.projects.jumpNav.aria": "Jump to a project category",
   "ui.a11y.projectNav": "Project navigation",
   "ui.a11y.breadcrumb": "Breadcrumb",
 
@@ -83,6 +82,7 @@ export const EN = {
   "ui.a11y.cookieNotice": "Cookie notice",
   "ui.a11y.skipToContent": "Skip to main content",
   "ui.a11y.portraitOf": "Portrait of",
+  "ui.a11y.portraitFlip": "Flip portrait horizontally",
   "ui.a11y.theme.toDark": "Switch to dark mode",
   "ui.a11y.theme.toLight": "Switch to light mode",
   "ui.a11y.nav.main": "Main navigation",

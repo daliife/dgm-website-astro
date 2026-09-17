@@ -60,8 +60,7 @@ export const ES: Record<I18nKey, string> = {
   "ui.projects.highlights": "Destacados",
   "ui.projects.prev": "Anterior",
   "ui.projects.next": "Siguiente",
-  "ui.projects.filter.all": "Todos",
-  "ui.projects.filter.aria": "Filtrar proyectos por categoría",
+  "ui.projects.jumpNav.aria": "Saltar a una categoría de proyectos",
   "ui.a11y.projectNav": "Navegación entre proyectos",
   "ui.a11y.breadcrumb": "Miga de pan",
 
@@ -86,6 +85,7 @@ export const ES: Record<I18nKey, string> = {
   "ui.a11y.cookieNotice": "Aviso de cookies",
   "ui.a11y.skipToContent": "Saltar al contenido principal",
   "ui.a11y.portraitOf": "Retrato de",
+  "ui.a11y.portraitFlip": "Girar el retrato horizontalmente",
   "ui.a11y.theme.toDark": "Cambiar al modo oscuro",
   "ui.a11y.theme.toLight": "Cambiar al modo claro",
   "ui.a11y.nav.main": "Navegación principal",

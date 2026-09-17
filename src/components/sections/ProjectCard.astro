@@ -64,10 +64,10 @@ const detailHref = pageHref("projects", slug);
         )
       }
     </div>
-    <div
-      class="grid min-w-0 flex-1 grid-cols-1 gap-1 sm:grid-cols-[1fr_auto] sm:items-baseline sm:gap-x-2"
-    >
-      <div class="col-start-1 row-start-1 flex min-w-0 flex-col gap-2">
+    <div class="flex min-w-0 flex-1 flex-col gap-2">
+      <div
+        class="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
+      >
         <h3
           id={`project-${projectIndex}-title`}
           class="link-underline-hover w-fit max-w-full text-xl font-semibold text-text-primary sm:text-2xl"
@@ -79,22 +79,22 @@ const detailHref = pageHref("projects", slug);
             <WorkDates
               startDate={project.startDate}
               endDate={project.endDate}
-              className={WORK_DATES_CLASSES}
+              className={`${WORK_DATES_CLASSES} shrink-0 sm:text-right`}
             />
           )
         }
       </div>
       <p
-        class="col-start-1 row-start-2 text-sm leading-relaxed text-text-secondary sm:col-span-2 sm:text-base"
+        class="text-sm leading-relaxed text-text-secondary sm:text-base"
         data-i18n={descriptionKey}
       >
         {t(descriptionKey, project.description)}
       </p>
       {
         project.technologies && project.technologies.length > 0 && (
-          <span class="col-start-1 row-start-3 line-clamp-2 text-xs uppercase tracking-widest text-text-muted sm:col-start-2 sm:row-start-1 sm:line-clamp-none sm:max-w-[42%] sm:truncate sm:text-right">
+          <p class="text-pretty text-xs uppercase leading-relaxed tracking-widest text-text-muted">
             {project.technologies.join(" · ")}
-          </span>
+          </p>
         )
       }
     </div>

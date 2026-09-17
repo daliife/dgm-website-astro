@@ -4,6 +4,7 @@ import {
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
+  PROJECT_CATEGORY_JUMP_LINK_CLASSES,
   PROJECTS_CATEGORY_HEADING_CLASSES,
   REVEAL_STAGGER_LIST_CLASSES,
   SCROLL_ANCHOR_MARGIN_CLASSES,
@@ -14,7 +15,6 @@ import { t } from "../utils/i18n";
 import { getPageTitleFromKey } from "../utils/seo";
 import { projects } from "@cv";
 import ProjectCard from "../components/sections/ProjectCard.astro";
-import ProjectCategoryFilter from "../components/sections/ProjectCategoryFilter.astro";
 import SectionHeader from "../components/sections/SectionHeader.astro";
 import NextUpNav from "../components/layout/NextUpNav.astro";
 import type { ProjectEntry } from "../types/ui";
@@ -29,6 +29,12 @@ const CATEGORY_I18N: Record<Category, I18nKey> = {
   professional: "ui.projects.category.professional",
   personal: "ui.projects.category.personal",
   academic: "ui.projects.category.academic",
+};
+
+const CATEGORY_LABELS: Record<Category, string> = {
+  professional: t("ui.projects.category.professional"),
+  personal: t("ui.projects.category.personal"),
+  academic: t("ui.projects.category.academic"),
 };
 
 const indexed = getProjectEntries(projects as ProjectEntry[]);
@@ -89,7 +95,28 @@ const itemListSchema = {
     </h1>
     {
       visibleCategories.length > 1 && (
-        <ProjectCategoryFilter categories={visibleCategories} />
+        <nav
+          class="reveal mb-8 flex flex-wrap items-center gap-x-3 gap-y-2"
+          aria-label={t("ui.projects.jumpNav.aria")}
+          data-i18n-aria="ui.projects.jumpNav.aria"
+        >
+          {visibleCategories.map((cat, index) => (
+            <span class="inline-flex items-center gap-3">
+              {index > 0 && (
+                <span class="text-text-muted" aria-hidden="true">
+                  ·
+                </span>
+              )}
+              <a
+                href={`#projects-category-${cat}`}
+                class={PROJECT_CATEGORY_JUMP_LINK_CLASSES}
+                data-i18n={CATEGORY_I18N[cat]}
+              >
+                {CATEGORY_LABELS[cat]}
+              </a>
+            </span>
+          ))}
+        </nav>
       )
     }
     {
