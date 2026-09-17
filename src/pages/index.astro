@@ -17,10 +17,10 @@ const { name, lastName, email } = basics;
   hideFooter={true}
 >
   <section class="flex min-h-screen flex-col items-center justify-center px-6">
-    <div class="w-full max-w-4xl">
+    <div class="home-enter w-full max-w-4xl">
       <!-- Greeting -->
       <p
-        class="mb-4 text-xs uppercase tracking-widest text-text-muted"
+        class="home-enter__item mb-4 text-xs uppercase tracking-widest text-text-muted"
         data-i18n="ui.home.greeting"
       >
         {t("ui.home.greeting")}
@@ -28,7 +28,7 @@ const { name, lastName, email } = basics;
 
       <!-- Name -->
       <h1
-        class="mb-4 text-5xl font-bold uppercase leading-none tracking-tight text-text-primary sm:text-7xl lg:text-8xl"
+        class="home-enter__item mb-4 text-5xl font-bold uppercase leading-none tracking-tight text-text-primary sm:text-7xl lg:text-8xl"
       >
         <span class="block">{name}</span>
         <span class="block font-light">{lastName}</span>
@@ -36,7 +36,7 @@ const { name, lastName, email } = basics;
 
       <!-- Rotating descriptor (typewriter) -->
       <p
-        class="mb-10 flex min-h-[2.75em] text-2xl font-light uppercase tracking-widest text-text-secondary max-sm:whitespace-normal max-sm:text-xl sm:min-h-[1.5em] sm:items-center sm:overflow-hidden sm:whitespace-nowrap sm:text-3xl"
+        class="home-enter__item mb-10 flex min-h-[2.75em] text-2xl font-light uppercase tracking-widest text-text-secondary max-sm:whitespace-normal max-sm:text-xl sm:min-h-[1.5em] sm:items-center sm:overflow-hidden sm:whitespace-nowrap sm:text-3xl"
         aria-live="polite"
         aria-atomic="true"
       >
@@ -46,7 +46,7 @@ const { name, lastName, email } = basics;
 
       <!-- CTAs -->
       <div
-        class="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
+        class="home-enter__item flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
       >
         <Button
           href={pageHref("projects")}
@@ -98,6 +98,32 @@ const { name, lastName, email } = basics;
 </Layout>
 
 <style>
+  .home-enter__item {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: home-enter 0.45s ease forwards;
+  }
+
+  .home-enter__item:nth-child(1) {
+    animation-delay: 0.04s;
+  }
+  .home-enter__item:nth-child(2) {
+    animation-delay: 0.1s;
+  }
+  .home-enter__item:nth-child(3) {
+    animation-delay: 0.16s;
+  }
+  .home-enter__item:nth-child(4) {
+    animation-delay: 0.22s;
+  }
+
+  @keyframes home-enter {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   .typewriter-cursor {
     display: inline-block;
     width: 0.1em;
@@ -118,6 +144,12 @@ const { name, lastName, email } = basics;
     }
   }
   @media (prefers-reduced-motion: reduce) {
+    .home-enter__item {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
     .typewriter-cursor {
       display: none;
     }
@@ -184,7 +216,7 @@ const { name, lastName, email } = basics;
       }
     }
 
-    setTimeout(rotate, 600);
+    setTimeout(rotate, 750);
   }
 
   function scheduleTypewriter(lang: LangCode) {

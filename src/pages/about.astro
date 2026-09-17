@@ -119,20 +119,24 @@ const profilePageSchema = {
         class="grid grid-cols-1 items-start gap-10 md:grid-cols-[5fr_7fr] md:gap-14 print:block"
       >
         <!-- Portrait -->
-        <div class="overflow-hidden bg-bg-muted print:hidden">
+        <div
+          class="mx-auto max-w-[351px] overflow-hidden bg-bg-muted md:mx-0 print:hidden"
+        >
           <Image
             src={profileImgSrc}
             alt={portraitAlt}
             data-i18n-alt="ui.a11y.portraitOf"
             data-alt-name={fullName}
-            class="aspect-[4/5] w-full object-cover"
-            width={280}
-            height={350}
+            class="aspect-[4/5] h-auto w-full object-cover"
+            width={351}
+            height={439}
+            widths={[351]}
+            sizes="(min-width: 768px) 351px, min(100vw - 3rem, 351px)"
             fit="cover"
             loading="eager"
             fetchpriority="high"
-            format="avif"
-            quality={80}
+            format="webp"
+            quality={92}
           />
         </div>
 
