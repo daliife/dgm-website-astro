@@ -119,7 +119,7 @@ import { basics, work } from "@cv";
 
 ### Page transitions
 
-`<ClientRouter />` enables client-side navigation with a short main-content crossfade (~150ms). No shared-element morphs. Respects `prefers-reduced-motion`.
+`<ClientRouter />` enables client-side navigation with a main-content crossfade (~280ms) plus optional scroll reveal (`.reveal` / `.reveal-stagger` in `Layout.astro`). No shared-element project morphs. Respects `prefers-reduced-motion`.
 
 ### Client-side script
 

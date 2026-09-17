@@ -24,6 +24,13 @@
     max-width: none !important;
   }
 
+  /* Reveal animations: reset so all sections are visible */
+  .reveal,
+  .reveal-stagger > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   /* Allow sections to break across pages naturally */
   section {
     break-inside: auto;

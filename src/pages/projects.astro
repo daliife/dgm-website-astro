@@ -5,6 +5,7 @@ import {
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
   PROJECTS_CATEGORY_HEADING_CLASSES,
+  REVEAL_STAGGER_LIST_CLASSES,
   SCROLL_ANCHOR_MARGIN_CLASSES,
   LIVE_URL,
 } from "../utils/constants";
@@ -98,6 +99,7 @@ const itemListSchema = {
             <section
               data-project-category={cat}
               class:list={[
+                "reveal",
                 SCROLL_ANCHOR_MARGIN_CLASSES,
                 cat !== firstCategory && "mt-12 md:mt-16",
               ]}
@@ -108,7 +110,9 @@ const itemListSchema = {
                 id={`projects-category-${cat}`}
                 headingClasses={PROJECTS_CATEGORY_HEADING_CLASSES}
               />
-              <ul class="list-none space-y-0 [&>li:first-child>article]:border-t-0">
+              <ul
+                class={`${REVEAL_STAGGER_LIST_CLASSES} space-y-0 [&>li:first-child>article]:border-t-0`}
+              >
                 {grouped[cat].map(({ project, index, slug }) => (
                   <li>
                     <ProjectCard

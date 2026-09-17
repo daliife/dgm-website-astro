@@ -34,7 +34,7 @@ const detailHref = pageHref("projects", slug);
           <img
             src={project.image}
             alt={project.name}
-            class="h-full w-full object-cover"
+            class="h-full w-full object-cover transition-transform duration-300 ease-out [@media(hover:hover)]:group-hover:scale-[1.03]"
             loading={priority ? "eager" : "lazy"}
             decoding="async"
             width="192"
@@ -43,7 +43,7 @@ const detailHref = pageHref("projects", slug);
             data-use-fallback
           />
         ) : (
-          <div class="flex h-full w-full items-center justify-center bg-bg-muted text-text-muted">
+          <div class="flex h-full w-full items-center justify-center bg-bg-muted text-text-muted transition-transform duration-300 ease-out [@media(hover:hover)]:group-hover:scale-[1.03]">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"

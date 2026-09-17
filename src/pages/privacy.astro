@@ -22,7 +22,7 @@ const PRIVACY_LIST_ITEM =
     </h1>
 
     <div class="max-w-2xl space-y-10">
-      <p class="text-base leading-relaxed text-text-secondary">
+      <p class="reveal text-base leading-relaxed text-text-secondary">
         <span data-i18n="ui.privacy.intro.before"
           >{t("ui.privacy.intro.before")}</span
         ><a
@@ -38,7 +38,7 @@ const PRIVACY_LIST_ITEM =
         >
       </p>
 
-      <section>
+      <section class="reveal">
         <h2
           class="mb-3 text-lg font-semibold uppercase tracking-wide text-text-primary"
           data-i18n="ui.privacy.collected.title"
@@ -97,7 +97,7 @@ const PRIVACY_LIST_ITEM =
         </ul>
       </section>
 
-      <section>
+      <section class="reveal">
         <h2
           class="mb-3 text-lg font-semibold uppercase tracking-wide text-text-primary"
           data-i18n="ui.privacy.notcollected.title"
@@ -149,13 +149,13 @@ const PRIVACY_LIST_ITEM =
       </section>
 
       <p
-        class="text-sm leading-relaxed text-text-secondary"
+        class="reveal text-sm leading-relaxed text-text-secondary"
         data-i18n="ui.privacy.consent"
       >
         {t("ui.privacy.consent")}
       </p>
 
-      <p class="text-sm text-text-muted">
+      <p class="reveal text-sm text-text-muted">
         <span data-i18n="ui.privacy.moreinfo">{t("ui.privacy.moreinfo")}</span>{
           " "
         }

@@ -83,7 +83,7 @@ Every page must be wrapped in `<Layout>`. It provides:
 - Astro `<ClientRouter>` for View Transitions with prefetch on hover
 - `<Header>` (persisted across navigations) and `<Footer>` (can be hidden with `hideFooter={true}`)
 - Skip-to-content accessibility link
-- Short page crossfade on `<main>` via Astro View Transitions (~150ms)
+- Page crossfade on `<main>` via Astro View Transitions (~280ms) + scroll reveal (`.reveal`)
 - `prefers-reduced-motion` support
 - Mobile: page transitions disabled via `@media (max-width: 767px)` CSS override
 
@@ -159,7 +159,9 @@ The Latin woff2 is preloaded via `<link rel="preload">` in `Layout.astro` to eli
 
 ### Page motion
 
-Route changes use Astro `<ClientRouter />` with a brief crossfade on `<main>` only (`fade({ duration: "0.15s" })`). Header and cookie banner persist. No project image morph. Disabled when `prefers-reduced-motion` is set.
+Route changes use Astro `<ClientRouter />` with a crossfade on `<main>` (`fade({ duration: "0.28s" })`) and eased view-transition groups in global CSS. Header and cookie banner persist (`transition:persist`). No shared-element project image morph (avoids flash between list and detail).
+
+Scroll reveal: add `class="reveal"` or `reveal-stagger` (see `REVEAL_STAGGER_LIST_CLASSES` in `constants.ts`). An `IntersectionObserver` in `Layout.astro` toggles `.is-visible` on `astro:page-load`. Respects `prefers-reduced-motion`.
 
 ---
 
@@ -300,7 +302,7 @@ The project uses Astro's built-in `<ClientRouter>`. Key consequences:
 - `astro:after-swap` fires after the new page DOM is in place. Used for theme re-application.
 - `<Header>` uses `transition:persist` to stay mounted across navigations.
 - **Prefetch on hover**: `astro.config.mjs` sets `prefetch: { prefetchAll: true, defaultStrategy: "hover" }`. Pages are pre-fetched when the user hovers a nav link, making navigation near-instant.
-- **Mobile**: page transitions are disabled via CSS (`@media (max-width: 767px)`) for snappier feel — both the View Transitions API path (`::view-transition-*`) and the JS fallback path (`[data-astro-transition-fallback]`).
+- **Fallback**: `ClientRouter fallback="animate"` keeps a crossfade when View Transitions are unavailable.
 
 ---
 

@@ -25,7 +25,7 @@ import type { WorkEntry } from "../types/ui";
     >
       {t("ui.page.experience")}
     </h1>
-    <div class="space-y-0 [&>article:first-child]:border-t-0">
+    <div class="reveal-stagger space-y-0 [&>article:first-child]:border-t-0">
       {work.map((job: WorkEntry, i: number) => <WorkCard {job} jobIndex={i} />)}
     </div>
 

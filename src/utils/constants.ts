@@ -11,7 +11,7 @@ export const PAGE_CONTAINER_CLASSES =
   "max-w-5xl mx-auto px-6 pt-24 md:pt-32 pb-20";
 
 export const PAGE_HEADING_CLASSES =
-  "text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase";
+  "text-4xl sm:text-5xl font-bold tracking-tight text-text-primary uppercase reveal";
 
 /** Standard page title bottom margin (work, projects, privacy, about). */
 export const PAGE_HEADING_MARGIN_CLASSES = "mb-10";
@@ -20,7 +20,7 @@ export const PAGE_HEADING_MARGIN_CLASSES = "mb-10";
 export const PAGE_HEADING_MARGIN_COMPACT_CLASSES = "mb-6";
 
 /** About page major blocks: vertical spacing only (no section rules). */
-export const ABOUT_MAJOR_SECTION_CLASSES = "mt-16 md:mt-20 print:mt-6";
+export const ABOUT_MAJOR_SECTION_CLASSES = "reveal mt-16 md:mt-20 print:mt-6";
 
 /** Scroll offset for in-page anchors under the fixed header. */
 export const SCROLL_ANCHOR_MARGIN_CLASSES = "scroll-mt-28 md:scroll-mt-36";
@@ -66,7 +66,7 @@ export const HOME_CTA_SECONDARY_CLASSES = `${HOME_CTA_BASE_CLASSES} text-text-mu
 
 export const PROJECT_DETAIL_CTA_CLASSES = `gap-2 ${EDITORIAL_LINK_MD_CLASSES} hover:!no-underline`;
 
-export const NEXTUP_NAV_CLASSES = "border-t border-border-primary pt-8";
+export const NEXTUP_NAV_CLASSES = "reveal border-t border-border-primary pt-8";
 
 export const NEXTUP_LABEL_CLASSES =
   "mb-5 text-xs uppercase tracking-widest text-text-muted";
@@ -80,6 +80,9 @@ export const WORK_DATES_CLASSES =
 /** Projects list category filter (toggle buttons). */
 export const PROJECT_CATEGORY_FILTER_BTN_CLASSES =
   "rounded-none border-b border-transparent pb-0.5 text-xs uppercase tracking-widest transition-colors duration-200 focus-visible:outline-offset-4";
+
+/** List containers: stagger child entrance when `.is-visible` is set. */
+export const REVEAL_STAGGER_LIST_CLASSES = "reveal-stagger list-none";
 
 export const WORK_DATES_PRINT_CLASSES =
   "print:whitespace-nowrap print:text-[10px] print:text-gray-500";
