@@ -3,6 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
+import {
+  HOME_CTA_PRIMARY_CLASSES,
+  HOME_CTA_SECONDARY_CLASSES,
+} from "../utils/constants";
 import { basics } from "@cv";
 const { name, lastName, email } = basics;
 ---
@@ -32,7 +36,7 @@ const { name, lastName, email } = basics;
 
       <!-- Rotating descriptor (typewriter) -->
       <p
-        class="mb-10 flex min-h-[1.5em] text-2xl font-light uppercase tracking-widest text-text-secondary max-sm:whitespace-normal max-sm:text-xl sm:items-center sm:overflow-hidden sm:whitespace-nowrap sm:text-3xl"
+        class="mb-10 flex min-h-[2.75em] text-2xl font-light uppercase tracking-widest text-text-secondary max-sm:whitespace-normal max-sm:text-xl sm:min-h-[1.5em] sm:items-center sm:overflow-hidden sm:whitespace-nowrap sm:text-3xl"
         aria-live="polite"
         aria-atomic="true"
       >
@@ -48,7 +52,7 @@ const { name, lastName, email } = basics;
           href={pageHref("projects")}
           variant="simple"
           size="none"
-          className="gap-2 rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest transition-colors duration-200 hover:border-text-primary hover:no-underline"
+          className={HOME_CTA_PRIMARY_CLASSES}
         >
           <svg
             class="h-4 w-4 shrink-0"
@@ -70,7 +74,7 @@ const { name, lastName, email } = basics;
           href={`mailto:${email}`}
           variant="simple"
           size="none"
-          className="gap-2 rounded-none border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary hover:no-underline"
+          className={HOME_CTA_SECONDARY_CLASSES}
         >
           <svg
             class="h-4 w-4 shrink-0"

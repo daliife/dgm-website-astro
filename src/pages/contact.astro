@@ -69,7 +69,7 @@ const CONTACT_ITEM_CLASS =
             {t("ui.contact.network.email")}
           </span>
         </span>
-        <span class="contact-value text-lg text-text-primary sm:text-xl">
+        <span class="link-underline-hover text-lg text-text-primary sm:text-xl">
           {email}
         </span>
       </Button>
@@ -100,7 +100,7 @@ const CONTACT_ITEM_CLASS =
                 )}
                 <span data-i18n={labelKey}>{t(labelKey)}</span>
               </span>
-              <span class="contact-value text-lg text-text-primary sm:text-xl">
+              <span class="link-underline-hover text-lg text-text-primary sm:text-xl">
                 {profile.username || profile.network}
               </span>
               <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
@@ -113,19 +113,3 @@ const CONTACT_ITEM_CLASS =
     </div>
   </div>
 </Layout>
-
-<style>
-  @media (hover: hover) {
-    .contact-value {
-      background-image: linear-gradient(currentColor, currentColor);
-      background-size: 0% 1px;
-      background-repeat: no-repeat;
-      background-position: left bottom;
-      transition: background-size 0.25s ease;
-      padding-bottom: 1px;
-    }
-    :global(.group):hover .contact-value {
-      background-size: 100% 1px;
-    }
-  }
-</style>

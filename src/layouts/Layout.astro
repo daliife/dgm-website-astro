@@ -274,6 +274,23 @@ const jsonLd = {
         letter-spacing: inherit;
       }
 
+      @media (hover: hover) {
+        .link-underline-hover {
+          background-image: linear-gradient(currentColor, currentColor);
+          background-size: 0% 1px;
+          background-repeat: no-repeat;
+          background-position: left bottom;
+          transition:
+            background-size 0.25s ease,
+            color 0.2s ease;
+          padding-bottom: 1px;
+        }
+        .group:hover .link-underline-hover,
+        a.link-underline-hover:hover {
+          background-size: 100% 1px;
+        }
+      }
+
       /* Scroll reveal */
       .reveal {
         opacity: 0;

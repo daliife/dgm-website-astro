@@ -22,6 +22,22 @@ export const PAGE_HEADING_MARGIN_COMPACT_CLASSES = "mb-6";
 /** Vertical spacing between about page sections. */
 export const ABOUT_SECTION_SPACING_CLASSES = "mt-16 md:mt-20 print:mt-6";
 
+/** About page section titles (below page H1 in visual weight). */
+export const ABOUT_SECTION_HEADING_CLASSES =
+  "mb-10 text-2xl font-bold uppercase tracking-tight text-text-primary sm:text-3xl print:mb-1.5 print:border-b print:border-gray-300 print:pb-0.5 print:text-[10px] print:font-medium print:normal-case print:tracking-widest print:text-black";
+
+/** Framed media (portrait, screenshots) — matches project thumbnails. */
+export const CARD_FRAME_CLASSES =
+  "overflow-hidden border border-border-secondary bg-bg-muted";
+
+/** Home hero primary CTA (projects). */
+export const HOME_CTA_PRIMARY_CLASSES =
+  "gap-2 rounded-none border-b border-text-primary pb-1 text-sm font-medium uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary hover:no-underline";
+
+/** Home hero secondary CTA (contact). */
+export const HOME_CTA_SECONDARY_CLASSES =
+  "gap-2 rounded-none border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary hover:no-underline";
+
 export const NEXTUP_NAV_CLASSES = "reveal border-t border-border-primary pt-8";
 
 export const NEXTUP_LABEL_CLASSES =
@@ -31,7 +47,7 @@ export const NEXTUP_LINK_CLASSES =
   "w-fit rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:border-text-primary hover:no-underline";
 
 export const WORK_COMPANY_LINK_CLASSES =
-  "text-sm text-text-secondary underline decoration-text-secondary/40 underline-offset-2 transition-all duration-200 hover:text-text-primary hover:decoration-text-primary";
+  "link-underline-hover w-fit text-sm text-text-secondary transition-colors duration-200 hover:text-text-primary";
 
 export const WORK_DATES_CLASSES =
   "whitespace-nowrap text-xs uppercase tracking-widest text-text-muted";
