@@ -4,7 +4,6 @@ import {
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
-  PROJECT_CATEGORY_JUMP_LINK_CLASSES,
   PROJECTS_CATEGORY_HEADING_CLASSES,
   REVEAL_STAGGER_LIST_CLASSES,
   SCROLL_ANCHOR_MARGIN_CLASSES,
@@ -31,12 +30,6 @@ const CATEGORY_I18N: Record<Category, I18nKey> = {
   academic: "ui.projects.category.academic",
 };
 
-const CATEGORY_LABELS: Record<Category, string> = {
-  professional: t("ui.projects.category.professional"),
-  personal: t("ui.projects.category.personal"),
-  academic: t("ui.projects.category.academic"),
-};
-
 const indexed = getProjectEntries(projects as ProjectEntry[]);
 
 const grouped: Record<Category, typeof indexed> = {
@@ -52,10 +45,6 @@ const firstVisibleProjectIndex = CATEGORY_ORDER.flatMap(
 ).find(Boolean)?.index;
 
 const firstCategory = CATEGORY_ORDER.find((cat) => grouped[cat].length > 0);
-
-const visibleCategories = CATEGORY_ORDER.filter(
-  (cat) => grouped[cat].length > 0,
-);
 
 const itemListSchema = {
   "@context": "https://schema.org",
@@ -94,47 +83,22 @@ const itemListSchema = {
       {t("ui.page.projects")}
     </h1>
     {
-      visibleCategories.length > 1 && (
-        <nav
-          class="reveal mb-8 flex flex-wrap items-center gap-x-3 gap-y-2"
-          aria-label={t("ui.projects.jumpNav.aria")}
-          data-i18n-aria="ui.projects.jumpNav.aria"
-        >
-          {visibleCategories.map((cat, index) => (
-            <span class="inline-flex items-center gap-3">
-              {index > 0 && (
-                <span class="text-text-muted" aria-hidden="true">
-                  ·
-                </span>
-              )}
-              <a
-                href={`#projects-category-${cat}`}
-                class={PROJECT_CATEGORY_JUMP_LINK_CLASSES}
-                data-i18n={CATEGORY_I18N[cat]}
-              >
-                {CATEGORY_LABELS[cat]}
-              </a>
-            </span>
-          ))}
-        </nav>
-      )
-    }
-    {
       CATEGORY_ORDER.map(
         (cat) =>
           grouped[cat].length > 0 && (
             <section
+              id={`projects-category-${cat}`}
               data-project-category={cat}
               class:list={[
                 "reveal",
                 SCROLL_ANCHOR_MARGIN_CLASSES,
                 cat !== firstCategory && "mt-12 md:mt-16",
               ]}
-              aria-labelledby={`projects-category-${cat}`}
+              aria-labelledby={`projects-category-${cat}-heading`}
             >
               <SectionHeader
                 titleKey={CATEGORY_I18N[cat]}
-                id={`projects-category-${cat}`}
+                id={`projects-category-${cat}-heading`}
                 headingClasses={PROJECTS_CATEGORY_HEADING_CLASSES}
               />
               <ul

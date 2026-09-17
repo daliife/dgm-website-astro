@@ -2,6 +2,7 @@
 import { basics } from "@cv";
 import { getSocialProfile } from "../../utils/socialLinks";
 import { ICON_PATHS } from "../../utils/icons";
+import { EDITORIAL_LINK_SM_CLASSES } from "../../utils/constants";
 import { pageHref } from "../../utils/url";
 import { t } from "../../utils/i18n";
 import type { SocialProfile } from "../../types/ui";
@@ -90,7 +91,7 @@ const socialLinks = [
                 href={link.url}
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
-                class="group inline-flex items-center gap-1.5 whitespace-nowrap text-xs uppercase tracking-widest text-text-muted transition-colors duration-200 hover:text-text-primary"
+                class={`${EDITORIAL_LINK_SM_CLASSES} group inline-flex items-center gap-1.5 whitespace-nowrap pb-0.5`}
               >
                 <svg
                   class="h-3.5 w-3.5 shrink-0"
@@ -99,9 +100,7 @@ const socialLinks = [
                   aria-hidden="true"
                   set:html={link.icon}
                 />
-                <span class="link-underline-hover" data-i18n={link.labelKey}>
-                  {t(link.labelKey)}
-                </span>
+                <span data-i18n={link.labelKey}>{t(link.labelKey)}</span>
                 {link.external && (
                   <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
                     {t("ui.a11y.opensNewTab")}

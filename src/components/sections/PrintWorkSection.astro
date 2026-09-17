@@ -41,19 +41,19 @@ const { work } = Astro.props;
             className={WORK_DATES_PRINT_CLASSES}
           />
         </div>
-        {job.summary && (
-          <p
-            class="print:mt-1.5 print:text-[10px] print:leading-relaxed print:text-gray-600"
-            data-i18n={`work.${jobIndex}.summary`}
-          >
-            {t(`work.${jobIndex}.summary` as I18nKey, job.summary)}
-          </p>
-        )}
-        {job.highlights && job.highlights.length > 0 && (
-          <ul class="print:mt-1.5 print:space-y-1">
-            {job.highlights.map((h: string, hIndex: number) => (
+        {(job.summary || (job.highlights?.length ?? 0) > 0) && (
+          <ul class="print:mt-1.5 print:list-none print:space-y-1">
+            {job.summary && (
               <li
-                class="before:absolute before:left-0 before:text-gray-400 before:content-['–'] print:relative print:pl-3 print:text-[10px] print:leading-snug print:text-gray-600"
+                class="before:absolute before:left-0 before:text-gray-500 before:content-['✓'] print:relative print:pl-3.5 print:text-[10px] print:leading-relaxed print:text-gray-600"
+                data-i18n={`work.${jobIndex}.summary`}
+              >
+                {t(`work.${jobIndex}.summary` as I18nKey, job.summary)}
+              </li>
+            )}
+            {job.highlights?.map((h: string, hIndex: number) => (
+              <li
+                class="before:absolute before:left-0 before:text-gray-500 before:content-['✓'] print:relative print:pl-3.5 print:text-[10px] print:leading-snug print:text-gray-600"
                 data-i18n={`work.${jobIndex}.highlights.${hIndex}`}
               >
                 {t(`work.${jobIndex}.highlights.${hIndex}` as I18nKey, h)}

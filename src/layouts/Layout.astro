@@ -306,20 +306,21 @@ const jsonLd = {
         letter-spacing: inherit;
       }
 
-      /* Nav: same underline position for hover grow and current page */
-      .nav-link-label.link-underline-hover {
+      /* Animated underline — nav, hero CTAs, prominent titles only */
+      .nav-link-label.link-underline-animate {
         padding-bottom: 0.125rem;
       }
 
-      a[aria-current="page"] .nav-link-label.link-underline-hover {
+      a[aria-current="page"] .nav-link-label.link-underline-animate {
         background-size: 100% 1px;
       }
 
-      .link-underline-hover {
+      .link-underline-animate {
         background-image: linear-gradient(currentColor, currentColor);
         background-size: 0% 1px;
         background-repeat: no-repeat;
         background-position: left bottom;
+        border-bottom: none;
         transition:
           background-size 0.25s ease,
           color 0.2s ease;
@@ -327,15 +328,15 @@ const jsonLd = {
       }
 
       @media (hover: hover) {
-        .group:hover .link-underline-hover,
-        a.link-underline-hover:hover,
-        .nav-link:hover .link-underline-hover {
+        .group:hover .link-underline-animate,
+        a.link-underline-animate:hover,
+        .nav-link:hover .link-underline-animate {
           background-size: 100% 1px;
         }
       }
 
-      .link-underline-hover:focus-visible,
-      .nav-link:focus-visible .link-underline-hover {
+      .link-underline-animate:focus-visible,
+      .nav-link:focus-visible .link-underline-animate {
         background-size: 100% 1px;
       }
 

@@ -6,6 +6,8 @@ import {
   CARD_FRAME_CLASSES,
   PAGE_CONTAINER_CLASSES,
   PROJECT_DETAIL_CTA_CLASSES,
+  CONTENT_LIST_CLASSES,
+  LINK_UNDERLINE_SECONDARY_CLASSES,
   WORK_DATES_CLASSES,
   LIVE_URL,
 } from "../../utils/constants";
@@ -269,7 +271,7 @@ const creativeWorkSchema = {
           >
             {t("ui.projects.highlights")}
           </h2>
-          <ul class="space-y-2.5">
+          <ul class={CONTENT_LIST_CLASSES}>
             {project.highlights!.map((highlight, highlightIndex) => {
               const highlightKey =
                 `projects.${index}.highlights.${highlightIndex}` as I18nKey;
@@ -305,7 +307,7 @@ const creativeWorkSchema = {
                 >
                   {t("ui.projects.prev")}
                 </span>
-                <span class="link-underline-hover text-sm text-text-secondary">
+                <span class={`${LINK_UNDERLINE_SECONDARY_CLASSES} text-sm`}>
                   ← {prev.project.name}
                 </span>
               </a>
@@ -323,7 +325,7 @@ const creativeWorkSchema = {
                 >
                   {t("ui.projects.next")}
                 </span>
-                <span class="link-underline-hover text-sm text-text-secondary">
+                <span class={`${LINK_UNDERLINE_SECONDARY_CLASSES} text-sm`}>
                   {next.project.name} →
                 </span>
               </a>

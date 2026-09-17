@@ -5,6 +5,7 @@ import {
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_COMPACT_CLASSES,
+  LINK_UNDERLINE_CLASSES,
 } from "../utils/constants";
 import { ICON_PATHS } from "../utils/icons";
 import type { I18nKey } from "../i18n/en";
@@ -69,7 +70,9 @@ const CONTACT_ITEM_CLASS =
             {t("ui.contact.network.email")}
           </span>
         </span>
-        <span class="link-underline-hover text-lg text-text-primary sm:text-xl">
+        <span
+          class={`${LINK_UNDERLINE_CLASSES} text-lg text-text-primary sm:text-xl`}
+        >
           {email}
         </span>
       </Button>
@@ -100,7 +103,9 @@ const CONTACT_ITEM_CLASS =
                 )}
                 <span data-i18n={labelKey}>{t(labelKey)}</span>
               </span>
-              <span class="link-underline-hover text-lg text-text-primary sm:text-xl">
+              <span
+                class={`${LINK_UNDERLINE_CLASSES} text-lg text-text-primary sm:text-xl`}
+              >
                 {profile.username || profile.network}
               </span>
               <span class="sr-only" data-i18n="ui.a11y.opensNewTab">

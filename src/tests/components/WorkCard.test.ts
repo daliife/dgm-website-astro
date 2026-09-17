@@ -82,10 +82,23 @@ describe("WorkCard", () => {
     expect(html).toContain("Led design system migration");
   });
 
-  it("does not render highlights when list is empty", async () => {
+  it("renders list with summary only when highlights are empty", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(WorkCard, {
-      props: { job: { ...baseJob, highlights: [] } },
+      props: { job: { ...baseJob, highlights: [] }, jobIndex: 0 },
+    });
+
+    expect(html).toContain("<ul");
+    expect(html).toContain("Built and maintained the main web platform.");
+  });
+
+  it("does not render list when there is no summary or highlights", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(WorkCard, {
+      props: {
+        job: { ...baseJob, summary: undefined, highlights: [] },
+        jobIndex: 0,
+      },
     });
 
     expect(html).not.toContain("<ul");
