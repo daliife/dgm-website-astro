@@ -91,6 +91,7 @@ const creativeWorkSchema = {
   image={ogImage}
   imageWidth={480}
   imageHeight={320}
+  mainTransition="none"
 >
   <script
     slot="head"
@@ -159,7 +160,11 @@ const creativeWorkSchema = {
 
       {
         project.image && (
-          <figure class={`${CARD_FRAME_CLASSES} mb-6 w-full`}>
+          <figure
+            transition:name={`project-${slug}`}
+            transition:animate="none"
+            class={`${CARD_FRAME_CLASSES} mb-6 w-full`}
+          >
             <img
               src={project.image}
               alt={project.name}

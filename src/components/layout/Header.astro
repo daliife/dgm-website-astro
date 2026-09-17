@@ -17,7 +17,7 @@ const isActivePath = (href: string) => {
 const navLinkActiveClasses = (active: boolean) =>
   active
     ? "text-text-primary font-semibold border-b border-text-primary pb-0.5"
-    : "text-text-muted hover:text-text-primary";
+    : "text-text-muted hover:text-text-primary pb-0.5";
 ---
 
 <header>
@@ -58,7 +58,10 @@ const navLinkActiveClasses = (active: boolean) =>
                     ]}
                     aria-current={active ? "page" : undefined}
                   >
-                    <span data-i18n={`ui.nav.${href}`}>
+                    <span
+                      class:list={[!active && "link-underline-hover"]}
+                      data-i18n={`ui.nav.${href}`}
+                    >
                       {t(`ui.nav.${href}` as I18nKey)}
                     </span>
                   </a>
@@ -86,7 +89,7 @@ const navLinkActiveClasses = (active: boolean) =>
           data-i18n-aria="ui.a11y.nav.openMenu"
           aria-expanded="false"
           aria-controls="mobile-menu"
-          class="p-2 text-text-secondary transition-colors hover:text-text-primary"
+          class="rounded-full p-2 text-text-secondary transition-colors hover:bg-bg-muted hover:text-text-primary"
         >
           <svg
             class="h-5 w-5"
@@ -127,7 +130,7 @@ const navLinkActiveClasses = (active: boolean) =>
           type="button"
           aria-label={t("ui.a11y.nav.closeMenu")}
           data-i18n-aria="ui.a11y.nav.closeMenu"
-          class="p-2 text-text-secondary transition-colors hover:text-text-primary"
+          class="rounded-full p-2 text-text-secondary transition-colors hover:bg-bg-muted hover:text-text-primary"
         >
           <svg
             class="h-5 w-5"
@@ -154,12 +157,15 @@ const navLinkActiveClasses = (active: boolean) =>
                   <a
                     href={pageHref(href)}
                     class:list={[
-                      "text-2xl uppercase tracking-widest transition-colors duration-200",
+                      "group text-2xl uppercase tracking-widest transition-colors duration-200",
                       navLinkActiveClasses(active),
                     ]}
                     aria-current={active ? "page" : undefined}
                   >
-                    <span data-i18n={`ui.nav.${href}`}>
+                    <span
+                      class:list={[!active && "link-underline-hover"]}
+                      data-i18n={`ui.nav.${href}`}
+                    >
                       {t(`ui.nav.${href}` as I18nKey)}
                     </span>
                   </a>
@@ -251,9 +257,19 @@ const navLinkActiveClasses = (active: boolean) =>
 
     function handleScroll() {
       if (window.scrollY > 8) {
-        nav!.classList.add("bg-bg-primary/80", "backdrop-blur-md");
+        nav!.classList.add(
+          "border-b",
+          "border-border-primary",
+          "bg-bg-primary/80",
+          "backdrop-blur-md",
+        );
       } else {
-        nav!.classList.remove("bg-bg-primary/80", "backdrop-blur-md");
+        nav!.classList.remove(
+          "border-b",
+          "border-border-primary",
+          "bg-bg-primary/80",
+          "backdrop-blur-md",
+        );
       }
     }
 

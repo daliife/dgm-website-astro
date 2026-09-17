@@ -1,0 +1,106 @@
+---
+import type { I18nKey } from "../../i18n/en";
+import { PROJECT_CATEGORY_FILTER_BTN_CLASSES } from "../../utils/constants";
+import { t } from "../../utils/i18n";
+
+type Category = "professional" | "personal" | "academic";
+
+interface Props {
+  categories: Category[];
+}
+
+const { categories } = Astro.props;
+
+const CATEGORY_I18N: Record<Category, I18nKey> = {
+  professional: "ui.projects.category.professional",
+  personal: "ui.projects.category.personal",
+  academic: "ui.projects.category.academic",
+};
+
+const filterBtn = (active: boolean) =>
+  `${PROJECT_CATEGORY_FILTER_BTN_CLASSES} ${active ? "!border-text-primary text-text-primary" : "text-text-muted hover:border-border-muted hover:text-text-primary"}`;
+---
+
+<nav
+  id="projects-category-filter"
+  class="reveal mb-8 flex flex-wrap items-center gap-3"
+  aria-label={t("ui.projects.filter.aria")}
+  data-i18n-aria="ui.projects.filter.aria"
+>
+  <button
+    type="button"
+    class={filterBtn(true)}
+    data-project-filter="all"
+    aria-pressed="true"
+  >
+    <span data-i18n="ui.projects.filter.all">{t("ui.projects.filter.all")}</span
+    >
+  </button>
+  {
+    categories.map((cat) => (
+      <button
+        type="button"
+        class={filterBtn(false)}
+        data-project-filter={cat}
+        aria-pressed="false"
+      >
+        <span data-i18n={CATEGORY_I18N[cat]}>{t(CATEGORY_I18N[cat])}</span>
+      </button>
+    ))
+  }
+</nav>
+
+<script>
+  let filterAbort: AbortController | null = null;
+
+  document.addEventListener("astro:before-swap", () => {
+    filterAbort?.abort();
+    filterAbort = null;
+  });
+
+  document.addEventListener("astro:page-load", () => {
+    const nav = document.getElementById("projects-category-filter");
+    if (!nav) return;
+
+    filterAbort?.abort();
+    filterAbort = new AbortController();
+    const { signal } = filterAbort;
+
+    const buttons = nav.querySelectorAll<HTMLButtonElement>(
+      "[data-project-filter]",
+    );
+    const sections = document.querySelectorAll<HTMLElement>(
+      "[data-project-category]",
+    );
+    if (buttons.length === 0 || sections.length === 0) return;
+
+    function setFilter(value: string) {
+      buttons.forEach((btn) => {
+        const active = btn.dataset.projectFilter === value;
+        btn.setAttribute("aria-pressed", active ? "true" : "false");
+        btn.classList.toggle("!border-text-primary", active);
+        btn.classList.toggle("text-text-primary", active);
+        btn.classList.toggle("text-text-muted", !active);
+      });
+
+      sections.forEach((section) => {
+        const cat = section.dataset.projectCategory;
+        const show = value === "all" || cat === value;
+        section.classList.toggle("hidden", !show);
+        section.toggleAttribute("hidden", !show);
+      });
+    }
+
+    nav.addEventListener(
+      "click",
+      (e) => {
+        const btn = (e.target as HTMLElement).closest<HTMLButtonElement>(
+          "[data-project-filter]",
+        );
+        if (!btn?.dataset.projectFilter) return;
+        setFilter(btn.dataset.projectFilter);
+      },
+      { signal },
+    );
+  });
+</script>

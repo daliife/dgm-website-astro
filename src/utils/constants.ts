@@ -77,7 +77,14 @@ export const WORK_COMPANY_LINK_CLASSES =
   "link-underline-hover w-fit text-sm text-text-secondary transition-colors duration-200 hover:text-text-primary";
 
 export const WORK_DATES_CLASSES =
-  "whitespace-nowrap text-xs uppercase tracking-widest text-text-muted";
+  "whitespace-nowrap tabular-nums text-xs uppercase tracking-widest text-text-muted";
+
+/** Projects list category filter (toggle buttons). */
+export const PROJECT_CATEGORY_FILTER_BTN_CLASSES =
+  "rounded-none border-b border-transparent pb-0.5 text-xs uppercase tracking-widest transition-colors duration-200 focus-visible:outline-offset-4";
+
+/** List containers: stagger child entrance when `.is-visible` is set. */
+export const REVEAL_STAGGER_LIST_CLASSES = "reveal-stagger list-none";
 
 export const WORK_DATES_PRINT_CLASSES =
   "print:whitespace-nowrap print:text-[10px] print:text-gray-500";
