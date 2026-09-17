@@ -67,7 +67,7 @@ pnpm run preview  # Serve the production build locally
 | `/about/`           | `src/pages/about.astro`           |
 | `/projects/`        | `src/pages/projects.astro`        |
 | `/projects/[slug]/` | `src/pages/projects/[slug].astro` |
-| `/work/`            | `src/pages/work.astro`            |
+| `/experience/`      | `src/pages/experience.astro`      |
 | `/contact/`         | `src/pages/contact.astro`         |
 | `/privacy/`         | `src/pages/privacy.astro`         |
 | `/404`              | `src/pages/404.astro`             |

@@ -5,7 +5,7 @@ import type { ProjectEntry } from "../../types/ui";
 import IndexPage from "../../pages/index.astro";
 import AboutPage from "../../pages/about.astro";
 import ProjectsPage from "../../pages/projects.astro";
-import WorkPage from "../../pages/work.astro";
+import ExperiencePage from "../../pages/experience.astro";
 import ContactPage from "../../pages/contact.astro";
 import NotFoundPage from "../../pages/404.astro";
 import PrivacyPage from "../../pages/privacy.astro";
@@ -25,7 +25,7 @@ const pages = [
   { name: "/", component: IndexPage },
   { name: "/about", component: AboutPage },
   { name: "/projects", component: ProjectsPage },
-  { name: "/work", component: WorkPage },
+  { name: "/experience", component: ExperiencePage },
   { name: "/contact", component: ContactPage },
   { name: "/404", component: NotFoundPage },
   { name: "/privacy", component: PrivacyPage },
@@ -52,7 +52,7 @@ describe("Pages — i18n", () => {
 
     expect(html).toContain('data-i18n="ui.nav.about"');
     expect(html).toContain('data-i18n="ui.nav.projects"');
-    expect(html).toContain('data-i18n="ui.nav.work"');
+    expect(html).toContain('data-i18n="ui.nav.experience"');
     expect(html).toContain('data-i18n="ui.nav.contact"');
   });
 
@@ -63,9 +63,9 @@ describe("Pages — i18n", () => {
     expect(html).toContain("data-i18n");
   });
 
-  it("/work uses localized meta description", async () => {
+  it("/experience uses localized meta description", async () => {
     const container = await AstroContainer.create();
-    const html = await container.renderToString(WorkPage);
+    const html = await container.renderToString(ExperiencePage);
 
     expect(html).toContain("Experiència professional de David Gimeno Mañé");
     expect(html).not.toContain(
@@ -122,9 +122,9 @@ describe("Pages — basic HTML structure", () => {
     expect(html).toMatch(/privacitat|privacy|privacidad/i);
   });
 
-  it("/work contains work cards", async () => {
+  it("/experience contains work cards", async () => {
     const container = await AstroContainer.create();
-    const html = await container.renderToString(WorkPage);
+    const html = await container.renderToString(ExperiencePage);
 
     expect(html).toContain("<article");
   });
@@ -199,9 +199,9 @@ describe("Pages — semantic HTML structure", () => {
     if (h2pos !== -1) expect(h1pos).toBeLessThan(h2pos);
   });
 
-  it("/work has correct heading order (h1 before h2)", async () => {
+  it("/experience has correct heading order (h1 before h2)", async () => {
     const container = await AstroContainer.create();
-    const html = await container.renderToString(WorkPage);
+    const html = await container.renderToString(ExperiencePage);
     const h1pos = html.indexOf("<h1");
     const h2pos = html.indexOf("<h2");
     expect(h1pos).toBeGreaterThan(-1);

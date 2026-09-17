@@ -21,7 +21,9 @@ describe("seo helpers", () => {
   });
 
   it("resolves title from i18n page key", () => {
-    expect(getPageTitleFromKey("ui.page.work")).toContain(t("ui.page.work"));
+    expect(getPageTitleFromKey("ui.page.experience")).toContain(
+      t("ui.page.experience"),
+    );
   });
 });
 

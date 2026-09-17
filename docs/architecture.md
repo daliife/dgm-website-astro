@@ -26,14 +26,14 @@ Astro uses file-based routing. `src/pages/` maps directly to URLs:
 | `src/pages/about.astro`           | `/about/`           |
 | `src/pages/projects.astro`        | `/projects/`        |
 | `src/pages/projects/[slug].astro` | `/projects/[slug]/` |
-| `src/pages/work.astro`            | `/work/`            |
+| `src/pages/experience.astro`      | `/experience/`      |
 | `src/pages/contact.astro`         | `/contact/`         |
 | `src/pages/privacy.astro`         | `/privacy/`         |
 | `src/pages/404.astro`             | `/404`              |
 
 `trailingSlash: "always"` is set in `astro.config.mjs` so local and production URLs match (avoids Apache DirectorySlash 301s). Build `pageHref()` helpers in `src/utils/url.ts` for internal links.
 
-Navigation links are defined in `src/utils/constants.ts → NAV_LINKS`: `["about", "projects", "work", "contact"]`. This array drives the `<Header>` nav. Adding a page requires:
+Navigation links are defined in `src/utils/constants.ts → NAV_LINKS`: `["about", "experience", "projects", "contact"]`. This array drives the `<Header>` nav. Adding a page requires:
 
 1. A file in `src/pages/`.
 2. An entry in `NAV_LINKS` (only if the page should appear in the nav).
@@ -241,7 +241,7 @@ Keys use dot notation: `ui.*` for static UI strings, `basics.*` / `work.*` for c
 // src/i18n/ca.ts
 export const CA: Record<string, string> = {
   "ui.nav.about": "Sobre mi",
-  "ui.nav.work": "Experiència",
+  "ui.nav.experience": "Experiència",
   // ...
 };
 ```
