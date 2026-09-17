@@ -34,7 +34,7 @@ const { skills } = Astro.props;
           </p>
           <div class="flex flex-wrap gap-2 print:contents">
             {skill.keywords.map((keyword: string, i: number) => (
-              <span class="rounded-full border border-border-primary px-3 py-1 text-xs text-text-secondary transition-colors duration-200 print:inline print:rounded-none print:border-0 print:p-0 print:text-[10px] print:text-gray-600 [@media(hover:hover)]:hover:bg-bg-secondary">
+              <span class="rounded-full border border-border-primary px-3 py-1 text-xs text-text-secondary print:inline print:rounded-none print:border-0 print:p-0 print:text-[10px] print:text-gray-600">
                 {keyword}
                 {i < skill.keywords.length - 1 ? (
                   <span class="hidden print:inline">,&nbsp;</span>
