@@ -27,7 +27,6 @@ import { getPageTitle } from "../../utils/seo";
 import WorkDates from "../../components/sections/WorkDates.astro";
 import Button from "../../components/ui/Button.astro";
 import NextUpNav from "../../components/layout/NextUpNav.astro";
-import ProjectAccent from "../../components/decor/ProjectAccent.astro";
 
 export function getStaticPaths() {
   return getProjectEntries(projects as ProjectEntry[]).map(({ slug }) => ({
@@ -131,9 +130,8 @@ const creativeWorkSchema = {
     </nav>
 
     <!-- Intro: meta → title → lead → stack → actions -->
-    <div class="relative mb-10">
-      <ProjectAccent pattern={project.accentPattern} idSuffix={slug} />
-      <header class="reveal relative max-w-3xl">
+    <div class="mb-10">
+      <header class="reveal max-w-3xl">
         <div
           class="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs uppercase tracking-widest text-text-muted"
         >

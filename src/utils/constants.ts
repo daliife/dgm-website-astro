@@ -57,9 +57,8 @@ export const ABOUT_SECTION_HEADING_CLASSES =
 export const PROJECTS_CATEGORY_HEADING_CLASSES =
   "mb-6 text-2xl font-bold uppercase tracking-tight text-text-primary sm:text-3xl";
 
-/** Framed media (project screenshots). */
-export const CARD_FRAME_CLASSES =
-  "overflow-hidden border border-border-secondary bg-bg-muted";
+/** Project screenshots — crop only, no frame border. */
+export const CARD_FRAME_CLASSES = "overflow-hidden";
 
 /** Shared home hero CTA: animated underline on hover (both actions). */
 const HOME_CTA_BASE_CLASSES =
