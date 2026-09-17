@@ -5,6 +5,7 @@ import {
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
   PROJECT_CATEGORY_JUMP_LINK_CLASSES,
+  PROJECTS_CATEGORY_HEADING_CLASSES,
   SCROLL_ANCHOR_MARGIN_CLASSES,
   LIVE_URL,
 } from "../utils/constants";
@@ -13,6 +14,7 @@ import { t } from "../utils/i18n";
 import { getPageTitleFromKey } from "../utils/seo";
 import { projects } from "@cv";
 import ProjectCard from "../components/sections/ProjectCard.astro";
+import SectionHeader from "../components/sections/SectionHeader.astro";
 import NextUpNav from "../components/layout/NextUpNav.astro";
 import type { ProjectEntry } from "../types/ui";
 import type { I18nKey } from "../i18n/en";
@@ -21,12 +23,6 @@ import { getProjectEntries, PROJECT_CATEGORY_ORDER } from "../utils/projects";
 type Category = (typeof PROJECT_CATEGORY_ORDER)[number];
 
 const CATEGORY_ORDER = PROJECT_CATEGORY_ORDER;
-
-const CATEGORY_ICON_PATHS: Record<Category, string> = {
-  professional: `<rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />`,
-  personal: `<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />`,
-  academic: `<path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" />`,
-};
 
 const CATEGORY_LABELS: Record<Category, string> = {
   professional: t("ui.projects.category.professional"),
@@ -99,7 +95,7 @@ const itemListSchema = {
     {
       visibleCategories.length > 1 && (
         <nav
-          class="reveal mb-10 flex flex-wrap items-center gap-x-3 gap-y-2"
+          class="reveal mb-8 flex flex-wrap items-center gap-x-3 gap-y-2"
           aria-label={t("ui.projects.jumpNav.aria")}
           data-i18n-aria="ui.projects.jumpNav.aria"
         >
@@ -127,35 +123,18 @@ const itemListSchema = {
         (cat) =>
           grouped[cat].length > 0 && (
             <section
-              class:list={["reveal", SCROLL_ANCHOR_MARGIN_CLASSES]}
+              class:list={[
+                "reveal",
+                SCROLL_ANCHOR_MARGIN_CLASSES,
+                cat !== firstCategory && "mt-12 md:mt-16",
+              ]}
               aria-labelledby={`projects-category-${cat}`}
             >
-              <header
-                class:list={["pb-3", cat === firstCategory ? "pt-2" : "pt-12"]}
-              >
-                <h2
-                  id={`projects-category-${cat}`}
-                  class="text-sm sm:text-base"
-                >
-                  <span class="inline-flex items-center gap-2 rounded-full border border-border-secondary bg-bg-secondary px-3 py-1.5 text-xs font-medium uppercase tracking-wide text-text-primary sm:gap-2.5 sm:px-4 sm:py-2 sm:text-sm">
-                    <svg
-                      class="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <Fragment set:html={CATEGORY_ICON_PATHS[cat]} />
-                    </svg>
-                    <span data-i18n={CATEGORY_I18N[cat]}>
-                      {CATEGORY_LABELS[cat]}
-                    </span>
-                  </span>
-                </h2>
-              </header>
+              <SectionHeader
+                titleKey={CATEGORY_I18N[cat]}
+                id={`projects-category-${cat}`}
+                headingClasses={PROJECTS_CATEGORY_HEADING_CLASSES}
+              />
               <ul class="list-none space-y-0 [&>li:first-child>article]:border-t-0">
                 {grouped[cat].map(({ project, index, slug }) => (
                   <li>

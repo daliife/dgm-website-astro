@@ -10,9 +10,15 @@ interface Props {
   titleKey: I18nKey;
   labelKey?: I18nKey;
   id?: string;
+  headingClasses?: string;
 }
 
-const { titleKey, labelKey, id } = Astro.props;
+const {
+  titleKey,
+  labelKey,
+  id,
+  headingClasses = ABOUT_SECTION_HEADING_CLASSES,
+} = Astro.props;
 ---
 
 <header>
@@ -23,7 +29,7 @@ const { titleKey, labelKey, id } = Astro.props;
       </p>
     )
   }
-  <h2 class={ABOUT_SECTION_HEADING_CLASSES} id={id} data-i18n={titleKey}>
+  <h2 class={headingClasses} id={id} data-i18n={titleKey}>
     {t(titleKey)}
   </h2>
 </header>

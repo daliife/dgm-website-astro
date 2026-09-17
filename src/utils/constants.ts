@@ -22,9 +22,8 @@ export const PAGE_HEADING_MARGIN_COMPACT_CLASSES = "mb-6";
 /** Vertical spacing between about page sections (legacy; prefer ABOUT_MAJOR_SECTION_CLASSES). */
 export const ABOUT_SECTION_SPACING_CLASSES = "mt-16 md:mt-20 print:mt-6";
 
-/** About page major blocks: gap from prior content, then rule (avoids line hugging portrait column). */
-export const ABOUT_MAJOR_SECTION_CLASSES =
-  "reveal mt-16 border-t border-border-primary pt-10 md:mt-20 md:pt-12 print:mt-6 print:border-0 print:pt-6";
+/** About page major blocks: vertical spacing only (no section rules). */
+export const ABOUT_MAJOR_SECTION_CLASSES = "reveal mt-16 md:mt-20 print:mt-6";
 
 /** Optional label above section titles (About chapters). */
 export const SECTION_LABEL_CLASSES =
@@ -44,6 +43,10 @@ export const BREADCRUMB_LINK_CLASSES =
 /** About page section titles (below page H1 in visual weight). */
 export const ABOUT_SECTION_HEADING_CLASSES =
   "mb-10 text-2xl font-bold uppercase tracking-tight text-text-primary sm:text-3xl print:mb-1.5 print:border-b print:border-gray-300 print:pb-0.5 print:text-[10px] print:font-medium print:normal-case print:tracking-widest print:text-black";
+
+/** Projects category titles (tighter gap before list). */
+export const PROJECTS_CATEGORY_HEADING_CLASSES =
+  "mb-6 text-2xl font-bold uppercase tracking-tight text-text-primary sm:text-3xl";
 
 /** Framed media (portrait, screenshots) — matches project thumbnails. */
 export const CARD_FRAME_CLASSES =

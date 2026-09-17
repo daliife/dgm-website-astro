@@ -90,7 +90,7 @@ const socialLinks = [
                 href={link.url}
                 target={link.external ? "_blank" : undefined}
                 rel={link.external ? "noopener noreferrer" : undefined}
-                class="inline-flex items-center gap-1.5 whitespace-nowrap text-xs uppercase tracking-widest text-text-muted transition-colors duration-200 hover:text-text-primary"
+                class="group inline-flex items-center gap-1.5 whitespace-nowrap text-xs uppercase tracking-widest text-text-muted transition-colors duration-200 hover:text-text-primary"
               >
                 <svg
                   class="h-3.5 w-3.5 shrink-0"
@@ -99,7 +99,9 @@ const socialLinks = [
                   aria-hidden="true"
                   set:html={link.icon}
                 />
-                <span data-i18n={link.labelKey}>{t(link.labelKey)}</span>
+                <span class="link-underline-hover" data-i18n={link.labelKey}>
+                  {t(link.labelKey)}
+                </span>
                 {link.external && (
                   <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
                     {t("ui.a11y.opensNewTab")}

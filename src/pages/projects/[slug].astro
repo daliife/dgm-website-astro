@@ -3,10 +3,12 @@ import Layout from "../../layouts/Layout.astro";
 import { projects } from "@cv";
 import {
   BREADCRUMB_LINK_CLASSES,
+  CARD_FRAME_CLASSES,
   PAGE_CONTAINER_CLASSES,
   WORK_DATES_CLASSES,
   LIVE_URL,
 } from "../../utils/constants";
+import HighlightListItem from "../../components/sections/HighlightListItem.astro";
 import { pageHref } from "../../utils/url";
 import { ICON_PATHS } from "../../utils/icons";
 import { t } from "../../utils/i18n";
@@ -157,6 +159,23 @@ const creativeWorkSchema = {
         {project.name}
       </h1>
 
+      {
+        project.image && (
+          <figure class={`${CARD_FRAME_CLASSES} mb-6 w-full`}>
+            <img
+              src={project.image}
+              alt={project.name}
+              class="aspect-[3/2] h-auto w-full object-cover"
+              width="480"
+              height="320"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </figure>
+        )
+      }
+
       <p
         class="text-base leading-relaxed text-text-secondary sm:text-lg"
         data-i18n={longDescriptionKey}
@@ -234,24 +253,6 @@ const creativeWorkSchema = {
       }
     </header>
 
-    <!-- Project screenshot (480×320 asset) -->
-    {
-      project.image && (
-        <figure class="reveal mb-10 w-full max-w-sm overflow-hidden">
-          <img
-            src={project.image}
-            alt={project.name}
-            class="aspect-[3/2] h-auto w-full object-cover"
-            width="480"
-            height="320"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-          />
-        </figure>
-      )
-    }
-
     <!-- Highlights -->
     {
       hasHighlights && (
@@ -271,15 +272,11 @@ const creativeWorkSchema = {
               const highlightKey =
                 `projects.${index}.highlights.${highlightIndex}` as I18nKey;
               return (
-                <li class="flex items-start gap-2.5 text-sm leading-relaxed text-text-secondary">
-                  <span
-                    class="mt-2 h-px w-3 shrink-0 bg-border-secondary"
-                    aria-hidden="true"
-                  />
+                <HighlightListItem>
                   <span data-i18n={highlightKey}>
                     {t(highlightKey, highlight)}
                   </span>
-                </li>
+                </HighlightListItem>
               );
             })}
           </ul>
