@@ -60,7 +60,9 @@ export const ES: Record<I18nKey, string> = {
   "ui.projects.highlights": "Destacados",
   "ui.projects.prev": "Anterior",
   "ui.projects.next": "Siguiente",
+  "ui.projects.jumpNav.aria": "Ir a la categoría de proyectos",
   "ui.a11y.projectNav": "Navegación entre proyectos",
+  "ui.a11y.breadcrumb": "Miga de pan",
 
   // ── About section headings ────────────────────────────────────────────────
   "ui.about.summary": "Resumen",

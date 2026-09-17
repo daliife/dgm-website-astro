@@ -1,11 +1,9 @@
 ---
 import type { EducationEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
-import {
-  ABOUT_SECTION_HEADING_CLASSES,
-  ABOUT_SECTION_SPACING_CLASSES,
-} from "../../utils/constants";
+import { ABOUT_MAJOR_SECTION_CLASSES } from "../../utils/constants";
 import { t } from "../../utils/i18n";
+import SectionHeader from "./SectionHeader.astro";
 
 interface Props {
   education: EducationEntry[];
@@ -14,10 +12,8 @@ interface Props {
 const { education } = Astro.props;
 ---
 
-<section class={`reveal ${ABOUT_SECTION_SPACING_CLASSES}`}>
-  <h2 class={ABOUT_SECTION_HEADING_CLASSES} data-i18n="ui.about.education">
-    {t("ui.about.education")}
-  </h2>
+<section id="about-education" class={ABOUT_MAJOR_SECTION_CLASSES}>
+  <SectionHeader titleKey="ui.about.education" />
   <div class="space-y-6 print:space-y-4">
     {
       education.map((edu: EducationEntry, eduIndex: number) => (

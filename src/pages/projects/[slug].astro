@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { projects } from "@cv";
 import {
+  BREADCRUMB_LINK_CLASSES,
   PAGE_CONTAINER_CLASSES,
   WORK_DATES_CLASSES,
   LIVE_URL,
@@ -64,9 +65,6 @@ const hasTech = Boolean(project.technologies?.length);
 const DETAIL_CTA_CLASSES =
   "gap-2 rounded-none border-b border-border-secondary pb-1 text-sm uppercase tracking-widest text-text-primary hover:!no-underline hover:border-text-primary";
 
-const BACK_LINK_CLASSES =
-  "gap-1.5 rounded-none text-xs uppercase tracking-widest text-text-muted hover:!no-underline hover:text-text-primary border-b border-transparent pb-0.5 hover:border-text-muted focus-visible:outline-none focus-visible:border-text-muted";
-
 const creativeWorkSchema = {
   "@context": "https://schema.org",
   "@type": "CreativeWork",
@@ -101,17 +99,33 @@ const creativeWorkSchema = {
     set:html={JSON.stringify(creativeWorkSchema)}
   />
   <div class={PAGE_CONTAINER_CLASSES}>
-    <p class="mb-8">
-      <Button
-        href={pageHref("projects")}
-        variant="simple"
-        size="none"
-        className={BACK_LINK_CLASSES}
+    <nav
+      class="reveal mb-8"
+      aria-label={t("ui.a11y.breadcrumb")}
+      data-i18n-aria="ui.a11y.breadcrumb"
+    >
+      <ol
+        class="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs uppercase tracking-widest"
       >
-        <span aria-hidden="true">←</span>
-        <span data-i18n="ui.projects.back">{t("ui.projects.back")}</span>
-      </Button>
-    </p>
+        <li>
+          <Button
+            href={pageHref("projects")}
+            variant="simple"
+            size="none"
+            className={BREADCRUMB_LINK_CLASSES}
+          >
+            <span data-i18n="ui.page.projects">{t("ui.page.projects")}</span>
+          </Button>
+        </li>
+        <li class="text-text-muted" aria-hidden="true">/</li>
+        <li
+          class="max-w-[min(100%,20rem)] truncate text-text-primary"
+          aria-current="page"
+        >
+          {project.name}
+        </li>
+      </ol>
+    </nav>
 
     <!-- Intro: meta → title → lead → stack → actions -->
     <header class="reveal mb-10 max-w-3xl">

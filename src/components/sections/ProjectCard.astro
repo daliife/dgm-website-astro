@@ -92,7 +92,7 @@ const detailHref = pageHref("projects", slug);
       </p>
       {
         project.technologies && project.technologies.length > 0 && (
-          <span class="col-start-1 row-start-3 text-xs uppercase tracking-widest text-text-muted sm:col-start-2 sm:row-start-1 sm:whitespace-nowrap">
+          <span class="col-start-1 row-start-3 line-clamp-2 text-xs uppercase tracking-widest text-text-muted sm:col-start-2 sm:row-start-1 sm:line-clamp-none sm:max-w-[42%] sm:truncate sm:text-right">
             {project.technologies.join(" · ")}
           </span>
         )

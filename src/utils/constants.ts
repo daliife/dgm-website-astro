@@ -19,8 +19,27 @@ export const PAGE_HEADING_MARGIN_CLASSES = "mb-10";
 /** Compact title margin when intro copy follows immediately (contact). */
 export const PAGE_HEADING_MARGIN_COMPACT_CLASSES = "mb-6";
 
-/** Vertical spacing between about page sections. */
+/** Vertical spacing between about page sections (legacy; prefer ABOUT_MAJOR_SECTION_CLASSES). */
 export const ABOUT_SECTION_SPACING_CLASSES = "mt-16 md:mt-20 print:mt-6";
+
+/** About page major blocks: gap from prior content, then rule (avoids line hugging portrait column). */
+export const ABOUT_MAJOR_SECTION_CLASSES =
+  "reveal mt-16 border-t border-border-primary pt-10 md:mt-20 md:pt-12 print:mt-6 print:border-0 print:pt-6";
+
+/** Optional label above section titles (About chapters). */
+export const SECTION_LABEL_CLASSES =
+  "mb-2 text-xs uppercase tracking-widest text-text-muted print:hidden";
+
+/** Scroll offset for in-page anchors under the fixed header. */
+export const SCROLL_ANCHOR_MARGIN_CLASSES = "scroll-mt-28 md:scroll-mt-36";
+
+/** Projects list: jump links to category sections. */
+export const PROJECT_CATEGORY_JUMP_LINK_CLASSES =
+  "rounded-none border-b border-transparent pb-0.5 text-xs uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary hover:no-underline focus-visible:border-text-primary";
+
+/** Project detail breadcrumb link (parent segment). */
+export const BREADCRUMB_LINK_CLASSES =
+  "rounded-none border-b border-border-muted pb-0.5 text-xs uppercase tracking-widest text-text-muted transition-colors duration-200 hover:border-text-primary hover:text-text-primary hover:no-underline";
 
 /** About page section titles (below page H1 in visual weight). */
 export const ABOUT_SECTION_HEADING_CLASSES =

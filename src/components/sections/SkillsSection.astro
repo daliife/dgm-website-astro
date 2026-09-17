@@ -1,11 +1,9 @@
 ---
 import type { SkillEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
-import {
-  ABOUT_SECTION_HEADING_CLASSES,
-  ABOUT_SECTION_SPACING_CLASSES,
-} from "../../utils/constants";
+import { ABOUT_MAJOR_SECTION_CLASSES } from "../../utils/constants";
 import { t } from "../../utils/i18n";
+import SectionHeader from "./SectionHeader.astro";
 
 interface Props {
   skills: SkillEntry[];
@@ -14,10 +12,8 @@ interface Props {
 const { skills } = Astro.props;
 ---
 
-<section class={`reveal ${ABOUT_SECTION_SPACING_CLASSES}`}>
-  <h2 class={ABOUT_SECTION_HEADING_CLASSES} data-i18n="ui.about.skills">
-    {t("ui.about.skills")}
-  </h2>
+<section id="about-skills" class={ABOUT_MAJOR_SECTION_CLASSES}>
+  <SectionHeader titleKey="ui.about.skills" />
   <div
     class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 print:block print:space-y-3"
   >
