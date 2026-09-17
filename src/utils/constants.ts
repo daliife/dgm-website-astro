@@ -56,12 +56,15 @@ export const PROJECTS_CATEGORY_HEADING_CLASSES =
 export const CARD_FRAME_CLASSES =
   "overflow-hidden border border-border-secondary bg-bg-muted";
 
+/** Shared home hero CTA: animated underline on hover (both actions). */
+const HOME_CTA_BASE_CLASSES =
+  "gap-2 w-fit rounded-none pb-1 text-sm uppercase tracking-widest link-underline-hover transition-colors duration-200 hover:no-underline";
+
 /** Home hero primary CTA (projects). */
-export const HOME_CTA_PRIMARY_CLASSES =
-  "gap-2 rounded-none border-b border-text-primary pb-1 text-sm font-medium uppercase tracking-widest text-text-primary transition-colors duration-200 hover:border-text-primary hover:no-underline";
+export const HOME_CTA_PRIMARY_CLASSES = `${HOME_CTA_BASE_CLASSES} font-medium text-text-primary`;
 
 /** Home hero secondary CTA (contact). */
-export const HOME_CTA_SECONDARY_CLASSES = `gap-2 ${EDITORIAL_LINK_MD_MUTED_CLASSES}`;
+export const HOME_CTA_SECONDARY_CLASSES = `${HOME_CTA_BASE_CLASSES} text-text-muted hover:text-text-primary`;
 
 export const PROJECT_DETAIL_CTA_CLASSES = `gap-2 ${EDITORIAL_LINK_MD_CLASSES} hover:!no-underline`;
 
