@@ -25,7 +25,7 @@ describe("pageHref", () => {
   it("builds privacy and nav page paths with a trailing slash", () => {
     expect(pageHref("privacy")).toBe(`${SITE_BASE}/privacy/`);
     expect(pageHref("about")).toBe(`${SITE_BASE}/about/`);
-    expect(pageHref("work")).toBe(`${SITE_BASE}/work/`);
+    expect(pageHref("experience")).toBe(`${SITE_BASE}/experience/`);
     expect(pageHref("contact")).toBe(`${SITE_BASE}/contact/`);
   });
 

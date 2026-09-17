@@ -1,0 +1,84 @@
+---
+import { t } from "../../utils/i18n";
+
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+---
+
+<button
+  type="button"
+  class:list={[
+    "about-portrait-flip group mx-auto block max-w-[351px] cursor-pointer md:mx-0 print:hidden",
+    className,
+  ]}
+  aria-pressed="false"
+  aria-label={t("ui.a11y.portraitFlip")}
+  data-i18n-aria="ui.a11y.portraitFlip"
+>
+  <span class="about-portrait-flip__inner block overflow-hidden bg-bg-muted">
+    <slot />
+  </span>
+</button>
+
+<style>
+  .about-portrait-flip__inner {
+    transition:
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      filter 0.25s ease;
+    transform-origin: center center;
+  }
+
+  @media (hover: hover) {
+    .about-portrait-flip:hover .about-portrait-flip__inner {
+      filter: brightness(1.04);
+    }
+
+    .about-portrait-flip:hover:not(.is-flipped) .about-portrait-flip__inner {
+      transform: scale(1.015);
+    }
+
+    .about-portrait-flip.is-flipped:hover .about-portrait-flip__inner {
+      transform: scaleX(-1) scale(1.015);
+    }
+  }
+
+  .about-portrait-flip.is-flipped .about-portrait-flip__inner {
+    transform: scaleX(-1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-portrait-flip__inner {
+      transition: none;
+    }
+
+    @media (hover: hover) {
+      .about-portrait-flip:hover .about-portrait-flip__inner,
+      .about-portrait-flip.is-flipped:hover .about-portrait-flip__inner {
+        transform: none;
+        filter: none;
+      }
+
+      .about-portrait-flip.is-flipped .about-portrait-flip__inner {
+        transform: scaleX(-1);
+      }
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const btn = document.querySelector<HTMLButtonElement>(
+      ".about-portrait-flip",
+    );
+    if (!btn || btn.dataset.portraitFlipBound) return;
+    btn.dataset.portraitFlipBound = "true";
+
+    btn.addEventListener("click", () => {
+      const flipped = btn.classList.toggle("is-flipped");
+      btn.setAttribute("aria-pressed", flipped ? "true" : "false");
+    });
+  });
+</script>

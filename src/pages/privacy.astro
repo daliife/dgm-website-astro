@@ -4,6 +4,8 @@ import {
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
+  LINK_UNDERLINE_CLASSES,
+  LINK_UNDERLINE_MUTED_CLASSES,
 } from "../utils/constants";
 import { t } from "../utils/i18n";
 import { getPageTitleFromKey } from "../utils/seo";
@@ -29,7 +31,7 @@ const PRIVACY_LIST_ITEM =
           href="https://umami.is"
           target="_blank"
           rel="noopener noreferrer"
-          class="text-text-primary underline underline-offset-4 transition-opacity hover:opacity-70"
+          class={`${LINK_UNDERLINE_CLASSES} text-text-primary hover:text-text-secondary`}
           >Umami<span class="sr-only" data-i18n="ui.a11y.opensNewTab">
             {t("ui.a11y.opensNewTab")}
           </span></a
@@ -163,7 +165,7 @@ const PRIVACY_LIST_ITEM =
           href="https://umami.is/privacy"
           target="_blank"
           rel="noopener noreferrer"
-          class="underline underline-offset-4 transition-colors hover:text-text-secondary"
+          class={LINK_UNDERLINE_MUTED_CLASSES}
           >umami.is/privacy ↗<span
             class="sr-only"
             data-i18n="ui.a11y.opensNewTab"

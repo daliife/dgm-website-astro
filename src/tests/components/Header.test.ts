@@ -23,7 +23,7 @@ describe("Header", () => {
 
     expect(html).toContain('href="/about/"');
     expect(html).toContain('href="/projects/"');
-    expect(html).toContain('href="/work/"');
+    expect(html).toContain('href="/experience/"');
     expect(html).toContain('href="/contact/"');
   });
 
@@ -33,7 +33,7 @@ describe("Header", () => {
 
     expect(html).toContain('data-i18n="ui.nav.about"');
     expect(html).toContain('data-i18n="ui.nav.projects"');
-    expect(html).toContain('data-i18n="ui.nav.work"');
+    expect(html).toContain('data-i18n="ui.nav.experience"');
     expect(html).toContain('data-i18n="ui.nav.contact"');
   });
 

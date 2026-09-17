@@ -21,6 +21,9 @@ export default defineConfig({
   site: isGitHubPages ? PAGES_URL : LIVE_URL,
   base: isGitHubPages ? PAGES_BASE : "/",
   trailingSlash: "always",
+  redirects: {
+    "/work/": { status: 301, destination: "/experience/" },
+  },
   integrations: [sitemap(), tailwind()],
   output: "static",
   prefetch: {

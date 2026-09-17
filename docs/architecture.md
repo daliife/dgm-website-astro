@@ -26,14 +26,14 @@ Astro uses file-based routing. `src/pages/` maps directly to URLs:
 | `src/pages/about.astro`           | `/about/`           |
 | `src/pages/projects.astro`        | `/projects/`        |
 | `src/pages/projects/[slug].astro` | `/projects/[slug]/` |
-| `src/pages/work.astro`            | `/work/`            |
+| `src/pages/experience.astro`      | `/experience/`      |
 | `src/pages/contact.astro`         | `/contact/`         |
 | `src/pages/privacy.astro`         | `/privacy/`         |
 | `src/pages/404.astro`             | `/404`              |
 
 `trailingSlash: "always"` is set in `astro.config.mjs` so local and production URLs match (avoids Apache DirectorySlash 301s). Build `pageHref()` helpers in `src/utils/url.ts` for internal links.
 
-Navigation links are defined in `src/utils/constants.ts → NAV_LINKS`: `["about", "projects", "work", "contact"]`. This array drives the `<Header>` nav. Adding a page requires:
+Navigation links are defined in `src/utils/constants.ts → NAV_LINKS`: `["about", "experience", "projects", "contact"]`. This array drives the `<Header>` nav. Adding a page requires:
 
 1. A file in `src/pages/`.
 2. An entry in `NAV_LINKS` (only if the page should appear in the nav).
@@ -83,7 +83,7 @@ Every page must be wrapped in `<Layout>`. It provides:
 - Astro `<ClientRouter>` for View Transitions with prefetch on hover
 - `<Header>` (persisted across navigations) and `<Footer>` (can be hidden with `hideFooter={true}`)
 - Skip-to-content accessibility link
-- Scroll-reveal animation system (`.reveal` class + Intersection Observer)
+- Page crossfade on `<main>` via Astro View Transitions (~280ms) + scroll reveal (`.reveal`)
 - `prefers-reduced-motion` support
 - Mobile: page transitions disabled via `@media (max-width: 767px)` CSS override
 
@@ -157,9 +157,11 @@ All other subsets (Cyrillic, Greek, Vietnamese) are excluded to reduce download 
 The Latin woff2 is preloaded via `<link rel="preload">` in `Layout.astro` to eliminate FOIT.
 `font-display: swap` is set on both `@font-face` rules.
 
-### Scroll reveal
+### Page motion
 
-Add `class="reveal"` to any element to get a fade-in-up animation on scroll. Handled by an `IntersectionObserver` in `Layout.astro`. Respects `prefers-reduced-motion`.
+Route changes use Astro `<ClientRouter />` with a crossfade on `<main>` (`fade({ duration: "0.28s" })`) and eased view-transition groups in global CSS. Header and cookie banner persist (`transition:persist`). No shared-element project image morph (avoids flash between list and detail).
+
+Scroll reveal: add `class="reveal"` or `reveal-stagger` (see `REVEAL_STAGGER_LIST_CLASSES` in `constants.ts`). An `IntersectionObserver` in `Layout.astro` toggles `.is-visible` on `astro:page-load`. Respects `prefers-reduced-motion`.
 
 ---
 
@@ -241,7 +243,7 @@ Keys use dot notation: `ui.*` for static UI strings, `basics.*` / `work.*` for c
 // src/i18n/ca.ts
 export const CA: Record<string, string> = {
   "ui.nav.about": "Sobre mi",
-  "ui.nav.work": "Experiència",
+  "ui.nav.experience": "Experiència",
   // ...
 };
 ```
@@ -300,7 +302,7 @@ The project uses Astro's built-in `<ClientRouter>`. Key consequences:
 - `astro:after-swap` fires after the new page DOM is in place. Used for theme re-application.
 - `<Header>` uses `transition:persist` to stay mounted across navigations.
 - **Prefetch on hover**: `astro.config.mjs` sets `prefetch: { prefetchAll: true, defaultStrategy: "hover" }`. Pages are pre-fetched when the user hovers a nav link, making navigation near-instant.
-- **Mobile**: page transitions are disabled via CSS (`@media (max-width: 767px)`) for snappier feel — both the View Transitions API path (`::view-transition-*`) and the JS fallback path (`[data-astro-transition-fallback]`).
+- **Fallback**: `ClientRouter fallback="animate"` keeps a crossfade when View Transitions are unavailable.
 
 ---
 

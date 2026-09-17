@@ -5,6 +5,7 @@ import {
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_COMPACT_CLASSES,
+  LINK_UNDERLINE_CLASSES,
 } from "../utils/constants";
 import { ICON_PATHS } from "../utils/icons";
 import type { I18nKey } from "../i18n/en";
@@ -27,7 +28,7 @@ const NETWORK_I18N: Record<SocialNetwork, I18nKey> = {
 };
 
 const CONTACT_ITEM_CLASS =
-  "!flex flex-col !items-start !justify-start gap-1 rounded-none hover:no-underline w-full border-t border-border-primary pt-6 group";
+  "!flex flex-col !items-start !justify-start gap-1 rounded-none hover:no-underline w-full border-t border-border-primary pt-6 transition-colors duration-200 focus-within:border-text-secondary group";
 ---
 
 <Layout
@@ -69,7 +70,9 @@ const CONTACT_ITEM_CLASS =
             {t("ui.contact.network.email")}
           </span>
         </span>
-        <span class="contact-value text-lg text-text-primary sm:text-xl">
+        <span
+          class={`${LINK_UNDERLINE_CLASSES} text-lg text-text-primary sm:text-xl`}
+        >
           {email}
         </span>
       </Button>
@@ -100,7 +103,9 @@ const CONTACT_ITEM_CLASS =
                 )}
                 <span data-i18n={labelKey}>{t(labelKey)}</span>
               </span>
-              <span class="contact-value text-lg text-text-primary sm:text-xl">
+              <span
+                class={`${LINK_UNDERLINE_CLASSES} text-lg text-text-primary sm:text-xl`}
+              >
                 {profile.username || profile.network}
               </span>
               <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
@@ -113,19 +118,3 @@ const CONTACT_ITEM_CLASS =
     </div>
   </div>
 </Layout>
-
-<style>
-  @media (hover: hover) {
-    .contact-value {
-      background-image: linear-gradient(currentColor, currentColor);
-      background-size: 0% 1px;
-      background-repeat: no-repeat;
-      background-position: left bottom;
-      transition: background-size 0.25s ease;
-      padding-bottom: 1px;
-    }
-    :global(.group):hover .contact-value {
-      background-size: 100% 1px;
-    }
-  }
-</style>

@@ -1,7 +1,7 @@
 export type ButtonVariant = "primary" | "outline" | "ghost" | "simple";
 export type ButtonSize = "sm" | "md" | "none";
 
-export type NavLink = "about" | "projects" | "work" | "contact";
+export type NavLink = "about" | "projects" | "experience" | "contact";
 
 export type SocialNetwork = "Linkedin" | "Github" | "Email";
 

@@ -6,7 +6,7 @@ export const EN = {
   // ── Navigation ────────────────────────────────────────────────────────────
   "ui.nav.about": "About",
   "ui.nav.projects": "Projects",
-  "ui.nav.work": "Experience",
+  "ui.nav.experience": "Experience",
   "ui.nav.contact": "Contact",
 
   // ── Home page ─────────────────────────────────────────────────────────────
@@ -21,13 +21,13 @@ export const EN = {
   "ui.nextup": "Also explore",
   "ui.nextup.aria": "Related pages",
   "ui.nextup.about": "About me",
-  "ui.nextup.work": "My experience",
+  "ui.nextup.experience": "My experience",
   "ui.nextup.projects": "My projects",
   "ui.nextup.contact": "Contact",
 
   // ── Page headings ─────────────────────────────────────────────────────────
   "ui.page.about": "About",
-  "ui.page.work": "Experience",
+  "ui.page.experience": "Experience",
   "ui.page.projects": "Projects",
   "ui.page.contact": "Contact",
 
@@ -37,7 +37,7 @@ export const EN = {
     "Personal portfolio of David Gimeno Mañé — Frontend Developer based in Barcelona.",
   "ui.meta.about.description":
     "About David Gimeno Mañé — Frontend Developer based in Barcelona. Discover my story, skills, and professional background.",
-  "ui.meta.work.description":
+  "ui.meta.experience.description":
     "Professional work experience of David Gimeno Mañé — Frontend Developer based in Barcelona.",
   "ui.meta.projects.description":
     "Portfolio of web development projects by David Gimeno Mañé — Frontend Developer based in Barcelona.",
@@ -58,6 +58,7 @@ export const EN = {
   "ui.projects.prev": "Previous",
   "ui.projects.next": "Next",
   "ui.a11y.projectNav": "Project navigation",
+  "ui.a11y.breadcrumb": "Breadcrumb",
 
   // ── About section headings ────────────────────────────────────────────────
   "ui.about.summary": "Summary",
@@ -80,6 +81,7 @@ export const EN = {
   "ui.a11y.cookieNotice": "Cookie notice",
   "ui.a11y.skipToContent": "Skip to main content",
   "ui.a11y.portraitOf": "Portrait of",
+  "ui.a11y.portraitFlip": "Flip portrait horizontally",
   "ui.a11y.theme.toDark": "Switch to dark mode",
   "ui.a11y.theme.toLight": "Switch to light mode",
   "ui.a11y.nav.main": "Main navigation",

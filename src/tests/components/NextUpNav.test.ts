@@ -9,7 +9,7 @@ describe("NextUpNav", () => {
     const html = await container.renderToString(NextUpNav, {
       props: {
         links: [
-          { href: pageHref("work"), labelKey: "ui.nextup.work" },
+          { href: pageHref("experience"), labelKey: "ui.nextup.experience" },
           { href: pageHref("projects"), labelKey: "ui.nextup.projects" },
         ],
       },
@@ -17,9 +17,9 @@ describe("NextUpNav", () => {
 
     expect(html).toContain('aria-label="Pàgines relacionades"');
     expect(html).toContain('data-i18n-aria="ui.nextup.aria"');
-    expect(html).toContain(`href="${pageHref("work")}"`);
+    expect(html).toContain(`href="${pageHref("experience")}"`);
     expect(html).toContain(`href="${pageHref("projects")}"`);
-    expect(html).toContain('data-i18n="ui.nextup.work"');
+    expect(html).toContain('data-i18n="ui.nextup.experience"');
     expect(html).toContain('data-i18n="ui.nextup.projects"');
   });
 });

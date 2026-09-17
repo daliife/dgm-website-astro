@@ -9,7 +9,7 @@ export const CA: Record<I18nKey, string> = {
   // ── Navigation ────────────────────────────────────────────────────────────
   "ui.nav.about": "Sobre mi",
   "ui.nav.projects": "Projectes",
-  "ui.nav.work": "Experiència",
+  "ui.nav.experience": "Experiència",
   "ui.nav.contact": "Contacte",
 
   // ── Home page ─────────────────────────────────────────────────────────────
@@ -24,13 +24,13 @@ export const CA: Record<I18nKey, string> = {
   "ui.nextup": "Explora també",
   "ui.nextup.aria": "Pàgines relacionades",
   "ui.nextup.about": "Sobre mi",
-  "ui.nextup.work": "La meva experiència",
+  "ui.nextup.experience": "La meva experiència",
   "ui.nextup.projects": "Els meus projectes",
   "ui.nextup.contact": "Contacte",
 
   // ── Page headings ─────────────────────────────────────────────────────────
   "ui.page.about": "Sobre mi",
-  "ui.page.work": "Experiència",
+  "ui.page.experience": "Experiència",
   "ui.page.projects": "Projectes",
   "ui.page.contact": "Contacte",
 
@@ -40,7 +40,7 @@ export const CA: Record<I18nKey, string> = {
     "Portafoli personal de David Gimeno Mañé — Desenvolupador Frontend a Barcelona.",
   "ui.meta.about.description":
     "Sobre David Gimeno Mañé — Desenvolupador Frontend a Barcelona. Descobreix la meva història, habilitats i trajectòria professional.",
-  "ui.meta.work.description":
+  "ui.meta.experience.description":
     "Experiència professional de David Gimeno Mañé — Desenvolupador Frontend a Barcelona.",
   "ui.meta.projects.description":
     "Portafoli de projectes de desenvolupament web de David Gimeno Mañé — Desenvolupador Frontend a Barcelona.",
@@ -61,6 +61,7 @@ export const CA: Record<I18nKey, string> = {
   "ui.projects.prev": "Anterior",
   "ui.projects.next": "Següent",
   "ui.a11y.projectNav": "Navegació entre projectes",
+  "ui.a11y.breadcrumb": "Fil d'Ariadna",
 
   // ── About section headings ────────────────────────────────────────────────
   "ui.about.summary": "Resum",
@@ -83,6 +84,7 @@ export const CA: Record<I18nKey, string> = {
   "ui.a11y.cookieNotice": "Avís de cookies",
   "ui.a11y.skipToContent": "Salta al contingut principal",
   "ui.a11y.portraitOf": "Retrat de",
+  "ui.a11y.portraitFlip": "Gira el retrat horitzontalment",
   "ui.a11y.theme.toDark": "Canviar al mode fosc",
   "ui.a11y.theme.toLight": "Canviar al mode clar",
   "ui.a11y.nav.main": "Navegació principal",

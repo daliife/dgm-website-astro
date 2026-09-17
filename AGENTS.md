@@ -31,7 +31,7 @@ tailwind.config.mjs        ← Design tokens (CSS vars mapped to Tailwind utilit
 cv.json                    ← Single source of truth for all content
 .npmrc                     ← pnpm config (shamefully-hoist=true)
 src/
-  layouts/Layout.astro     ← Root HTML shell (theme, SEO, fonts, ClientRouter, scroll reveal)
+  layouts/Layout.astro     ← Root HTML shell (theme, SEO, fonts, ClientRouter, page transitions)
   components/
     brand/                 ← DgmLogoSimple, ThemeToggle, LanguageToggle
     layout/                ← Header, Footer, CookieConsent, NextUpNav
@@ -41,7 +41,7 @@ src/
     ca.ts                  ← Catalan translations (default SSR locale)
     en.ts                  ← English translations
     es.ts                  ← Spanish translations
-  pages/                   ← File-based routes (index, about, projects, projects/[slug], work, contact, privacy, 404)
+  pages/                   ← File-based routes (index, about, experience, projects, projects/[slug], contact, privacy, 404)
   tests/
     components/            ← AstroContainer unit tests per component
     pages/                 ← Route existence tests
@@ -117,9 +117,9 @@ import { basics, work } from "@cv";
 <p>{basics.summary}</p>
 ```
 
-### Scroll reveal animation
+### Page transitions
 
-Add `class="reveal"` to any element for fade-in-up on scroll. Respects `prefers-reduced-motion`.
+`<ClientRouter />` enables client-side navigation with a main-content crossfade (~280ms) plus optional scroll reveal (`.reveal` / `.reveal-stagger` in `Layout.astro`). No shared-element project morphs. Respects `prefers-reduced-motion`.
 
 ### Client-side script
 

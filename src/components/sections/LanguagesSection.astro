@@ -1,8 +1,9 @@
 ---
 import type { LanguageEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
-import { ABOUT_SECTION_SPACING_CLASSES } from "../../utils/constants";
+import { ABOUT_MAJOR_SECTION_CLASSES } from "../../utils/constants";
 import { t } from "../../utils/i18n";
+import SectionHeader from "./SectionHeader.astro";
 
 interface Props {
   languages: LanguageEntry[];
@@ -11,13 +12,8 @@ interface Props {
 const { languages } = Astro.props;
 ---
 
-<section class={`reveal ${ABOUT_SECTION_SPACING_CLASSES}`}>
-  <h2
-    class="mb-10 text-3xl font-bold uppercase tracking-tight text-text-primary sm:text-4xl print:mb-1.5 print:border-b print:border-gray-300 print:pb-0.5 print:text-[10px] print:font-medium print:normal-case print:tracking-widest print:text-black"
-    data-i18n="ui.about.languages"
-  >
-    {t("ui.about.languages")}
-  </h2>
+<section id="about-languages" class={ABOUT_MAJOR_SECTION_CLASSES}>
+  <SectionHeader titleKey="ui.about.languages" />
   <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 print:flex print:gap-x-6">
     {
       languages.map((lang: LanguageEntry, langIndex: number) => (

@@ -25,7 +25,8 @@
   }
 
   /* Reveal animations: reset so all sections are visible */
-  .reveal {
+  .reveal,
+  .reveal-stagger > * {
     opacity: 1 !important;
     transform: none !important;
   }

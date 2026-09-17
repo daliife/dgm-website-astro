@@ -1,4 +1,5 @@
 ---
+import { LINK_UNDERLINE_MUTED_CLASSES } from "../../utils/constants";
 import { pageHref } from "../../utils/url";
 import { t } from "../../utils/i18n";
 import Button from "../ui/Button.astro";
@@ -21,7 +22,7 @@ import Button from "../ui/Button.astro";
         {" "}
         <a
           href={pageHref("privacy")}
-          class="underline underline-offset-4 transition-colors hover:text-text-primary"
+          class={`${LINK_UNDERLINE_MUTED_CLASSES} w-fit`}
           data-i18n="ui.cookies.learnmore"
         >
           {t("ui.cookies.learnmore")}

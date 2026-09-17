@@ -9,7 +9,7 @@ export const ES: Record<I18nKey, string> = {
   // ── Navigation ────────────────────────────────────────────────────────────
   "ui.nav.about": "Sobre mí",
   "ui.nav.projects": "Proyectos",
-  "ui.nav.work": "Experiencia",
+  "ui.nav.experience": "Experiencia",
   "ui.nav.contact": "Contacto",
 
   // ── Home page ─────────────────────────────────────────────────────────────
@@ -24,13 +24,13 @@ export const ES: Record<I18nKey, string> = {
   "ui.nextup": "Explora también",
   "ui.nextup.aria": "Páginas relacionadas",
   "ui.nextup.about": "Sobre mí",
-  "ui.nextup.work": "Mi experiencia",
+  "ui.nextup.experience": "Mi experiencia",
   "ui.nextup.projects": "Mis proyectos",
   "ui.nextup.contact": "Contacto",
 
   // ── Page headings ─────────────────────────────────────────────────────────
   "ui.page.about": "Sobre mí",
-  "ui.page.work": "Experiencia",
+  "ui.page.experience": "Experiencia",
   "ui.page.projects": "Proyectos",
   "ui.page.contact": "Contacto",
 
@@ -40,7 +40,7 @@ export const ES: Record<I18nKey, string> = {
     "Portfolio personal de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
   "ui.meta.about.description":
     "Sobre David Gimeno Mañé — Desarrollador Frontend en Barcelona. Descubre mi historia, habilidades y trayectoria profesional.",
-  "ui.meta.work.description":
+  "ui.meta.experience.description":
     "Experiencia profesional de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
   "ui.meta.projects.description":
     "Portfolio de proyectos de desarrollo web de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
@@ -61,6 +61,7 @@ export const ES: Record<I18nKey, string> = {
   "ui.projects.prev": "Anterior",
   "ui.projects.next": "Siguiente",
   "ui.a11y.projectNav": "Navegación entre proyectos",
+  "ui.a11y.breadcrumb": "Miga de pan",
 
   // ── About section headings ────────────────────────────────────────────────
   "ui.about.summary": "Resumen",
@@ -83,6 +84,7 @@ export const ES: Record<I18nKey, string> = {
   "ui.a11y.cookieNotice": "Aviso de cookies",
   "ui.a11y.skipToContent": "Saltar al contenido principal",
   "ui.a11y.portraitOf": "Retrato de",
+  "ui.a11y.portraitFlip": "Girar el retrato horizontalmente",
   "ui.a11y.theme.toDark": "Cambiar al modo oscuro",
   "ui.a11y.theme.toLight": "Cambiar al modo claro",
   "ui.a11y.nav.main": "Navegación principal",

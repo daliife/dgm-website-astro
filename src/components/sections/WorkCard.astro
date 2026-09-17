@@ -1,11 +1,13 @@
 ---
 import { t } from "../../utils/i18n";
 import {
+  CONTENT_LIST_CLASSES,
   WORK_COMPANY_LINK_CLASSES,
   WORK_DATES_CLASSES,
 } from "../../utils/constants";
 import type { WorkEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
+import HighlightListItem from "./HighlightListItem.astro";
 import WorkDates from "./WorkDates.astro";
 
 interface Props {
@@ -14,72 +16,55 @@ interface Props {
 }
 
 const { job, jobIndex } = Astro.props;
+
+const highlights = job.highlights ?? [];
+const hasSummary = Boolean(job.summary);
+const hasHighlights = highlights.length > 0;
+const hasList = hasSummary || hasHighlights;
 ---
 
 <article class="border-t border-border-primary py-8">
-  <div
-    class="mb-3 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between"
-  >
-    <div>
-      <h2
-        class="text-lg font-semibold text-text-primary sm:text-xl"
-        data-i18n={`work.${jobIndex}.position`}
-      >
+  <header class="mb-6 flex max-w-2xl flex-col gap-2.5">
+    <h2 class="text-lg leading-snug text-text-primary sm:text-xl">
+      <span class="font-semibold" data-i18n={`work.${jobIndex}.position`}>
         {t(`work.${jobIndex}.position` as I18nKey, job.position)}
-      </h2>
+      </span>
+      <span class="font-normal text-text-muted" aria-hidden="true"> @ </span>
       <a
         href={job.url}
         target="_blank"
         rel="noopener noreferrer"
-        class={WORK_COMPANY_LINK_CLASSES}
+        class={`${WORK_COMPANY_LINK_CLASSES} font-normal`}
       >
         {job.company}
         <span class="sr-only" data-i18n="ui.a11y.opensNewTab"
           >{t("ui.a11y.opensNewTab")}</span
         >
       </a>
-    </div>
+    </h2>
     <WorkDates
       startDate={job.startDate}
       endDate={job.endDate}
       className={WORK_DATES_CLASSES}
     />
-  </div>
+  </header>
+
   {
-    job.summary && (
-      <p
-        class="mb-3 max-w-2xl text-sm leading-relaxed text-text-secondary"
-        data-i18n={`work.${jobIndex}.summary`}
-      >
-        {t(`work.${jobIndex}.summary` as I18nKey, job.summary)}
-      </p>
-    )
-  }
-  {
-    job.highlights && job.highlights.length > 0 && (
-      <ul class="mt-3 space-y-2">
-        {job.highlights.map((h: string, hIndex: number) => (
-          <li class="flex items-start gap-2.5 text-sm leading-relaxed">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="mt-0.5 h-4 w-4 shrink-0 text-text-muted"
-              aria-hidden="true"
-            >
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            <span
-              class="text-text-secondary"
-              data-i18n={`work.${jobIndex}.highlights.${hIndex}`}
-            >
+    hasList && (
+      <ul class={CONTENT_LIST_CLASSES}>
+        {hasSummary && (
+          <HighlightListItem>
+            <span data-i18n={`work.${jobIndex}.summary`}>
+              {t(`work.${jobIndex}.summary` as I18nKey, job.summary!)}
+            </span>
+          </HighlightListItem>
+        )}
+        {highlights.map((h: string, hIndex: number) => (
+          <HighlightListItem>
+            <span data-i18n={`work.${jobIndex}.highlights.${hIndex}`}>
               {t(`work.${jobIndex}.highlights.${hIndex}` as I18nKey, h)}
             </span>
-          </li>
+          </HighlightListItem>
         ))}
       </ul>
     )

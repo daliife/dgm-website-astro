@@ -5,7 +5,7 @@ import Header from "../components/layout/Header.astro";
 import CookieConsent from "../components/layout/CookieConsent.astro";
 import "../styles/fonts.css";
 import interLatinFontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
-import { ClientRouter } from "astro:transitions";
+import { ClientRouter, fade } from "astro:transitions";
 import { basics, work } from "@cv";
 import { DEFAULT_LANG, t } from "../utils/i18n";
 import { OG_LOCALE_MAP } from "../utils/locale";
@@ -33,6 +33,9 @@ const {
   hideFooter = false,
   noIndex = false,
 } = Astro.props;
+
+/** Main content crossfade on route change — calm, not abrupt. */
+const pageTransition = fade({ duration: "0.28s" });
 
 const {
   name,
@@ -179,7 +182,7 @@ const jsonLd = {
       document.addEventListener("astro:after-swap", applyTheme);
       document.addEventListener("astro:after-swap", applyLang);
     </script>
-    <ClientRouter />
+    <ClientRouter fallback="animate" />
   </head>
   <body
     class={`bg-bg-primary text-text-primary font-sans ${
@@ -197,7 +200,11 @@ const jsonLd = {
     </a>
 
     <Header transition:persist />
-    <main id="main-content" class="w-full" transition:animate="fade">
+    <main
+      id="main-content"
+      class="relative z-[1] w-full"
+      transition:animate={pageTransition}
+    >
       <slot />
     </main>
     {!hideFooter && <Footer />}
@@ -251,6 +258,29 @@ const jsonLd = {
         overflow-x: hidden;
       }
 
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        animation-duration: 0.22s;
+        background-color: rgb(var(--bg-primary));
+      }
+
+      ::view-transition-group(*) {
+        animation-duration: 0.32s;
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        ::view-transition-group(*),
+        ::view-transition-old(root),
+        ::view-transition-new(root) {
+          animation: none !important;
+        }
+      }
+
+      :focus:not(:focus-visible) {
+        outline: none;
+      }
+
       *:focus-visible {
         outline: 2px solid rgb(var(--text-primary));
         outline-offset: 2px;
@@ -274,17 +304,92 @@ const jsonLd = {
         letter-spacing: inherit;
       }
 
-      /* Scroll reveal */
+      /* Animated underline — nav, hero CTAs, prominent titles only */
+      .nav-link-label.link-underline-animate {
+        padding-bottom: 0.125rem;
+      }
+
+      a[aria-current="page"] .nav-link-label.link-underline-animate {
+        background-size: 100% 1px;
+      }
+
+      .link-underline-animate {
+        background-image: linear-gradient(currentColor, currentColor);
+        background-size: 0% 1px;
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        border-bottom: none;
+        transition:
+          background-size 0.25s ease,
+          color 0.2s ease;
+        padding-bottom: 1px;
+      }
+
+      @media (hover: hover) {
+        .group:hover .link-underline-animate,
+        a.link-underline-animate:hover,
+        .nav-link:hover .link-underline-animate {
+          background-size: 100% 1px;
+        }
+      }
+
+      .link-underline-animate:focus-visible,
+      .nav-link:focus-visible .link-underline-animate {
+        background-size: 100% 1px;
+      }
+
+      /* Scroll reveal — fade up on enter (minimal, no parallax) */
       .reveal {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(16px);
         transition:
-          opacity 0.6s ease,
-          transform 0.6s ease;
+          opacity 0.55s ease,
+          transform 0.55s ease;
       }
       .reveal.is-visible {
         opacity: 1;
         transform: translateY(0);
+      }
+
+      .reveal-stagger > * {
+        opacity: 0;
+        transform: translateY(12px);
+        transition:
+          opacity 0.45s ease,
+          transform 0.45s ease;
+      }
+
+      .reveal-stagger.is-visible > * {
+        opacity: 1;
+        transform: none;
+      }
+
+      .reveal-stagger.is-visible > *:nth-child(1) {
+        transition-delay: 0ms;
+      }
+      .reveal-stagger.is-visible > *:nth-child(2) {
+        transition-delay: 50ms;
+      }
+      .reveal-stagger.is-visible > *:nth-child(3) {
+        transition-delay: 100ms;
+      }
+      .reveal-stagger.is-visible > *:nth-child(4) {
+        transition-delay: 150ms;
+      }
+      .reveal-stagger.is-visible > *:nth-child(5) {
+        transition-delay: 200ms;
+      }
+      .reveal-stagger.is-visible > *:nth-child(6) {
+        transition-delay: 250ms;
+      }
+      .reveal-stagger.is-visible > *:nth-child(7) {
+        transition-delay: 300ms;
+      }
+      .reveal-stagger.is-visible > *:nth-child(8) {
+        transition-delay: 350ms;
+      }
+      .reveal-stagger.is-visible > *:nth-child(n + 9) {
+        transition-delay: 400ms;
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -300,6 +405,11 @@ const jsonLd = {
           opacity: 1;
           transform: none;
         }
+        .reveal-stagger > * {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
       }
     </style>
     <script>
@@ -314,13 +424,20 @@ const jsonLd = {
         const prefersReduced = window.matchMedia(
           "(prefers-reduced-motion: reduce)",
         ).matches;
-        if (prefersReduced) return;
+        if (prefersReduced) {
+          document
+            .querySelectorAll(".reveal, .reveal-stagger")
+            .forEach((el) => el.classList.add("is-visible"));
+          return;
+        }
 
-        document.querySelectorAll<Element>(".reveal").forEach((el) => {
-          if (el.getBoundingClientRect().top < window.innerHeight) {
-            el.classList.add("is-visible");
-          }
-        });
+        document
+          .querySelectorAll<Element>(".reveal, .reveal-stagger")
+          .forEach((el) => {
+            if (el.getBoundingClientRect().top < window.innerHeight) {
+              el.classList.add("is-visible");
+            }
+          });
 
         revealObserver?.disconnect();
         revealObserver = new IntersectionObserver(
@@ -336,7 +453,9 @@ const jsonLd = {
         );
 
         document
-          .querySelectorAll(".reveal:not(.is-visible)")
+          .querySelectorAll(
+            ".reveal:not(.is-visible), .reveal-stagger:not(.is-visible)",
+          )
           .forEach((el) => revealObserver!.observe(el));
       });
     </script>

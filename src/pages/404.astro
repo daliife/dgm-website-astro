@@ -3,9 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
-
-const NOT_FOUND_NAV_LINK =
-  "w-fit rounded-none border-b border-border-muted pb-1 text-sm uppercase tracking-widest text-text-muted hover:border-text-primary hover:text-text-primary hover:no-underline";
+import { EDITORIAL_LINK_MD_MUTED_CLASSES } from "../utils/constants";
 
 const NOT_FOUND_BACK_LINK =
   "w-fit rounded-none pb-1 text-xs uppercase tracking-widest text-text-muted/50 hover:text-text-muted hover:no-underline";
@@ -32,18 +30,18 @@ const NOT_FOUND_BACK_LINK =
       class="mb-10 flex flex-col items-center gap-5 sm:flex-row sm:gap-8"
     >
       <Button
-        href={pageHref("work")}
+        href={pageHref("experience")}
         variant="simple"
         size="none"
-        className={NOT_FOUND_NAV_LINK}
+        className={EDITORIAL_LINK_MD_MUTED_CLASSES}
       >
-        <span data-i18n="ui.nav.work">{t("ui.nav.work")}</span>
+        <span data-i18n="ui.nav.experience">{t("ui.nav.experience")}</span>
       </Button>
       <Button
         href={pageHref("projects")}
         variant="simple"
         size="none"
-        className={NOT_FOUND_NAV_LINK}
+        className={EDITORIAL_LINK_MD_MUTED_CLASSES}
       >
         <span data-i18n="ui.nav.projects">{t("ui.nav.projects")}</span>
       </Button>
@@ -51,7 +49,7 @@ const NOT_FOUND_BACK_LINK =
         href={pageHref("contact")}
         variant="simple"
         size="none"
-        className={NOT_FOUND_NAV_LINK}
+        className={EDITORIAL_LINK_MD_MUTED_CLASSES}
       >
         <span data-i18n="ui.nav.contact">{t("ui.nav.contact")}</span>
       </Button>

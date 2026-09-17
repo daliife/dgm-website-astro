@@ -17,7 +17,7 @@ function expectedDistHtmlPaths(): string[] {
     "index.html",
     "404.html",
     "about/index.html",
-    "work/index.html",
+    "experience/index.html",
     "projects/index.html",
     "contact/index.html",
     "privacy/index.html",
@@ -29,7 +29,7 @@ describe("Route inventory (source of truth)", () => {
   it("NAV_LINKS covers the four primary pages with trailing-slash hrefs", () => {
     expect(NAV_LINKS.map((l) => l.href)).toEqual([
       "about",
-      "work",
+      "experience",
       "projects",
       "contact",
     ]);
