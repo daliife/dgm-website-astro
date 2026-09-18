@@ -35,16 +35,16 @@ export const ES: Record<I18nKey, string> = {
   "ui.page.contact": "Contacto",
 
   // ── SEO meta (SSR default locale strings for <title> / description) ───────
-  "ui.meta.portfolio": "Portfolio",
+  "ui.meta.portfolio": "Portafolio",
   "ui.meta.defaultDescription":
-    "Portfolio personal de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
+    "Portafolio personal de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
   "ui.meta.about.description":
     "Sobre David Gimeno Mañé — Desarrollador Frontend en Barcelona. Descubre mi historia, habilidades y trayectoria profesional.",
   "ui.meta.experience.description":
     "Experiencia profesional de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
   "ui.meta.projects.description":
-    "Portfolio de proyectos de desarrollo web de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
-  "ui.meta.projects.listName": "Portfolio de proyectos",
+    "Portafolio de proyectos de desarrollo web de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
+  "ui.meta.projects.listName": "Portafolio de proyectos",
   "ui.meta.contact.description":
     "Contacta con David Gimeno Mañé — Desarrollador Frontend en Barcelona. Trabajemos juntos.",
   "ui.meta.404.title": "404 — Página no encontrada",
@@ -54,7 +54,7 @@ export const ES: Record<I18nKey, string> = {
   "ui.projects.category.personal": "Personal",
   "ui.projects.category.academic": "Académico",
   "ui.projects.back": "Todos los proyectos",
-  "ui.projects.visit": "Visitar proyecto",
+  "ui.projects.visit": "Visita el proyecto",
   "ui.projects.github": "Ver en GitHub",
   "ui.projects.tech": "Tecnologías",
   "ui.projects.highlights": "Destacados",
@@ -102,7 +102,7 @@ export const ES: Record<I18nKey, string> = {
   "ui.footer.cycle.0": "amor ♥",
   "ui.footer.cycle.1": "Astro 🚀",
   "ui.footer.cycle.2": "IA ✦",
-  "ui.footer.network.email": "C. electrónico",
+  "ui.footer.network.email": "Correo",
   // ── Dates ──────────────────────────────────────────────────────────────────
   "ui.date.present": "Actualidad",
   // ── Privacy page ─────────────────────────────────────────────────────────────
@@ -127,7 +127,7 @@ export const ES: Record<I18nKey, string> = {
   "ui.privacy.notcollected.4": "Sin venta de datos a terceros",
   "ui.privacy.moreinfo": "Más detalles en",
   "ui.privacy.consent":
-    "Las analíticas solo se cargan si aceptas el banner. Si las rechazas, el sitio funciona igual sin cargar Umami.",
+    "Las analíticas solo se cargan si aceptas el banner. Si las rechazas, el sitio funciona igual, sin cargar Umami.",
 
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":
@@ -153,7 +153,7 @@ export const ES: Record<I18nKey, string> = {
   "work.0.highlights.1":
     "Componentes y widgets para Syntphony Learning Tech (PHP, Moodle, HTML, JavaScript).",
   "work.0.highlights.2":
-    "Funcionalidades en el portal de administración de Syntphony Immersive Experiences, incluyendo login OTP.",
+    "Funcionalidades en el portal de administración de Syntphony Immersive Experiences, incluido el acceso con OTP.",
   "work.0.highlights.3":
     "Versión web de Syntphony Immersive Experiences con WebGL y Unity.",
   "work.0.highlights.4":
@@ -186,7 +186,7 @@ export const ES: Record<I18nKey, string> = {
   "work.2.highlights.1":
     "Investigación y pruebas de concepto para el departamento Phygital.",
   "work.2.highlights.2":
-    "Apps de formación en VR con Unity para el proyecto USIX 2.0 en el sector industrial.",
+    "Aplicaciones de formación en RV con Unity para el proyecto USIX 2.0 en el sector industrial.",
   "work.2.highlights.3":
     "Configurador de coches Casa SEAT con Adobe Experience Manager (SEAT: CODE).",
 
@@ -196,7 +196,7 @@ export const ES: Record<I18nKey, string> = {
 
   "work.4.position": "Prácticas",
   "work.4.summary":
-    "App de VR (PhygitApp) para mostrar experiencias phygital en banca y atención al cliente.",
+    "App de RV (PhygitApp) para mostrar experiencias phygital en banca y atención al cliente.",
 
   "work.5.position": "Programador Multimedia",
   "work.5.summary":
@@ -223,11 +223,11 @@ export const ES: Record<I18nKey, string> = {
   "projects.0.description":
     "Consola meteorológica LCARS (TNG) para una estación en Cabacés",
   "projects.0.longDescription":
-    "El tiempo de una estación meteorológica de patio en Cabacés (Priorat), dibujado como un pupitre de operaciones LCARS de Star Trek TNG a pantalla completa. Condiciones en directo, previsión e histórico desde Weather Underground (con fallback a Open-Meteo), etiquetas en catalán, castellano e inglés, y unidades métricas o imperiales. Hecho como sitio estático con Astro, TypeScript y un marco LCARS a medida — un proyecto de fan, sin afiliación con Paramount ni Weather Underground.",
+    "El tiempo de una estación meteorológica de patio en Cabacés (Priorat), dibujado como un pupitre de operaciones LCARS de Star Trek TNG a pantalla completa. Condiciones en directo, previsión e histórico desde Weather Underground (con alternativa a Open-Meteo), etiquetas en catalán, castellano e inglés, y unidades métricas o imperiales. Hecho como sitio estático con Astro, TypeScript y un marco LCARS a medida — un proyecto de fan, sin afiliación con Paramount ni Weather Underground.",
   "projects.1.description":
     "Visualizador 3D interactivo de eclipses solares y lunares",
   "projects.1.longDescription":
-    "Visualizador 3D interactivo de eclipses solares y lunares. Distancias y tamaños usan una escala de aula por defecto para que la inclinación orbital de 5° de la Luna se vea bien, con un conmutador de escala real para las ratios reales. Hecho con React, TypeScript, Three.js y React Three Fiber, se abre en pausa en el eclipse solar total del 12 de agosto de 2026, con interfaz en inglés y catalán.",
+    "Visualizador 3D interactivo de eclipses solares y lunares. Distancias y tamaños usan una escala de aula por defecto para que la inclinación orbital de 5° de la Luna se vea bien, con un conmutador de escala real para las proporciones reales. Hecho con React, TypeScript, Three.js y React Three Fiber, arranca en pausa en el eclipse solar total del 12 de agosto de 2026, con interfaz en inglés y catalán.",
   "projects.2.description":
     "Web para un estudio de movimiento Seitai y katsugen",
   "projects.2.longDescription":
@@ -235,7 +235,7 @@ export const ES: Record<I18nKey, string> = {
   "projects.3.description":
     "App estática mobile-first para encontrar objetos de casa con espacios etiquetados con QR",
   "projects.3.longDescription":
-    "App web estática mobile-first para encontrar dónde tienes guardadas las cosas de casa. Pega un QR en armarios y cajoneras, escanea y busca por palabra clave con coincidencia fuzzy en el cliente. Hecha con Next.js, TypeScript y Tailwind CSS, con inventario en catalán e interfaz en catalán, castellano e inglés, desplegada como PWA estática en GitHub Pages.",
+    "App web estática mobile-first para encontrar dónde tienes guardadas las cosas de casa. Pega un QR en armarios y cajoneras, escanea y busca por palabra clave con coincidencia aproximada en el cliente. Hecha con Next.js, TypeScript y Tailwind CSS, con inventario en catalán e interfaz en catalán, castellano e inglés, desplegada como PWA estática en GitHub Pages.",
   "projects.4.description":
     "App de lectura rápida con la técnica Spritz (desarrollo guiado por especificaciones)",
   "projects.4.longDescription":
@@ -243,14 +243,15 @@ export const ES: Record<I18nKey, string> = {
   "projects.5.description":
     "Página interactiva con tres minijuegos en Canvas (SEAT)",
   "projects.5.longDescription":
-    "Experiencia interactiva de RFP para SEAT con Angular y Canvas. Los visitantes exploran una narrativa de marca a través de tres minijuegos que presentan ideas de propuesta en un formato jugable orientado al cliente, en lugar de un deck estático.",
+    "Experiencia interactiva de RFP para SEAT con Angular y Canvas. Los visitantes exploran una narrativa de marca a través de tres minijuegos que presentan ideas de propuesta en un formato jugable orientado al cliente, en lugar de una presentación estática.",
   "projects.6.description":
     "Página interactiva con una cronología de marca (SEAT)",
   "projects.6.longDescription":
     "Cronología interactiva de marca para SEAT que invita a viajar por coches icónicos y momentos históricos. Una interfaz Angular + TypeScript presenta la línea temporal como narrativa guiada, no como un archivo estático.",
-  "projects.7.description": "Landing page con un minijuego de cartas (Orange)",
+  "projects.7.description":
+    "Página promocional con un minijuego de cartas (Orange)",
   "projects.7.longDescription":
-    "Landing para Orange con un minijuego de cartas. Hecha con Angular, TypeScript y animaciones Lottie para convertir un pitch de RFP en una historia interactiva sobre servicios centrados en el usuario.",
+    "Página promocional para Orange con un minijuego de cartas. Hecha con Angular, TypeScript y animaciones Lottie para convertir una propuesta de RFP en una historia interactiva sobre servicios centrados en el usuario.",
   "projects.8.description":
     "App de recomendación de TV para Samsung Smart TV (Tizen Studio)",
   "projects.8.longDescription":
@@ -258,14 +259,14 @@ export const ES: Record<I18nKey, string> = {
   "projects.9.description":
     "Prototipo de videojuego desarrollado con Unreal Engine 4",
   "projects.9.longDescription":
-    "Prototipo académico de carreras con Unreal Engine 4 y sistemas de gameplay en C++. Se centra en el feeling del vehículo, el flujo de la pista y el HUD en un entorno de cañón sci-fi — un corte vertical, no un lanzamiento comercial completo.",
-  "projects.10.description": "Juego de palabras inspirado en Paraulògic",
+    "Prototipo académico de carreras con Unreal Engine 4 y sistemas de juego en C++. Se centra en la sensación del vehículo, el flujo de la pista y el HUD en un entorno de cañón de ciencia ficción — un corte vertical, no un lanzamiento comercial completo.",
+  "projects.10.description": "Juego de palabras inspirado en el Paraulògic",
   "projects.10.longDescription":
-    "Minijuego de palabras en el navegador inspirado en Paraulògic. Los jugadores forman palabras en catalán a partir de un juego hexagonal de letras, con mezcla, borrado y puntuación, hecho con HTML, CSS y JavaScript.",
+    "Minijuego de palabras en el navegador inspirado en el Paraulògic. Los jugadores forman palabras en catalán a partir de un juego hexagonal de letras, con mezcla, borrado y puntuación, hecho con HTML, CSS y JavaScript.",
   "projects.11.description":
-    "Versión anterior del portfolio desarrollada con Angular",
+    "Versión anterior del portafolio desarrollada con Angular",
   "projects.11.longDescription":
-    "Primer portfolio personal de larga duración, hecho con Angular, TypeScript y SCSS. Estableció el sistema de marca DGM y los patrones de narración de proyectos que después se refinaron en el sitio actual en Astro.",
+    "Primer portafolio personal de larga duración, hecho con Angular, TypeScript y SCSS. Estableció el sistema de marca DGM y los patrones de narración de proyectos que después se refinaron en el sitio actual en Astro.",
   "projects.12.description":
     "Minijuego hipercasual de minigolf desarrollado con Unity",
   "projects.12.longDescription":
@@ -302,7 +303,7 @@ export const ES: Record<I18nKey, string> = {
   "projects.3.highlights.0":
     "App estática mobile-first para encontrar objetos de casa",
   "projects.3.highlights.1":
-    "Códigos QR para los espacios y búsqueda fuzzy en el cliente",
+    "Códigos QR para los espacios y búsqueda aproximada en el cliente",
   "projects.3.highlights.2": "Next.js + TypeScript, desplegada en GitHub Pages",
   "projects.4.highlights.0":
     "App web de lectura rápida basada en la técnica Spritz (RSVP)",
@@ -318,7 +319,7 @@ export const ES: Record<I18nKey, string> = {
   "projects.6.highlights.2":
     "Navegación narrativa de momentos históricos de la marca",
   "projects.7.highlights.0":
-    "Experiencia de landing con un minijuego de cartas para Orange",
+    "Página promocional con un minijuego de cartas para Orange",
   "projects.7.highlights.1": "Angular y TypeScript con animaciones Lottie",
   "projects.7.highlights.2": "Demo orientada al cliente para un RFP",
   "projects.8.highlights.0":
@@ -328,7 +329,7 @@ export const ES: Record<I18nKey, string> = {
     "Proyecto académico centrado en la experiencia de salón",
   "projects.9.highlights.0":
     "Prototipo de videojuego de carreras con Unreal Engine 4",
-  "projects.9.highlights.1": "Gameplay y sistemas en C++",
+  "projects.9.highlights.1": "Mecánicas de juego y sistemas en C++",
   "projects.9.highlights.2":
     "Prototipo académico para explorar sensación de vehículo y ritmo de pista",
   "projects.10.highlights.0": "Juego de palabras inspirado en el Paraulògic",
@@ -336,7 +337,7 @@ export const ES: Record<I18nKey, string> = {
     "Implementación ligera con HTML, CSS y JavaScript",
   "projects.10.highlights.2": "Minijuego jugable en el navegador",
   "projects.11.highlights.0":
-    "Versión anterior del portfolio personal hecha con Angular",
+    "Versión anterior del portafolio personal hecha con Angular",
   "projects.11.highlights.1":
     "Arquitectura de componentes con TypeScript y SCSS",
   "projects.11.highlights.2": "Sustituida por el sitio actual en Astro",
@@ -389,7 +390,7 @@ export const ES: Record<I18nKey, string> = {
   // ── Certificates ──────────────────────────────────────────────────────────
   "certificates.0.name": "Certificado Cambridge de inglés avanzado (CAE)",
   "certificates.1.name": "CCNA Routing and Switching: Introducción a las redes",
-  "certificates.2.name": "ATC (3Ds Max)",
+  "certificates.2.name": "ATC (3ds Max)",
 
   // ── 404 page ───────────────────────────────────────────────────────────────
   "ui.404.message": "Página no encontrada",

@@ -338,13 +338,15 @@ const jsonLd = {
         background-size: 100% 1px;
       }
 
-      /* Scroll reveal — fade up on enter (minimal, no parallax) */
+      /* Scroll reveal — hide only after JS is ready so a script failure never blanks the page */
       .reveal {
-        opacity: 0;
-        transform: translateY(16px);
         transition:
           opacity 0.55s ease,
           transform 0.55s ease;
+      }
+      html.reveal-ready .reveal:not(.is-visible) {
+        opacity: 0;
+        transform: translateY(16px);
       }
       .reveal.is-visible {
         opacity: 1;
@@ -352,11 +354,14 @@ const jsonLd = {
       }
 
       .reveal-stagger > * {
-        opacity: 0;
-        transform: translateY(12px);
         transition:
           opacity 0.45s ease,
           transform 0.45s ease;
+      }
+
+      html.reveal-ready .reveal-stagger:not(.is-visible) > * {
+        opacity: 0;
+        transform: translateY(12px);
       }
 
       .reveal-stagger.is-visible > * {
@@ -438,6 +443,8 @@ const jsonLd = {
               el.classList.add("is-visible");
             }
           });
+
+        document.documentElement.classList.add("reveal-ready");
 
         revealObserver?.disconnect();
         revealObserver = new IntersectionObserver(
