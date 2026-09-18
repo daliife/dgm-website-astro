@@ -28,7 +28,7 @@ describe("Footer", () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Footer);
     expect(html).toContain('data-i18n="ui.footer.network.email"');
-    expect(html).toContain("C. electrònic");
+    expect(html).toContain("Correu");
     expect(html).not.toContain("Correu electrònic");
     expect(html).toContain("mailto:");
   });

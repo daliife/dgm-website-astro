@@ -102,7 +102,7 @@ export const CA: Record<I18nKey, string> = {
   "ui.footer.cycle.0": "amor ♥",
   "ui.footer.cycle.1": "Astro 🚀",
   "ui.footer.cycle.2": "IA ✦",
-  "ui.footer.network.email": "C. electrònic",
+  "ui.footer.network.email": "Correu",
   // ── Dates ──────────────────────────────────────────────────────────────────
   "ui.date.present": "Actualitat",
   // ── Privacy page ─────────────────────────────────────────────────────────────
@@ -127,7 +127,7 @@ export const CA: Record<I18nKey, string> = {
   "ui.privacy.notcollected.4": "Sense venda de dades a tercers",
   "ui.privacy.moreinfo": "Més detalls a",
   "ui.privacy.consent":
-    "Les analítiques només es carreguen si acceptes el bàner. Si les rebutges, el lloc funciona igual sense carregar Umami.",
+    "Les analítiques només es carreguen si acceptes el bàner. Si les rebutges, el lloc funciona igual, sense carregar Umami.",
 
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":
@@ -142,7 +142,7 @@ export const CA: Record<I18nKey, string> = {
   "basics.summary.0":
     "Desenvolupador frontend especialitzat en construir interfícies netes i cuidades — des de components reutilitzables fins als detalls que l'usuari percep. M'importa que les experiències funcionin bé i siguin un plaer d'utilitzar.",
   "basics.summary.1":
-    "M'adapto de pressa i mantinc la curiositat: segueixo les tendències del sector, les noves eines i com la IA està canviant la manera de desenvolupar.",
+    "M'adapto ràpidament i mantinc la curiositat: segueixo les tendències del sector, les noves eines i com la IA està canviant la manera de desenvolupar.",
   "basics.summary.2":
     "A banda del frontend, treballo amb Unity en projectes interactius i aporto coneixements de modelat 3D — una visió més àmplia que ajuda en productes digitals multidisciplinaris.",
 
@@ -153,7 +153,7 @@ export const CA: Record<I18nKey, string> = {
   "work.0.highlights.1":
     "Components i widgets per a Syntphony Learning Tech (PHP, Moodle, HTML, JavaScript).",
   "work.0.highlights.2":
-    "Funcionalitats al portal d'administració de Syntphony Immersive Experiences, incloent login OTP.",
+    "Funcionalitats al portal d'administració de Syntphony Immersive Experiences, incloent-hi l'accés amb OTP.",
   "work.0.highlights.3":
     "Versió web de Syntphony Immersive Experiences amb WebGL i Unity.",
   "work.0.highlights.4":
@@ -186,7 +186,7 @@ export const CA: Record<I18nKey, string> = {
   "work.2.highlights.1":
     "Investigació i proves de concepte per al departament Phygital.",
   "work.2.highlights.2":
-    "Apps de formació en VR amb Unity per al projecte USIX 2.0 al sector industrial.",
+    "Aplicacions de formació en RV amb Unity per al projecte USIX 2.0 al sector industrial.",
   "work.2.highlights.3":
     "Configurador de cotxes Casa SEAT amb Adobe Experience Manager (SEAT: CODE).",
 
@@ -196,7 +196,7 @@ export const CA: Record<I18nKey, string> = {
 
   "work.4.position": "Pràctiques",
   "work.4.summary":
-    "App de VR (PhygitApp) per mostrar experiències phygital en banca i atenció al client.",
+    "App de RV (PhygitApp) per mostrar experiències phygital en banca i atenció al client.",
 
   "work.5.position": "Programador Multimèdia",
   "work.5.summary":
@@ -220,18 +220,18 @@ export const CA: Record<I18nKey, string> = {
   "projects.0.description":
     "Consola meteorològica LCARS (TNG) per a una estació a Cabacés",
   "projects.0.longDescription":
-    "El temps d'una estació meteorològica de pati a Cabacés (Priorat), dibuixat com un pupitre d'operacions LCARS de Star Trek TNG a pantalla completa. Condicions en directe, previsió i històric des de Weather Underground (amb fallback a Open-Meteo), etiquetes en català, castellà i anglès, i unitats mètriques o imperials. Fet com a lloc estàtic amb Astro, TypeScript i un marc LCARS a mida — un projecte de fan, sense afiliació amb Paramount ni Weather Underground.",
+    "El temps d'una estació meteorològica de pati a Cabacés (Priorat), dibuixat com un pupitre d'operacions LCARS de Star Trek TNG a pantalla completa. Condicions en directe, previsió i històric des de Weather Underground (amb alternativa a Open-Meteo), etiquetes en català, castellà i anglès, i unitats mètriques o imperials. Fet com a lloc estàtic amb Astro, TypeScript i un marc LCARS a mida — un projecte de fan, sense afiliació amb Paramount ni Weather Underground.",
   "projects.1.description":
     "Visualitzador 3D interactiu d'eclipsis solars i lunars",
   "projects.1.longDescription":
-    "Visualitzador 3D interactiu d'eclipsis solars i lunars. Distàncies i mides usen una escala d'aula per defecte perquè la inclinació orbital de 5° de la Lluna es vegi bé, amb un commutador d'escala real per a les ràtios reals. Fet amb React, TypeScript, Three.js i React Three Fiber, s'obre en pausa a l'eclipsi solar total del 12 d'agost del 2026, amb interfície en anglès i català.",
+    "Visualitzador 3D interactiu d'eclipsis solars i lunars. Distàncies i mides usen una escala d'aula per defecte perquè la inclinació orbital de 5° de la Lluna es vegi bé, amb un commutador d'escala real per a les ràtios reals. Fet amb React, TypeScript, Three.js i React Three Fiber, arrenca en pausa a l'eclipsi solar total del 12 d'agost de 2026, amb interfície en anglès i català.",
   "projects.2.description": "Web per a un estudi de moviment Seitai i katsugen",
   "projects.2.longDescription":
     "Web de màrqueting per a Estudi Seitai, una pràctica de moviment Seitai i katsugen a Catalunya. Feta com a lloc estàtic ràpid amb Astro, TypeScript i Tailwind, presenta la pràctica, els estudis i el contacte en català, amb un to editorial calmat adequat a la marca.",
   "projects.3.description":
     "App estàtica mobile-first per trobar objectes de casa amb espais etiquetats amb QR",
   "projects.3.longDescription":
-    "App web estàtica mobile-first per trobar on tens guardades les coses de casa. Enganxa un QR a armaris i calaixeres, escaneja i cerca per paraula clau amb coincidència fuzzy al client. Feta amb Next.js, TypeScript i Tailwind CSS, amb inventari en català i interfície en català, castellà i anglès, desplegada com a PWA estàtica a GitHub Pages.",
+    "App web estàtica mobile-first per trobar on tens guardades les coses de casa. Enganxa un QR a armaris i calaixeres, escaneja i cerca per paraula clau amb coincidència aproximada al client. Feta amb Next.js, TypeScript i Tailwind CSS, amb inventari en català i interfície en català, castellà i anglès, desplegada com a PWA estàtica a GitHub Pages.",
   "projects.4.description":
     "App de lectura ràpida amb la tècnica Spritz (desenvolupament guiat per especificacions)",
   "projects.4.longDescription":
@@ -239,29 +239,30 @@ export const CA: Record<I18nKey, string> = {
   "projects.5.description":
     "Pàgina interactiva amb tres minijocs en Canvas (SEAT)",
   "projects.5.longDescription":
-    "Experiència interactiva d'RFP per a SEAT amb Angular i Canvas. Els visitants exploren una narrativa de marca a través de tres minijocs que presenten idees de proposta en un format jugable orientat al client, en lloc d'un deck estàtic.",
+    "Experiència interactiva d'RFP per a SEAT amb Angular i Canvas. Els visitants exploren una narrativa de marca a través de tres minijocs que presenten idees de proposta en un format jugable orientat al client, en lloc d'una presentació estàtica.",
   "projects.6.description":
     "Pàgina interactiva amb una cronologia de marca (SEAT)",
   "projects.6.longDescription":
     "Cronologia interactiva de marca per a SEAT que convida a viatjar per cotxes icònics i moments històrics. Una interfície Angular + TypeScript presenta la línia temporal com a narrativa guiada, no com un arxiu estàtic.",
-  "projects.7.description": "Landing page amb un minijoc de cartes (Orange)",
+  "projects.7.description":
+    "Pàgina promocional amb un minijoc de cartes (Orange)",
   "projects.7.longDescription":
-    "Landing per a Orange amb un minijoc de cartes. Feta amb Angular, TypeScript i animacions Lottie per convertir un pitch d'RFP en una història interactiva sobre serveis centrats en l'usuari.",
+    "Pàgina promocional per a Orange amb un minijoc de cartes. Feta amb Angular, TypeScript i animacions Lottie per convertir una proposta d'RFP en una història interactiva sobre serveis centrats en l'usuari.",
   "projects.8.description":
     "App de recomanació de TV per a Samsung Smart TV (Tizen Studio)",
   "projects.8.longDescription":
-    "Experiència de recomanació pensada per a Samsung Smart TV (Tizen). Una interfície JavaScript amicable amb el comandament ajuda a navegar col·leccions de pel·lícules i sèries pensades per al sofà.",
+    "Experiència de recomanació pensada per a Samsung Smart TV (Tizen). Una interfície en JavaScript pensada per al comandament ajuda a navegar col·leccions de pel·lícules i sèries pensades per al sofà.",
   "projects.9.description":
     "Prototip de videojoc desenvolupat amb Unreal Engine 4",
   "projects.9.longDescription":
-    "Prototip acadèmic de curses amb Unreal Engine 4 i sistemes de gameplay en C++. Es centra en el feeling del vehicle, el flux de la pista i el HUD en un entorn de canyó sci-fi — un tall vertical, no un llançament comercial complet.",
+    "Prototip acadèmic de curses amb Unreal Engine 4 i sistemes de joc en C++. Es centra en la sensació del vehicle, el flux de la pista i el HUD en un entorn de canyó de ciència-ficció — un tall vertical, no un llançament comercial complet.",
   "projects.10.description": "Joc de paraules inspirat en el Paraulògic",
   "projects.10.longDescription":
     "Minijoc de paraules al navegador inspirat en el Paraulògic. Els jugadors formen paraules en català a partir d'un joc hexagonal de lletres, amb barreja, esborrat i puntuació, fet amb HTML, CSS i JavaScript.",
   "projects.11.description":
-    "Versió anterior del portfolio desenvolupada amb Angular",
+    "Versió anterior del portafoli desenvolupada amb Angular",
   "projects.11.longDescription":
-    "Primer portfolio personal de llarga durada, fet amb Angular, TypeScript i SCSS. Va establir el sistema de marca DGM i els patrons de narració de projectes que després s'han refinat a l'actual lloc en Astro.",
+    "Primer portafoli personal de llarga durada, fet amb Angular, TypeScript i SCSS. Va establir el sistema de marca DGM i els patrons de narració de projectes que després s'han refinat a l'actual lloc en Astro.",
   "projects.12.description":
     "Minijoc hipercasual de minigolf desenvolupat amb Unity",
   "projects.12.longDescription":
@@ -297,7 +298,8 @@ export const CA: Record<I18nKey, string> = {
   "projects.2.highlights.2": "En producció a estudiseitai.cat",
   "projects.3.highlights.0":
     "App estàtica mobile-first per trobar objectes de casa",
-  "projects.3.highlights.1": "Codis QR per als espais i cerca fuzzy al client",
+  "projects.3.highlights.1":
+    "Codis QR per als espais i cerca aproximada al client",
   "projects.3.highlights.2": "Next.js + TypeScript, desplegada a GitHub Pages",
   "projects.4.highlights.0":
     "App web de lectura ràpida basada en la tècnica Spritz (RSVP)",
@@ -313,7 +315,7 @@ export const CA: Record<I18nKey, string> = {
   "projects.6.highlights.2":
     "Navegació narrativa de moments històrics de la marca",
   "projects.7.highlights.0":
-    "Experiència de landing amb un minijoc de cartes per a Orange",
+    "Pàgina promocional amb un minijoc de cartes per a Orange",
   "projects.7.highlights.1": "Angular i TypeScript amb animacions Lottie",
   "projects.7.highlights.2": "Demo orientada al client per a un RFP",
   "projects.8.highlights.0":
@@ -323,7 +325,7 @@ export const CA: Record<I18nKey, string> = {
     "Projecte acadèmic centrat en l'experiència de saló",
   "projects.9.highlights.0":
     "Prototip de videojoc de curses amb Unreal Engine 4",
-  "projects.9.highlights.1": "Gameplay i sistemes en C++",
+  "projects.9.highlights.1": "Mecàniques de joc i sistemes en C++",
   "projects.9.highlights.2":
     "Prototip acadèmic per explorar sensació de vehicle i ritme de pista",
   "projects.10.highlights.0": "Joc de paraules inspirat en el Paraulògic",
@@ -331,7 +333,7 @@ export const CA: Record<I18nKey, string> = {
     "Implementació lleugera amb HTML, CSS i JavaScript",
   "projects.10.highlights.2": "Minijoc jugable al navegador",
   "projects.11.highlights.0":
-    "Versió anterior del portfolio personal feta amb Angular",
+    "Versió anterior del portafoli personal feta amb Angular",
   "projects.11.highlights.1":
     "Arquitectura de components amb TypeScript i SCSS",
   "projects.11.highlights.2": "Substituïda per l'actual lloc en Astro",
@@ -384,7 +386,7 @@ export const CA: Record<I18nKey, string> = {
   // ── Certificates ──────────────────────────────────────────────────────────
   "certificates.0.name": "Certificat Cambridge d'anglès avançat (CAE)",
   "certificates.1.name": "CCNA Routing and Switching: Introducció a les xarxes",
-  "certificates.2.name": "ATC (3Ds Max)",
+  "certificates.2.name": "ATC (3ds Max)",
 
   // ── 404 page ───────────────────────────────────────────────────────────────
   "ui.404.message": "Pàgina no trobada",

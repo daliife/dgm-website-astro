@@ -16,8 +16,8 @@ export const EN = {
   "ui.home.typewriter.0": "FRONTEND DEVELOPER",
   "ui.home.typewriter.1": "SOFTWARE ENGINEER",
   "ui.home.typewriter.2": "REACT SPECIALIST",
-  "ui.home.typewriter.3": "CLARINETIST",
-  "ui.home.typewriter.4": "MOUNTAIN LOVER",
+  "ui.home.typewriter.3": "CLARINETTIST",
+  "ui.home.typewriter.4": "MOUNTAIN ENTHUSIAST",
   "ui.nextup": "Also explore",
   "ui.nextup.aria": "Related pages",
   "ui.nextup.about": "About me",
@@ -41,7 +41,7 @@ export const EN = {
     "Professional work experience of David Gimeno Mañé — Frontend Developer based in Barcelona.",
   "ui.meta.projects.description":
     "Portfolio of web development projects by David Gimeno Mañé — Frontend Developer based in Barcelona.",
-  "ui.meta.projects.listName": "Projects portfolio",
+  "ui.meta.projects.listName": "Project portfolio",
   "ui.meta.contact.description":
     "Contact David Gimeno Mañé — Frontend Developer based in Barcelona. Let’s work together.",
   "ui.meta.404.title": "404 — Page not found",
@@ -51,7 +51,7 @@ export const EN = {
   "ui.projects.category.personal": "Personal",
   "ui.projects.category.academic": "Academic",
   "ui.projects.back": "All projects",
-  "ui.projects.visit": "Visit project",
+  "ui.projects.visit": "Visit the project",
   "ui.projects.github": "View on GitHub",
   "ui.projects.tech": "Technologies",
   "ui.projects.highlights": "Highlights",
@@ -77,7 +77,7 @@ export const EN = {
   "ui.cookies.reject": "Reject",
 
   // ── Accessibility ──────────────────────────────────────────────────────────
-  "ui.a11y.opensNewTab": "(opens in new tab)",
+  "ui.a11y.opensNewTab": "(opens in a new tab)",
   "ui.a11y.cookieNotice": "Cookie notice",
   "ui.a11y.skipToContent": "Skip to main content",
   "ui.a11y.portraitOf": "Portrait of",
@@ -114,7 +114,7 @@ export const EN = {
   "ui.privacy.collected.3": "Device type (desktop / mobile / tablet)",
   "ui.privacy.collected.4": "Country (approximate, based on anonymised IP)",
   "ui.privacy.collected.5":
-    "Preferred site language and color theme (on visit and when changed)",
+    "Preferred site language and colour theme (on visit and when changed)",
   "ui.privacy.notcollected.title": "What we do NOT collect",
   "ui.privacy.notcollected.0": "No cookies or persistent identifiers",
   "ui.privacy.notcollected.1": "No personal data (name, email, etc.)",
@@ -123,11 +123,11 @@ export const EN = {
   "ui.privacy.notcollected.4": "No data sold to third parties",
   "ui.privacy.moreinfo": "More details at",
   "ui.privacy.consent":
-    "Analytics only load if you accept the banner. If you reject, the site works the same without loading Umami.",
+    "Analytics only load if you accept the banner. If you decline, the site works just the same without loading Umami.",
 
   // ── Contact ────────────────────────────────────────────────────────────────
   "ui.contact.intro":
-    "Open to new projects and collaborations. Drop me a line — I typically reply within 24 hours.",
+    "Open to new projects and collaborations. Write whenever you like — I usually reply within 24 hours.",
   "ui.contact.network.email": "Email",
   "ui.contact.network.linkedin": "LinkedIn",
   "ui.contact.network.github": "GitHub",
@@ -136,7 +136,7 @@ export const EN = {
   "basics.label": "Frontend Developer",
   "basics.location": "Barcelona · Catalonia",
   "basics.summary.0":
-    "Frontend developer focused on building clean, thoughtful interfaces — from reusable components to the details users notice. I care that experiences work well and feel good to use.",
+    "Frontend developer focused on building clean, thoughtful interfaces — from reusable components to the details users notice. I care that the experience works well and feels good to use.",
   "basics.summary.1":
     "I adapt quickly and stay curious: I follow industry trends, new tools, and how AI is changing the way we build software.",
   "basics.summary.2":
@@ -234,7 +234,7 @@ export const EN = {
   "projects.5.description":
     "Interactive page with three Canvas minigames (SEAT)",
   "projects.5.longDescription":
-    "Interactive RFP experience for SEAT built with Angular and Canvas. Visitors explore a branded narrative through three mini-games that showcase proposal ideas in a playful, client-facing format rather than a static slide deck.",
+    "Interactive RFP experience for SEAT built with Angular and Canvas. Visitors explore a branded narrative through three minigames that showcase proposal ideas in a playful, client-facing format rather than a static slide deck.",
   "projects.6.description":
     "Interactive page with a brand chronology timeline (SEAT)",
   "projects.6.longDescription":
@@ -262,7 +262,7 @@ export const EN = {
   "projects.13.description":
     "Site to explore instrument families, built with Angular",
   "projects.13.longDescription":
-    "Catalan catalogue for exploring musical instrument families. An Angular front end presents instrument cards with expandable detail panels for descriptions, links and media.",
+    "Catalan catalogue for exploring musical instrument families. An Angular frontend presents instrument cards with expandable detail panels for descriptions, links and media.",
   "projects.14.description": "Filterable element grid using Isotope (Endesa)",
   "projects.14.longDescription":
     "Filterable element grid delivered for Endesa using Isotope, jQuery and Handlebars. Visitors sort and browse colour-coded values in a dense interactive board built for client demos.",
@@ -366,7 +366,7 @@ export const EN = {
   // ── Certificates ───────────────────────────────────────────────────────────
   "certificates.0.name": "Cambridge Certificate in Advanced English (CAE)",
   "certificates.1.name": "CCNA Routing and Switching: Introduction to Networks",
-  "certificates.2.name": "ATC (3Ds Max)",
+  "certificates.2.name": "ATC (3ds Max)",
 
   // ── 404 page ───────────────────────────────────────────────────────────────
   "ui.404.message": "Page not found",
