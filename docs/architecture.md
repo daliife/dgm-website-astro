@@ -161,7 +161,7 @@ The Latin woff2 is preloaded via `<link rel="preload">` in `Layout.astro` to eli
 
 Route changes use Astro `<ClientRouter />` with a crossfade on `<main>` (`fade({ duration: "0.28s" })`) and eased view-transition groups in global CSS. Header and cookie banner persist (`transition:persist`). No shared-element project image morph (avoids flash between list and detail).
 
-Scroll reveal: add `class="reveal"` or `reveal-stagger` (see `REVEAL_STAGGER_LIST_CLASSES` in `constants.ts`). An `IntersectionObserver` in `Layout.astro` toggles `.is-visible` on `astro:page-load`. Respects `prefers-reduced-motion`.
+Scroll reveal: add `class="reveal"` or `reveal-stagger` (see `REVEAL_STAGGER_LIST_CLASSES` in `constants.ts`). Content stays visible until JS adds `html.reveal-ready`, then an `IntersectionObserver` in `Layout.astro` toggles `.is-visible` on `astro:page-load`. Respects `prefers-reduced-motion`.
 
 ---
 

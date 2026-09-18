@@ -84,4 +84,13 @@ describe("Header", () => {
 
     expect(html).toContain("data-theme-toggle");
   });
+
+  it("keeps a transparent bottom border so scroll does not flash a default white line", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Header);
+
+    expect(html).toContain("border-b border-transparent");
+    expect(html).toContain("data-[scrolled]:border-border-primary");
+    expect(html).toContain("data-[scrolled]:bg-bg-primary/80");
+  });
 });
