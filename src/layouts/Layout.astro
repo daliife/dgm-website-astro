@@ -211,6 +211,12 @@ const jsonLd = {
     <CookieConsent />
     <style is:global>
       :root {
+        /* Motion tokens — mirrored in tailwind.config.mjs (ease-out-expo, duration-*) */
+        --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+        --duration-fast: 160ms;
+        --duration-base: 280ms;
+        --duration-slow: 450ms;
+
         --text-primary: 23 23 23;
         --text-secondary: 64 64 64;
         --text-muted: 110 110 110;
@@ -223,6 +229,8 @@ const jsonLd = {
         --border-primary: 229 229 229;
         --border-secondary: 212 212 212;
         --border-muted: 163 163 163;
+
+        --status-positive: 22 163 74;
       }
 
       .dark {
@@ -238,6 +246,8 @@ const jsonLd = {
         --border-primary: 38 38 38;
         --border-secondary: 64 64 64;
         --border-muted: 115 115 115;
+
+        --status-positive: 74 222 128;
       }
 
       html {
@@ -338,11 +348,27 @@ const jsonLd = {
         background-size: 100% 1px;
       }
 
+      /* Trailing arrow that nudges forward when its link/card is hovered */
+      .arrow-nudge {
+        display: inline-block;
+        transition: transform var(--duration-base) var(--ease-out-expo);
+      }
+      @media (hover: hover) {
+        .group:hover .arrow-nudge,
+        a:hover .arrow-nudge {
+          transform: translateX(4px);
+        }
+        .group:hover .arrow-nudge--external,
+        a:hover .arrow-nudge--external {
+          transform: translate(3px, -3px);
+        }
+      }
+
       /* Scroll reveal — hide only after JS is ready so a script failure never blanks the page */
       .reveal {
         transition:
-          opacity 0.55s ease,
-          transform 0.55s ease;
+          opacity 0.55s var(--ease-out-expo),
+          transform 0.55s var(--ease-out-expo);
       }
       html.reveal-ready .reveal:not(.is-visible) {
         opacity: 0;
@@ -355,8 +381,8 @@ const jsonLd = {
 
       .reveal-stagger > * {
         transition:
-          opacity 0.45s ease,
-          transform 0.45s ease;
+          opacity 0.45s var(--ease-out-expo),
+          transform 0.45s var(--ease-out-expo);
       }
 
       html.reveal-ready .reveal-stagger:not(.is-visible) > * {
