@@ -75,6 +75,21 @@ describe("ProjectCard", () => {
     expect(html).toContain("data-use-fallback");
   });
 
+  it("serves responsive 16:10 variants and a shared morph name for generated images", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(ProjectCard, {
+      props: {
+        project: { ...baseProject, image: "/projects/test.webp" },
+        projectIndex: 0,
+        slug: "my-project",
+      },
+    });
+
+    expect(html).toContain('src="/projects/test-640.webp"');
+    expect(html).toContain("/projects/test-1280.webp 1280w");
+    expect(html).toMatch(/<img[^>]*data-astro-transition-scope=/);
+  });
+
   it("uses eager loading and fetchpriority when priority is true", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {

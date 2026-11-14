@@ -60,6 +60,18 @@ export const PROJECTS_CATEGORY_HEADING_CLASSES =
 /** Project screenshots — crop only, no frame border. */
 export const CARD_FRAME_CLASSES = "overflow-hidden";
 
+/** Screenshot frame: hairline drawn above the image so dark screenshots keep an edge. */
+export const CARD_MEDIA_FRAME_CLASSES =
+  "relative bg-bg-muted after:pointer-events-none after:absolute after:inset-0 after:ring-1 after:ring-inset after:ring-border-primary after:content-['']";
+
+/** Card screenshot hover: slightly muted at rest on pointer devices, full colour + slow zoom on hover. */
+export const CARD_MEDIA_HOVER_CLASSES =
+  "transition-[transform,filter] duration-slow ease-out-expo [@media(hover:hover)]:saturate-[.8] [@media(hover:hover)]:group-hover:scale-[1.03] [@media(hover:hover)]:group-hover:saturate-100";
+
+/** Projects page: two-column card grid. */
+export const PROJECT_GRID_CLASSES =
+  "grid list-none grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2";
+
 /** Shared home hero CTA: animated underline on hover (both actions). */
 const HOME_CTA_BASE_CLASSES =
   "gap-2 w-fit rounded-none pb-1 text-sm uppercase tracking-widest link-underline-animate transition-colors duration-200 hover:no-underline";

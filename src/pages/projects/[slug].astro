@@ -21,6 +21,8 @@ import {
   findProjectBySlug,
   getAdjacentProjects,
   getProjectEntries,
+  getProjectImageSet,
+  getProjectTransitionName,
   isGitHubRepoUrl,
 } from "../../utils/projects";
 import { getPageTitle } from "../../utils/seo";
@@ -64,6 +66,7 @@ const visitHref =
     : undefined;
 
 const ogImage = project.image ? `${LIVE_URL}${project.image}` : undefined;
+const heroImage = getProjectImageSet(project.image);
 const hasHighlights = Boolean(project.highlights?.length);
 const hasTech = Boolean(project.technologies?.length);
 
@@ -129,9 +132,9 @@ const creativeWorkSchema = {
       </ol>
     </nav>
 
-    <!-- Intro: meta → title → lead → stack → actions -->
+    <!-- Intro: meta → title → screenshot → lead → stack → actions -->
     <div class="mb-10">
-      <header class="reveal max-w-3xl">
+      <div class="reveal max-w-3xl">
         <div
           class="mb-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs uppercase tracking-widest text-text-muted"
         >
@@ -155,28 +158,47 @@ const creativeWorkSchema = {
         </div>
 
         <h1
-          class="mb-5 text-4xl font-bold uppercase tracking-tight text-text-primary sm:text-5xl"
+          class="mb-8 text-4xl font-bold uppercase tracking-tight text-text-primary sm:text-5xl"
         >
           {project.name}
         </h1>
+      </div>
 
-        {
-          project.image && (
-            <figure class={`${CARD_FRAME_CLASSES} mb-6 w-full`}>
+      {
+        project.image && (
+          <figure class="mb-10 overflow-hidden rounded-md bg-bg-secondary ring-1 ring-border-primary">
+            <div
+              class="flex h-7 items-center gap-1.5 border-b border-border-primary px-3"
+              aria-hidden="true"
+            >
+              <span class="h-2 w-2 rounded-full bg-border-secondary" />
+              <span class="h-2 w-2 rounded-full bg-border-secondary" />
+              <span class="h-2 w-2 rounded-full bg-border-secondary" />
+            </div>
+            <div class={`${CARD_FRAME_CLASSES} aspect-[16/10] bg-bg-muted`}>
               <img
-                src={project.image}
+                src={heroImage?.src ?? project.image}
+                srcset={heroImage?.srcset}
+                sizes={
+                  heroImage
+                    ? "(min-width: 1024px) 976px, calc(100vw - 3rem)"
+                    : undefined
+                }
                 alt={project.name}
-                class="aspect-[3/2] h-auto w-full object-cover"
-                width="480"
-                height="320"
+                class="h-full w-full object-cover"
+                width="1280"
+                height="800"
                 loading="eager"
                 fetchpriority="high"
                 decoding="async"
+                transition:name={getProjectTransitionName(slug)}
               />
-            </figure>
-          )
-        }
+            </div>
+          </figure>
+        )
+      }
 
+      <div class="reveal max-w-3xl">
         <p
           class="text-base leading-relaxed text-text-secondary sm:text-lg"
           data-i18n={longDescriptionKey}
@@ -252,7 +274,7 @@ const creativeWorkSchema = {
             </div>
           )
         }
-      </header>
+      </div>
     </div>
 
     <!-- Highlights -->

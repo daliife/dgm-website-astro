@@ -2,8 +2,17 @@
 import type { ProjectEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
 import { t } from "../../utils/i18n";
-import { CARD_FRAME_CLASSES, WORK_DATES_CLASSES } from "../../utils/constants";
+import {
+  CARD_FRAME_CLASSES,
+  CARD_MEDIA_FRAME_CLASSES,
+  CARD_MEDIA_HOVER_CLASSES,
+  WORK_DATES_CLASSES,
+} from "../../utils/constants";
 import { pageHref } from "../../utils/url";
+import {
+  getProjectImageSet,
+  getProjectTransitionName,
+} from "../../utils/projects";
 import WorkDates from "./WorkDates.astro";
 
 interface Props {
@@ -16,34 +25,36 @@ interface Props {
 const { project, projectIndex, slug, priority = false } = Astro.props;
 const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
 const detailHref = pageHref("projects", slug);
+const imageSet = getProjectImageSet(project.image);
 ---
 
-<article
-  class="group border-t border-border-primary py-6 md:py-8"
-  aria-labelledby={`project-${projectIndex}-title`}
->
-  <a
-    href={detailHref}
-    class="flex min-w-0 flex-row items-start gap-5 sm:gap-10"
-  >
+<article class="group h-full" aria-labelledby={`project-${projectIndex}-title`}>
+  <a href={detailHref} class="flex h-full min-w-0 flex-col">
     <div
-      class={`${CARD_FRAME_CLASSES} relative h-24 w-24 shrink-0 sm:h-32 sm:w-48`}
+      class={`${CARD_FRAME_CLASSES} ${CARD_MEDIA_FRAME_CLASSES} aspect-[16/10] w-full`}
     >
       {
         project.image ? (
           <img
-            src={project.image}
+            src={imageSet?.src ?? project.image}
+            srcset={imageSet?.srcset}
+            sizes={
+              imageSet
+                ? "(min-width: 1024px) 464px, (min-width: 640px) calc(50vw - 3rem), calc(100vw - 3rem)"
+                : undefined
+            }
             alt={project.name}
-            class="h-full w-full object-cover transition-[transform,filter] duration-300 ease-out [@media(hover:hover)]:group-hover:scale-[1.03] [@media(hover:hover)]:group-hover:grayscale"
+            class={`h-full w-full object-cover ${CARD_MEDIA_HOVER_CLASSES}`}
             loading={priority ? "eager" : "lazy"}
             decoding="async"
-            width="192"
-            height="128"
+            width="640"
+            height="400"
             {...(priority ? { fetchpriority: "high" } : {})}
+            transition:name={getProjectTransitionName(slug)}
             data-use-fallback
           />
         ) : (
-          <div class="flex h-full w-full items-center justify-center bg-bg-muted text-text-muted transition-transform duration-300 ease-out [@media(hover:hover)]:group-hover:scale-[1.03]">
+          <div class="flex h-full w-full items-center justify-center text-text-muted">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="32"
@@ -64,35 +75,41 @@ const detailHref = pageHref("projects", slug);
         )
       }
     </div>
-    <div class="flex min-w-0 flex-1 flex-col gap-2">
+    <div class="mt-5 flex min-w-0 flex-1 flex-col gap-2">
       <div
-        class="flex min-w-0 flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between sm:gap-4"
+        class="flex min-w-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
       >
-        <h3
-          id={`project-${projectIndex}-title`}
-          class="link-underline-animate w-fit max-w-full text-xl font-semibold text-text-primary sm:text-2xl"
-        >
-          {project.name}
-        </h3>
+        <div class="flex items-baseline gap-2">
+          <h3
+            id={`project-${projectIndex}-title`}
+            class="link-underline-animate text-lg font-semibold text-text-primary sm:text-xl"
+          >
+            {project.name}
+          </h3>
+          <span
+            class="arrow-nudge text-text-muted transition-colors group-hover:text-text-primary"
+            aria-hidden="true">→</span
+          >
+        </div>
         {
           project.startDate && (
             <WorkDates
               startDate={project.startDate}
               endDate={project.endDate}
-              className={`${WORK_DATES_CLASSES} shrink-0 sm:text-right`}
+              className={`${WORK_DATES_CLASSES} shrink-0`}
             />
           )
         }
       </div>
       <p
-        class="text-sm leading-relaxed text-text-secondary sm:text-base"
+        class="text-sm leading-relaxed text-text-secondary"
         data-i18n={descriptionKey}
       >
         {t(descriptionKey, project.description)}
       </p>
       {
         project.technologies && project.technologies.length > 0 && (
-          <p class="text-pretty text-xs uppercase leading-relaxed tracking-widest text-text-muted">
+          <p class="mt-auto text-pretty pt-1 text-xs uppercase leading-relaxed tracking-widest text-text-muted">
             {project.technologies.join(" · ")}
           </p>
         )
