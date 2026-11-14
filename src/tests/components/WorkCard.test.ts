@@ -101,9 +101,6 @@ describe("WorkCard", () => {
     });
 
     expect(html).toContain("timeline-rail");
-    expect(html).toContain("data-timeline-item");
-    expect(html).toContain("data-timeline-fill");
-    expect(html).toContain("data-timeline-marker");
     expect(html).toMatch(/>\s*AC\s*</);
     expect(html).not.toContain("bg-status-positive");
   });

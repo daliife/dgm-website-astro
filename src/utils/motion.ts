@@ -10,10 +10,6 @@ export function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
 
-export function clamp(value: number, min: number, max: number): number {
-  return Math.min(max, Math.max(min, value));
-}
-
 /**
  * AbortController that aborts on the next View Transitions swap, so listeners
  * bound on `astro:page-load` never leak across pages.

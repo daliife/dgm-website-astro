@@ -4,7 +4,6 @@ import {
   CONTENT_LIST_CLASSES,
   TIMELINE_ITEM_CLASSES,
   TIMELINE_RAIL_CLASSES,
-  TIMELINE_RAIL_FILL_CLASSES,
   WORK_COMPANY_LINK_CLASSES,
   WORK_DATES_CLASSES,
 } from "../../utils/constants";
@@ -27,10 +26,8 @@ const hasHighlights = highlights.length > 0;
 const hasList = hasSummary || hasHighlights;
 ---
 
-<article class={`${TIMELINE_ITEM_CLASSES} pb-12`} data-timeline-item>
-  <span class={TIMELINE_RAIL_CLASSES} aria-hidden="true">
-    <span class={TIMELINE_RAIL_FILL_CLASSES} data-timeline-fill></span>
-  </span>
+<article class={`${TIMELINE_ITEM_CLASSES} pb-12`}>
+  <span class={TIMELINE_RAIL_CLASSES} aria-hidden="true"></span>
   <TimelineMarker
     name={job.company}
     logo={job.logo}
