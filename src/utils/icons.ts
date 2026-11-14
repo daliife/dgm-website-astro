@@ -32,14 +32,20 @@ export const TIMELINE_ICONS = {
 
 export type TimelineIcon = keyof typeof TIMELINE_ICONS;
 
-/** Things about David riding on the home hero sphere (24×24 stroke paths). */
+/**
+ * Home hero orbit icons (24×24 stroke paths), one per rotating hero phrase in
+ * `TYPEWRITER_KEYS` order.
+ */
 export const HERO_ICONS = [
+  // Frontend developer
   TIMELINE_ICONS.code,
-  TIMELINE_ICONS.cube,
+  // Software engineer: stacked layers
+  "M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3",
+  // React specialist: atom
+  "M22 12A10 4 0 1 0 2 12 10 4 0 1 0 22 12ZM17 20.66A10 4 60 1 0 7 3.34 10 4 60 1 0 17 20.66ZM7 20.66A10 4 120 1 0 17 3.34 10 4 120 1 0 7 20.66ZM13.5 12a1.5 1.5 0 1 1-3 0 1.5 1.5 0 1 1 3 0Z",
+  // Clarinettist
   TIMELINE_ICONS.audio,
-  TIMELINE_ICONS.game,
-  TIMELINE_ICONS.teach,
-  // Mountain with a snow line.
+  // Mountain enthusiast: peak with a snow line
   "M2.25 19.5 9 7.5l3.75 6.75 2.25-3.75 6.75 9H2.25Zm4.5-8 2.25 1.5 2.25-1.5",
 ] as const;
 

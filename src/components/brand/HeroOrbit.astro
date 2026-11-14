@@ -1,0 +1,50 @@
+<div
+  class="pointer-events-none absolute inset-0 mx-auto hidden max-w-6xl md:block print:hidden"
+  aria-hidden="true"
+>
+  <canvas
+    class="hero-orbit absolute right-0 top-1/2 aspect-square w-[min(34vw,420px)] -translate-y-1/2 text-text-primary"
+    data-hero-orbit></canvas>
+</div>
+
+<style>
+  .hero-orbit {
+    animation: hero-orbit-in 2s var(--ease-out-expo) 0.4s both;
+  }
+
+  @keyframes hero-orbit-in {
+    from {
+      opacity: 0;
+      transform: translateY(-50%) scale(0.94);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-orbit {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { HERO_ICONS } from "../../utils/icons";
+  import { pageScopedController } from "../../utils/motion";
+  import { mountOrbit } from "../../utils/orbit";
+
+  document.addEventListener("astro:page-load", () => {
+    const canvas =
+      document.querySelector<HTMLCanvasElement>("[data-hero-orbit]");
+    if (!canvas) return;
+    const orbit = mountOrbit(canvas, { icons: HERO_ICONS });
+    if (!orbit) return;
+
+    const { signal } = pageScopedController();
+    window.addEventListener(
+      "app:hero-phrase",
+      (e: Event) => {
+        orbit.setActive((e as CustomEvent<{ index: number }>).detail.index);
+      },
+      { signal },
+    );
+  });
+</script>

@@ -4,7 +4,7 @@ import Button from "../components/ui/Button.astro";
 import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
 import ProjectCard from "../components/sections/ProjectCard.astro";
-import HeroWireframe from "../components/brand/HeroWireframe.astro";
+import HeroOrbit from "../components/brand/HeroOrbit.astro";
 import {
   EDITORIAL_LINK_SM_CLASSES,
   HOME_CTA_PRIMARY_CLASSES,
@@ -22,7 +22,7 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
   <section
     class="relative flex min-h-[70svh] flex-col items-center justify-center px-6 pt-16 md:min-h-[72svh]"
   >
-    <HeroWireframe />
+    <HeroOrbit />
     <div class="home-enter relative w-full max-w-4xl">
       <!-- Greeting -->
       <p
@@ -40,7 +40,7 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
         <span class="block font-light">{lastName}</span>
       </h1>
 
-      <!-- Rotating descriptor: phrases roll up like the footer cycle -->
+      <!-- Rotating descriptor: phrases roll up; the hero orbit follows along -->
       <p
         class="home-enter__item mb-10 flex min-h-[2.75em] text-2xl font-light uppercase tracking-widest text-text-secondary max-sm:text-xl sm:min-h-[1.5em] sm:items-center sm:whitespace-nowrap sm:text-3xl"
       >
@@ -207,6 +207,13 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
 
   let stopCurrent: (() => void) | null = null;
 
+  /** Lets the hero orbit light up the icon for the current phrase. */
+  function announcePhrase(index: number) {
+    window.dispatchEvent(
+      new CustomEvent("app:hero-phrase", { detail: { index } }),
+    );
+  }
+
   function word(text: string) {
     const span = document.createElement("span");
     span.textContent = text;
@@ -248,12 +255,14 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
 
     const phrases = await getTypewriterPhrases(lang);
     slot.replaceChildren(word(phrases[0]));
+    announcePhrase(0);
     if (prefersReducedMotion()) return;
 
     let index = 0;
     const next = () => {
       index = (index + 1) % phrases.length;
       roll(slot, phrases[index]);
+      announcePhrase(index);
       timer = window.setTimeout(next, HOLD_MS);
     };
     timer = window.setTimeout(next, HOLD_MS);
