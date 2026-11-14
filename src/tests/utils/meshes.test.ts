@@ -3,6 +3,7 @@ import type { Mesh } from "../../utils/geodesic";
 import {
   createAtom,
   createMountains,
+  createPaperPlane,
   createSoundWave,
   createTesseract,
 } from "../../utils/meshes";
@@ -31,6 +32,7 @@ describe("hero meshes", () => {
     ["atom", createAtom()],
     ["sound wave", createSoundWave()],
     ["mountains", createMountains()],
+    ["paper plane", createPaperPlane()],
   ])("%s has valid edges and fits the unit cube", (_, mesh) => {
     expectValid(mesh);
   });

@@ -8,16 +8,16 @@ export interface WireframeShape {
   edgeAlpha?: { back: number; front: number };
   /** Draw a dot on every vertex (good for sparse meshes). */
   vertexDots?: boolean;
-  /** A pulsing point on the surface, e.g. a location on a globe. */
-  marker?: Vec3;
 }
 
 export interface WireframeOptions {
   shape: WireframeShape;
-  /** Seconds per full turn. */
+  /** Seconds per full turn (or per sway cycle). */
   turnSeconds?: number;
   /** Starting yaw in radians. */
   yaw?: number;
+  /** Swing ±`sway` radians around `yaw` and bob gently instead of spinning. */
+  sway?: number;
   /** Fraction of the canvas the unit sphere radius fills. */
   radius?: number;
 }
@@ -25,11 +25,14 @@ export interface WireframeOptions {
 export interface WireframeController {
   /** Cross-fade to another shape. */
   setShape(shape: WireframeShape): void;
+  /** Fly off along +x (the mesh's nose) and glide back in from behind. */
+  fly(): void;
 }
 
 const CAMERA = 3.2;
-const PULSE_MS = 2400;
 const MORPH_MS = 900;
+const FLIGHT_MS = 1600;
+const FLIGHT_OUT = 0.5;
 const STILL_TIME = 9_000;
 const DEFAULT_TILT = 0.42;
 const DEFAULT_EDGE_ALPHA = { back: 0.05, front: 0.32 };
@@ -56,6 +59,7 @@ export function mountWireframe(
     turnSeconds = 60,
     yaw: startYaw = 0,
     radius: radiusFraction = 0.42,
+    sway,
   }: WireframeOptions,
 ): WireframeController | null {
   const ctx = canvas.getContext("2d");
@@ -70,6 +74,7 @@ export function mountWireframe(
   let current = shape;
   let previous: WireframeShape | null = null;
   let morphStart = 0;
+  let flightStart: number | null = null;
 
   const resize = () => {
     const dpr = window.devicePixelRatio || 1;
@@ -84,22 +89,24 @@ export function mountWireframe(
       tilt = DEFAULT_TILT,
       edgeAlpha = DEFAULT_EDGE_ALPHA,
       vertexDots,
-      marker,
     }: WireframeShape,
     time: number,
     opacity: number,
     scale: number,
+    [ox, oy, oz]: Vec3 = [0, 0, 0],
   ) => {
-    const yaw = startYaw + time * spin;
-    const pitch = tilt + Math.sin(time * spin * 0.7) * 0.08;
+    const phase = time * spin;
+    const yaw =
+      sway === undefined ? startYaw + phase : startYaw + Math.sin(phase) * sway;
+    const pitch = tilt + Math.sin(phase * 0.7) * 0.08;
     const radius = size * radiusFraction * scale;
     const centre = size / 2;
-    const project = (v: Vec3) => {
-      const [x, y, z] = rotate(v, yaw, pitch);
+    const bob = sway === undefined ? 0 : Math.sin(phase * 2) * size * 0.015;
+    const projected = mesh.vertices.map(([vx, vy, vz]) => {
+      const [x, y, z] = rotate([vx + ox, vy + oy, vz + oz], yaw, pitch);
       const s = radius * (CAMERA / (CAMERA - z));
-      return { x: centre + x * s, y: centre + y * s, z };
-    };
-    const projected = mesh.vertices.map(project);
+      return { x: centre + x * s, y: centre + y * s + bob, z };
+    });
 
     for (const [a, b] of mesh.edges) {
       const p = projected[a];
@@ -123,22 +130,6 @@ export function mountWireframe(
         ctx.fill();
       }
     }
-
-    if (marker) {
-      const m = project(marker);
-      const facing = Math.max(0, Math.min(1, (m.z + 0.15) / 0.5));
-      if (facing > 0) {
-        const pulse = (time % PULSE_MS) / PULSE_MS;
-        ctx.globalAlpha = opacity * facing * 0.5 * (1 - pulse);
-        ctx.beginPath();
-        ctx.arc(m.x, m.y, 2.5 + pulse * 12, 0, Math.PI * 2);
-        ctx.stroke();
-        ctx.globalAlpha = opacity * facing * 0.9;
-        ctx.beginPath();
-        ctx.arc(m.x, m.y, 2.5, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
   };
 
   const draw = (time: number) => {
@@ -152,7 +143,23 @@ export function mountWireframe(
       drawShape(previous, time, 1 - eased, 1 - 0.12 * eased);
       if (progress >= 1) previous = null;
     }
-    drawShape(current, time, eased, 0.88 + 0.12 * eased);
+    if (flightStart !== null) {
+      const t = Math.min(1, (time - flightStart) / FLIGHT_MS);
+      if (t < FLIGHT_OUT) {
+        const p = (t / FLIGHT_OUT) ** 2;
+        drawShape(current, time, eased * (1 - p), 1, [p * 2.6, -p * 0.5, 0]);
+      } else {
+        const q = 1 - (1 - (t - FLIGHT_OUT) / (1 - FLIGHT_OUT)) ** 3;
+        drawShape(current, time, eased * q, 0.88 + 0.12 * q, [
+          -(1 - q) * 0.8,
+          0,
+          0,
+        ]);
+      }
+      if (t >= 1) flightStart = null;
+    } else {
+      drawShape(current, time, eased, 0.88 + 0.12 * eased);
+    }
     ctx.globalAlpha = 1;
   };
 
@@ -172,6 +179,9 @@ export function mountWireframe(
       previous = current;
       current = next;
       morphStart = performance.now();
+    },
+    fly() {
+      if (!reduced && flightStart === null) flightStart = performance.now();
     },
   };
 
