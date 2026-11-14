@@ -20,9 +20,17 @@ interface Props {
   projectIndex: number;
   slug: string;
   priority?: boolean;
+  /** `sizes` for the screenshot; defaults to the two-column projects grid. */
+  sizes?: string;
 }
 
-const { project, projectIndex, slug, priority = false } = Astro.props;
+const {
+  project,
+  projectIndex,
+  slug,
+  priority = false,
+  sizes = "(min-width: 1024px) 464px, (min-width: 640px) calc(50vw - 3rem), calc(100vw - 3rem)",
+} = Astro.props;
 const descriptionKey = `projects.${projectIndex}.description` as I18nKey;
 const detailHref = pageHref("projects", slug);
 const imageSet = getProjectImageSet(project.image);
@@ -38,11 +46,7 @@ const imageSet = getProjectImageSet(project.image);
           <img
             src={imageSet?.src ?? project.image}
             srcset={imageSet?.srcset}
-            sizes={
-              imageSet
-                ? "(min-width: 1024px) 464px, (min-width: 640px) calc(50vw - 3rem), calc(100vw - 3rem)"
-                : undefined
-            }
+            sizes={imageSet ? sizes : undefined}
             alt={project.name}
             class={`h-full w-full object-cover ${CARD_MEDIA_HOVER_CLASSES}`}
             loading={priority ? "eager" : "lazy"}

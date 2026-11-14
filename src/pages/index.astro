@@ -3,20 +3,27 @@ import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
+import AmbientBackground from "../components/brand/AmbientBackground.astro";
+import AvailabilityBadge from "../components/sections/AvailabilityBadge.astro";
+import ProjectCard from "../components/sections/ProjectCard.astro";
 import {
+  EDITORIAL_LINK_SM_CLASSES,
   HOME_CTA_PRIMARY_CLASSES,
   HOME_CTA_SECONDARY_CLASSES,
+  REVEAL_STAGGER_LIST_CLASSES,
 } from "../utils/constants";
-import { basics } from "@cv";
+import { getFeaturedProjects } from "../utils/cvStats";
+import type { ProjectEntry } from "../types/ui";
+import { basics, projects } from "@cv";
 const { name, lastName, email } = basics;
+const featured = getFeaturedProjects(projects as ProjectEntry[]);
 ---
 
-<Layout
-  title={`${name} ${lastName} — ${t("basics.label")}`}
-  type="profile"
-  hideFooter={true}
->
-  <section class="flex min-h-screen flex-col items-center justify-center px-6">
+<Layout title={`${name} ${lastName} — ${t("basics.label")}`} type="profile">
+  <section
+    class="relative isolate flex min-h-[88svh] flex-col items-center justify-center px-6"
+  >
+    <AmbientBackground />
     <div class="home-enter w-full max-w-4xl">
       <!-- Greeting -->
       <p
@@ -93,8 +100,58 @@ const { name, lastName, email } = basics;
           <span data-i18n="ui.home.cta">{t("ui.home.cta")}</span>
         </Button>
       </div>
+
+      <div class="home-enter__item mt-12">
+        <AvailabilityBadge />
+      </div>
     </div>
   </section>
+
+  {
+    featured.length > 0 && (
+      <section
+        class="mx-auto max-w-5xl px-6 pb-24 pt-8"
+        aria-labelledby="home-selected-heading"
+      >
+        <div class="reveal mb-8 flex items-baseline justify-between gap-6 border-t border-border-primary pt-6">
+          <h2
+            id="home-selected-heading"
+            class="text-xs uppercase tracking-widest text-text-muted"
+            data-i18n="ui.home.selected"
+          >
+            {t("ui.home.selected")}
+          </h2>
+          <Button
+            href={pageHref("projects")}
+            variant="simple"
+            size="none"
+            className={`group ${EDITORIAL_LINK_SM_CLASSES} gap-1.5`}
+          >
+            <span data-i18n="ui.home.allProjects">
+              {t("ui.home.allProjects")}
+            </span>
+            <span class="arrow-nudge" aria-hidden="true">
+              →
+            </span>
+          </Button>
+        </div>
+        <ul
+          class={`${REVEAL_STAGGER_LIST_CLASSES} grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3`}
+        >
+          {featured.map(({ project, index, slug }, i) => (
+            <li class:list={[i === 2 && "sm:max-lg:hidden"]}>
+              <ProjectCard
+                {project}
+                projectIndex={index}
+                {slug}
+                sizes="(min-width: 1024px) 299px, (min-width: 640px) calc(50vw - 3rem), calc(100vw - 3rem)"
+              />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
 </Layout>
 
 <style>
@@ -115,6 +172,9 @@ const { name, lastName, email } = basics;
   }
   .home-enter__item:nth-child(4) {
     animation-delay: 0.22s;
+  }
+  .home-enter__item:nth-child(5) {
+    animation-delay: 0.4s;
   }
 
   @keyframes home-enter {
