@@ -3,19 +3,40 @@ import { getOrderedProjectEntries, type ProjectMeta } from "./projects";
 
 const MS_PER_YEAR = 365.25 * 24 * 60 * 60 * 1000;
 
-/** Whole years since the earliest work `startDate`. */
+const INTERNSHIP_RE = /\bintern(ship)?\b/i;
+
+/**
+ * Whole years actually worked: internships excluded, overlapping roles merged,
+ * gaps between jobs not counted. `endDate` is inclusive (month-granular).
+ */
 export function getYearsOfExperience(
   work: WorkEntry[],
   now: Date = new Date(),
 ): number {
-  const starts = work
-    .map((job) => new Date(job.startDate).getTime())
-    .filter((time) => !Number.isNaN(time));
-  if (!starts.length) return 0;
-  return Math.max(
-    0,
-    Math.floor((now.getTime() - Math.min(...starts)) / MS_PER_YEAR),
-  );
+  const ranges = work
+    .filter((job) => !INTERNSHIP_RE.test(job.position))
+    .map((job) => {
+      const start = new Date(job.startDate);
+      const end = job.endDate ? new Date(job.endDate) : new Date(now);
+      if (job.endDate) end.setUTCMonth(end.getUTCMonth() + 1);
+      return [start.getTime(), Math.min(end.getTime(), now.getTime())];
+    })
+    .filter(([start, end]) => !Number.isNaN(start) && end > start)
+    .sort((a, b) => a[0] - b[0]);
+
+  let total = 0;
+  let current: number[] | undefined;
+  for (const range of ranges) {
+    if (current && range[0] <= current[1]) {
+      current[1] = Math.max(current[1], range[1]);
+    } else {
+      if (current) total += current[1] - current[0];
+      current = [...range];
+    }
+  }
+  if (current) total += current[1] - current[0];
+
+  return Math.floor(total / MS_PER_YEAR);
 }
 
 /** Distinct technologies across all projects (case-insensitive). */

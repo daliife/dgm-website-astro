@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { projects } from "@cv";
+import { projects, work } from "@cv";
 import type { ProjectEntry, WorkEntry } from "../../types/ui";
 import {
   getFeaturedProjects,
@@ -8,16 +8,38 @@ import {
   getYearsOfExperience,
 } from "../../utils/cvStats";
 
-const job = (startDate: string): WorkEntry => ({
-  company: "Acme",
-  position: "Dev",
-  startDate,
-});
+const job = (
+  startDate: string,
+  endDate?: string,
+  position = "Dev",
+): WorkEntry => ({ company: "Acme", position, startDate, endDate });
+
+const NOW = new Date("2026-11-14");
 
 describe("getYearsOfExperience", () => {
-  it("counts whole years from the earliest start date", () => {
-    const work = [job("2020-06-01"), job("2016-09-01")];
-    expect(getYearsOfExperience(work, new Date("2026-11-14"))).toBe(10);
+  it("does not count gaps between jobs", () => {
+    const work = [
+      job("2016-01-01", "2016-12-01"),
+      job("2020-01-01", "2021-12-01"),
+    ];
+    expect(getYearsOfExperience(work, NOW)).toBe(3);
+  });
+
+  it("merges overlapping roles", () => {
+    const work = [job("2020-01-01"), job("2021-03-01", "2021-10-01")];
+    expect(getYearsOfExperience(work, NOW)).toBe(6);
+  });
+
+  it("excludes internships", () => {
+    const work = [
+      job("2010-01-01", "2015-12-01", "Internship"),
+      job("2024-01-01"),
+    ];
+    expect(getYearsOfExperience(work, NOW)).toBe(2);
+  });
+
+  it("gives 7 years for the current cv.json", () => {
+    expect(getYearsOfExperience(work as WorkEntry[], NOW)).toBe(7);
   });
 
   it("returns 0 without work entries", () => {
