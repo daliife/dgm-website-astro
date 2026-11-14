@@ -32,6 +32,17 @@ export const TIMELINE_ICONS = {
 
 export type TimelineIcon = keyof typeof TIMELINE_ICONS;
 
+/** Things about David riding on the home hero sphere (24×24 stroke paths). */
+export const HERO_ICONS = [
+  TIMELINE_ICONS.code,
+  TIMELINE_ICONS.cube,
+  TIMELINE_ICONS.audio,
+  TIMELINE_ICONS.game,
+  TIMELINE_ICONS.teach,
+  // Mountain with a snow line.
+  "M2.25 19.5 9 7.5l3.75 6.75 2.25-3.75 6.75 9H2.25Zm4.5-8 2.25 1.5 2.25-1.5",
+] as const;
+
 export function isTimelineIcon(value: unknown): value is TimelineIcon {
   return typeof value === "string" && value in TIMELINE_ICONS;
 }
