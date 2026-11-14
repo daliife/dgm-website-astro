@@ -13,7 +13,7 @@ export const EN = {
   "ui.home.greeting": "Hello, I'm",
   "ui.home.cta": "Get in touch",
   "ui.home.cta.work": "Explore my projects",
-  "ui.home.selected": "Selected work",
+  "ui.home.selected": "Featured projects",
   "ui.home.allProjects": "All projects",
   "ui.home.typewriter.0": "FRONTEND DEVELOPER",
   "ui.home.typewriter.1": "SOFTWARE ENGINEER",

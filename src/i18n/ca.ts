@@ -16,7 +16,7 @@ export const CA: Record<I18nKey, string> = {
   "ui.home.greeting": "Hola, sóc en",
   "ui.home.cta": "Contacta'm",
   "ui.home.cta.work": "Explora els meus projectes",
-  "ui.home.selected": "Treball seleccionat",
+  "ui.home.selected": "Projectes destacats",
   "ui.home.allProjects": "Tots els projectes",
   "ui.home.typewriter.0": "DESENVOLUPADOR FRONTEND",
   "ui.home.typewriter.1": "ENGINYER DE SOFTWARE",
