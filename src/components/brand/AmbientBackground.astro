@@ -7,6 +7,7 @@
 ---
 
 <div
+  transition:persist="ambient"
   class="ambient pointer-events-none fixed inset-0 -z-[1] overflow-hidden print:hidden"
   aria-hidden="true"
 >
@@ -20,6 +21,10 @@
     --ambient-alpha: 0.05;
     --grain-opacity: 0.045;
     animation: ambient-in 1.6s var(--ease-out-expo) both;
+  }
+
+  .ambient.is-settled {
+    animation: none;
   }
 
   :global(.dark) .ambient {
@@ -44,6 +49,7 @@
     top: -30vmax;
     right: -20vmax;
     animation: ambient-drift-a 38s ease-in-out infinite alternate;
+    animation-delay: var(--ambient-offset, 0s);
   }
 
   .ambient__light--b {
@@ -53,6 +59,7 @@
     left: -20vmax;
     opacity: 0.7;
     animation: ambient-drift-b 46s ease-in-out infinite alternate;
+    animation-delay: var(--ambient-offset, 0s);
   }
 
   .ambient__grain {
@@ -85,3 +92,16 @@
     }
   }
 </style>
+
+<script>
+  // Persisted nodes are re-inserted on navigation, which restarts CSS
+  // animations. Skip the fade-in and shift the drift by the document's age
+  // so the lights continue where they were.
+  document.addEventListener("astro:after-swap", () => {
+    const ambient = document.querySelector<HTMLElement>(".ambient");
+    if (!ambient) return;
+    ambient.classList.add("is-settled");
+    const elapsedMs = Number(document.timeline?.currentTime ?? 0);
+    ambient.style.setProperty("--ambient-offset", `${-elapsedMs / 1000}s`);
+  });
+</script>
