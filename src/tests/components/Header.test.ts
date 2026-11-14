@@ -78,6 +78,18 @@ describe("Header", () => {
     );
   });
 
+  it("keeps the mobile menu outside the blurred nav", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(Header);
+    const nav = html.match(/<nav\b[^>]*id="main-nav"[\s\S]*?<\/nav>/);
+
+    expect(nav?.[0]).toBeTruthy();
+    expect(nav?.[0]).not.toContain('id="mobile-menu"');
+    expect(html.indexOf('id="mobile-menu"')).toBeGreaterThan(
+      html.indexOf("</nav>"),
+    );
+  });
+
   it("renders the ThemeToggle", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Header);
