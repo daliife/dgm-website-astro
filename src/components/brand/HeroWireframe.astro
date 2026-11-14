@@ -37,7 +37,7 @@
   import { pageScopedController } from "../../utils/motion";
   import { mountWireframe, type WireframeShape } from "../../utils/wireframe";
 
-  /** One shape per typewriter phrase, in `TYPEWRITER_KEYS` order. */
+  /** One shape per hero phrase, in `TYPEWRITER_KEYS` order. */
   const SHAPES: WireframeShape[] = [
     { mesh: createIcosphere(1), vertexDots: true }, // frontend developer
     { mesh: createTesseract(), vertexDots: true }, // software engineer
@@ -56,7 +56,7 @@
 
     const { signal } = pageScopedController();
     window.addEventListener(
-      "app:typewriter-phrase",
+      "app:hero-phrase",
       (e: Event) => {
         const { index } = (e as CustomEvent<{ index: number }>).detail;
         wireframe.setShape(SHAPES[index % SHAPES.length]);

@@ -40,14 +40,15 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
         <span class="block font-light">{lastName}</span>
       </h1>
 
-      <!-- Rotating descriptor (typewriter) -->
+      <!-- Rotating descriptor: phrases roll up, in sync with the wireframe -->
       <p
-        class="home-enter__item mb-10 flex min-h-[2.75em] text-2xl font-light uppercase tracking-widest text-text-secondary max-sm:whitespace-normal max-sm:text-xl sm:min-h-[1.5em] sm:items-center sm:overflow-hidden sm:whitespace-nowrap sm:text-3xl"
-        aria-live="polite"
-        aria-atomic="true"
+        class="home-enter__item mb-10 flex min-h-[2.75em] text-2xl font-light uppercase tracking-widest text-text-secondary max-sm:text-xl sm:min-h-[1.5em] sm:items-center sm:whitespace-nowrap sm:text-3xl"
       >
-        <span id="tw-rotating">{t("basics.label")}</span>
-        <span class="typewriter-cursor" aria-hidden="true"></span>
+        <span class="hero-roll" data-hero-roll aria-hidden="true">
+          <span>{t("basics.label")}</span>
+        </span>
+        <span class="sr-only" data-i18n="basics.label">{t("basics.label")}</span
+        >
       </p>
 
       <!-- CTAs -->
@@ -175,34 +176,20 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
     }
   }
 
-  .typewriter-cursor {
-    display: inline-block;
-    width: 0.1em;
-    height: 0.82em;
-    background-color: currentColor;
-    vertical-align: text-bottom;
-    margin-left: 0.1em;
-    border-radius: 1px;
-    animation: blink 1s step-end infinite;
+  .hero-roll {
+    display: inline-grid;
+    overflow: hidden;
   }
-  @keyframes blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
+
+  .hero-roll > :global(*) {
+    grid-area: 1 / 1;
   }
+
   @media (prefers-reduced-motion: reduce) {
     .home-enter__item {
       opacity: 1;
       transform: none;
       animation: none;
-    }
-
-    .typewriter-cursor {
-      display: none;
     }
   }
 </style>
@@ -212,75 +199,77 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
   import { getStoredLang } from "../utils/i18n-client";
   import type { LangCode } from "../utils/i18n";
 
+  import { prefersReducedMotion } from "../utils/motion";
+
+  const HOLD_MS = 3500;
+  const ROLL_MS = 700;
+  const ROLL_EASING = "cubic-bezier(0.22, 1, 0.36, 1)";
+
   let stopCurrent: (() => void) | null = null;
 
-  /** Lets the hero wireframe follow the phrase being typed. */
+  /** Lets the hero wireframe follow the current phrase. */
   function announcePhrase(index: number) {
     window.dispatchEvent(
-      new CustomEvent("app:typewriter-phrase", { detail: { index } }),
+      new CustomEvent("app:hero-phrase", { detail: { index } }),
     );
   }
 
-  async function startTypewriter(lang: LangCode) {
-    const el = document.getElementById("tw-rotating");
-    const cursor = document.querySelector<HTMLElement>(".typewriter-cursor");
-    if (!el || !cursor) return;
-
-    stopCurrent?.();
-    let stopped = false;
-    stopCurrent = () => {
-      stopped = true;
-    };
-
-    const phrases = await getTypewriterPhrases(lang);
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.textContent = phrases[0];
-      cursor.style.display = "none";
-      return;
-    }
-
-    cursor.style.display = "";
-    let charIdx = 0;
-    let phraseIdx = 0;
-    let isDeleting = false;
-
-    function rotate() {
-      if (stopped) return;
-      const current = phrases[phraseIdx];
-
-      if (isDeleting) {
-        charIdx--;
-        el!.textContent = current.slice(0, charIdx);
-        if (charIdx === 0) {
-          isDeleting = false;
-          phraseIdx = (phraseIdx + 1) % phrases.length;
-          announcePhrase(phraseIdx);
-          setTimeout(rotate, 350);
-        } else {
-          setTimeout(rotate, 35 + Math.random() * 20);
-        }
-      } else {
-        charIdx++;
-        el!.textContent = current.slice(0, charIdx);
-        if (charIdx === current.length) {
-          setTimeout(() => {
-            if (stopped) return;
-            isDeleting = true;
-            rotate();
-          }, 3500);
-        } else {
-          setTimeout(rotate, 80 + Math.random() * 40);
-        }
-      }
-    }
-
-    announcePhrase(0);
-    setTimeout(rotate, 750);
+  function word(text: string) {
+    const span = document.createElement("span");
+    span.textContent = text;
+    return span;
   }
 
-  function scheduleTypewriter(lang: LangCode) {
-    const run = () => startTypewriter(lang);
+  /** Next phrase slides up into the slot while the current one exits above. */
+  function roll(slot: HTMLElement, text: string) {
+    const outgoing = slot.firstElementChild as HTMLElement | null;
+    const incoming = word(text);
+    slot.append(incoming);
+    // Travel the slot height so phrases wrapping to different line counts
+    // still fully enter and leave.
+    const travel = `${slot.offsetHeight}px`;
+    const options = { duration: ROLL_MS, easing: ROLL_EASING };
+    incoming.animate(
+      [{ transform: `translateY(${travel})` }, { transform: "translateY(0)" }],
+      options,
+    );
+    outgoing
+      ?.animate(
+        [
+          { transform: "translateY(0)" },
+          { transform: `translateY(-${travel})` },
+        ],
+        { ...options, fill: "forwards" },
+      )
+      .finished.then(() => outgoing.remove())
+      .catch(() => {});
+  }
+
+  async function startRoll(lang: LangCode) {
+    const slot = document.querySelector<HTMLElement>("[data-hero-roll]");
+    if (!slot) return;
+
+    stopCurrent?.();
+    let timer = 0;
+    stopCurrent = () => window.clearTimeout(timer);
+
+    const phrases = await getTypewriterPhrases(lang);
+    slot.replaceChildren(word(phrases[0]));
+    announcePhrase(0);
+    if (prefersReducedMotion()) return;
+
+    let index = 0;
+    const next = () => {
+      index = (index + 1) % phrases.length;
+      roll(slot, phrases[index]);
+      announcePhrase(index);
+      timer = window.setTimeout(next, HOLD_MS);
+    };
+    timer = window.setTimeout(next, HOLD_MS);
+  }
+
+  function scheduleRoll(lang: LangCode) {
+    const run = () => startRoll(lang);
     if ("requestIdleCallback" in window) {
       requestIdleCallback(run, { timeout: 1500 });
     } else {
@@ -289,11 +278,13 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
   }
 
   document.addEventListener("astro:page-load", () => {
-    scheduleTypewriter(getStoredLang());
+    scheduleRoll(getStoredLang());
   });
+
+  document.addEventListener("astro:before-swap", () => stopCurrent?.());
 
   window.addEventListener("app:lang-change", (e: Event) => {
     const { lang } = (e as CustomEvent<{ lang: LangCode }>).detail;
-    scheduleTypewriter(lang);
+    scheduleRoll(lang);
   });
 </script>
