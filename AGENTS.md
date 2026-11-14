@@ -170,7 +170,6 @@ Sizes: `sm` `md` (default) `none`
 | `brand/ThemeToggle.astro`       | Dark/light mode toggle button with sun/moon icons                                         |
 | `sections/TimelineMarker.astro` | Logo tile (or initials) for experience/education timelines; lit on scroll on /experience/ |
 | `brand/HeroTopography.astro`    | Slowly morphing contour lines behind the home hero (`utils/topography.ts`)                |
-| `brand/ContactPlane.astro`      | Wireframe paper plane (`utils/wireframe.ts`); flies off when the email is copied          |
 | `brand/NotFoundParticles.astro` | 404 heading redrawn as particles: cursor repel, click to burst; static `h1` kept for a11y |
 | `sections/AboutStats.astro`     | Count-up stats computed from cv.json (`utils/cvStats.ts`)                                 |
 | `ui/Button.astro`               | Polymorphic button/link with semantic token styles                                        |

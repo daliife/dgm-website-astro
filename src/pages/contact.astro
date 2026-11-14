@@ -10,7 +10,6 @@ import { ICON_PATHS } from "../utils/icons";
 import type { I18nKey } from "../i18n/en";
 import type { SocialNetwork, SocialProfile } from "../types/ui";
 import Button from "../components/ui/Button.astro";
-import ContactPlane from "../components/brand/ContactPlane.astro";
 import { t } from "../utils/i18n";
 import { getPageTitleFromKey } from "../utils/seo";
 const { email, profiles } = basics;
@@ -58,7 +57,6 @@ const CONTACT_VALUE_CLASS =
       >
         {t("ui.contact.intro")}
       </p>
-      <ContactPlane className="mt-10 hidden max-w-[260px] md:block" />
     </div>
 
     <div
@@ -198,7 +196,6 @@ const CONTACT_VALUE_CLASS =
       status.textContent = translations["ui.contact.copied"];
       idle.classList.add("hidden");
       done.classList.replace("hidden", "inline-flex");
-      window.dispatchEvent(new CustomEvent("app:email-copied"));
 
       window.clearTimeout(resetTimer);
       resetTimer = window.setTimeout(() => {
