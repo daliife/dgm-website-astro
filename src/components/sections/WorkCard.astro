@@ -28,7 +28,12 @@ const hasList = hasSummary || hasHighlights;
 
 <article class={`group ${TIMELINE_ITEM_CLASSES} pb-12`}>
   <span class={TIMELINE_RAIL_CLASSES} aria-hidden="true"></span>
-  <TimelineMarker name={job.company} logo={job.logo} current={!job.endDate} />
+  <TimelineMarker
+    name={job.company}
+    logo={job.logo}
+    icon={job.icon}
+    current={!job.endDate}
+  />
   <div class="min-w-0 pt-1.5">
     <header class="mb-6 flex max-w-2xl flex-col gap-2.5">
       <h2 class="text-lg leading-snug text-text-primary sm:text-xl">

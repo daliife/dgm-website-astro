@@ -34,6 +34,7 @@
       "company": "NTT Data",
       "position": "Lead Engineer",
       "url": "https://nttdata.com/",
+      "icon": "code",
       "startDate": "2023-03-01",
       "highlights": [
         "Built a new Role-Play product integrating SCAI (WebSockets) and AI Factory (LLMs for scoring).",
@@ -49,6 +50,7 @@
       "company": "NTT Data",
       "position": "Engineer",
       "url": "https://nttdata.com/",
+      "icon": "code",
       "startDate": "2021-03-01",
       "endDate": "2023-02-01",
       "highlights": [
@@ -66,6 +68,7 @@
       "company": "NTT Data",
       "position": "Junior Engineer",
       "url": "https://nttdata.com/",
+      "icon": "code",
       "startDate": "2019-10-01",
       "endDate": "2021-02-01",
       "highlights": [
@@ -79,6 +82,7 @@
       "company": "La Salle BCN",
       "position": "Lecturer",
       "url": "https://www.linkedin.com/school/la-salle-bcn/",
+      "icon": "teach",
       "startDate": "2020-03-01",
       "endDate": "2020-10-01",
       "summary": "Taught Introduction to Unreal Engine in the Master's in Advanced Video Game Development at La Salle Campus Barcelona."
@@ -87,6 +91,7 @@
       "company": "NTT Data",
       "position": "Internship",
       "url": "https://nttdata.com/",
+      "icon": "cube",
       "startDate": "2019-02-01",
       "endDate": "2019-07-01",
       "summary": "Built a VR app (PhygitApp) showcasing phygital experiences in banking and customer service."
@@ -95,6 +100,7 @@
       "company": "Rücker Lypsa",
       "position": "Multimedia Programmer",
       "url": "https://es.edag.com/es/news/la-empresa-ruecker-lypsa-sl-se-convierte-en-edag-engineering-spain-sl",
+      "icon": "display",
       "startDate": "2017-10-01",
       "endDate": "2017-12-01",
       "summary": "Simulated HUD and digital cockpit screens for a new SEAT vehicle."
@@ -103,6 +109,7 @@
       "company": "Wanup",
       "position": "IT Helpdesk",
       "url": "https://www.linkedin.com/school/la-salle-bcn/",
+      "icon": "support",
       "startDate": "2017-07-01",
       "endDate": "2017-09-01",
       "highlights": [
@@ -115,6 +122,7 @@
       "company": "La Salle BCN",
       "position": "Internship",
       "url": "https://www.linkedin.com/school/la-salle-bcn/",
+      "icon": "teach",
       "startDate": "2016-09-01",
       "endDate": "2017-05-01",
       "highlights": [
@@ -129,6 +137,7 @@
     {
       "institution": "La Salle BCN",
       "url": "https://www.salleurl.edu/",
+      "icon": "game",
       "area": "Game Development",
       "studyType": "Master's Degree in Advanced Video Game Development",
       "startDate": "2018-01-01",
@@ -137,6 +146,7 @@
     {
       "institution": "La Salle BCN",
       "url": "https://www.salleurl.edu/",
+      "icon": "degree",
       "area": "Multimedia Engineering",
       "studyType": "Bachelor's Degree in Multimedia Engineering",
       "startDate": "2013-01-01",
@@ -145,6 +155,7 @@
     {
       "institution": "EMAV (Escola de Mitjans Audiovisuals)",
       "url": "https://www.emav.com/",
+      "icon": "audio",
       "area": "Sound Engineering",
       "studyType": "Higher Vocational Diploma in Sound Engineering",
       "startDate": "2011-01-01",

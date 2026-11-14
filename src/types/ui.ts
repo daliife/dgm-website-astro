@@ -19,8 +19,10 @@ export interface WorkEntry {
   endDate?: string;
   summary?: string;
   highlights?: string[];
-  /** Square logo under `public/logos/` (falls back to company initials). */
+  /** Square logo under `public/logos/`; overrides `icon`. */
   logo?: string;
+  /** Timeline marker icon key (`TIMELINE_ICONS`); initials when absent. */
+  icon?: string;
 }
 
 export interface ProjectEntry {
@@ -55,8 +57,10 @@ export interface EducationEntry {
   studyType: string;
   startDate: string;
   endDate: string;
-  /** Square logo under `public/logos/` (falls back to institution initials). */
+  /** Square logo under `public/logos/`; overrides `icon`. */
   logo?: string;
+  /** Timeline marker icon key (`TIMELINE_ICONS`); initials when absent. */
+  icon?: string;
 }
 
 export interface CertificateEntry {

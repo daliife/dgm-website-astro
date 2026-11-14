@@ -1,23 +1,27 @@
 ---
 import { getInitials } from "../../utils/cvStats";
+import { TIMELINE_ICONS, isTimelineIcon } from "../../utils/icons";
 
 interface Props {
   name: string;
+  /** Square logo path; takes precedence over `icon`. */
   logo?: string;
+  /** Key of TIMELINE_ICONS; unknown keys fall back to initials. */
+  icon?: string;
   current?: boolean;
-  size?: "sm" | "md";
 }
 
-const { name, logo, current = false, size = "md" } = Astro.props;
+const { name, logo, icon, current = false } = Astro.props;
+const iconPath = isTimelineIcon(icon) ? TIMELINE_ICONS[icon] : undefined;
 ---
 
 <span
   class:list={[
-    "relative z-[1] flex shrink-0 items-center justify-center rounded-md border bg-bg-primary transition-colors duration-base ease-out-expo",
-    size === "md" ? "h-10 w-10" : "h-8 w-8",
+    "relative z-[1] flex h-10 w-10 shrink-0 items-center justify-center rounded-md border bg-bg-secondary text-text-muted transition-[color,border-color,transform] duration-base ease-out-expo",
     current
-      ? "border-border-muted"
-      : "border-border-primary [@media(hover:hover)]:group-hover:border-border-muted",
+      ? "border-border-secondary text-text-primary"
+      : "border-border-primary [@media(hover:hover)]:group-hover:border-border-secondary [@media(hover:hover)]:group-hover:text-text-primary",
+    "[@media(hover:hover)]:group-hover:-translate-y-0.5",
   ]}
   aria-hidden="true"
 >
@@ -32,13 +36,20 @@ const { name, logo, current = false, size = "md" } = Astro.props;
         loading="lazy"
         decoding="async"
       />
-    ) : (
-      <span
-        class:list={[
-          "font-semibold tracking-wide text-text-muted",
-          size === "md" ? "text-[11px]" : "text-[10px]",
-        ]}
+    ) : iconPath ? (
+      <svg
+        class="h-[18px] w-[18px]"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        viewBox="0 0 24 24"
       >
+        <path d={iconPath} />
+      </svg>
+    ) : (
+      <span class="text-[11px] font-semibold tracking-wide">
         {getInitials(name)}
       </span>
     )

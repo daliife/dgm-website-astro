@@ -110,7 +110,8 @@ Re-run the scripts if you change `imageSource`, rename a project, or add a new e
 ### Optional cv.json display fields
 
 - `projects[].featured` — picks the home “selected work” strip (falls back to the first three in list order).
-- `work[].logo` / `education[].logo` — square logo under `public/logos/` for timeline markers; initials are used when absent.
+- `work[].icon` / `education[].icon` — timeline marker icon, a key of `TIMELINE_ICONS` in `src/utils/icons.ts` (`code`, `teach`, `cube`, `display`, `support`, `game`, `degree`, `audio`).
+- `work[].logo` / `education[].logo` — optional square logo under `public/logos/`; overrides `icon`. Initials are the last fallback.
 
 ### Reading cv.json
 
