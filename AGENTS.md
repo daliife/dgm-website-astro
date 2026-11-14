@@ -157,19 +157,18 @@ Sizes: `sm` `md` (default) `none`
 
 ## Components reference
 
-| Component                       | What it renders                                                                                    |
-| ------------------------------- | -------------------------------------------------------------------------------------------------- |
-| `layout/Header.astro`           | Fixed nav with logo, desktop/mobile menu, theme toggle                                             |
-| `layout/Footer.astro`           | Copyright + social links from cv.json                                                              |
-| `layout/CookieConsent.astro`    | Consent-gated cookie banner + Umami loader trigger                                                 |
-| `layout/NextUpNav.astro`        | “Also explore” footer nav on about/work/projects                                                   |
-| `sections/WorkDates.astro`      | Shared formatted date range for work entries                                                       |
-| `brand/DgmLogoSimple.astro`     | SVG logo monogram. Props: `className`, `size`                                                      |
-| `brand/ThemeToggle.astro`       | Dark/light mode toggle button with sun/moon icons                                                  |
-| `brand/AmbientBackground.astro` | Site-wide fixed backdrop (in Layout, persisted): drifting light + grain. Keep `<body>` transparent |
-| `sections/TimelineMarker.astro` | Logo tile (or initials) for experience/education timelines                                         |
-| `sections/AboutStats.astro`     | Count-up stats computed from cv.json (`utils/cvStats.ts`)                                          |
-| `ui/Button.astro`               | Polymorphic button/link with semantic token styles                                                 |
+| Component                       | What it renders                                            |
+| ------------------------------- | ---------------------------------------------------------- |
+| `layout/Header.astro`           | Fixed nav with logo, desktop/mobile menu, theme toggle     |
+| `layout/Footer.astro`           | Copyright + social links from cv.json                      |
+| `layout/CookieConsent.astro`    | Consent-gated cookie banner + Umami loader trigger         |
+| `layout/NextUpNav.astro`        | “Also explore” footer nav on about/work/projects           |
+| `sections/WorkDates.astro`      | Shared formatted date range for work entries               |
+| `brand/DgmLogoSimple.astro`     | SVG logo monogram. Props: `className`, `size`              |
+| `brand/ThemeToggle.astro`       | Dark/light mode toggle button with sun/moon icons          |
+| `sections/TimelineMarker.astro` | Logo tile (or initials) for experience/education timelines |
+| `sections/AboutStats.astro`     | Count-up stats computed from cv.json (`utils/cvStats.ts`)  |
+| `ui/Button.astro`               | Polymorphic button/link with semantic token styles         |
 
 ## i18n
 
