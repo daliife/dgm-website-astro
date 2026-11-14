@@ -14,36 +14,45 @@ const { skills } = Astro.props;
 
 <section id="about-skills" class={ABOUT_MAJOR_SECTION_CLASSES}>
   <SectionHeader titleKey="ui.about.skills" />
-  <div
-    class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 print:block print:space-y-3"
-  >
+  <dl class="border-b border-border-primary print:space-y-3 print:border-0">
     {
       skills.map((skill: SkillEntry, skillIndex: number) => (
-        <div class="print:flex print:items-baseline print:gap-x-2">
-          <h3 class="mb-3 text-sm uppercase tracking-widest text-text-muted print:mb-0 print:shrink-0 print:text-[10px] print:font-medium print:text-gray-900">
-            <span data-i18n={`skills.${skillIndex}.name`}>
+        <div class="grid grid-cols-1 gap-x-10 gap-y-2 border-t border-border-primary py-5 sm:grid-cols-[13rem_minmax(0,1fr)] print:flex print:items-baseline print:gap-x-2 print:border-0 print:py-0">
+          <dt class="flex items-baseline justify-between gap-4 sm:flex-col sm:justify-start sm:gap-1 print:shrink-0 print:flex-row print:gap-0">
+            <span
+              class="text-sm uppercase tracking-widest text-text-primary print:text-[10px] print:font-medium print:text-gray-900"
+              data-i18n={`skills.${skillIndex}.name`}
+            >
               {t(`skills.${skillIndex}.name` as I18nKey, skill.name)}
             </span>
             <span class="hidden print:inline">:</span>
-          </h3>
-          <p
-            class="mb-2 text-sm text-text-secondary print:hidden"
-            data-i18n={`skills.${skillIndex}.level`}
-          >
-            {t(`skills.${skillIndex}.level` as I18nKey, skill.level)}
-          </p>
-          <div class="flex flex-wrap gap-2 print:contents">
+            <span
+              class="text-xs text-text-muted print:hidden"
+              data-i18n={`skills.${skillIndex}.level`}
+            >
+              {t(`skills.${skillIndex}.level` as I18nKey, skill.level)}
+            </span>
+          </dt>
+          <dd class="text-sm leading-relaxed text-text-secondary print:text-[10px] print:text-gray-600">
             {skill.keywords.map((keyword: string, i: number) => (
-              <span class="rounded-full border border-border-primary px-3 py-1 text-xs text-text-secondary print:inline print:rounded-none print:border-0 print:p-0 print:text-[10px] print:text-gray-600">
-                {keyword}
-                {i < skill.keywords.length - 1 ? (
-                  <span class="hidden print:inline">,&nbsp;</span>
-                ) : null}
-              </span>
+              <>
+                <span class="whitespace-nowrap">{keyword}</span>
+                {i < skill.keywords.length - 1 && (
+                  <>
+                    <span
+                      class="px-1.5 text-text-muted print:hidden"
+                      aria-hidden="true"
+                    >
+                      ·
+                    </span>
+                    <span class="sr-only print:not-sr-only">,&nbsp;</span>
+                  </>
+                )}
+              </>
             ))}
-          </div>
+          </dd>
         </div>
       ))
     }
-  </div>
+  </dl>
 </section>
