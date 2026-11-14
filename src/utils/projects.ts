@@ -86,6 +86,32 @@ export function getAdjacentProjects(
   };
 }
 
+/** 16:10 widths written by scripts/lib/project-images.mjs. */
+export const PROJECT_IMAGE_WIDTHS = [640, 1280] as const;
+
+/**
+ * Responsive 16:10 variants for a project image path (`/projects/x.webp`).
+ * Returns `undefined` for paths that were not produced by the image scripts.
+ */
+export function getProjectImageSet(
+  image: string | undefined,
+): { src: string; srcset: string } | undefined {
+  const match = image?.match(/^(\/projects\/[^/]+)\.webp$/);
+  if (!match) return undefined;
+  const base = match[1];
+  return {
+    src: `${base}-${PROJECT_IMAGE_WIDTHS[0]}.webp`,
+    srcset: PROJECT_IMAGE_WIDTHS.map((w) => `${base}-${w}.webp ${w}w`).join(
+      ", ",
+    ),
+  };
+}
+
+/** Shared view-transition name so the card image morphs into the detail hero. */
+export function getProjectTransitionName(slug: string): string {
+  return `project-image-${slug}`;
+}
+
 /** True when the URL points at a github.com repository (not Pages). */
 export function isGitHubRepoUrl(url: string): boolean {
   try {

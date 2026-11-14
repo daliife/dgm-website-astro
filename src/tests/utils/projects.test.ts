@@ -1,11 +1,15 @@
 import { describe, it, expect } from "vitest";
+import { existsSync } from "node:fs";
+import path from "node:path";
 import { projects } from "@cv";
 import type { ProjectEntry } from "../../types/ui";
 import {
+  PROJECT_IMAGE_WIDTHS,
   findProjectBySlug,
   getAdjacentProjects,
   getOrderedProjectEntries,
   getProjectEntries,
+  getProjectImageSet,
   isGitHubRepoUrl,
   slugifyProjectName,
 } from "../../utils/projects";
@@ -88,5 +92,34 @@ describe("isGitHubRepoUrl", () => {
   it("rejects GitHub Pages and other hosts", () => {
     expect(isGitHubRepoUrl("https://daliife.github.io/rfp-seat")).toBe(false);
     expect(isGitHubRepoUrl("https://estudiseitai.cat/")).toBe(false);
+  });
+});
+
+describe("getProjectImageSet", () => {
+  it("builds 16:10 responsive variants for generated project images", () => {
+    expect(getProjectImageSet("/projects/eclipse-viewer.webp")).toEqual({
+      src: "/projects/eclipse-viewer-640.webp",
+      srcset:
+        "/projects/eclipse-viewer-640.webp 640w, /projects/eclipse-viewer-1280.webp 1280w",
+    });
+  });
+
+  it("ignores paths the image scripts did not produce", () => {
+    expect(getProjectImageSet(undefined)).toBeUndefined();
+    expect(getProjectImageSet("/images/project.png")).toBeUndefined();
+    expect(getProjectImageSet("https://example.com/a.webp")).toBeUndefined();
+  });
+
+  it("has every variant on disk for each cv.json project", () => {
+    for (const project of projects as ProjectEntry[]) {
+      const set = getProjectImageSet(project.image);
+      expect(set, project.name).toBeDefined();
+      for (const width of PROJECT_IMAGE_WIDTHS) {
+        const file = project.image!.replace(".webp", `-${width}.webp`);
+        expect(existsSync(path.join(process.cwd(), "public", file)), file).toBe(
+          true,
+        );
+      }
+    }
   });
 });

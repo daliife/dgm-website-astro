@@ -1,7 +1,7 @@
 /**
  * Captures live project URLs into assets/project-shots/{slug}.jpg,
- * then optimizes them into public/projects/*.webp via sharp (same size as
- * optimize-project-images.mjs).
+ * then optimizes them into public/projects/*.webp (same outputs as
+ * optimize-project-images.mjs, via scripts/lib/project-images.mjs).
  *
  * Usage: node scripts/capture-project-screenshots.mjs
  * Requires Playwright Chromium (pnpm dlx playwright install chromium).
@@ -11,6 +11,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import sharp from "sharp";
+import { writeProjectImages } from "./lib/project-images.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
@@ -18,9 +19,6 @@ const CV_PATH = path.join(ROOT, "cv.json");
 const SHOTS_DIR = path.join(ROOT, "assets", "project-shots");
 const OUT_DIR = path.join(ROOT, "public", "projects");
 
-const WIDTH = 960;
-const HEIGHT = 640;
-const WEBP_QUALITY = 85;
 const VIEWPORT = { width: 1440, height: 900 };
 
 function slugify(name) {
@@ -93,7 +91,6 @@ async function main() {
 
     const shotPath = path.join(SHOTS_DIR, `${slug}.jpg`);
     const filename = `${slug}.webp`;
-    const outPath = path.join(OUT_DIR, filename);
     const publicPath = `/projects/${filename}`;
     const relativeSource = `assets/project-shots/${slug}.jpg`;
 
@@ -108,10 +105,7 @@ async function main() {
       await page.waitForTimeout(400);
       const png = await page.screenshot({ type: "png", fullPage: false });
       await sharp(png).jpeg({ quality: 88, mozjpeg: true }).toFile(shotPath);
-      await sharp(shotPath)
-        .resize(WIDTH, HEIGHT, { fit: "cover", position: "centre" })
-        .webp({ quality: WEBP_QUALITY })
-        .toFile(outPath);
+      const size = await writeProjectImages(shotPath, OUT_DIR, slug);
 
       if (project.image !== publicPath) {
         project.image = publicPath;
@@ -121,8 +115,7 @@ async function main() {
         project.imageSource = relativeSource;
         updated = true;
       }
-      const { size } = await fs.stat(outPath);
-      console.log(`ok → ${filename} (${(size / 1024).toFixed(1)} KB)`);
+      console.log(`ok → ${slug} (${(size / 1024).toFixed(1)} KB total)`);
     } catch (err) {
       console.log(`FAILED: ${err.message}`);
     } finally {

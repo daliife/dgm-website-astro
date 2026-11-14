@@ -1,6 +1,9 @@
 # Project thumbnails
 
-Auto-generated WebP files for `/projects` cards. **Do not edit manually.**
+Auto-generated WebP files for `/projects` cards and detail pages. **Do not edit manually.**
+
+- `{slug}.webp` — 480×320, Open Graph image
+- `{slug}-640.webp`, `{slug}-1280.webp` — 16:10 responsive variants
 
 After adding or updating projects in `cv.json`, run:
 
