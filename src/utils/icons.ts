@@ -4,4 +4,8 @@ export const ICON_PATHS = {
   email: `<path d="M0 3v18h24v-18h-24zm21.518 2l-9.518 7.713-9.518-7.713h19.036zm-19.518 14v-11.817l10 8.104 10-8.104v11.817h-20z"/>`,
   /** External-link arrow (stroke icon — use fill="none" stroke="currentColor"). */
   external: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.5 6H18v4.5M18 6l-7.5 7.5M10.5 6H7.5A1.5 1.5 0 006 7.5v9A1.5 1.5 0 007.5 18h9a1.5 1.5 0 001.5-1.5V13.5"/>`,
+  /** Copy-to-clipboard (stroke icon). */
+  copy: `<rect x="8" y="8" width="12" height="12" rx="1.5" stroke-width="1.5"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 8V5.5A1.5 1.5 0 0014.5 4h-9A1.5 1.5 0 004 5.5v9A1.5 1.5 0 005.5 16H8"/>`,
+  /** Checkmark (stroke icon). */
+  check: `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12.5l4.5 4.5L19 7.5"/>`,
 } as const;

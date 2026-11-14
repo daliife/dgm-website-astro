@@ -131,6 +131,9 @@ export const EN = {
   "ui.contact.network.email": "Email",
   "ui.contact.network.linkedin": "LinkedIn",
   "ui.contact.network.github": "GitHub",
+  "ui.contact.copy": "Copy email",
+  "ui.contact.copied": "Copied",
+  "ui.availability.open": "Available for new projects",
 
   // ── Basics ─────────────────────────────────────────────────────────────────
   "basics.label": "Frontend Developer",

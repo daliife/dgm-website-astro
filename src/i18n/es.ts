@@ -135,6 +135,9 @@ export const ES: Record<I18nKey, string> = {
   "ui.contact.network.email": "Correo electrónico",
   "ui.contact.network.linkedin": "LinkedIn",
   "ui.contact.network.github": "GitHub",
+  "ui.contact.copy": "Copiar correo",
+  "ui.contact.copied": "Copiado",
+  "ui.availability.open": "Disponible para nuevos proyectos",
 
   // ── Basics ───────────────────────────────────────────────────────────────
   "basics.label": "Desarrollador Frontend",
