@@ -197,8 +197,8 @@ const profilePageSchema = {
     <PrintWorkSection work={work as WorkEntry[]} />
     <SkillsSection skills={skills} />
     <LanguagesSection languages={languages} />
-    <EducationSection education={education} />
-    <CertificatesSection certificates={certificates} />
+    <EducationSection education={education} printOnly />
+    <CertificatesSection certificates={certificates} printOnly />
 
     <NextUpNav
       className={`${NEXTUP_NAV_CLASSES} mt-12 print:hidden`}

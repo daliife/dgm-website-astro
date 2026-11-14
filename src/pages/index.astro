@@ -4,7 +4,6 @@ import Button from "../components/ui/Button.astro";
 import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
 import AmbientBackground from "../components/brand/AmbientBackground.astro";
-import AvailabilityBadge from "../components/sections/AvailabilityBadge.astro";
 import ProjectCard from "../components/sections/ProjectCard.astro";
 import {
   EDITORIAL_LINK_SM_CLASSES,
@@ -100,10 +99,6 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
           <span data-i18n="ui.home.cta">{t("ui.home.cta")}</span>
         </Button>
       </div>
-
-      <div class="home-enter__item mt-12">
-        <AvailabilityBadge />
-      </div>
     </div>
   </section>
 
@@ -173,10 +168,6 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
   .home-enter__item:nth-child(4) {
     animation-delay: 0.22s;
   }
-  .home-enter__item:nth-child(5) {
-    animation-delay: 0.4s;
-  }
-
   @keyframes home-enter {
     to {
       opacity: 1;

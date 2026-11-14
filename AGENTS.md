@@ -109,7 +109,6 @@ Re-run the scripts if you change `imageSource`, rename a project, or add a new e
 
 ### Optional cv.json display fields
 
-- `basics.available` — shows `AvailabilityBadge` on home and contact.
 - `projects[].featured` — picks the home “selected work” strip (falls back to the first three in list order).
 - `work[].logo` / `education[].logo` — square logo under `public/logos/` for timeline markers; initials are used when absent.
 
@@ -157,20 +156,19 @@ Sizes: `sm` `md` (default) `none`
 
 ## Components reference
 
-| Component                          | What it renders                                                |
-| ---------------------------------- | -------------------------------------------------------------- |
-| `layout/Header.astro`              | Fixed nav with logo, desktop/mobile menu, theme toggle         |
-| `layout/Footer.astro`              | Copyright + social links from cv.json                          |
-| `layout/CookieConsent.astro`       | Consent-gated cookie banner + Umami loader trigger             |
-| `layout/NextUpNav.astro`           | “Also explore” footer nav on about/work/projects               |
-| `sections/WorkDates.astro`         | Shared formatted date range for work entries                   |
-| `brand/DgmLogoSimple.astro`        | SVG logo monogram. Props: `className`, `size`                  |
-| `brand/ThemeToggle.astro`          | Dark/light mode toggle button with sun/moon icons              |
-| `brand/AmbientBackground.astro`    | Home hero backdrop: slow-drifting light + film grain           |
-| `sections/AvailabilityBadge.astro` | Pulsing “available” status; renders only if `basics.available` |
-| `sections/TimelineMarker.astro`    | Logo tile (or initials) for experience/education timelines     |
-| `sections/AboutStats.astro`        | Count-up stats computed from cv.json (`utils/cvStats.ts`)      |
-| `ui/Button.astro`                  | Polymorphic button/link with semantic token styles             |
+| Component                       | What it renders                                            |
+| ------------------------------- | ---------------------------------------------------------- |
+| `layout/Header.astro`           | Fixed nav with logo, desktop/mobile menu, theme toggle     |
+| `layout/Footer.astro`           | Copyright + social links from cv.json                      |
+| `layout/CookieConsent.astro`    | Consent-gated cookie banner + Umami loader trigger         |
+| `layout/NextUpNav.astro`        | “Also explore” footer nav on about/work/projects           |
+| `sections/WorkDates.astro`      | Shared formatted date range for work entries               |
+| `brand/DgmLogoSimple.astro`     | SVG logo monogram. Props: `className`, `size`              |
+| `brand/ThemeToggle.astro`       | Dark/light mode toggle button with sun/moon icons          |
+| `brand/AmbientBackground.astro` | Home hero backdrop: slow-drifting light + film grain       |
+| `sections/TimelineMarker.astro` | Logo tile (or initials) for experience/education timelines |
+| `sections/AboutStats.astro`     | Count-up stats computed from cv.json (`utils/cvStats.ts`)  |
+| `ui/Button.astro`               | Polymorphic button/link with semantic token styles         |
 
 ## i18n
 

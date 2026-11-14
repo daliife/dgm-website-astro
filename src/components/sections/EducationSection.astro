@@ -14,12 +14,17 @@ import TimelineMarker from "./TimelineMarker.astro";
 
 interface Props {
   education: EducationEntry[];
+  /** Keep in the printed CV only (shown on screen on /experience/). */
+  printOnly?: boolean;
 }
 
-const { education } = Astro.props;
+const { education, printOnly = false } = Astro.props;
 ---
 
-<section id="about-education" class={ABOUT_MAJOR_SECTION_CLASSES}>
+<section
+  id="education"
+  class:list={[ABOUT_MAJOR_SECTION_CLASSES, printOnly && "hidden print:block"]}
+>
   <SectionHeader titleKey="ui.about.education" />
   <div class={`${TIMELINE_LIST_CLASSES} print:space-y-4`}>
     {

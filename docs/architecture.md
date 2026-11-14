@@ -31,6 +31,8 @@ Astro uses file-based routing. `src/pages/` maps directly to URLs:
 | `src/pages/privacy.astro`         | `/privacy/`         |
 | `src/pages/404.astro`             | `/404`              |
 
+Content split: `/about/` is the short profile (bio, stats, skills, languages); `/experience/` holds the full career (work, education, certificates). The about page still renders work, education and certificates as print-only blocks so “Print CV” outputs the complete CV.
+
 `trailingSlash: "always"` is set in `astro.config.mjs` so local and production URLs match (avoids Apache DirectorySlash 301s). Build `pageHref()` helpers in `src/utils/url.ts` for internal links.
 
 Navigation links are defined in `src/utils/constants.ts → NAV_LINKS`: `["about", "experience", "projects", "contact"]`. This array drives the `<Header>` nav. Adding a page requires:

@@ -10,12 +10,17 @@ import SectionHeader from "./SectionHeader.astro";
 
 interface Props {
   certificates: CertificateEntry[];
+  /** Keep in the printed CV only (shown on screen on /experience/). */
+  printOnly?: boolean;
 }
 
-const { certificates } = Astro.props;
+const { certificates, printOnly = false } = Astro.props;
 ---
 
-<section id="about-certificates" class={ABOUT_MAJOR_SECTION_CLASSES}>
+<section
+  id="certificates"
+  class:list={[ABOUT_MAJOR_SECTION_CLASSES, printOnly && "hidden print:block"]}
+>
   <SectionHeader titleKey="ui.about.certificates" />
   <div class="grid grid-cols-1 gap-6 sm:grid-cols-3 print:flex print:gap-x-6">
     {

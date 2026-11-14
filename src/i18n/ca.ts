@@ -143,7 +143,6 @@ export const CA: Record<I18nKey, string> = {
   "ui.contact.network.github": "GitHub",
   "ui.contact.copy": "Copia el correu",
   "ui.contact.copied": "Copiat",
-  "ui.availability.open": "Disponible per a nous projectes",
 
   // ── Basics ───────────────────────────────────────────────────────────────
   "basics.label": "Desenvolupador Frontend",

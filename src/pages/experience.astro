@@ -1,14 +1,17 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { work } from "@cv";
+import { certificates, education, work } from "@cv";
 import {
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
   TIMELINE_LIST_CLASSES,
+  NEXTUP_NAV_CLASSES,
 } from "../utils/constants";
 import { pageHref } from "../utils/url";
 import WorkCard from "../components/sections/WorkCard.astro";
+import EducationSection from "../components/sections/EducationSection.astro";
+import CertificatesSection from "../components/sections/CertificatesSection.astro";
 import NextUpNav from "../components/layout/NextUpNav.astro";
 import { t } from "../utils/i18n";
 import { getPageTitleFromKey } from "../utils/seo";
@@ -30,7 +33,11 @@ import type { WorkEntry } from "../types/ui";
       {work.map((job: WorkEntry, i: number) => <WorkCard {job} jobIndex={i} />)}
     </div>
 
+    <EducationSection {education} />
+    <CertificatesSection {certificates} />
+
     <NextUpNav
+      className={`${NEXTUP_NAV_CLASSES} mt-16 md:mt-20`}
       links={[
         { href: pageHref("projects"), labelKey: "ui.nextup.projects" },
         { href: pageHref("contact"), labelKey: "ui.nextup.contact" },

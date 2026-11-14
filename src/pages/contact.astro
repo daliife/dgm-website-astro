@@ -10,7 +10,6 @@ import { ICON_PATHS } from "../utils/icons";
 import type { I18nKey } from "../i18n/en";
 import type { SocialNetwork, SocialProfile } from "../types/ui";
 import Button from "../components/ui/Button.astro";
-import AvailabilityBadge from "../components/sections/AvailabilityBadge.astro";
 import { t } from "../utils/i18n";
 import { getPageTitleFromKey } from "../utils/seo";
 const { email, profiles } = basics;
@@ -29,55 +28,62 @@ const NETWORK_I18N: Record<SocialNetwork, I18nKey> = {
 const CONTACT_LABEL_CLASS =
   "flex items-center gap-1.5 text-xs uppercase tracking-widest text-text-muted";
 
-const CONTACT_ROW_CLASS =
-  "!flex w-full !items-center !justify-between gap-6 rounded-none border-t border-border-primary py-6 hover:no-underline group";
+const CONTACT_ROW_BASE =
+  "flex w-full items-center justify-between gap-6 border-t border-border-primary py-6";
+
+const CONTACT_ROW_CLASS = `${CONTACT_ROW_BASE} !flex !items-center !justify-between rounded-none hover:no-underline group`;
+
+const CONTACT_VALUE_CLASS =
+  "link-underline-animate w-fit text-lg font-normal text-text-primary sm:text-xl";
 ---
 
 <Layout
   title={getPageTitleFromKey("ui.page.contact")}
   description={t("ui.meta.contact.description")}
 >
-  <div class={PAGE_CONTAINER_CLASSES}>
-    <h1
-      class={`${PAGE_HEADING_CLASSES} ${PAGE_HEADING_MARGIN_COMPACT_CLASSES}`}
-      data-i18n="ui.page.contact"
-    >
-      {t("ui.page.contact")}
-    </h1>
-    <p
-      class="reveal mb-6 max-w-xl text-base leading-relaxed text-text-secondary sm:text-lg"
-      data-i18n="ui.contact.intro"
-    >
-      {t("ui.contact.intro")}
-    </p>
-    <AvailabilityBadge className="reveal mb-16" />
-
-    <!-- Primary action: email -->
-    <section class="reveal mb-16" aria-labelledby="contact-email-label">
-      <p id="contact-email-label" class={`${CONTACT_LABEL_CLASS} mb-4`}>
-        <svg
-          class="h-3.5 w-3.5 shrink-0"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <Fragment set:html={ICON_PATHS.email} />
-        </svg>
-        <span data-i18n="ui.contact.network.email">
-          {t("ui.contact.network.email")}
-        </span>
-      </p>
-      <div
-        class="flex flex-col items-start gap-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-8"
+  <div
+    class={`${PAGE_CONTAINER_CLASSES} grid grid-cols-1 gap-x-16 md:grid-cols-[5fr_7fr]`}
+  >
+    <div>
+      <h1
+        class={`${PAGE_HEADING_CLASSES} ${PAGE_HEADING_MARGIN_COMPACT_CLASSES}`}
+        data-i18n="ui.page.contact"
       >
+        {t("ui.page.contact")}
+      </h1>
+      <p
+        class="reveal mb-12 max-w-md text-base leading-relaxed text-text-secondary sm:text-lg md:mb-0"
+        data-i18n="ui.contact.intro"
+      >
+        {t("ui.contact.intro")}
+      </p>
+    </div>
+
+    <div class="reveal-stagger border-b border-border-primary md:mt-3">
+      <div class={`${CONTACT_ROW_BASE} group`}>
         <Button
           id="contact-email-link"
           href={`mailto:${email}`}
           variant="simple"
           size="none"
-          className="link-underline-animate !block w-fit max-w-full break-all text-2xl !font-semibold tracking-tight text-text-primary sm:text-4xl"
+          className="!flex min-w-0 flex-1 !items-start !justify-start hover:no-underline"
         >
-          {email}
+          <span class="flex min-w-0 flex-col gap-2">
+            <span class={CONTACT_LABEL_CLASS}>
+              <svg
+                class="h-3.5 w-3.5 shrink-0"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <Fragment set:html={ICON_PATHS.email} />
+              </svg>
+              <span data-i18n="ui.contact.network.email">
+                {t("ui.contact.network.email")}
+              </span>
+            </span>
+            <span class={`${CONTACT_VALUE_CLASS} break-all`}>{email}</span>
+          </span>
         </Button>
         <Button
           id="copy-email"
@@ -112,10 +118,6 @@ const CONTACT_ROW_CLASS =
         </Button>
         <span id="copy-email-status" class="sr-only" aria-live="polite"></span>
       </div>
-    </section>
-
-    <!-- Secondary: social profiles -->
-    <div class="reveal-stagger">
       {
         (profiles as SocialProfile[]).map((profile) => {
           if (profile.network === "Email") return null;
@@ -144,7 +146,7 @@ const CONTACT_ROW_CLASS =
                   )}
                   <span data-i18n={labelKey}>{t(labelKey)}</span>
                 </span>
-                <span class="link-underline-animate w-fit text-lg font-normal text-text-primary sm:text-xl">
+                <span class={CONTACT_VALUE_CLASS}>
                   {profile.username || profile.network}
                 </span>
               </span>
