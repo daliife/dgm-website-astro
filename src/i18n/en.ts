@@ -13,6 +13,8 @@ export const EN = {
   "ui.home.greeting": "Hello, I'm",
   "ui.home.cta": "Get in touch",
   "ui.home.cta.work": "Explore my projects",
+  "ui.home.selected": "Selected work",
+  "ui.home.allProjects": "All projects",
   "ui.home.typewriter.0": "FRONTEND DEVELOPER",
   "ui.home.typewriter.1": "SOFTWARE ENGINEER",
   "ui.home.typewriter.2": "REACT SPECIALIST",
@@ -67,6 +69,10 @@ export const EN = {
   "ui.about.education": "Education",
   "ui.about.certificates": "Certificates",
   "ui.about.printcv": "Print CV",
+  "ui.about.stats": "At a glance",
+  "ui.about.stats.years": "Years of experience",
+  "ui.about.stats.projects": "Projects",
+  "ui.about.stats.technologies": "Technologies",
   "ui.about.experience": "Experience", // print-only
 
   // ── Cookie consent ─────────────────────────────────────────────────────────

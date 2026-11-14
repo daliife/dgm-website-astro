@@ -16,6 +16,8 @@ export const ES: Record<I18nKey, string> = {
   "ui.home.greeting": "Hola, soy",
   "ui.home.cta": "Contáctame",
   "ui.home.cta.work": "Explora mis proyectos",
+  "ui.home.selected": "Trabajo seleccionado",
+  "ui.home.allProjects": "Todos los proyectos",
   "ui.home.typewriter.0": "DESARROLLADOR FRONTEND",
   "ui.home.typewriter.1": "INGENIERO DE SOFTWARE",
   "ui.home.typewriter.2": "ESPECIALISTA EN REACT",
@@ -70,6 +72,10 @@ export const ES: Record<I18nKey, string> = {
   "ui.about.education": "Formación",
   "ui.about.certificates": "Certificados",
   "ui.about.printcv": "Imprimir CV",
+  "ui.about.stats": "En cifras",
+  "ui.about.stats.years": "Años de experiencia",
+  "ui.about.stats.projects": "Proyectos",
+  "ui.about.stats.technologies": "Tecnologías",
   "ui.about.experience": "Experiencia", // print-only
 
   // ── Cookie consent ──────────────────────────────────────────────────────────
