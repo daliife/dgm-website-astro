@@ -27,118 +27,15 @@
 </style>
 
 <script>
-  import { createIcosphere, type Vec3 } from "../../utils/geodesic";
-  import {
-    pageScopedController,
-    prefersReducedMotion,
-  } from "../../utils/motion";
-
-  /** Radians per millisecond (~1 turn per minute). */
-  const SPIN = (Math.PI * 2) / 60_000;
-  const TILT = 0.42;
-  const CAMERA = 3.2;
-  const EDGE_ALPHA = { back: 0.05, front: 0.32 };
-
-  const mesh = createIcosphere(1);
-
-  function rotate([x, y, z]: Vec3, yaw: number, pitch: number): Vec3 {
-    const cy = Math.cos(yaw);
-    const sy = Math.sin(yaw);
-    const x1 = x * cy + z * sy;
-    const z1 = -x * sy + z * cy;
-    const cp = Math.cos(pitch);
-    const sp = Math.sin(pitch);
-    return [x1, y * cp - z1 * sp, y * sp + z1 * cp];
-  }
+  import { createIcosphere } from "../../utils/geodesic";
+  import { mountWireframe } from "../../utils/wireframe";
 
   document.addEventListener("astro:page-load", () => {
     const canvas = document.querySelector<HTMLCanvasElement>(
       "[data-hero-wireframe]",
     );
-    const ctx = canvas?.getContext("2d");
-    if (!canvas || !ctx) return;
-
-    const { signal } = pageScopedController();
-    let size = 0;
-    let frame = 0;
-    let visible = true;
-
-    const resize = () => {
-      const dpr = window.devicePixelRatio || 1;
-      size = canvas.getBoundingClientRect().width;
-      canvas.width = canvas.height = Math.round(size * dpr);
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    };
-
-    const draw = (time: number) => {
-      const yaw = time * SPIN;
-      const pitch = TILT + Math.sin(time * SPIN * 0.7) * 0.08;
-      const radius = size * 0.42;
-      const centre = size / 2;
-
-      const projected = mesh.vertices.map((v) => {
-        const [x, y, z] = rotate(v, yaw, pitch);
-        const scale = radius * (CAMERA / (CAMERA - z));
-        return { x: centre + x * scale, y: centre + y * scale, z };
-      });
-
-      ctx.clearRect(0, 0, size, size);
-      ctx.strokeStyle = ctx.fillStyle = getComputedStyle(canvas).color;
-      ctx.lineWidth = 1;
-
-      for (const [a, b] of mesh.edges) {
-        const p = projected[a];
-        const q = projected[b];
-        const depth = ((p.z + q.z) / 2 + 1) / 2;
-        ctx.globalAlpha =
-          EDGE_ALPHA.back + (EDGE_ALPHA.front - EDGE_ALPHA.back) * depth ** 1.5;
-        ctx.beginPath();
-        ctx.moveTo(p.x, p.y);
-        ctx.lineTo(q.x, q.y);
-        ctx.stroke();
-      }
-
-      for (const p of projected) {
-        const depth = (p.z + 1) / 2;
-        ctx.globalAlpha = 0.08 + 0.4 * depth ** 2;
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.1 + depth * 0.8, 0, Math.PI * 2);
-        ctx.fill();
-      }
-      ctx.globalAlpha = 1;
-    };
-
-    const loop = (time: number) => {
-      draw(time);
-      frame = visible ? requestAnimationFrame(loop) : 0;
-    };
-
-    resize();
-    if (prefersReducedMotion()) {
-      draw(9_000);
-      window.addEventListener("resize", () => (resize(), draw(9_000)), {
-        signal,
-      });
-      return;
+    if (canvas) {
+      mountWireframe(canvas, { mesh: createIcosphere(1), vertexDots: true });
     }
-
-    const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting && !document.hidden;
-      if (visible && !frame) frame = requestAnimationFrame(loop);
-    });
-    observer.observe(canvas);
-    document.addEventListener(
-      "visibilitychange",
-      () => {
-        visible = !document.hidden;
-        if (visible && !frame) frame = requestAnimationFrame(loop);
-      },
-      { signal },
-    );
-    window.addEventListener("resize", resize, { signal });
-    signal.addEventListener("abort", () => {
-      observer.disconnect();
-      cancelAnimationFrame(frame);
-    });
   });
 </script>

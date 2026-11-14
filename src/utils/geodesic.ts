@@ -5,6 +5,51 @@ export interface Mesh {
   edges: [number, number][];
 }
 
+/** Unit-sphere point; +y is down (canvas space), +z faces the viewer at lon 0. */
+export function latLonToVec3(latitude: number, longitude: number): Vec3 {
+  const lat = (latitude * Math.PI) / 180;
+  const lon = (longitude * Math.PI) / 180;
+  return [
+    Math.cos(lat) * Math.sin(lon),
+    -Math.sin(lat),
+    Math.cos(lat) * Math.cos(lon),
+  ];
+}
+
+/** Wireframe globe: parallels every `step`° and meridians every `step`°. */
+export function createGlobe(step = 30, segments = 48): Mesh {
+  const vertices: Vec3[] = [];
+  const edges: [number, number][] = [];
+
+  const ring = (points: Vec3[], closed: boolean) => {
+    const start = vertices.length;
+    vertices.push(...points);
+    const count = closed ? points.length : points.length - 1;
+    for (let i = 0; i < count; i++) {
+      edges.push([start + i, start + ((i + 1) % points.length)]);
+    }
+  };
+
+  for (let lat = -90 + step; lat < 90; lat += step) {
+    ring(
+      Array.from({ length: segments }, (_, i) =>
+        latLonToVec3(lat, (i / segments) * 360),
+      ),
+      true,
+    );
+  }
+  for (let lon = 0; lon < 360; lon += step) {
+    ring(
+      Array.from({ length: segments / 2 + 1 }, (_, i) =>
+        latLonToVec3(-90 + (i / (segments / 2)) * 180, lon),
+      ),
+      false,
+    );
+  }
+
+  return { vertices, edges };
+}
+
 function normalize([x, y, z]: Vec3): Vec3 {
   const len = Math.hypot(x, y, z);
   return [x / len, y / len, z / len];

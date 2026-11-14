@@ -159,20 +159,23 @@ Sizes: `sm` `md` (default) `none`
 
 ## Components reference
 
-| Component                       | What it renders                                                                                |
-| ------------------------------- | ---------------------------------------------------------------------------------------------- |
-| `layout/Header.astro`           | Fixed nav with logo, desktop/mobile menu, theme toggle                                         |
-| `layout/Footer.astro`           | Copyright + social links from cv.json                                                          |
-| `layout/CookieConsent.astro`    | Consent-gated cookie banner + Umami loader trigger                                             |
-| `layout/NextUpNav.astro`        | “Also explore” footer nav on about/work/projects                                               |
-| `sections/WorkDates.astro`      | Shared formatted date range for work entries                                                   |
-| `brand/DgmLogoSimple.astro`     | SVG logo monogram. Props: `className`, `size`                                                  |
-| `brand/ThemeToggle.astro`       | Dark/light mode toggle button with sun/moon icons                                              |
-| `sections/TimelineMarker.astro` | Logo tile (or initials) for experience/education timelines; lit on scroll on /experience/      |
-| `brand/HeroWireframe.astro`     | Slowly rotating geodesic wireframe (canvas, `utils/geodesic.ts`) on the right of the home hero |
-| `brand/NotFoundParticles.astro` | 404 heading redrawn as particles: cursor repel, click to burst; static `h1` kept for a11y      |
-| `sections/AboutStats.astro`     | Count-up stats computed from cv.json (`utils/cvStats.ts`)                                      |
-| `ui/Button.astro`               | Polymorphic button/link with semantic token styles                                             |
+| Component                       | What it renders                                                                           |
+| ------------------------------- | ----------------------------------------------------------------------------------------- |
+| `layout/Header.astro`           | Fixed nav with logo, desktop/mobile menu, theme toggle                                    |
+| `layout/Footer.astro`           | Copyright + social links from cv.json                                                     |
+| `layout/CookieConsent.astro`    | Consent-gated cookie banner + Umami loader trigger                                        |
+| `layout/NextUpNav.astro`        | “Also explore” footer nav on about/work/projects                                          |
+| `sections/WorkDates.astro`      | Shared formatted date range for work entries                                              |
+| `brand/DgmLogoSimple.astro`     | SVG logo monogram. Props: `className`, `size`                                             |
+| `brand/ThemeToggle.astro`       | Dark/light mode toggle button with sun/moon icons                                         |
+| `sections/TimelineMarker.astro` | Logo tile (or initials) for experience/education timelines; lit on scroll on /experience/ |
+| `brand/HeroWireframe.astro`     | Slowly rotating geodesic wireframe on the right of the home hero                          |
+| `brand/ContactGlobe.astro`      | Wireframe globe with a pulsing marker at `basics.location.coordinates` (contact page)     |
+
+Both wireframes share `mountWireframe()` (`utils/wireframe.ts`) and meshes from `utils/geodesic.ts`.
+| `brand/NotFoundParticles.astro` | 404 heading redrawn as particles: cursor repel, click to burst; static `h1` kept for a11y |
+| `sections/AboutStats.astro` | Count-up stats computed from cv.json (`utils/cvStats.ts`) |
+| `ui/Button.astro` | Polymorphic button/link with semantic token styles |
 
 ## i18n
 

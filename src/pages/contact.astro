@@ -10,6 +10,7 @@ import { ICON_PATHS } from "../utils/icons";
 import type { I18nKey } from "../i18n/en";
 import type { SocialNetwork, SocialProfile } from "../types/ui";
 import Button from "../components/ui/Button.astro";
+import ContactGlobe from "../components/brand/ContactGlobe.astro";
 import { t } from "../utils/i18n";
 import { getPageTitleFromKey } from "../utils/seo";
 const { email, profiles } = basics;
@@ -57,9 +58,12 @@ const CONTACT_VALUE_CLASS =
       >
         {t("ui.contact.intro")}
       </p>
+      <ContactGlobe className="mt-10 hidden max-w-[260px] md:block" />
     </div>
 
-    <div class="reveal-stagger border-b border-border-primary md:mt-3">
+    <div
+      class="reveal-stagger self-start border-b border-border-primary md:mt-3"
+    >
       <div class={`${CONTACT_ROW_BASE} group`}>
         <Button
           id="contact-email-link"
@@ -82,7 +86,10 @@ const CONTACT_VALUE_CLASS =
                 {t("ui.contact.network.email")}
               </span>
             </span>
-            <span class={`${CONTACT_VALUE_CLASS} break-all`}>{email}</span>
+            <span class={`${CONTACT_VALUE_CLASS} break-all`}>
+              <span aria-hidden="true" data-scramble>{email}</span>
+              <span class="sr-only">{email}</span>
+            </span>
           </span>
         </Button>
         <Button
@@ -169,8 +176,22 @@ const CONTACT_VALUE_CLASS =
 
 <script>
   import { getStoredLang, loadLang } from "../utils/i18n-client";
+  import { prefersReducedMotion } from "../utils/motion";
+  import { scrambleIn } from "../utils/scramble";
 
   let resetTimer: number | undefined;
+  let cancelScramble: (() => void) | undefined;
+
+  function decryptEmail() {
+    const el = document.querySelector<HTMLElement>("[data-scramble]");
+    if (!el || prefersReducedMotion()) return;
+    cancelScramble?.();
+    cancelScramble = scrambleIn(el);
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    window.setTimeout(decryptEmail, 250);
+  });
 
   document.addEventListener("astro:page-load", () => {
     const btn = document.getElementById("copy-email");
@@ -194,6 +215,7 @@ const CONTACT_VALUE_CLASS =
       status.textContent = translations["ui.contact.copied"];
       idle.classList.add("hidden");
       done.classList.replace("hidden", "inline-flex");
+      decryptEmail();
 
       window.clearTimeout(resetTimer);
       resetTimer = window.setTimeout(() => {
