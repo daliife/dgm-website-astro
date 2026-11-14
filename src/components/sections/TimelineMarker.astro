@@ -17,11 +17,8 @@ const iconPath = isTimelineIcon(icon) ? TIMELINE_ICONS[icon] : undefined;
 
 <span
   class:list={[
-    "relative z-[1] flex h-10 w-10 shrink-0 items-center justify-center rounded-md border bg-bg-secondary text-text-muted transition-[color,border-color,transform] duration-base ease-out-expo",
-    current
-      ? "border-border-secondary text-text-primary"
-      : "border-border-primary [@media(hover:hover)]:group-hover:border-border-secondary [@media(hover:hover)]:group-hover:text-text-primary",
-    "[@media(hover:hover)]:group-hover:-translate-y-0.5",
+    "relative z-[1] flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border-secondary bg-bg-secondary",
+    current ? "text-text-primary" : "text-text-secondary",
   ]}
   aria-hidden="true"
 >

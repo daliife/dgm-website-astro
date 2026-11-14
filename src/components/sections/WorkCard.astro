@@ -26,7 +26,7 @@ const hasHighlights = highlights.length > 0;
 const hasList = hasSummary || hasHighlights;
 ---
 
-<article class={`group ${TIMELINE_ITEM_CLASSES} pb-12`}>
+<article class={`${TIMELINE_ITEM_CLASSES} pb-12`}>
   <span class={TIMELINE_RAIL_CLASSES} aria-hidden="true"></span>
   <TimelineMarker
     name={job.company}

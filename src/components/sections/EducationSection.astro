@@ -29,9 +29,7 @@ const { education, printOnly = false } = Astro.props;
   <div class={`${TIMELINE_LIST_CLASSES} print:space-y-4`}>
     {
       education.map((edu: EducationEntry, eduIndex: number) => (
-        <div
-          class={`group ${TIMELINE_ITEM_CLASSES} pb-10 print:block print:pb-0`}
-        >
+        <div class={`${TIMELINE_ITEM_CLASSES} pb-10 print:block print:pb-0`}>
           <span
             class={`${TIMELINE_RAIL_CLASSES} print:hidden`}
             aria-hidden="true"
