@@ -169,13 +169,11 @@ Sizes: `sm` `md` (default) `none`
 | `brand/DgmLogoSimple.astro`     | SVG logo monogram. Props: `className`, `size`                                             |
 | `brand/ThemeToggle.astro`       | Dark/light mode toggle button with sun/moon icons                                         |
 | `sections/TimelineMarker.astro` | Logo tile (or initials) for experience/education timelines; lit on scroll on /experience/ |
-| `brand/HeroWireframe.astro`     | Home hero wireframe; morphs per rolling hero phrase (`utils/meshes.ts`, keep in sync)     |
-| `brand/ContactPlane.astro`      | Swaying wireframe paper plane (contact page); flies off when the email is copied          |
-
-Both wireframes share `mountWireframe()` (`utils/wireframe.ts`) and meshes from `utils/geodesic.ts` / `utils/meshes.ts`.
+| `brand/HeroTopography.astro`    | Slowly morphing contour lines behind the home hero (`utils/topography.ts`)                |
+| `brand/ContactPlane.astro`      | Wireframe paper plane (`utils/wireframe.ts`); flies off when the email is copied          |
 | `brand/NotFoundParticles.astro` | 404 heading redrawn as particles: cursor repel, click to burst; static `h1` kept for a11y |
-| `sections/AboutStats.astro` | Count-up stats computed from cv.json (`utils/cvStats.ts`) |
-| `ui/Button.astro` | Polymorphic button/link with semantic token styles |
+| `sections/AboutStats.astro`     | Count-up stats computed from cv.json (`utils/cvStats.ts`)                                 |
+| `ui/Button.astro`               | Polymorphic button/link with semantic token styles                                        |
 
 ## i18n
 

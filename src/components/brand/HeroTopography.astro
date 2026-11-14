@@ -1,0 +1,51 @@
+<div
+  class="hero-topography pointer-events-none absolute inset-0 print:hidden"
+  aria-hidden="true"
+>
+  <canvas class="h-full w-full text-text-primary" data-hero-topography></canvas>
+</div>
+
+<style>
+  .hero-topography {
+    /* Keep the name and copy on the left readable; lines bloom to the right. */
+    mask-image: radial-gradient(
+      ellipse 60% 75% at 78% 50%,
+      #000 20%,
+      transparent 78%
+    );
+    animation: hero-topography-in 2.4s var(--ease-out-expo) 0.3s both;
+  }
+
+  @media (max-width: 767px) {
+    .hero-topography {
+      mask-image: radial-gradient(
+        ellipse 90% 45% at 60% 20%,
+        #000 10%,
+        transparent 75%
+      );
+    }
+  }
+
+  @keyframes hero-topography-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-topography {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { mountTopography } from "../../utils/topography";
+
+  document.addEventListener("astro:page-load", () => {
+    const canvas = document.querySelector<HTMLCanvasElement>(
+      "[data-hero-topography]",
+    );
+    if (canvas) mountTopography(canvas);
+  });
+</script>

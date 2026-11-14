@@ -1,5 +1,12 @@
-import type { Mesh, Vec3 } from "./geodesic";
 import { pageScopedController, prefersReducedMotion } from "./motion";
+
+/** Canvas-space point: +y is down, +z faces the viewer. */
+export type Vec3 = [number, number, number];
+
+export interface Mesh {
+  vertices: Vec3[];
+  edges: [number, number][];
+}
 
 export interface WireframeShape {
   mesh: Mesh;
@@ -191,6 +198,15 @@ export function mountWireframe(
     window.addEventListener("resize", () => (resize(), draw(STILL_TIME)), {
       signal,
     });
+    // Repaint on theme switches once the colour transition has settled.
+    const themeObserver = new MutationObserver(() =>
+      window.setTimeout(() => draw(STILL_TIME), 500),
+    );
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    signal.addEventListener("abort", () => themeObserver.disconnect());
     return controller;
   }
 
