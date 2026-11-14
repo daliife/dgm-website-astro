@@ -18,7 +18,9 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
 ---
 
 <Layout title={`${name} ${lastName} — ${t("basics.label")}`} type="profile">
-  <section class="flex min-h-[88svh] flex-col items-center justify-center px-6">
+  <section
+    class="flex min-h-[70svh] flex-col items-center justify-center px-6 pt-16 md:min-h-[72svh]"
+  >
     <div class="home-enter w-full max-w-4xl">
       <!-- Greeting -->
       <p
