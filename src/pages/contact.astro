@@ -12,7 +12,7 @@ import type { SocialNetwork, SocialProfile } from "../types/ui";
 import Button from "../components/ui/Button.astro";
 import { t } from "../utils/i18n";
 import { getPageTitleFromKey } from "../utils/seo";
-const { email, profiles, location } = basics;
+const { email, profiles } = basics;
 
 const CONTACT_ICONS: Record<string, string> = {
   Github: ICON_PATHS.github,
@@ -41,230 +41,136 @@ const CONTACT_VALUE_CLASS =
   title={getPageTitleFromKey("ui.page.contact")}
   description={t("ui.meta.contact.description")}
 >
-  <div class={PAGE_CONTAINER_CLASSES}>
-    <div class="grid grid-cols-1 gap-x-16 md:grid-cols-[5fr_7fr]">
-      <div>
-        <h1
-          class={`${PAGE_HEADING_CLASSES} ${PAGE_HEADING_MARGIN_COMPACT_CLASSES}`}
-          data-i18n="ui.page.contact"
-        >
-          {t("ui.page.contact")}
-        </h1>
-        <p
-          class="reveal max-w-md text-base leading-relaxed text-text-secondary sm:text-lg"
-          data-i18n="ui.contact.intro"
-        >
-          {t("ui.contact.intro")}
-        </p>
+  <div
+    class={`${PAGE_CONTAINER_CLASSES} grid grid-cols-1 gap-x-16 md:grid-cols-[5fr_7fr]`}
+  >
+    <div>
+      <h1
+        class={`${PAGE_HEADING_CLASSES} ${PAGE_HEADING_MARGIN_COMPACT_CLASSES}`}
+        data-i18n="ui.page.contact"
+      >
+        {t("ui.page.contact")}
+      </h1>
+      <p
+        class="reveal mb-12 max-w-md text-base leading-relaxed text-text-secondary sm:text-lg md:mb-0"
+        data-i18n="ui.contact.intro"
+      >
+        {t("ui.contact.intro")}
+      </p>
+    </div>
 
-        <div
-          class="reveal mb-12 mt-8 flex gap-3 text-xs uppercase tracking-widest text-text-muted md:mb-0"
-          data-local-status
+    <div class="reveal-stagger border-b border-border-primary md:mt-3">
+      <div class={`${CONTACT_ROW_BASE} group`}>
+        <Button
+          id="contact-email-link"
+          href={`mailto:${email}`}
+          variant="simple"
+          size="none"
+          className="!flex min-w-0 flex-1 !items-start !justify-start hover:no-underline"
         >
-          <span
-            class="relative mt-[0.3rem] flex h-1.5 w-1.5 shrink-0 text-text-muted"
-            data-local-dot
-            aria-hidden="true"
-          >
-            <span class="local-pulse absolute inset-0 rounded-full bg-current"
-            ></span>
-            <span class="relative h-1.5 w-1.5 rounded-full bg-current"></span>
-          </span>
-          <span class="flex flex-col gap-1.5">
-            <span>
-              {location.city}
-              <span class="hidden" data-local-time-wrap>
-                · <time data-local-time></time>
+          <span class="flex min-w-0 flex-col gap-2">
+            <span class={CONTACT_LABEL_CLASS}>
+              <svg
+                class="h-3.5 w-3.5 shrink-0"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <Fragment set:html={ICON_PATHS.email} />
+              </svg>
+              <span data-i18n="ui.contact.network.email">
+                {t("ui.contact.network.email")}
               </span>
             </span>
-            <span class="hidden" data-local-state>
+            <span class={`${CONTACT_VALUE_CLASS} break-all`}>{email}</span>
+          </span>
+        </Button>
+        <Button
+          id="copy-email"
+          variant="outline"
+          size="sm"
+          className="hidden shrink-0"
+        >
+          <span data-copy-idle class="inline-flex items-center gap-2">
+            <svg
+              class="h-4 w-4 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <Fragment set:html={ICON_PATHS.copy} />
+            </svg>
+            <span data-i18n="ui.contact.copy">{t("ui.contact.copy")}</span>
+          </span>
+          <span data-copy-done class="hidden items-center gap-2">
+            <svg
+              class="h-4 w-4 shrink-0 text-status-positive"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <Fragment set:html={ICON_PATHS.check} />
+            </svg>
+            <span data-i18n="ui.contact.copied">{t("ui.contact.copied")}</span>
+          </span>
+        </Button>
+        <span id="copy-email-status" class="sr-only" aria-live="polite"></span>
+      </div>
+      {
+        (profiles as SocialProfile[]).map((profile) => {
+          if (profile.network === "Email") return null;
+          const icon = CONTACT_ICONS[profile.network];
+          const labelKey = NETWORK_I18N[profile.network];
+          return (
+            <Button
+              href={profile.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="simple"
+              size="none"
+              className={CONTACT_ROW_CLASS}
+            >
+              <span class="flex min-w-0 flex-col gap-2">
+                <span class={CONTACT_LABEL_CLASS}>
+                  {icon && (
+                    <svg
+                      class="h-3.5 w-3.5 shrink-0"
+                      fill="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <Fragment set:html={icon} />
+                    </svg>
+                  )}
+                  <span data-i18n={labelKey}>{t(labelKey)}</span>
+                </span>
+                <span class={CONTACT_VALUE_CLASS}>
+                  {profile.username || profile.network}
+                </span>
+              </span>
               <span
-                class="hidden"
-                data-status-open
-                data-i18n="ui.contact.status.open"
-              >
-                {t("ui.contact.status.open")}
-              </span>
-              <span data-status-closed data-i18n="ui.contact.status.closed">
-                {t("ui.contact.status.closed")}
-              </span>
-            </span>
-          </span>
-        </div>
-      </div>
-
-      <div class="reveal-stagger border-b border-border-primary md:mt-3">
-        <div class={`${CONTACT_ROW_BASE} group`}>
-          <Button
-            id="contact-email-link"
-            href={`mailto:${email}`}
-            variant="simple"
-            size="none"
-            className="!flex min-w-0 flex-1 !items-start !justify-start hover:no-underline"
-          >
-            <span class="flex min-w-0 flex-col gap-2">
-              <span class={CONTACT_LABEL_CLASS}>
-                <svg
-                  class="h-3.5 w-3.5 shrink-0"
-                  fill="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <Fragment set:html={ICON_PATHS.email} />
-                </svg>
-                <span data-i18n="ui.contact.network.email">
-                  {t("ui.contact.network.email")}
-                </span>
-              </span>
-              <span class={`${CONTACT_VALUE_CLASS} break-all`}>{email}</span>
-            </span>
-          </Button>
-          <Button
-            id="copy-email"
-            variant="outline"
-            size="sm"
-            className="hidden shrink-0"
-          >
-            <span data-copy-idle class="inline-flex items-center gap-2">
-              <svg
-                class="h-4 w-4 shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+                class="arrow-nudge arrow-nudge--external text-xl text-text-muted transition-colors group-hover:text-text-primary"
                 aria-hidden="true"
               >
-                <Fragment set:html={ICON_PATHS.copy} />
-              </svg>
-              <span data-i18n="ui.contact.copy">{t("ui.contact.copy")}</span>
-            </span>
-            <span data-copy-done class="hidden items-center gap-2">
-              <svg
-                class="h-4 w-4 shrink-0 text-status-positive"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <Fragment set:html={ICON_PATHS.check} />
-              </svg>
-              <span data-i18n="ui.contact.copied">{t("ui.contact.copied")}</span
-              >
-            </span>
-          </Button>
-          <span id="copy-email-status" class="sr-only" aria-live="polite"
-          ></span>
-        </div>
-        {
-          (profiles as SocialProfile[]).map((profile) => {
-            if (profile.network === "Email") return null;
-            const icon = CONTACT_ICONS[profile.network];
-            const labelKey = NETWORK_I18N[profile.network];
-            return (
-              <Button
-                href={profile.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="simple"
-                size="none"
-                className={CONTACT_ROW_CLASS}
-              >
-                <span class="flex min-w-0 flex-col gap-2">
-                  <span class={CONTACT_LABEL_CLASS}>
-                    {icon && (
-                      <svg
-                        class="h-3.5 w-3.5 shrink-0"
-                        fill="currentColor"
-                        viewBox="0 0 24 24"
-                        aria-hidden="true"
-                      >
-                        <Fragment set:html={icon} />
-                      </svg>
-                    )}
-                    <span data-i18n={labelKey}>{t(labelKey)}</span>
-                  </span>
-                  <span class={CONTACT_VALUE_CLASS}>
-                    {profile.username || profile.network}
-                  </span>
-                </span>
-                <span
-                  class="arrow-nudge arrow-nudge--external text-xl text-text-muted transition-colors group-hover:text-text-primary"
-                  aria-hidden="true"
-                >
-                  ↗
-                </span>
-                <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
-                  {t("ui.a11y.opensNewTab")}
-                </span>
-              </Button>
-            );
-          })
-        }
-      </div>
+                ↗
+              </span>
+              <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+                {t("ui.a11y.opensNewTab")}
+              </span>
+            </Button>
+          );
+        })
+      }
     </div>
   </div>
 </Layout>
 
-<style>
-  .local-pulse {
-    animation: local-pulse 2.4s var(--ease-out-expo) infinite;
-  }
-
-  @keyframes local-pulse {
-    from {
-      opacity: 0.6;
-      transform: scale(1);
-    }
-    to {
-      opacity: 0;
-      transform: scale(3);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .local-pulse {
-      animation: none;
-      opacity: 0;
-    }
-  }
-</style>
-
 <script>
   import { getStoredLang, loadLang } from "../utils/i18n-client";
-  import { getLocalTimeInfo } from "../utils/localTime";
-  import { pageScopedController } from "../utils/motion";
 
   let resetTimer: number | undefined;
-
-  document.addEventListener("astro:page-load", () => {
-    const timeEl = document.querySelector<HTMLTimeElement>("[data-local-time]");
-    const timeWrap = document.querySelector<HTMLElement>(
-      "[data-local-time-wrap]",
-    );
-    const status = document.querySelector<HTMLElement>("[data-local-status]");
-    if (!timeEl || !timeWrap || !status) return;
-
-    const dot = status.querySelector<HTMLElement>("[data-local-dot]")!;
-    const state = status.querySelector<HTMLElement>("[data-local-state]")!;
-    const open = status.querySelector<HTMLElement>("[data-status-open]")!;
-    const closed = status.querySelector<HTMLElement>("[data-status-closed]")!;
-
-    const tick = () => {
-      const { time, zone, isWorkingHours } = getLocalTimeInfo(new Date());
-      timeEl.textContent = `${time} ${zone}`;
-      timeEl.dateTime = new Date().toISOString();
-      dot.classList.toggle("text-status-positive", isWorkingHours);
-      dot.classList.toggle("text-text-muted", !isWorkingHours);
-      open.classList.toggle("hidden", !isWorkingHours);
-      closed.classList.toggle("hidden", isWorkingHours);
-    };
-
-    tick();
-    timeWrap.classList.remove("hidden");
-    state.classList.remove("hidden");
-    const { signal } = pageScopedController();
-    const interval = window.setInterval(tick, 15_000);
-    signal.addEventListener("abort", () => window.clearInterval(interval));
-  });
 
   document.addEventListener("astro:page-load", () => {
     const btn = document.getElementById("copy-email");
