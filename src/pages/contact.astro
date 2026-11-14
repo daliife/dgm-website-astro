@@ -11,11 +11,8 @@ import type { I18nKey } from "../i18n/en";
 import type { SocialNetwork, SocialProfile } from "../types/ui";
 import Button from "../components/ui/Button.astro";
 import { t } from "../utils/i18n";
-import { getFullName, getPageTitleFromKey } from "../utils/seo";
-import { Image } from "astro:assets";
-import profileImgSrc from "../assets/images/david-profile.webp";
-const { email, profiles } = basics;
-const fullName = getFullName();
+import { getPageTitleFromKey } from "../utils/seo";
+const { email, profiles, location } = basics;
 
 const CONTACT_ICONS: Record<string, string> = {
   Github: ICON_PATHS.github,
@@ -61,37 +58,26 @@ const CONTACT_VALUE_CLASS =
         </p>
 
         <div
-          class="reveal mb-12 mt-10 flex items-center gap-4 md:mb-0 md:mt-12"
+          class="reveal mb-12 mt-8 flex gap-3 text-xs uppercase tracking-widest text-text-muted md:mb-0"
+          data-local-status
         >
-          <Image
-            src={profileImgSrc}
-            alt={`${t("ui.a11y.portraitOf")} ${fullName}`}
-            data-i18n-alt="ui.a11y.portraitOf"
-            data-alt-name={fullName}
-            class="h-[4.5rem] w-14 shrink-0 rounded-md object-cover grayscale"
-            width={56}
-            height={72}
-            widths={[56, 112]}
-            sizes="56px"
-            fit="cover"
-            format="webp"
-            quality={85}
-          />
-          <div class="flex min-w-0 flex-col gap-1.5">
-            <p class="text-sm font-medium text-text-primary">{fullName}</p>
-            <p class="text-xs uppercase tracking-widest text-text-muted">
-              <span data-i18n="basics.location">{t("basics.location")}</span>
+          <span
+            class="relative mt-[0.3rem] flex h-1.5 w-1.5 shrink-0 text-text-muted"
+            data-local-dot
+            aria-hidden="true"
+          >
+            <span class="local-pulse absolute inset-0 rounded-full bg-current"
+            ></span>
+            <span class="relative h-1.5 w-1.5 rounded-full bg-current"></span>
+          </span>
+          <span class="flex flex-col gap-1.5">
+            <span>
+              {location.city}
               <span class="hidden" data-local-time-wrap>
                 · <time data-local-time></time>
               </span>
-            </p>
-            <p
-              class="hidden items-center gap-2 text-xs text-text-secondary"
-              data-local-status
-            >
-              <span
-                class="h-1.5 w-1.5 shrink-0 rounded-full bg-text-muted"
-                data-local-dot></span>
+            </span>
+            <span class="hidden" data-local-state>
               <span
                 class="hidden"
                 data-status-open
@@ -102,8 +88,8 @@ const CONTACT_VALUE_CLASS =
               <span data-status-closed data-i18n="ui.contact.status.closed">
                 {t("ui.contact.status.closed")}
               </span>
-            </p>
-          </div>
+            </span>
+          </span>
         </div>
       </div>
 
@@ -215,29 +201,32 @@ const CONTACT_VALUE_CLASS =
         }
       </div>
     </div>
-
-    <Button
-      href={`mailto:${email}`}
-      variant="simple"
-      size="none"
-      className="reveal group mt-20 !flex w-full !items-end !justify-between gap-6 border-b border-border-primary pb-6 hover:no-underline md:mt-28"
-    >
-      <span
-        class="text-6xl font-bold uppercase leading-none tracking-tight text-text-primary sm:text-8xl lg:text-9xl"
-        data-i18n="ui.contact.cta"
-      >
-        {t("ui.contact.cta")}
-      </span>
-      <span class="sr-only">{email}</span>
-      <span
-        class="arrow-nudge mb-1 text-4xl text-text-muted transition-colors duration-base group-hover:text-text-primary sm:mb-2 sm:text-6xl"
-        aria-hidden="true"
-      >
-        →
-      </span>
-    </Button>
   </div>
 </Layout>
+
+<style>
+  .local-pulse {
+    animation: local-pulse 2.4s var(--ease-out-expo) infinite;
+  }
+
+  @keyframes local-pulse {
+    from {
+      opacity: 0.6;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(3);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .local-pulse {
+      animation: none;
+      opacity: 0;
+    }
+  }
+</style>
 
 <script>
   import { getStoredLang, loadLang } from "../utils/i18n-client";
@@ -255,6 +244,7 @@ const CONTACT_VALUE_CLASS =
     if (!timeEl || !timeWrap || !status) return;
 
     const dot = status.querySelector<HTMLElement>("[data-local-dot]")!;
+    const state = status.querySelector<HTMLElement>("[data-local-state]")!;
     const open = status.querySelector<HTMLElement>("[data-status-open]")!;
     const closed = status.querySelector<HTMLElement>("[data-status-closed]")!;
 
@@ -262,15 +252,15 @@ const CONTACT_VALUE_CLASS =
       const { time, zone, isWorkingHours } = getLocalTimeInfo(new Date());
       timeEl.textContent = `${time} ${zone}`;
       timeEl.dateTime = new Date().toISOString();
-      dot.classList.toggle("bg-status-positive", isWorkingHours);
-      dot.classList.toggle("bg-text-muted", !isWorkingHours);
+      dot.classList.toggle("text-status-positive", isWorkingHours);
+      dot.classList.toggle("text-text-muted", !isWorkingHours);
       open.classList.toggle("hidden", !isWorkingHours);
       closed.classList.toggle("hidden", isWorkingHours);
     };
 
     tick();
     timeWrap.classList.remove("hidden");
-    status.classList.replace("hidden", "flex");
+    state.classList.remove("hidden");
     const { signal } = pageScopedController();
     const interval = window.setInterval(tick, 15_000);
     signal.addEventListener("abort", () => window.clearInterval(interval));

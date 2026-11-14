@@ -145,7 +145,6 @@ export const ES: Record<I18nKey, string> = {
   "ui.contact.copied": "Copiado",
   "ui.contact.status.open": "En horario laboral",
   "ui.contact.status.closed": "Fuera de horario laboral",
-  "ui.contact.cta": "¿Hablamos?",
 
   // ── Basics ───────────────────────────────────────────────────────────────
   "basics.label": "Desarrollador Frontend",
