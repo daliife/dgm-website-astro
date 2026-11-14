@@ -102,7 +102,8 @@ When you add or update a project in `cv.json`:
 1. Set `imageSource` to a remote screenshot URL **or** a local path under `assets/project-shots/` (relative to the repo root).
 2. For live demos, prefer **`pnpm run images:capture`** (Playwright) — captures each project URL into `assets/project-shots/` and regenerates WebP thumbs.
 3. Or run **`pnpm run images:projects`** alone when `imageSource` is already set — regenerates thumbnails and updates each project's `image` path.
-4. Commit `cv.json`, `public/projects/*.webp`, and any new `assets/project-shots/*` sources.
+
+Each project gets `{slug}.webp` (480×320, used for Open Graph) plus 16:10 responsive variants `{slug}-640.webp` and `{slug}-1280.webp` (cards + detail hero, via `getProjectImageSet()`). All outputs come from `scripts/lib/project-images.mjs`. 4. Commit `cv.json`, `public/projects/*.webp`, and any new `assets/project-shots/*` sources.
 
 Re-run the scripts if you change `imageSource`, rename a project, or add a new entry.
 
@@ -119,7 +120,11 @@ import { basics, work } from "@cv";
 
 ### Page transitions
 
-`<ClientRouter />` enables client-side navigation with a main-content crossfade (~280ms) plus optional scroll reveal (`.reveal` / `.reveal-stagger` in `Layout.astro`). Reveals stay visible until JS adds `html.reveal-ready`, so a script failure never blanks the page. No shared-element project morphs. Respects `prefers-reduced-motion`.
+`<ClientRouter />` enables client-side navigation with a main-content crossfade (~280ms) plus optional scroll reveal (`.reveal` / `.reveal-stagger` in `Layout.astro`). Reveals stay visible until JS adds `html.reveal-ready`, so a script failure never blanks the page. Project screenshots morph from the `/projects/` card into the detail hero via a shared `transition:name` (`getProjectTransitionName(slug)`); keep that name unique per page and never put `.reveal` on the morphing image. Respects `prefers-reduced-motion`.
+
+### Motion tokens
+
+One easing and three durations, defined as CSS vars in `Layout.astro` and mirrored in `tailwind.config.mjs`: `ease-out-expo` · `duration-fast` (160ms) · `duration-base` (280ms) · `duration-slow` (450ms). Animate only `transform` / `opacity` / `filter`; hover effects go under `@media (hover: hover)`. Use `.arrow-nudge` (or `.arrow-nudge--external`) for trailing arrows on links and cards.
 
 ### Client-side script
 

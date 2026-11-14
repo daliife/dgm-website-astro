@@ -67,7 +67,7 @@ The `@cv` path alias is configured in `tsconfig.json`.
 
 ### Project detail pages
 
-`/projects/[slug]/` is a case-study view for each `cv.json` project: long description, tech stack, visit/GitHub CTAs, screenshot (`public/projects/*.webp` at 480×320), highlights, and prev/next navigation. List cards (`ProjectCard`) link to the detail page; outbound “visit” stays on the detail CTAs.
+`/projects/[slug]/` is a case-study view for each `cv.json` project: long description, tech stack, visit/GitHub CTAs, framed 16:10 screenshot (`public/projects/{slug}-640|1280.webp` via `srcset`), highlights, and prev/next navigation. List cards (`ProjectCard`) link to the detail page; outbound “visit” stays on the detail CTAs.
 
 ---
 
@@ -159,7 +159,7 @@ The Latin woff2 is preloaded via `<link rel="preload">` in `Layout.astro` to eli
 
 ### Page motion
 
-Route changes use Astro `<ClientRouter />` with a crossfade on `<main>` (`fade({ duration: "0.28s" })`) and eased view-transition groups in global CSS. Header and cookie banner persist (`transition:persist`). No shared-element project image morph (avoids flash between list and detail).
+Route changes use Astro `<ClientRouter />` with a crossfade on `<main>` (`fade({ duration: "0.28s" })`) and eased view-transition groups in global CSS. Header and cookie banner persist (`transition:persist`). Project screenshots share a `transition:name` (`project-image-{slug}`) so the card image morphs into the detail hero. The morphing `<img>` must not carry `.reveal`, otherwise the new snapshot is captured at opacity 0.
 
 Scroll reveal: add `class="reveal"` or `reveal-stagger` (see `REVEAL_STAGGER_LIST_CLASSES` in `constants.ts`). Content stays visible until JS adds `html.reveal-ready`, then an `IntersectionObserver` in `Layout.astro` toggles `.is-visible` on `astro:page-load`. Respects `prefers-reduced-motion`.
 
@@ -366,7 +366,7 @@ pnpm run test          # Vitest (run once)
 pnpm run test:watch    # Vitest (watch mode)
 pnpm run test:coverage # Vitest + v8 coverage
 pnpm run test:build-urls  # assert dist/ HTML for every route (after build)
-pnpm run images:projects  # WebP thumbs (480×320) from cv.json imageSource
+pnpm run images:projects  # WebP 480×320 + 16:10 640/1280 variants from cv.json imageSource
 pnpm run images:capture   # live screenshots → assets/project-shots + webp
 ```
 
