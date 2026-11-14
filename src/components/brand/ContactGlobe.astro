@@ -53,13 +53,15 @@ const coordinates = basics.location?.coordinates;
     const lon = Number(canvas.dataset.lon);
 
     mountWireframe(canvas, {
-      mesh: createGlobe(30),
+      shape: {
+        mesh: createGlobe(30),
+        tilt: -0.25,
+        edgeAlpha: { back: 0.04, front: 0.26 },
+        marker: latLonToVec3(lat, lon),
+      },
       turnSeconds: 90,
       // Start with the marker just off the left limb so it rotates into view.
       yaw: -((lon * Math.PI) / 180) - 0.9,
-      tilt: -0.25,
-      edgeAlpha: { back: 0.04, front: 0.26 },
-      marker: latLonToVec3(lat, lon),
     });
   });
 </script>

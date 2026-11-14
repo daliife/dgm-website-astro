@@ -214,6 +214,13 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
 
   let stopCurrent: (() => void) | null = null;
 
+  /** Lets the hero wireframe follow the phrase being typed. */
+  function announcePhrase(index: number) {
+    window.dispatchEvent(
+      new CustomEvent("app:typewriter-phrase", { detail: { index } }),
+    );
+  }
+
   async function startTypewriter(lang: LangCode) {
     const el = document.getElementById("tw-rotating");
     const cursor = document.querySelector<HTMLElement>(".typewriter-cursor");
@@ -248,6 +255,7 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
         if (charIdx === 0) {
           isDeleting = false;
           phraseIdx = (phraseIdx + 1) % phrases.length;
+          announcePhrase(phraseIdx);
           setTimeout(rotate, 350);
         } else {
           setTimeout(rotate, 35 + Math.random() * 20);
@@ -267,6 +275,7 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
       }
     }
 
+    announcePhrase(0);
     setTimeout(rotate, 750);
   }
 

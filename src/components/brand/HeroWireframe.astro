@@ -28,14 +28,40 @@
 
 <script>
   import { createIcosphere } from "../../utils/geodesic";
-  import { mountWireframe } from "../../utils/wireframe";
+  import {
+    createAtom,
+    createMountains,
+    createSoundWave,
+    createTesseract,
+  } from "../../utils/meshes";
+  import { pageScopedController } from "../../utils/motion";
+  import { mountWireframe, type WireframeShape } from "../../utils/wireframe";
+
+  /** One shape per typewriter phrase, in `TYPEWRITER_KEYS` order. */
+  const SHAPES: WireframeShape[] = [
+    { mesh: createIcosphere(1), vertexDots: true }, // frontend developer
+    { mesh: createTesseract(), vertexDots: true }, // software engineer
+    { mesh: createAtom(), tilt: 0.2 }, // React specialist
+    { mesh: createSoundWave(), tilt: 0.35 }, // clarinettist
+    { mesh: createMountains(), tilt: -0.55 }, // mountain lover
+  ];
 
   document.addEventListener("astro:page-load", () => {
     const canvas = document.querySelector<HTMLCanvasElement>(
       "[data-hero-wireframe]",
     );
-    if (canvas) {
-      mountWireframe(canvas, { mesh: createIcosphere(1), vertexDots: true });
-    }
+    if (!canvas) return;
+    const wireframe = mountWireframe(canvas, { shape: SHAPES[0] });
+    if (!wireframe) return;
+
+    const { signal } = pageScopedController();
+    window.addEventListener(
+      "app:typewriter-phrase",
+      (e: Event) => {
+        const { index } = (e as CustomEvent<{ index: number }>).detail;
+        wireframe.setShape(SHAPES[index % SHAPES.length]);
+      },
+      { signal },
+    );
   });
 </script>

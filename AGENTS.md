@@ -169,7 +169,7 @@ Sizes: `sm` `md` (default) `none`
 | `brand/DgmLogoSimple.astro`     | SVG logo monogram. Props: `className`, `size`                                             |
 | `brand/ThemeToggle.astro`       | Dark/light mode toggle button with sun/moon icons                                         |
 | `sections/TimelineMarker.astro` | Logo tile (or initials) for experience/education timelines; lit on scroll on /experience/ |
-| `brand/HeroWireframe.astro`     | Slowly rotating geodesic wireframe on the right of the home hero                          |
+| `brand/HeroWireframe.astro`     | Home hero wireframe; morphs per typewriter phrase (`utils/meshes.ts`, keep order in sync) |
 | `brand/ContactGlobe.astro`      | Wireframe globe with a pulsing marker at `basics.location.coordinates` (contact page)     |
 
 Both wireframes share `mountWireframe()` (`utils/wireframe.ts`) and meshes from `utils/geodesic.ts`.

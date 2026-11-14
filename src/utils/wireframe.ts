@@ -1,16 +1,10 @@
 import type { Mesh, Vec3 } from "./geodesic";
 import { pageScopedController, prefersReducedMotion } from "./motion";
 
-export interface WireframeOptions {
+export interface WireframeShape {
   mesh: Mesh;
-  /** Seconds per full turn. */
-  turnSeconds?: number;
-  /** Starting yaw in radians. */
-  yaw?: number;
-  /** Camera pitch in radians (negative tilts the north pole toward the viewer). */
+  /** Camera pitch in radians (negative tilts the top toward the viewer). */
   tilt?: number;
-  /** Fraction of the canvas the sphere radius fills. */
-  radius?: number;
   edgeAlpha?: { back: number; front: number };
   /** Draw a dot on every vertex (good for sparse meshes). */
   vertexDots?: boolean;
@@ -18,9 +12,27 @@ export interface WireframeOptions {
   marker?: Vec3;
 }
 
+export interface WireframeOptions {
+  shape: WireframeShape;
+  /** Seconds per full turn. */
+  turnSeconds?: number;
+  /** Starting yaw in radians. */
+  yaw?: number;
+  /** Fraction of the canvas the unit sphere radius fills. */
+  radius?: number;
+}
+
+export interface WireframeController {
+  /** Cross-fade to another shape. */
+  setShape(shape: WireframeShape): void;
+}
+
 const CAMERA = 3.2;
 const PULSE_MS = 2400;
+const MORPH_MS = 900;
 const STILL_TIME = 9_000;
+const DEFAULT_TILT = 0.42;
+const DEFAULT_EDGE_ALPHA = { back: 0.05, front: 0.32 };
 
 function rotate([x, y, z]: Vec3, yaw: number, pitch: number): Vec3 {
   const cy = Math.cos(yaw);
@@ -40,24 +52,24 @@ function rotate([x, y, z]: Vec3, yaw: number, pitch: number): Vec3 {
 export function mountWireframe(
   canvas: HTMLCanvasElement,
   {
-    mesh,
+    shape,
     turnSeconds = 60,
     yaw: startYaw = 0,
-    tilt = 0.42,
     radius: radiusFraction = 0.42,
-    edgeAlpha = { back: 0.05, front: 0.32 },
-    vertexDots = false,
-    marker,
   }: WireframeOptions,
-): void {
+): WireframeController | null {
   const ctx = canvas.getContext("2d");
-  if (!ctx) return;
+  if (!ctx) return null;
 
+  const reduced = prefersReducedMotion();
   const spin = (Math.PI * 2) / (turnSeconds * 1000);
   const { signal } = pageScopedController();
   let size = 0;
   let frame = 0;
   let visible = true;
+  let current = shape;
+  let previous: WireframeShape | null = null;
+  let morphStart = 0;
 
   const resize = () => {
     const dpr = window.devicePixelRatio || 1;
@@ -66,28 +78,36 @@ export function mountWireframe(
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   };
 
-  const draw = (time: number) => {
+  const drawShape = (
+    {
+      mesh,
+      tilt = DEFAULT_TILT,
+      edgeAlpha = DEFAULT_EDGE_ALPHA,
+      vertexDots,
+      marker,
+    }: WireframeShape,
+    time: number,
+    opacity: number,
+    scale: number,
+  ) => {
     const yaw = startYaw + time * spin;
     const pitch = tilt + Math.sin(time * spin * 0.7) * 0.08;
-    const radius = size * radiusFraction;
+    const radius = size * radiusFraction * scale;
     const centre = size / 2;
     const project = (v: Vec3) => {
       const [x, y, z] = rotate(v, yaw, pitch);
-      const scale = radius * (CAMERA / (CAMERA - z));
-      return { x: centre + x * scale, y: centre + y * scale, z };
+      const s = radius * (CAMERA / (CAMERA - z));
+      return { x: centre + x * s, y: centre + y * s, z };
     };
     const projected = mesh.vertices.map(project);
-
-    ctx.clearRect(0, 0, size, size);
-    ctx.strokeStyle = ctx.fillStyle = getComputedStyle(canvas).color;
-    ctx.lineWidth = 1;
 
     for (const [a, b] of mesh.edges) {
       const p = projected[a];
       const q = projected[b];
-      const depth = ((p.z + q.z) / 2 + 1) / 2;
+      const depth = Math.min(1, Math.max(0, ((p.z + q.z) / 2 + 1) / 2));
       ctx.globalAlpha =
-        edgeAlpha.back + (edgeAlpha.front - edgeAlpha.back) * depth ** 1.5;
+        opacity *
+        (edgeAlpha.back + (edgeAlpha.front - edgeAlpha.back) * depth ** 1.5);
       ctx.beginPath();
       ctx.moveTo(p.x, p.y);
       ctx.lineTo(q.x, q.y);
@@ -96,8 +116,8 @@ export function mountWireframe(
 
     if (vertexDots) {
       for (const p of projected) {
-        const depth = (p.z + 1) / 2;
-        ctx.globalAlpha = 0.08 + 0.4 * depth ** 2;
+        const depth = Math.min(1, Math.max(0, (p.z + 1) / 2));
+        ctx.globalAlpha = opacity * (0.08 + 0.4 * depth ** 2);
         ctx.beginPath();
         ctx.arc(p.x, p.y, 1.1 + depth * 0.8, 0, Math.PI * 2);
         ctx.fill();
@@ -109,16 +129,30 @@ export function mountWireframe(
       const facing = Math.max(0, Math.min(1, (m.z + 0.15) / 0.5));
       if (facing > 0) {
         const pulse = (time % PULSE_MS) / PULSE_MS;
-        ctx.globalAlpha = facing * 0.5 * (1 - pulse);
+        ctx.globalAlpha = opacity * facing * 0.5 * (1 - pulse);
         ctx.beginPath();
         ctx.arc(m.x, m.y, 2.5 + pulse * 12, 0, Math.PI * 2);
         ctx.stroke();
-        ctx.globalAlpha = facing * 0.9;
+        ctx.globalAlpha = opacity * facing * 0.9;
         ctx.beginPath();
         ctx.arc(m.x, m.y, 2.5, 0, Math.PI * 2);
         ctx.fill();
       }
     }
+  };
+
+  const draw = (time: number) => {
+    ctx.clearRect(0, 0, size, size);
+    ctx.strokeStyle = ctx.fillStyle = getComputedStyle(canvas).color;
+    ctx.lineWidth = 1;
+
+    const progress = previous ? Math.min(1, (time - morphStart) / MORPH_MS) : 1;
+    const eased = 1 - (1 - progress) ** 3;
+    if (previous) {
+      drawShape(previous, time, 1 - eased, 1 - 0.12 * eased);
+      if (progress >= 1) previous = null;
+    }
+    drawShape(current, time, eased, 0.88 + 0.12 * eased);
     ctx.globalAlpha = 1;
   };
 
@@ -127,13 +161,27 @@ export function mountWireframe(
     frame = visible ? requestAnimationFrame(loop) : 0;
   };
 
+  const controller: WireframeController = {
+    setShape(next) {
+      if (next === current) return;
+      if (reduced) {
+        current = next;
+        draw(STILL_TIME);
+        return;
+      }
+      previous = current;
+      current = next;
+      morphStart = performance.now();
+    },
+  };
+
   resize();
-  if (prefersReducedMotion()) {
+  if (reduced) {
     draw(STILL_TIME);
     window.addEventListener("resize", () => (resize(), draw(STILL_TIME)), {
       signal,
     });
-    return;
+    return controller;
   }
 
   const wake = () => {
@@ -157,4 +205,5 @@ export function mountWireframe(
     observer.disconnect();
     cancelAnimationFrame(frame);
   });
+  return controller;
 }
