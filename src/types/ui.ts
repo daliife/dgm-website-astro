@@ -19,6 +19,8 @@ export interface WorkEntry {
   endDate?: string;
   summary?: string;
   highlights?: string[];
+  /** Square logo under `public/logos/` (falls back to company initials). */
+  logo?: string;
 }
 
 export interface ProjectEntry {
@@ -36,6 +38,8 @@ export interface ProjectEntry {
   category?: "professional" | "personal" | "academic";
   /** Bullet points for the project detail page. */
   highlights?: string[];
+  /** Shown in the home "selected work" strip. */
+  featured?: boolean;
 }
 
 export interface SkillEntry {
@@ -51,6 +55,8 @@ export interface EducationEntry {
   studyType: string;
   startDate: string;
   endDate: string;
+  /** Square logo under `public/logos/` (falls back to institution initials). */
+  logo?: string;
 }
 
 export interface CertificateEntry {

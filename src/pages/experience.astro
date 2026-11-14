@@ -5,6 +5,7 @@ import {
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
+  TIMELINE_LIST_CLASSES,
 } from "../utils/constants";
 import { pageHref } from "../utils/url";
 import WorkCard from "../components/sections/WorkCard.astro";
@@ -25,7 +26,7 @@ import type { WorkEntry } from "../types/ui";
     >
       {t("ui.page.experience")}
     </h1>
-    <div class="reveal-stagger space-y-0 [&>article:first-child]:border-t-0">
+    <div class={`reveal-stagger ${TIMELINE_LIST_CLASSES}`}>
       {work.map((job: WorkEntry, i: number) => <WorkCard {job} jobIndex={i} />)}
     </div>
 

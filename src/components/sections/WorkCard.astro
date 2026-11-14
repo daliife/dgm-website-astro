@@ -2,12 +2,15 @@
 import { t } from "../../utils/i18n";
 import {
   CONTENT_LIST_CLASSES,
+  TIMELINE_ITEM_CLASSES,
+  TIMELINE_RAIL_CLASSES,
   WORK_COMPANY_LINK_CLASSES,
   WORK_DATES_CLASSES,
 } from "../../utils/constants";
 import type { WorkEntry } from "../../types/ui";
 import type { I18nKey } from "../../i18n/en";
 import HighlightListItem from "./HighlightListItem.astro";
+import TimelineMarker from "./TimelineMarker.astro";
 import WorkDates from "./WorkDates.astro";
 
 interface Props {
@@ -23,50 +26,54 @@ const hasHighlights = highlights.length > 0;
 const hasList = hasSummary || hasHighlights;
 ---
 
-<article class="border-t border-border-primary py-8">
-  <header class="mb-6 flex max-w-2xl flex-col gap-2.5">
-    <h2 class="text-lg leading-snug text-text-primary sm:text-xl">
-      <span class="font-semibold" data-i18n={`work.${jobIndex}.position`}>
-        {t(`work.${jobIndex}.position` as I18nKey, job.position)}
-      </span>
-      <span class="font-normal text-text-muted" aria-hidden="true"> @ </span>
-      <a
-        href={job.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        class={`${WORK_COMPANY_LINK_CLASSES} font-normal`}
-      >
-        {job.company}
-        <span class="sr-only" data-i18n="ui.a11y.opensNewTab"
-          >{t("ui.a11y.opensNewTab")}</span
+<article class={`group ${TIMELINE_ITEM_CLASSES} pb-12`}>
+  <span class={TIMELINE_RAIL_CLASSES} aria-hidden="true"></span>
+  <TimelineMarker name={job.company} logo={job.logo} current={!job.endDate} />
+  <div class="min-w-0 pt-1.5">
+    <header class="mb-6 flex max-w-2xl flex-col gap-2.5">
+      <h2 class="text-lg leading-snug text-text-primary sm:text-xl">
+        <span class="font-semibold" data-i18n={`work.${jobIndex}.position`}>
+          {t(`work.${jobIndex}.position` as I18nKey, job.position)}
+        </span>
+        <span class="font-normal text-text-muted" aria-hidden="true"> @ </span>
+        <a
+          href={job.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class={`${WORK_COMPANY_LINK_CLASSES} font-normal`}
         >
-      </a>
-    </h2>
-    <WorkDates
-      startDate={job.startDate}
-      endDate={job.endDate}
-      className={WORK_DATES_CLASSES}
-    />
-  </header>
+          {job.company}
+          <span class="sr-only" data-i18n="ui.a11y.opensNewTab"
+            >{t("ui.a11y.opensNewTab")}</span
+          >
+        </a>
+      </h2>
+      <WorkDates
+        startDate={job.startDate}
+        endDate={job.endDate}
+        className={WORK_DATES_CLASSES}
+      />
+    </header>
 
-  {
-    hasList && (
-      <ul class={CONTENT_LIST_CLASSES}>
-        {hasSummary && (
-          <HighlightListItem>
-            <span data-i18n={`work.${jobIndex}.summary`}>
-              {t(`work.${jobIndex}.summary` as I18nKey, job.summary!)}
-            </span>
-          </HighlightListItem>
-        )}
-        {highlights.map((h: string, hIndex: number) => (
-          <HighlightListItem>
-            <span data-i18n={`work.${jobIndex}.highlights.${hIndex}`}>
-              {t(`work.${jobIndex}.highlights.${hIndex}` as I18nKey, h)}
-            </span>
-          </HighlightListItem>
-        ))}
-      </ul>
-    )
-  }
+    {
+      hasList && (
+        <ul class={CONTENT_LIST_CLASSES}>
+          {hasSummary && (
+            <HighlightListItem>
+              <span data-i18n={`work.${jobIndex}.summary`}>
+                {t(`work.${jobIndex}.summary` as I18nKey, job.summary!)}
+              </span>
+            </HighlightListItem>
+          )}
+          {highlights.map((h: string, hIndex: number) => (
+            <HighlightListItem>
+              <span data-i18n={`work.${jobIndex}.highlights.${hIndex}`}>
+                {t(`work.${jobIndex}.highlights.${hIndex}` as I18nKey, h)}
+              </span>
+            </HighlightListItem>
+          ))}
+        </ul>
+      )
+    }
+  </div>
 </article>

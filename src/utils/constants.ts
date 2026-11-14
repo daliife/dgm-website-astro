@@ -94,6 +94,17 @@ export const WORK_COMPANY_LINK_CLASSES = LINK_UNDERLINE_SECONDARY_CLASSES;
 export const WORK_DATES_CLASSES =
   "whitespace-nowrap tabular-nums text-xs uppercase tracking-widest text-text-muted";
 
+/** Timeline row: marker column + content; pair with TIMELINE_RAIL_CLASSES inside. */
+export const TIMELINE_ITEM_CLASSES =
+  "relative grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-5 md:gap-x-8";
+
+/** Vertical line from below the marker to the next row; hidden on the last row. */
+export const TIMELINE_RAIL_CLASSES =
+  "timeline-rail absolute bottom-2 left-5 top-12 w-px bg-border-primary";
+
+/** Parent list: drop the rail after the final entry. */
+export const TIMELINE_LIST_CLASSES = "[&>*:last-child_.timeline-rail]:hidden";
+
 /** Bulleted body copy (experience, project highlights, etc.). */
 export const CONTENT_LIST_CLASSES = "max-w-2xl list-none space-y-2.5";
 

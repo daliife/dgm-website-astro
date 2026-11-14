@@ -92,6 +92,30 @@ describe("WorkCard", () => {
     expect(html).toContain("Built and maintained the main web platform.");
   });
 
+  it("renders a timeline marker with company initials when no logo is set", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(WorkCard, {
+      props: { job: baseJob, jobIndex: 0 },
+    });
+
+    expect(html).toContain("timeline-rail");
+    expect(html).toMatch(/>\s*AC\s*</);
+    expect(html).not.toContain("bg-status-positive");
+  });
+
+  it("uses the logo and marks the current role", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(WorkCard, {
+      props: {
+        job: { ...baseJob, endDate: undefined, logo: "/logos/acme.svg" },
+        jobIndex: 0,
+      },
+    });
+
+    expect(html).toContain('src="/logos/acme.svg"');
+    expect(html).toContain("bg-status-positive");
+  });
+
   it("does not render list when there is no summary or highlights", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(WorkCard, {

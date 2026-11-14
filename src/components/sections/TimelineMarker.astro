@@ -1,0 +1,53 @@
+---
+import { getInitials } from "../../utils/cvStats";
+
+interface Props {
+  name: string;
+  logo?: string;
+  current?: boolean;
+  size?: "sm" | "md";
+}
+
+const { name, logo, current = false, size = "md" } = Astro.props;
+---
+
+<span
+  class:list={[
+    "relative z-[1] flex shrink-0 items-center justify-center rounded-md border bg-bg-primary transition-colors duration-base ease-out-expo",
+    size === "md" ? "h-10 w-10" : "h-8 w-8",
+    current
+      ? "border-border-muted"
+      : "border-border-primary [@media(hover:hover)]:group-hover:border-border-muted",
+  ]}
+  aria-hidden="true"
+>
+  {
+    logo ? (
+      <img
+        src={logo}
+        alt=""
+        class="h-3/5 w-3/5 object-contain grayscale"
+        width="24"
+        height="24"
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <span
+        class:list={[
+          "font-semibold tracking-wide text-text-muted",
+          size === "md" ? "text-[11px]" : "text-[10px]",
+        ]}
+      >
+        {getInitials(name)}
+      </span>
+    )
+  }
+  {
+    current && (
+      <span class="absolute -right-1 -top-1 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-bg-primary">
+        <span class="h-1.5 w-1.5 rounded-full bg-status-positive" />
+      </span>
+    )
+  }
+</span>
