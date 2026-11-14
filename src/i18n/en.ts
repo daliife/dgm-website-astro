@@ -380,6 +380,7 @@ export const EN = {
   "ui.404.message": "Page not found",
   "ui.404.nav.aria": "Quick navigation",
   "ui.404.back": "← Back to home",
+  "ui.404.drag": "Drag the cube",
 } as const;
 
 export type I18nKey = keyof typeof EN;

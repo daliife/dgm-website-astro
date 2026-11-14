@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
+import NotFoundCube from "../components/brand/NotFoundCube.astro";
 import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
 import { EDITORIAL_LINK_MD_MUTED_CLASSES } from "../utils/constants";
@@ -13,6 +14,7 @@ const NOT_FOUND_BACK_LINK =
   <section
     class="flex min-h-screen flex-col items-center justify-center px-6 text-center"
   >
+    <NotFoundCube />
     <h1
       class="mb-4 text-6xl font-bold tracking-tight text-text-primary sm:text-8xl"
     >
@@ -30,6 +32,7 @@ const NOT_FOUND_BACK_LINK =
       class="mb-10 flex flex-col items-center gap-5 sm:flex-row sm:gap-8"
     >
       <Button
+        magnetic
         href={pageHref("experience")}
         variant="simple"
         size="none"
@@ -38,6 +41,7 @@ const NOT_FOUND_BACK_LINK =
         <span data-i18n="ui.nav.experience">{t("ui.nav.experience")}</span>
       </Button>
       <Button
+        magnetic
         href={pageHref("projects")}
         variant="simple"
         size="none"
@@ -46,6 +50,7 @@ const NOT_FOUND_BACK_LINK =
         <span data-i18n="ui.nav.projects">{t("ui.nav.projects")}</span>
       </Button>
       <Button
+        magnetic
         href={pageHref("contact")}
         variant="simple"
         size="none"
@@ -55,6 +60,7 @@ const NOT_FOUND_BACK_LINK =
       </Button>
     </nav>
     <Button
+      magnetic
       href={pageHref()}
       variant="simple"
       size="none"

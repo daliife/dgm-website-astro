@@ -17,9 +17,10 @@ const iconPath = isTimelineIcon(icon) ? TIMELINE_ICONS[icon] : undefined;
 
 <span
   class:list={[
-    "relative z-[1] flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border-secondary bg-bg-secondary",
+    "relative z-[1] flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border-secondary bg-bg-secondary transition-colors duration-slow ease-out-expo data-[reached]:border-text-muted data-[reached]:text-text-primary",
     current ? "text-text-primary" : "text-text-secondary",
   ]}
+  data-timeline-marker
   aria-hidden="true"
 >
   {

@@ -103,6 +103,10 @@ export const TIMELINE_RAIL_CLASSES =
   "timeline-rail absolute bottom-2 left-5 top-12 w-px bg-border-primary";
 
 /** Parent list: drop the rail after the final entry. */
+/** Scroll-driven fill inside the rail; scaled from JS on /experience/. */
+export const TIMELINE_RAIL_FILL_CLASSES =
+  "absolute inset-0 origin-top scale-y-0 bg-text-muted transition-transform duration-fast ease-out print:hidden";
+
 export const TIMELINE_LIST_CLASSES = "[&>*:last-child_.timeline-rail]:hidden";
 
 /** Bulleted body copy (experience, project highlights, etc.). */

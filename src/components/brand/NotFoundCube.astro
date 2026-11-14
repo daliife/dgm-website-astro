@@ -1,0 +1,160 @@
+---
+import DgmLogoSimple from "./DgmLogoSimple.astro";
+import { t } from "../../utils/i18n";
+
+const FACE_CLASSES =
+  "cube__face absolute inset-0 flex items-center justify-center rounded-md border border-border-secondary bg-bg-secondary/90 text-5xl font-bold text-text-primary";
+---
+
+<div class="mb-12 flex flex-col items-center gap-10 pt-6 print:hidden">
+  <div
+    class="cube-stage h-28 w-28 cursor-grab touch-none select-none active:cursor-grabbing"
+    data-cube
+    aria-hidden="true"
+  >
+    <div class="cube relative h-full w-full" data-cube-body>
+      <div class={`${FACE_CLASSES} cube__face--front`}>4</div>
+      <div class={`${FACE_CLASSES} cube__face--right`}>0</div>
+      <div class={`${FACE_CLASSES} cube__face--back`}>4</div>
+      <div class={`${FACE_CLASSES} cube__face--left font-light`}>?</div>
+      <div class={`${FACE_CLASSES} cube__face--top`}>
+        <DgmLogoSimple size={40} className="fill-current" />
+      </div>
+      <div class={`${FACE_CLASSES} cube__face--bottom`}></div>
+    </div>
+  </div>
+  <p
+    class="text-[10px] uppercase tracking-widest text-text-muted"
+    data-i18n="ui.404.drag"
+  >
+    {t("ui.404.drag")}
+  </p>
+</div>
+
+<style>
+  .cube-stage {
+    perspective: 600px;
+  }
+
+  .cube {
+    transform-style: preserve-3d;
+    transform: rotateX(-20deg) rotateY(-30deg);
+  }
+
+  .cube__face {
+    backface-visibility: hidden;
+  }
+
+  .cube__face--front {
+    transform: translateZ(3.5rem);
+  }
+  .cube__face--back {
+    transform: rotateY(180deg) translateZ(3.5rem);
+  }
+  .cube__face--right {
+    transform: rotateY(90deg) translateZ(3.5rem);
+  }
+  .cube__face--left {
+    transform: rotateY(-90deg) translateZ(3.5rem);
+  }
+  .cube__face--top {
+    transform: rotateX(90deg) translateZ(3.5rem);
+  }
+  .cube__face--bottom {
+    transform: rotateX(-90deg) translateZ(3.5rem);
+  }
+</style>
+
+<script>
+  import {
+    pageScopedController,
+    prefersReducedMotion,
+  } from "../../utils/motion";
+
+  const IDLE_SPEED = 12; // deg per second
+  const DRAG_GAIN = 0.45; // deg per pixel
+  const FRICTION = 0.94;
+
+  document.addEventListener("astro:page-load", () => {
+    const stage = document.querySelector<HTMLElement>("[data-cube]");
+    const body = stage?.querySelector<HTMLElement>("[data-cube-body]");
+    if (!stage || !body) return;
+
+    const { signal } = pageScopedController();
+    const idle = !prefersReducedMotion();
+    let rx = -20;
+    let ry = -30;
+    let vx = 0;
+    let vy = 0;
+    let dragging = false;
+    let lastX = 0;
+    let lastY = 0;
+    let lastT = performance.now();
+    let frame = 0;
+
+    const render = () => {
+      body.style.transform = `rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+    };
+
+    const tick = (now: number) => {
+      const dt = Math.min((now - lastT) / 1000, 0.05);
+      lastT = now;
+      if (!dragging) {
+        ry += vy;
+        rx += vx;
+        vx *= FRICTION;
+        vy *= FRICTION;
+        if (idle) ry += IDLE_SPEED * dt;
+        rx += (-20 - rx) * (idle ? 0.6 : 0) * dt;
+      }
+      render();
+      const settled = Math.abs(vx) < 0.01 && Math.abs(vy) < 0.01;
+      frame = idle || dragging || !settled ? requestAnimationFrame(tick) : 0;
+    };
+
+    const start = () => {
+      if (!frame) {
+        lastT = performance.now();
+        frame = requestAnimationFrame(tick);
+      }
+    };
+
+    stage.addEventListener(
+      "pointerdown",
+      (e) => {
+        dragging = true;
+        vx = vy = 0;
+        lastX = e.clientX;
+        lastY = e.clientY;
+        stage.setPointerCapture(e.pointerId);
+        start();
+      },
+      { signal },
+    );
+
+    stage.addEventListener(
+      "pointermove",
+      (e) => {
+        if (!dragging) return;
+        vy = (e.clientX - lastX) * DRAG_GAIN;
+        vx = -(e.clientY - lastY) * DRAG_GAIN;
+        ry += vy;
+        rx += vx;
+        lastX = e.clientX;
+        lastY = e.clientY;
+      },
+      { signal },
+    );
+
+    const release = () => {
+      dragging = false;
+      start();
+    };
+    stage.addEventListener("pointerup", release, { signal });
+    stage.addEventListener("pointercancel", release, { signal });
+    signal.addEventListener("abort", () => cancelAnimationFrame(frame));
+
+    render();
+    start();
+  });
+</script>

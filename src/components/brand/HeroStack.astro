@@ -1,0 +1,122 @@
+---
+import { STACK_ICONS } from "../../utils/stackIcons";
+
+/** Positions keep clear of the left-aligned hero copy; `depth` scales parallax. */
+const LAYOUT = [
+  { top: 16, left: 80, size: 44, depth: 0.9, float: 11 },
+  { top: 64, left: 88, size: 32, depth: 0.5, float: 13 },
+  { top: 80, left: 68, size: 26, depth: 0.7, float: 10 },
+  { top: 12, left: 8, size: 26, depth: 0.4, float: 12 },
+  { top: 40, left: 93, size: 34, depth: 0.8, float: 14 },
+  { top: 34, left: 70, size: 24, depth: 0.3, float: 9 },
+  { top: 84, left: 10, size: 30, depth: 0.6, float: 12 },
+  { top: 52, left: 4, size: 22, depth: 0.35, float: 15 },
+];
+
+const items = STACK_ICONS.map((icon, i) => ({
+  ...icon,
+  ...LAYOUT[i % LAYOUT.length],
+  delay: -(i * 1.7),
+}));
+---
+
+<div
+  class="hero-stack pointer-events-none absolute inset-0 hidden overflow-hidden md:block print:hidden"
+  data-hero-stack
+  aria-hidden="true"
+>
+  {
+    items.map((item) => (
+      <span
+        class="hero-stack__item absolute"
+        style={`top:${item.top}%;left:${item.left}%;--depth:${item.depth}`}
+      >
+        <svg
+          class="hero-stack__icon text-text-primary"
+          style={`width:${item.size}px;height:${item.size}px;animation-duration:${item.float}s;animation-delay:${item.delay}s`}
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          data-name={item.name}
+        >
+          <path d={item.path} />
+        </svg>
+      </span>
+    ))
+  }
+</div>
+
+<style>
+  .hero-stack {
+    --px: 0;
+    --py: 0;
+    animation: hero-stack-in 1.4s var(--ease-out-expo) 0.5s both;
+  }
+
+  .hero-stack__item {
+    translate: calc(var(--px) * var(--depth) * -28px)
+      calc(var(--py) * var(--depth) * -20px);
+    transition: translate 1.2s var(--ease-out-expo);
+  }
+
+  .hero-stack__icon {
+    display: block;
+    opacity: 0.07;
+    animation: hero-stack-float ease-in-out infinite alternate;
+  }
+
+  :global(.dark) .hero-stack__icon {
+    opacity: 0.09;
+  }
+
+  @keyframes hero-stack-in {
+    from {
+      opacity: 0;
+    }
+  }
+
+  @keyframes hero-stack-float {
+    from {
+      transform: translate3d(0, -6px, 0) rotate(-4deg);
+    }
+    to {
+      transform: translate3d(0, 6px, 0) rotate(4deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-stack,
+    .hero-stack__icon {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import {
+    canUsePointerMotion,
+    pageScopedController,
+  } from "../../utils/motion";
+
+  document.addEventListener("astro:page-load", () => {
+    const stack = document.querySelector<HTMLElement>("[data-hero-stack]");
+    if (!stack || !canUsePointerMotion()) return;
+
+    const { signal } = pageScopedController();
+    let frame = 0;
+
+    window.addEventListener(
+      "pointermove",
+      (e) => {
+        if (frame) return;
+        frame = requestAnimationFrame(() => {
+          frame = 0;
+          const x = (e.clientX / window.innerWidth) * 2 - 1;
+          const y = (e.clientY / window.innerHeight) * 2 - 1;
+          stack.style.setProperty("--px", x.toFixed(3));
+          stack.style.setProperty("--py", y.toFixed(3));
+        });
+      },
+      { passive: true, signal },
+    );
+  });
+</script>

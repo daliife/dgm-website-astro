@@ -7,6 +7,7 @@ import {
   TIMELINE_ITEM_CLASSES,
   TIMELINE_LIST_CLASSES,
   TIMELINE_RAIL_CLASSES,
+  TIMELINE_RAIL_FILL_CLASSES,
 } from "../../utils/constants";
 import { t } from "../../utils/i18n";
 import SectionHeader from "./SectionHeader.astro";
@@ -29,11 +30,16 @@ const { education, printOnly = false } = Astro.props;
   <div class={`${TIMELINE_LIST_CLASSES} print:space-y-4`}>
     {
       education.map((edu: EducationEntry, eduIndex: number) => (
-        <div class={`${TIMELINE_ITEM_CLASSES} pb-10 print:block print:pb-0`}>
+        <div
+          class={`${TIMELINE_ITEM_CLASSES} pb-10 print:block print:pb-0`}
+          data-timeline-item
+        >
           <span
             class={`${TIMELINE_RAIL_CLASSES} print:hidden`}
             aria-hidden="true"
-          />
+          >
+            <span class={TIMELINE_RAIL_FILL_CLASSES} data-timeline-fill />
+          </span>
           <span class="print:hidden">
             <TimelineMarker
               name={edu.institution}

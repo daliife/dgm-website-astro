@@ -21,6 +21,25 @@ describe("ProjectCard", () => {
     expect(html).toContain('data-i18n="projects.0.description"');
   });
 
+  it("renders a tilt frame, with glare only when there is an image", async () => {
+    const container = await AstroContainer.create();
+    const withImage = await container.renderToString(ProjectCard, {
+      props: {
+        project: { ...baseProject, image: "/projects/my-project.webp" },
+        projectIndex: 0,
+        slug: "my-project",
+      },
+    });
+    const withoutImage = await container.renderToString(ProjectCard, {
+      props: { project: baseProject, projectIndex: 0, slug: "my-project" },
+    });
+
+    expect(withImage).toContain("data-tilt");
+    expect(withImage).toContain("card-glare");
+    expect(withoutImage).toContain("data-tilt");
+    expect(withoutImage).not.toContain("card-glare");
+  });
+
   it("links to the internal project detail page", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {

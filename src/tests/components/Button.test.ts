@@ -104,4 +104,19 @@ describe("Button", () => {
     expect(html).toContain("my-custom-class");
     expect(html).toContain("inline-flex");
   });
+
+  it("marks magnetic buttons only when opted in", async () => {
+    const container = await AstroContainer.create();
+    const magnetic = await container.renderToString(Button, {
+      props: { href: "/projects", magnetic: true },
+      slots: { default: "Go" },
+    });
+    const plain = await container.renderToString(Button, {
+      props: { href: "/projects" },
+      slots: { default: "Go" },
+    });
+
+    expect(magnetic).toContain("data-magnetic");
+    expect(plain).not.toContain("data-magnetic");
+  });
 });
