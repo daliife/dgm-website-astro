@@ -139,6 +139,9 @@ export const EN = {
   "ui.contact.network.github": "GitHub",
   "ui.contact.copy": "Copy email",
   "ui.contact.copied": "Copied",
+  "ui.contact.status.open": "Within working hours",
+  "ui.contact.status.closed": "Outside working hours",
+  "ui.contact.cta": "Let's talk",
 
   // ── Basics ─────────────────────────────────────────────────────────────────
   "basics.label": "Frontend Developer",
