@@ -3,7 +3,7 @@ import { STACK_ICONS } from "../../utils/stackIcons";
 
 /**
  * Positions keep clear of the left-aligned hero copy. `depth` (0–1) drives
- * the sense of distance: nearer icons are larger, sharper, brighter and move more.
+ * the sense of distance: nearer icons are larger, sharper, brighter and drift further.
  */
 const LAYOUT = [
   { top: 14, left: 79, size: 64, depth: 1 },
@@ -25,7 +25,6 @@ const items = STACK_ICONS.map((icon, i) => {
     vars: [
       `top:${layout.top}%`,
       `left:${layout.left}%`,
-      `--depth:${depth}`,
       `--size:${layout.size}px`,
       `--base:${(0.045 + depth * 0.06).toFixed(3)}`,
       `--blur:${((1 - depth) * 1.2).toFixed(2)}px`,
@@ -41,17 +40,11 @@ const items = STACK_ICONS.map((icon, i) => {
 
 <div
   class="hero-stack pointer-events-none absolute inset-0 hidden overflow-hidden md:block print:hidden"
-  data-hero-stack
   aria-hidden="true"
 >
   {
     items.map((item) => (
-      <span
-        class="hero-stack__item absolute"
-        style={item.vars}
-        data-stack-item
-        data-size={item.size}
-      >
+      <span class="hero-stack__item absolute" style={item.vars}>
         <span class="hero-stack__drift block">
           <svg
             class="hero-stack__icon text-text-primary"
@@ -69,16 +62,7 @@ const items = STACK_ICONS.map((icon, i) => {
 
 <style>
   .hero-stack {
-    --px: 0;
-    --py: 0;
     animation: hero-stack-in 1.6s var(--ease-out-expo) 0.5s both;
-  }
-
-  /* Pointer parallax (whole field) + local repel from the cursor (per icon). */
-  .hero-stack__item {
-    translate: calc(var(--px) * var(--depth) * -32px + var(--rx, 0px))
-      calc(var(--py) * var(--depth) * -22px + var(--ry, 0px));
-    transition: translate 1.1s var(--ease-out-expo);
   }
 
   .hero-stack__drift {
@@ -90,17 +74,14 @@ const items = STACK_ICONS.map((icon, i) => {
     display: block;
     width: var(--size);
     height: var(--size);
-    opacity: calc(var(--base) + var(--glow, 0) * 0.16);
-    filter: blur(calc(var(--blur) * (1 - var(--glow, 0))));
-    transition:
-      opacity 0.6s var(--ease-out-expo),
-      filter 0.6s var(--ease-out-expo);
+    opacity: var(--base);
+    filter: blur(var(--blur));
     animation: hero-stack-drift-y var(--dy) ease-in-out var(--delay) infinite
       alternate;
   }
 
   :global(.dark) .hero-stack__icon {
-    opacity: calc(var(--base) * 1.3 + var(--glow, 0) * 0.18);
+    opacity: calc(var(--base) * 1.3);
   }
 
   @keyframes hero-stack-in {
@@ -136,85 +117,3 @@ const items = STACK_ICONS.map((icon, i) => {
     }
   }
 </style>
-
-<script>
-  import {
-    canUsePointerMotion,
-    pageScopedController,
-  } from "../../utils/motion";
-
-  const REPEL_RADIUS = 180;
-  const REPEL_DISTANCE = 26;
-
-  document.addEventListener("astro:page-load", () => {
-    const stack = document.querySelector<HTMLElement>("[data-hero-stack]");
-    if (!stack || !canUsePointerMotion()) return;
-
-    const items = [
-      ...stack.querySelectorAll<HTMLElement>("[data-stack-item]"),
-    ].map((el) => ({
-      el,
-      half: Number(el.dataset.size ?? 0) / 2,
-      depth: Number(el.style.getPropertyValue("--depth") || 0.5),
-    }));
-
-    const { signal } = pageScopedController();
-    let frame = 0;
-    let pointer: { x: number; y: number } | null = null;
-
-    const update = () => {
-      frame = 0;
-      const field = stack.getBoundingClientRect();
-      const px = pointer ? (pointer.x / window.innerWidth) * 2 - 1 : 0;
-      const py = pointer ? (pointer.y / window.innerHeight) * 2 - 1 : 0;
-      stack.style.setProperty("--px", px.toFixed(3));
-      stack.style.setProperty("--py", py.toFixed(3));
-
-      for (const { el, half, depth } of items) {
-        let rx = 0;
-        let ry = 0;
-        let glow = 0;
-        if (pointer) {
-          // Layout position (offset*) ignores our own translate, so no feedback loop.
-          const cx = field.left + el.offsetLeft + half;
-          const cy = field.top + el.offsetTop + half;
-          const dx = cx - pointer.x;
-          const dy = cy - pointer.y;
-          const dist = Math.hypot(dx, dy) || 1;
-          if (dist < REPEL_RADIUS) {
-            const force = (1 - dist / REPEL_RADIUS) ** 2;
-            const push = force * REPEL_DISTANCE * (0.5 + depth / 2);
-            rx = (dx / dist) * push;
-            ry = (dy / dist) * push;
-            glow = force;
-          }
-        }
-        el.style.setProperty("--rx", `${rx.toFixed(1)}px`);
-        el.style.setProperty("--ry", `${ry.toFixed(1)}px`);
-        el.style.setProperty("--glow", glow.toFixed(3));
-      }
-    };
-
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-
-    window.addEventListener(
-      "pointermove",
-      (e) => {
-        pointer = { x: e.clientX, y: e.clientY };
-        schedule();
-      },
-      { passive: true, signal },
-    );
-    document.documentElement.addEventListener(
-      "pointerleave",
-      () => {
-        pointer = null;
-        schedule();
-      },
-      { signal },
-    );
-    signal.addEventListener("abort", () => cancelAnimationFrame(frame));
-  });
-</script>

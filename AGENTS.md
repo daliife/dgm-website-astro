@@ -132,7 +132,7 @@ import { basics, work } from "@cv";
 
 One easing and three durations, defined as CSS vars in `Layout.astro` and mirrored in `tailwind.config.mjs`: `ease-out-expo` · `duration-fast` (160ms) · `duration-base` (280ms) · `duration-slow` (450ms). Animate only `transform` / `opacity` / `filter`; hover effects go under `@media (hover: hover)`. Use `.arrow-nudge` (or `.arrow-nudge--external`) for trailing arrows on links and cards.
 
-Pointer effects (magnetic `<Button magnetic>`, project card tilt, hero icon parallax) run only when `canUsePointerMotion()` from `src/utils/motion.ts` is true (fine pointer + motion allowed). Bind window/document listeners with `pageScopedController()` so they are dropped on the next page swap.
+Pointer effects (magnetic `<Button magnetic>`, project card tilt, 404 particles) run only when `canUsePointerMotion()` from `src/utils/motion.ts` is true (fine pointer + motion allowed). Bind window/document listeners with `pageScopedController()` so they are dropped on the next page swap.
 
 ### Client-side script
 
@@ -159,20 +159,20 @@ Sizes: `sm` `md` (default) `none`
 
 ## Components reference
 
-| Component                       | What it renders                                                                           |
-| ------------------------------- | ----------------------------------------------------------------------------------------- |
-| `layout/Header.astro`           | Fixed nav with logo, desktop/mobile menu, theme toggle                                    |
-| `layout/Footer.astro`           | Copyright + social links from cv.json                                                     |
-| `layout/CookieConsent.astro`    | Consent-gated cookie banner + Umami loader trigger                                        |
-| `layout/NextUpNav.astro`        | “Also explore” footer nav on about/work/projects                                          |
-| `sections/WorkDates.astro`      | Shared formatted date range for work entries                                              |
-| `brand/DgmLogoSimple.astro`     | SVG logo monogram. Props: `className`, `size`                                             |
-| `brand/ThemeToggle.astro`       | Dark/light mode toggle button with sun/moon icons                                         |
-| `sections/TimelineMarker.astro` | Logo tile (or initials) for experience/education timelines; lit on scroll on /experience/ |
-| `brand/HeroStack.astro`         | Faint floating stack logos with parallax behind the home hero (`utils/stackIcons.ts`)     |
-| `brand/NotFoundParticles.astro` | 404 heading redrawn as particles: cursor repel, click to burst; static `h1` kept for a11y |
-| `sections/AboutStats.astro`     | Count-up stats computed from cv.json (`utils/cvStats.ts`)                                 |
-| `ui/Button.astro`               | Polymorphic button/link with semantic token styles                                        |
+| Component                       | What it renders                                                                                   |
+| ------------------------------- | ------------------------------------------------------------------------------------------------- |
+| `layout/Header.astro`           | Fixed nav with logo, desktop/mobile menu, theme toggle                                            |
+| `layout/Footer.astro`           | Copyright + social links from cv.json                                                             |
+| `layout/CookieConsent.astro`    | Consent-gated cookie banner + Umami loader trigger                                                |
+| `layout/NextUpNav.astro`        | “Also explore” footer nav on about/work/projects                                                  |
+| `sections/WorkDates.astro`      | Shared formatted date range for work entries                                                      |
+| `brand/DgmLogoSimple.astro`     | SVG logo monogram. Props: `className`, `size`                                                     |
+| `brand/ThemeToggle.astro`       | Dark/light mode toggle button with sun/moon icons                                                 |
+| `sections/TimelineMarker.astro` | Logo tile (or initials) for experience/education timelines; lit on scroll on /experience/         |
+| `brand/HeroStack.astro`         | Faint floating stack logos (CSS only, depth by size) behind the home hero (`utils/stackIcons.ts`) |
+| `brand/NotFoundParticles.astro` | 404 heading redrawn as particles: cursor repel, click to burst; static `h1` kept for a11y         |
+| `sections/AboutStats.astro`     | Count-up stats computed from cv.json (`utils/cvStats.ts`)                                         |
+| `ui/Button.astro`               | Polymorphic button/link with semantic token styles                                                |
 
 ## i18n
 
