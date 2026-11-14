@@ -1,7 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
-import NotFoundCube from "../components/brand/NotFoundCube.astro";
+import NotFoundParticles from "../components/brand/NotFoundParticles.astro";
 import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
 import { EDITORIAL_LINK_MD_MUTED_CLASSES } from "../utils/constants";
@@ -12,14 +12,9 @@ const NOT_FOUND_BACK_LINK =
 
 <Layout title={t("ui.meta.404.title")} noIndex={true}>
   <section
-    class="flex min-h-screen flex-col items-center justify-center px-6 text-center"
+    class="flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
   >
-    <NotFoundCube />
-    <h1
-      class="mb-4 text-6xl font-bold tracking-tight text-text-primary sm:text-8xl"
-    >
-      404
-    </h1>
+    <NotFoundParticles />
     <p
       class="mb-10 text-base text-text-muted sm:text-lg"
       data-i18n="ui.404.message"
@@ -68,5 +63,12 @@ const NOT_FOUND_BACK_LINK =
     >
       <span data-i18n="ui.404.back">{t("ui.404.back")}</span>
     </Button>
+    <p
+      class="mt-16 text-[10px] uppercase tracking-widest text-text-muted/60 opacity-0 transition-opacity duration-slow print:hidden"
+      data-404-hint
+      data-i18n="ui.404.hint"
+    >
+      {t("ui.404.hint")}
+    </p>
   </section>
 </Layout>

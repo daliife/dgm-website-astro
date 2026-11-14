@@ -400,5 +400,5 @@ export const CA: Record<I18nKey, string> = {
   "ui.404.message": "Pàgina no trobada",
   "ui.404.nav.aria": "Navegació ràpida",
   "ui.404.back": "← Tornar a l'inici",
-  "ui.404.drag": "Arrossega el cub",
+  "ui.404.hint": "Juga amb el 404",
 };

@@ -404,5 +404,5 @@ export const ES: Record<I18nKey, string> = {
   "ui.404.message": "Página no encontrada",
   "ui.404.nav.aria": "Navegación rápida",
   "ui.404.back": "← Volver al inicio",
-  "ui.404.drag": "Arrastra el cubo",
+  "ui.404.hint": "Juega con el 404",
 };

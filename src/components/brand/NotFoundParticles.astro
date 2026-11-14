@@ -1,0 +1,216 @@
+<div class="relative mb-4 text-text-primary" data-404-particles>
+  <h1
+    class="text-6xl font-bold tracking-tight transition-colors duration-base sm:text-8xl"
+    data-404-text
+  >
+    404
+  </h1>
+  <canvas
+    class="absolute -left-24 -top-12 hidden h-[calc(100%+6rem)] w-[calc(100%+12rem)] max-w-[100vw] cursor-pointer touch-pan-y"
+    aria-hidden="true"
+    data-404-canvas></canvas>
+</div>
+<script>
+  import {
+    pageScopedController,
+    prefersReducedMotion,
+  } from "../../utils/motion";
+
+  const SPRING = 0.055;
+  const DAMPING = 0.84;
+  const REPEL_RADIUS = 64;
+  const REPEL_FORCE = 1.8;
+  const SLEEP_SPEED = 0.02;
+
+  interface Particle {
+    hx: number;
+    hy: number;
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+  }
+
+  function samplePoints(
+    text: HTMLElement,
+    canvasRect: DOMRect,
+    width: number,
+    height: number,
+  ): { x: number; y: number; size: number }[] {
+    const style = getComputedStyle(text);
+    const fontSize = parseFloat(style.fontSize);
+    const gap = Math.max(3, Math.round(fontSize / 26));
+    const textRect = text.getBoundingClientRect();
+
+    const off = document.createElement("canvas");
+    off.width = width;
+    off.height = height;
+    const ctx = off.getContext("2d", { willReadFrequently: true });
+    if (!ctx) return [];
+    ctx.font = `${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+    (
+      ctx as CanvasRenderingContext2D & { letterSpacing?: string }
+    ).letterSpacing = style.letterSpacing;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(
+      text.textContent?.trim() ?? "404",
+      textRect.left - canvasRect.left + textRect.width / 2,
+      textRect.top - canvasRect.top + textRect.height / 2,
+    );
+
+    const { data } = ctx.getImageData(0, 0, width, height);
+    const points: { x: number; y: number; size: number }[] = [];
+    for (let y = 0; y < height; y += gap) {
+      for (let x = 0; x < width; x += gap) {
+        if (data[(y * width + x) * 4 + 3] > 128) {
+          points.push({ x, y, size: gap * 0.62 });
+        }
+      }
+    }
+    return points;
+  }
+
+  document.addEventListener("astro:page-load", () => {
+    const root = document.querySelector<HTMLElement>("[data-404-particles]");
+    const text = root?.querySelector<HTMLElement>("[data-404-text]");
+    const canvas = root?.querySelector<HTMLCanvasElement>("[data-404-canvas]");
+    const hint = document.querySelector<HTMLElement>("[data-404-hint]");
+    const ctx = canvas?.getContext("2d");
+    if (!root || !text || !canvas || !ctx || prefersReducedMotion()) return;
+
+    const { signal } = pageScopedController();
+    let particles: Particle[] = [];
+    let dotSize = 2;
+    let cssW = 0;
+    let cssH = 0;
+    let frame = 0;
+    let pointer: { x: number; y: number } | null = null;
+
+    const build = (scatter: boolean) => {
+      canvas.classList.remove("hidden");
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      cssW = Math.round(rect.width);
+      cssH = Math.round(rect.height);
+      canvas.width = cssW * dpr;
+      canvas.height = cssH * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      const points = samplePoints(text, rect, cssW, cssH);
+      if (!points.length) {
+        canvas.classList.add("hidden");
+        return;
+      }
+      dotSize = points[0].size;
+      particles = points.map(({ x, y }) => ({
+        hx: x,
+        hy: y,
+        x: scatter ? Math.random() * cssW : x,
+        y: scatter ? Math.random() * cssH : y,
+        vx: 0,
+        vy: 0,
+      }));
+      text.classList.add("text-transparent");
+      hint?.classList.remove("opacity-0");
+      wake();
+    };
+
+    const step = () => {
+      frame = 0;
+      let maxSpeed = 0;
+      for (const p of particles) {
+        p.vx += (p.hx - p.x) * SPRING;
+        p.vy += (p.hy - p.y) * SPRING;
+        if (pointer) {
+          const dx = p.x - pointer.x;
+          const dy = p.y - pointer.y;
+          const dist = Math.hypot(dx, dy);
+          if (dist < REPEL_RADIUS && dist > 0) {
+            const force = (1 - dist / REPEL_RADIUS) * REPEL_FORCE;
+            p.vx += (dx / dist) * force;
+            p.vy += (dy / dist) * force;
+          }
+        }
+        p.vx *= DAMPING;
+        p.vy *= DAMPING;
+        p.x += p.vx;
+        p.y += p.vy;
+        maxSpeed = Math.max(maxSpeed, Math.abs(p.vx), Math.abs(p.vy));
+      }
+
+      ctx.clearRect(0, 0, cssW, cssH);
+      ctx.fillStyle = getComputedStyle(root).color;
+      for (const p of particles) {
+        ctx.fillRect(p.x, p.y, dotSize, dotSize);
+      }
+
+      if (pointer || maxSpeed > SLEEP_SPEED) wake();
+    };
+
+    function wake() {
+      if (!frame) frame = requestAnimationFrame(step);
+    }
+
+    const toLocal = (e: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    };
+
+    canvas.addEventListener(
+      "pointermove",
+      (e) => {
+        pointer = toLocal(e);
+        wake();
+      },
+      { signal },
+    );
+    canvas.addEventListener(
+      "pointerleave",
+      () => {
+        pointer = null;
+        wake();
+      },
+      { signal },
+    );
+    canvas.addEventListener(
+      "click",
+      (e) => {
+        const origin = toLocal(e);
+        for (const p of particles) {
+          const angle = Math.atan2(p.y - origin.y, p.x - origin.x);
+          const speed = 8 + Math.random() * 14;
+          p.vx += Math.cos(angle) * speed;
+          p.vy += Math.sin(angle) * speed;
+        }
+        wake();
+      },
+      { signal },
+    );
+
+    let resizeTimer = 0;
+    window.addEventListener(
+      "resize",
+      () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = window.setTimeout(() => build(false), 150);
+      },
+      { signal },
+    );
+    // Theme toggle changes the dot colour; repaint once.
+    const themeObserver = new MutationObserver(wake);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    signal.addEventListener("abort", () => {
+      themeObserver.disconnect();
+      cancelAnimationFrame(frame);
+      clearTimeout(resizeTimer);
+    });
+
+    document.fonts.ready.then(() => {
+      if (!signal.aborted) build(true);
+    });
+  });
+</script>
