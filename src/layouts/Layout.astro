@@ -2,6 +2,7 @@
 import { LIVE_URL } from "../utils/constants";
 import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
+import AmbientBackground from "../components/brand/AmbientBackground.astro";
 import CookieConsent from "../components/layout/CookieConsent.astro";
 import "../styles/fonts.css";
 import interLatinFontUrl from "@fontsource-variable/inter/files/inter-latin-wght-normal.woff2?url";
@@ -185,7 +186,7 @@ const jsonLd = {
     <ClientRouter fallback="animate" />
   </head>
   <body
-    class={`bg-bg-primary text-text-primary font-sans ${
+    class={`text-text-primary font-sans ${
       hideFooter
         ? "grid grid-rows-[auto_1fr] min-h-[100vh] relative"
         : "grid grid-rows-[auto_1fr_auto] min-h-[100vh] relative"
@@ -199,6 +200,7 @@ const jsonLd = {
       {t("ui.a11y.skipToContent")}
     </a>
 
+    <AmbientBackground transition:persist />
     <Header transition:persist />
     <main
       id="main-content"

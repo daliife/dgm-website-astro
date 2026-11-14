@@ -1,9 +1,13 @@
 ---
-/** Decorative backdrop: two slow-drifting soft lights plus a static film grain. */
+/**
+ * Site-wide decorative backdrop: two slow-drifting soft lights plus a static
+ * film grain. Fixed behind all content; the body must stay transparent
+ * (the page colour comes from `html`) or it would paint over this layer.
+ */
 ---
 
 <div
-  class="ambient pointer-events-none absolute inset-0 -z-[1] overflow-hidden"
+  class="ambient pointer-events-none fixed inset-0 -z-[1] overflow-hidden print:hidden"
   aria-hidden="true"
 >
   <div class="ambient__light ambient__light--a"></div>
@@ -15,7 +19,6 @@
   .ambient {
     --ambient-alpha: 0.05;
     --grain-opacity: 0.045;
-    mask-image: linear-gradient(to bottom, black 65%, transparent);
     animation: ambient-in 1.6s var(--ease-out-expo) both;
   }
 

@@ -44,9 +44,9 @@ const stats: { value: number; suffix?: string; labelKey: I18nKey }[] = [
           >
             {t(labelKey)}
           </dt>
-          <dd class="text-3xl font-bold tabular-nums tracking-tight text-text-primary sm:text-5xl">
+          <dd class="flex items-baseline text-3xl font-bold tabular-nums tracking-tight text-text-primary sm:text-5xl">
             <span data-count-to={value}>{value}</span>
-            {suffix}
+            <span>{suffix}</span>
           </dd>
         </div>
       ))

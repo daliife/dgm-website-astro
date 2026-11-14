@@ -3,7 +3,6 @@ import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
-import AmbientBackground from "../components/brand/AmbientBackground.astro";
 import ProjectCard from "../components/sections/ProjectCard.astro";
 import {
   EDITORIAL_LINK_SM_CLASSES,
@@ -19,10 +18,7 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
 ---
 
 <Layout title={`${name} ${lastName} — ${t("basics.label")}`} type="profile">
-  <section
-    class="relative isolate flex min-h-[88svh] flex-col items-center justify-center px-6"
-  >
-    <AmbientBackground />
+  <section class="flex min-h-[88svh] flex-col items-center justify-center px-6">
     <div class="home-enter w-full max-w-4xl">
       <!-- Greeting -->
       <p
