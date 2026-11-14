@@ -11,8 +11,6 @@ interface Props {
   disabled?: boolean;
   id?: string;
   "aria-label"?: string;
-  /** Drift a few pixels toward the cursor (fine pointers, motion allowed). */
-  magnetic?: boolean;
 }
 
 const {
@@ -25,7 +23,6 @@ const {
   disabled = false,
   id,
   "aria-label": ariaLabel,
-  magnetic = false,
 } = Astro.props;
 
 const baseClasses =
@@ -54,7 +51,6 @@ const Tag = isLink ? "a" : "button";
 const commonAttrs: Record<string, unknown> = {};
 if (id) commonAttrs.id = id;
 if (ariaLabel) commonAttrs["aria-label"] = ariaLabel;
-if (magnetic) commonAttrs["data-magnetic"] = "";
 
 const tagProps = isLink
   ? { href, target, rel, ...commonAttrs }
@@ -64,31 +60,3 @@ const tagProps = isLink
 <Tag class={buttonClasses} {...tagProps}>
   <slot />
 </Tag>
-
-<script>
-  import { canUsePointerMotion } from "../../utils/motion";
-
-  const PULL_X = 8;
-  const PULL_Y = 5;
-
-  document.addEventListener("astro:page-load", () => {
-    if (!canUsePointerMotion()) return;
-    document.querySelectorAll<HTMLElement>("[data-magnetic]").forEach((el) => {
-      if (el.dataset.magneticBound) return;
-      el.dataset.magneticBound = "true";
-      el.style.transitionProperty =
-        "color, background-color, border-color, opacity, transform, translate";
-      el.style.transitionDuration = "var(--duration-base)";
-      el.style.transitionTimingFunction = "var(--ease-out-expo)";
-      el.addEventListener("pointermove", (e) => {
-        const r = el.getBoundingClientRect();
-        const x = (e.clientX - (r.left + r.width / 2)) / (r.width / 2);
-        const y = (e.clientY - (r.top + r.height / 2)) / (r.height / 2);
-        el.style.translate = `${x * PULL_X}px ${y * PULL_Y}px`;
-      });
-      el.addEventListener("pointerleave", () => {
-        el.style.translate = "";
-      });
-    });
-  });
-</script>
