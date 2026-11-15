@@ -21,7 +21,7 @@ describe("ProjectCard", () => {
     expect(html).toContain('data-i18n="projects.0.description"');
   });
 
-  it("renders a tilt frame, with glare only when there is an image", async () => {
+  it("renders a still screenshot, without tilt, glare or zoom", async () => {
     const container = await AstroContainer.create();
     const withImage = await container.renderToString(ProjectCard, {
       props: {
@@ -34,10 +34,14 @@ describe("ProjectCard", () => {
       props: { project: baseProject, projectIndex: 0, slug: "my-project" },
     });
 
-    expect(withImage).toContain("data-tilt");
-    expect(withImage).toContain("card-glare");
-    expect(withoutImage).toContain("data-tilt");
-    expect(withoutImage).not.toContain("card-glare");
+    for (const html of [withImage, withoutImage]) {
+      expect(html).not.toContain("data-tilt");
+      expect(html).not.toContain("card-glare");
+      expect(html).not.toContain("scale-[1.03]");
+      expect(html).not.toContain("saturate");
+    }
+    expect(withImage).toContain("<img");
+    expect(withoutImage).not.toContain("<img");
   });
 
   it("links to the internal project detail page", async () => {

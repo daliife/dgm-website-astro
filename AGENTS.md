@@ -130,9 +130,7 @@ import { basics, work } from "@cv";
 
 ### Motion tokens
 
-One easing and three durations, defined as CSS vars in `Layout.astro` and mirrored in `tailwind.config.mjs`: `ease-out-expo` · `duration-fast` (160ms) · `duration-base` (280ms) · `duration-slow` (450ms). Animate only `transform` / `opacity` / `filter`; hover effects go under `@media (hover: hover)`. Use `.arrow-nudge` (or `.arrow-nudge--external`) for trailing arrows on links and cards.
-
-Hover-only pointer effects (project card tilt) run only when `canUsePointerMotion()` from `src/utils/motion.ts` is true (fine pointer + motion allowed). Bind window/document listeners with `pageScopedController()` so they are dropped on the next page swap.
+One easing and three durations, defined as CSS vars in `Layout.astro` and mirrored in `tailwind.config.mjs`: `ease-out-expo` · `duration-fast` (160ms) · `duration-base` (280ms) · `duration-slow` (450ms). Animate only `transform` / `opacity` / `filter`; hover effects go under `@media (hover: hover)`. Use `.arrow-nudge` (or `.arrow-nudge--external`) for trailing arrows on links and cards. Project cards stay flat: the hover is the title underline and the arrow. Bind window/document listeners with `pageScopedController()` so they are dropped on the next page swap.
 
 ### Client-side script
 

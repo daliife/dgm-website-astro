@@ -64,10 +64,6 @@ export const CARD_FRAME_CLASSES = "overflow-hidden";
 export const CARD_MEDIA_FRAME_CLASSES =
   "relative bg-bg-muted after:pointer-events-none after:absolute after:inset-0 after:ring-1 after:ring-inset after:ring-border-primary after:content-['']";
 
-/** Card screenshot hover: slightly muted at rest on pointer devices, full colour + slow zoom on hover. */
-export const CARD_MEDIA_HOVER_CLASSES =
-  "transition-[transform,filter] duration-slow ease-out-expo [@media(hover:hover)]:saturate-[.8] [@media(hover:hover)]:group-hover:scale-[1.03] [@media(hover:hover)]:group-hover:saturate-100";
-
 /** Projects page: two-column card grid. */
 export const PROJECT_GRID_CLASSES =
   "grid list-none grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2";

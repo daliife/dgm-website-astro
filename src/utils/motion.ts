@@ -1,11 +1,3 @@
-/** Pointer-driven effects only make sense with a real hover pointer and motion allowed. */
-export function canUsePointerMotion(): boolean {
-  return (
-    window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
-    !window.matchMedia("(prefers-reduced-motion: reduce)").matches
-  );
-}
-
 export function prefersReducedMotion(): boolean {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }

@@ -5,7 +5,6 @@ import { t } from "../../utils/i18n";
 import {
   CARD_FRAME_CLASSES,
   CARD_MEDIA_FRAME_CLASSES,
-  CARD_MEDIA_HOVER_CLASSES,
   WORK_DATES_CLASSES,
 } from "../../utils/constants";
 import { pageHref } from "../../utils/url";
@@ -39,17 +38,8 @@ const imageSet = getProjectImageSet(project.image);
 <article class="group h-full" aria-labelledby={`project-${projectIndex}-title`}>
   <a href={detailHref} class="flex h-full min-w-0 flex-col">
     <div
-      class={`${CARD_FRAME_CLASSES} ${CARD_MEDIA_FRAME_CLASSES} aspect-[16/10] w-full transition-transform duration-base ease-out-expo`}
-      data-tilt
+      class={`${CARD_FRAME_CLASSES} ${CARD_MEDIA_FRAME_CLASSES} aspect-[16/10] w-full`}
     >
-      {
-        project.image && (
-          <span
-            class="card-glare pointer-events-none absolute inset-0 z-[1] opacity-0 transition-opacity duration-base [@media(hover:hover)]:group-hover:opacity-100"
-            aria-hidden="true"
-          />
-        )
-      }
       {
         project.image ? (
           <img
@@ -57,7 +47,7 @@ const imageSet = getProjectImageSet(project.image);
             srcset={imageSet?.srcset}
             sizes={imageSet ? sizes : undefined}
             alt={project.name}
-            class={`h-full w-full object-cover ${CARD_MEDIA_HOVER_CLASSES}`}
+            class="h-full w-full object-cover"
             loading={priority ? "eager" : "lazy"}
             decoding="async"
             width="640"
@@ -131,50 +121,8 @@ const imageSet = getProjectImageSet(project.image);
   </a>
 </article>
 
-<style>
-  .card-glare {
-    background: radial-gradient(
-      circle at var(--glare-x, 50%) var(--glare-y, 50%),
-      rgb(255 255 255 / 0.14),
-      transparent 55%
-    );
-  }
-</style>
-
 <script>
-  import { canUsePointerMotion } from "../../utils/motion";
-
-  const MAX_TILT_DEG = 3;
-
-  function bindTilt() {
-    if (!canUsePointerMotion()) return;
-    document.querySelectorAll<HTMLElement>("[data-tilt]").forEach((frame) => {
-      const card = frame.closest<HTMLElement>("article");
-      if (!card || card.dataset.tiltBound) return;
-      card.dataset.tiltBound = "true";
-
-      const reset = (instant = false) => {
-        if (instant) frame.style.transition = "none";
-        frame.style.transform = "";
-      };
-
-      card.addEventListener("pointermove", (e) => {
-        const r = frame.getBoundingClientRect();
-        const x = (e.clientX - r.left) / r.width;
-        const y = (e.clientY - r.top) / r.height;
-        frame.style.transition = "";
-        frame.style.transform = `perspective(900px) rotateX(${((0.5 - y) * 2 * MAX_TILT_DEG).toFixed(2)}deg) rotateY(${((x - 0.5) * 2 * MAX_TILT_DEG).toFixed(2)}deg)`;
-        frame.style.setProperty("--glare-x", `${(x * 100).toFixed(1)}%`);
-        frame.style.setProperty("--glare-y", `${(y * 100).toFixed(1)}%`);
-      });
-      card.addEventListener("pointerleave", () => reset());
-      // Flatten before the view-transition snapshot so the morph starts square.
-      card.addEventListener("click", () => reset(true));
-    });
-  }
-
   document.addEventListener("astro:page-load", () => {
-    bindTilt();
     const imgs = document.querySelectorAll<HTMLImageElement>(
       "img[data-use-fallback]",
     );
