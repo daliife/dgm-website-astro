@@ -70,7 +70,7 @@ export const PROJECT_GRID_CLASSES =
 
 /** Shared home hero CTA: animated underline on hover (both actions). */
 const HOME_CTA_BASE_CLASSES =
-  "gap-2 w-fit rounded-none pb-1 text-sm uppercase tracking-widest link-underline-animate transition-colors duration-200 hover:no-underline";
+  "gap-2.5 w-fit rounded-none pb-1 text-sm uppercase tracking-widest link-underline-animate transition-colors duration-200 hover:no-underline sm:text-base";
 
 /** Home hero primary CTA (projects). */
 export const HOME_CTA_PRIMARY_CLASSES = `${HOME_CTA_BASE_CLASSES} font-medium text-text-primary`;

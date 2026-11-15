@@ -3,224 +3,149 @@ import Layout from "../layouts/Layout.astro";
 import Button from "../components/ui/Button.astro";
 import { pageHref } from "../utils/url";
 import { t } from "../utils/i18n";
-import ProjectCard from "../components/sections/ProjectCard.astro";
 import {
-  EDITORIAL_LINK_SM_CLASSES,
   HOME_CTA_PRIMARY_CLASSES,
   HOME_CTA_SECONDARY_CLASSES,
-  REVEAL_STAGGER_LIST_CLASSES,
 } from "../utils/constants";
-import { getFeaturedProjects } from "../utils/cvStats";
 import { HOME_ROLE_KEYS } from "../utils/typewriter";
-import type { ProjectEntry } from "../types/ui";
-import { basics, projects } from "@cv";
+import { basics } from "@cv";
 const { name, lastName, email } = basics;
-const featured = getFeaturedProjects(projects as ProjectEntry[]);
+const roleTexts = HOME_ROLE_KEYS.map((key) => t(key));
+const boardChars = [...(roleTexts[0] ?? "").trimEnd()];
 ---
 
 <Layout title={`${name} ${lastName} — ${t("basics.label")}`} type="profile">
-  <section
-    class="flex min-h-svh flex-col justify-center px-6 pb-20 pt-28 md:pb-24 md:pt-32"
-    data-home-hero
-  >
-    <div class="home-enter mx-auto w-full max-w-5xl">
-      <!-- Greeting -->
-      <p
-        class="home-enter__item mb-4 text-xs uppercase tracking-widest text-text-muted"
-        data-i18n="ui.home.greeting"
-      >
-        {t("ui.home.greeting")}
-      </p>
-
-      <!-- Name -->
+  <section class="flex flex-1 items-center px-6 pb-8 pt-20 md:pt-24">
+    <div class="home-enter mx-auto flex w-full max-w-5xl flex-col items-start">
       <h1
-        class="home-enter__item mb-4 text-5xl font-bold uppercase leading-none tracking-tight text-text-primary sm:text-7xl lg:text-8xl"
+        class="home-enter__item flex w-full min-w-0 flex-wrap items-baseline gap-x-[0.22em] gap-y-2 text-4xl/none font-extrabold uppercase tracking-tight text-text-primary sm:gap-y-3 sm:text-6xl/none lg:text-7xl/none xl:text-8xl/none"
       >
-        <span class="block">{name}</span>
-        <span class="block font-light">{lastName}</span>
+        <span>{name}</span>
+        <span class="font-thin">{lastName}</span>
       </h1>
 
-      <div class="home-enter__item mb-8">
-        <p
-          class="home-roles-still flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm uppercase tracking-widest text-text-secondary sm:text-base"
-        >
-          {
-            HOME_ROLE_KEYS.map((key, i) => (
-              <>
-                {i > 0 && (
-                  <span aria-hidden="true" class="text-text-muted">
-                    ·
-                  </span>
-                )}
-                <span data-i18n={key}>{t(key)}</span>
-              </>
-            ))
-          }
-        </p>
-        <div
-          class="home-roles-live flex flex-wrap items-baseline gap-x-5 gap-y-2"
-        >
-          <p class="sr-only">
+      <div
+        class="home-enter__item mt-4 flex w-full flex-col items-start gap-16 sm:mt-5 sm:gap-24"
+      >
+        <div class="w-full">
+          <p
+            class="home-roles-still flex w-full flex-wrap items-baseline justify-center gap-x-3 gap-y-1 text-lg font-light tracking-wide text-text-secondary sm:text-3xl lg:text-4xl"
+          >
             {
               HOME_ROLE_KEYS.map((key, i) => (
                 <>
-                  {i > 0 && ", "}
-                  <span data-i18n={key} data-home-role>
-                    {t(key)}
-                  </span>
+                  {i > 0 && (
+                    <span aria-hidden="true" class="text-text-muted">
+                      ·
+                    </span>
+                  )}
+                  <span data-i18n={key}>{t(key)}</span>
                 </>
               ))
             }
           </p>
-          <p
-            class="hero-roll text-sm uppercase tracking-widest text-text-secondary sm:text-base"
-            data-hero-roll
-            aria-hidden="true"
-          >
-            <span>{t(HOME_ROLE_KEYS[0])}</span>
-          </p>
-          <div class="home-role-toggle">
-            <Button
-              id="home-role-toggle"
-              variant="simple"
-              size="none"
-              aria-pressed="false"
-              className="text-xs uppercase tracking-widest text-text-muted hover:text-text-primary"
-            >
-              <span data-i18n="ui.home.roles.pause" data-role-label="pause">
-                {t("ui.home.roles.pause")}
-              </span>
-              <span
-                data-i18n="ui.home.roles.play"
-                data-role-label="play"
-                class="hidden"
+          <div class="home-roles-live w-full">
+            <p class="sr-only">
+              {
+                HOME_ROLE_KEYS.map((key, i) => (
+                  <>
+                    {i > 0 && ", "}
+                    <span data-i18n={key} data-home-role>
+                      {t(key)}
+                    </span>
+                  </>
+                ))
+              }
+            </p>
+            <div class="flex w-full justify-center">
+              <div
+                class="hero-board inline-grid text-lg font-light tracking-wide text-text-secondary sm:text-3xl lg:text-4xl"
+                aria-hidden="true"
               >
-                {t("ui.home.roles.play")}
-              </span>
-            </Button>
+                <span class="hero-window">
+                  <span class="hero-track" data-hero-roll>
+                    {
+                      boardChars.map((ch) => (
+                        <span class="hero-board__cell shrink-0">
+                          {ch === " " ? "\u00A0" : ch}
+                        </span>
+                      ))
+                    }
+                  </span>
+                </span>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-
-      <!-- CTAs -->
-      <div
-        class="home-enter__item flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
-      >
-        <Button
-          href={pageHref("projects")}
-          variant="simple"
-          size="none"
-          className={HOME_CTA_PRIMARY_CLASSES}
-        >
-          <svg
-            class="h-4 w-4 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-            ></path>
-          </svg>
-          <span data-i18n="ui.home.cta.work">{t("ui.home.cta.work")}</span>
-        </Button>
-        <Button
-          href={`mailto:${email}`}
-          variant="simple"
-          size="none"
-          className={HOME_CTA_SECONDARY_CLASSES}
-        >
-          <svg
-            class="h-4 w-4 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-            ></path>
-          </svg>
-          <span data-i18n="ui.home.cta">{t("ui.home.cta")}</span>
-        </Button>
-      </div>
-    </div>
-  </section>
-
-  {
-    featured.length > 0 && (
-      <section
-        class="mx-auto max-w-5xl px-6 pb-24 pt-16 md:pt-24"
-        aria-labelledby="home-selected-heading"
-      >
-        <div class="reveal mb-8 flex items-baseline justify-between gap-6 border-t border-border-primary pt-8">
-          <h2
-            id="home-selected-heading"
-            class="text-xs uppercase tracking-widest text-text-muted"
-            data-i18n="ui.home.selected"
-          >
-            {t("ui.home.selected")}
-          </h2>
+        <div class="flex flex-wrap items-center gap-x-8 gap-y-4 self-end">
           <Button
             href={pageHref("projects")}
             variant="simple"
             size="none"
-            className={`group ${EDITORIAL_LINK_SM_CLASSES} gap-1.5`}
+            className={HOME_CTA_PRIMARY_CLASSES}
           >
-            <span data-i18n="ui.home.allProjects">
-              {t("ui.home.allProjects")}
-            </span>
-            <span class="arrow-nudge" aria-hidden="true">
-              →
-            </span>
+            <svg
+              class="h-4 w-4 shrink-0 sm:h-5 sm:w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+              ></path>
+            </svg>
+            <span data-i18n="ui.home.cta.work">{t("ui.home.cta.work")}</span>
+          </Button>
+          <Button
+            href={`mailto:${email}`}
+            variant="simple"
+            size="none"
+            className={HOME_CTA_SECONDARY_CLASSES}
+          >
+            <svg
+              class="h-4 w-4 shrink-0 sm:h-5 sm:w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              ></path>
+            </svg>
+            <span data-i18n="ui.home.cta">{t("ui.home.cta")}</span>
           </Button>
         </div>
-        <ul
-          class={`${REVEAL_STAGGER_LIST_CLASSES} grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3`}
-        >
-          {featured.map(({ project, index, slug }, i) => (
-            <li class:list={[i === 2 && "sm:max-lg:hidden"]}>
-              <ProjectCard
-                {project}
-                projectIndex={index}
-                {slug}
-                sizes="(min-width: 1024px) 299px, (min-width: 640px) calc(50vw - 3rem), calc(100vw - 3rem)"
-              />
-            </li>
-          ))}
-        </ul>
-      </section>
-    )
-  }
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <script>
   import { pageScopedController } from "../utils/motion";
 
-  const ROLL_MS = 1100;
-  const ROLL_EASING = "cubic-bezier(0.45, 0, 0.2, 1)";
   const HOLD_MS = 4000;
+  const WIPE_MS = 1100;
+  const CELL_CLASS = "hero-board__cell shrink-0";
 
   document.addEventListener("astro:page-load", () => {
     const slot = document.querySelector<HTMLElement>("[data-hero-roll]");
-    const toggle =
-      document.querySelector<HTMLButtonElement>("#home-role-toggle");
-    if (!slot || !toggle) return;
+    if (!slot) return;
 
-    const hero = slot.closest("[data-home-hero]");
     const { signal } = pageScopedController();
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     let timer = 0;
     let index = 0;
-    let paused = false;
-    let rollId = 0;
+    let flapId = 0;
+    let shown = "";
+    const flapTimers: number[] = [];
 
     const readPhrases = () =>
       [...document.querySelectorAll<HTMLElement>("[data-home-role]")]
@@ -234,121 +159,164 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
       timer = 0;
     };
 
-    signal.addEventListener("abort", stop);
-
-    const word = (text: string) => {
-      const span = document.createElement("span");
-      span.textContent = text;
-      return span;
+    const clearFlaps = () => {
+      while (flapTimers.length > 0) {
+        window.clearTimeout(flapTimers.pop());
+      }
+      slot.getAnimations().forEach((anim) => anim.cancel());
+      slot.style.transform = "";
     };
 
+    signal.addEventListener("abort", () => {
+      stop();
+      clearFlaps();
+    });
+
+    const paint = (cell: HTMLElement, char: string) => {
+      cell.textContent = char === " " ? "\u00A0" : char;
+    };
+
+    const cellsFor = (width: number) => {
+      const current = [
+        ...slot.querySelectorAll<HTMLElement>(".hero-board__cell"),
+      ];
+      if (current.length < width) {
+        for (let i = current.length; i < width; i += 1) {
+          const cell = document.createElement("span");
+          cell.className = CELL_CLASS;
+          cell.textContent = "\u00A0";
+          slot.append(cell);
+          current.push(cell);
+        }
+      } else if (current.length > width) {
+        current.splice(width).forEach((cell) => cell.remove());
+      }
+      return current;
+    };
+
+    const planOf = (text: string) => {
+      const body = text.trimEnd();
+      const chars = [...body];
+      return { body, chars, left: 0 };
+    };
+
+    const slotAt = (frame: { chars: string[] }, i: number) =>
+      frame.chars[i] ?? " ";
+
     const settle = (text: string) => {
-      rollId += 1;
-      slot.replaceChildren(word(text));
+      shown = text;
+      flapId += 1;
+      clearFlaps();
+      const frame = planOf(text);
+      const cells = cellsFor(frame.chars.length);
+      cells.forEach((cell, i) => {
+        paint(cell, slotAt(frame, i));
+      });
     };
 
     const schedule = () => {
       stop();
-      if (paused || motion.matches || phrases.length < 2) return;
+      if (motion.matches || phrases.length < 2) return;
       timer = window.setTimeout(() => {
         index = (index + 1) % phrases.length;
-        rollTo(phrases[index] ?? "");
+        flapTo(phrases[index] ?? "");
       }, HOLD_MS);
     };
 
-    const rollTo = (text: string) => {
-      const id = ++rollId;
-      const current = slot.querySelector("span");
-      const incoming = word(text);
-      const travel = slot.clientHeight || 24;
-      if (!current) {
+    const later = (ms: number, run: () => void) => {
+      flapTimers.push(window.setTimeout(run, ms));
+    };
+
+    const flapTo = (text: string) => {
+      shown = text;
+      const id = ++flapId;
+      clearFlaps();
+      const frame = planOf(text);
+      const apply = () => {
+        const cells = cellsFor(frame.chars.length);
+        cells.forEach((cell, i) => {
+          paint(cell, slotAt(frame, i));
+        });
+      };
+      if (frame.chars.length === 0) {
+        apply();
+        schedule();
+        return;
+      }
+
+      const timing = {
+        duration: WIPE_MS,
+        easing: "cubic-bezier(0.65, 0, 0.35, 1)",
+      };
+      const lift = [
+        { transform: "translateY(0)", offset: 0 },
+        { transform: "translateY(-110%)", offset: 0.28 },
+        { transform: "translateY(-110%)", offset: 0.62 },
+        { transform: "translateY(0)", offset: 1 },
+      ];
+      slot.animate(lift, timing);
+      later(Math.round(WIPE_MS * 0.45), () => {
+        if (id !== flapId) return;
+        apply();
+        schedule();
+      });
+    };
+
+    const show = (text: string, animate: boolean) => {
+      if (!animate || motion.matches) {
         settle(text);
         schedule();
         return;
       }
-      incoming.style.backgroundSize = "0% 1px";
-      slot.append(incoming);
-      const options: KeyframeAnimationOptions = {
-        duration: ROLL_MS,
-        easing: ROLL_EASING,
-        fill: "forwards",
-      };
-      current.animate(
-        [
-          { transform: "translateY(0)" },
-          { transform: `translateY(-${travel}px)` },
-        ],
-        options,
-      );
-      incoming
-        .animate(
-          [
-            { transform: `translateY(${travel}px)`, backgroundSize: "0% 1px" },
-            { transform: "translateY(0)", backgroundSize: "100% 1px" },
-          ],
-          options,
-        )
-        .finished.then(
-          () => {
-            if (id !== rollId) return;
-            slot.replaceChildren(word(text));
-            schedule();
-          },
-          () => {
-            if (id !== rollId) return;
-            slot.replaceChildren(word(text));
-            schedule();
-          },
-        );
-    };
-
-    const syncLabels = () => {
-      toggle.setAttribute("aria-pressed", paused ? "true" : "false");
-      toggle
-        .querySelector("[data-role-label='pause']")
-        ?.classList.toggle("hidden", paused);
-      toggle
-        .querySelector("[data-role-label='play']")
-        ?.classList.toggle("hidden", !paused);
+      flapTo(text);
     };
 
     const refresh = () => {
       phrases = readPhrases();
       index = Math.min(index, Math.max(phrases.length - 1, 0));
       const text = phrases[index];
-      if (text) settle(text);
-      schedule();
+      if (!text) return;
+      if (text === shown) {
+        schedule();
+        return;
+      }
+      show(text, text !== shown);
     };
 
-    toggle.addEventListener(
-      "click",
-      () => {
-        paused = !paused;
-        syncLabels();
-        if (paused) stop();
-        else schedule();
-      },
-      { signal },
-    );
-
     window.addEventListener("app:lang-change", refresh, { signal });
+
+    const roleNode = document.querySelector("[data-home-role]");
+    if (roleNode) {
+      const observer = new MutationObserver(() => {
+        observer.disconnect();
+        refresh();
+      });
+      observer.observe(roleNode, {
+        characterData: true,
+        childList: true,
+        subtree: true,
+      });
+      signal.addEventListener("abort", () => observer.disconnect());
+    }
 
     motion.addEventListener(
       "change",
       () => {
         if (motion.matches) {
           stop();
-          hero?.classList.remove("is-rolling");
+          clearFlaps();
           return;
         }
-        hero?.classList.add("is-rolling");
+        const text = phrases[index] ?? phrases[0];
+        if (text) settle(text);
         schedule();
       },
       { signal },
     );
 
     if (motion.matches || phrases.length === 0) return;
-    hero?.classList.add("is-rolling");
+    const first = phrases[0] ?? "";
+    settle(first);
     schedule();
   });
 </script>
@@ -369,9 +337,6 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
   .home-enter__item:nth-child(3) {
     animation-delay: 0.16s;
   }
-  .home-enter__item:nth-child(4) {
-    animation-delay: 0.22s;
-  }
   @keyframes home-enter {
     to {
       opacity: 1;
@@ -379,31 +344,24 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
     }
   }
 
-  .home-roles-still,
-  .home-role-toggle {
+  .home-roles-still {
     display: none;
   }
 
-  .is-rolling .home-role-toggle {
-    display: inline-flex;
+  .hero-board {
+    grid-template-columns: max-content;
+    line-height: 1;
   }
 
-  .hero-roll {
-    display: inline-grid;
-    height: 1.6em;
+  .hero-window {
     overflow: hidden;
-    line-height: 1.4;
   }
 
-  .hero-roll > :global(span) {
-    grid-area: 1 / 1;
-    align-self: start;
+  .hero-track {
+    display: flex;
+    justify-content: center;
     white-space: nowrap;
-    background-image: linear-gradient(currentColor, currentColor);
-    background-repeat: no-repeat;
-    background-position: left bottom;
-    background-size: 100% 1px;
-    padding-bottom: 0.12em;
+    padding-bottom: 0.28em;
   }
 
   @media (prefers-reduced-motion: reduce) {

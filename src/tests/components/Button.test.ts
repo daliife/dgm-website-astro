@@ -15,16 +15,6 @@ describe("Button", () => {
     expect(html).not.toContain("<a ");
   });
 
-  it("forwards aria-pressed on buttons", async () => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(Button, {
-      props: { "aria-pressed": "false" },
-      slots: { default: "Pause" },
-    });
-
-    expect(html).toContain('aria-pressed="false"');
-  });
-
   it("renders as <a> when href is provided", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(Button, {
