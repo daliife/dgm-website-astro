@@ -24,11 +24,7 @@
 <script>
   import { HERO_ICONS } from "../../utils/icons";
   import { pageScopedController } from "../../utils/motion";
-  import {
-    mountParticleIcons,
-    type IconSlot,
-    type Rect,
-  } from "../../utils/particles";
+  import { mountParticleIcons, type IconSlot } from "../../utils/particles";
 
   /** Widest the hero content runs (Tailwind `max-w-6xl`), in CSS px. */
   const CONTENT_MAX = 1152;
@@ -54,8 +50,7 @@
       "[data-hero-particles]",
     );
     const name = canvas?.parentElement?.querySelector("h1");
-    const content = name?.closest(".home-enter");
-    if (!canvas || !name || !content) return;
+    if (!canvas || !name) return;
 
     /** Icon spot centred in the free space right of the name. */
     const slot = (): IconSlot | null => {
@@ -75,32 +70,7 @@
       };
     };
 
-    /** The text block plus the icon spot: where the stars come alive. */
-    const focus = (): Rect => {
-      const box = canvas.getBoundingClientRect();
-      const text = content.getBoundingClientRect();
-      const rect = {
-        left: text.left - box.left,
-        top: text.top - box.top,
-        right: textRight(content) - box.left,
-        bottom: text.bottom - box.top,
-      };
-      const icon = slot();
-      if (!icon) return rect;
-      const half = icon.size / 2;
-      return {
-        left: rect.left,
-        top: Math.min(rect.top, icon.y - half),
-        right: Math.max(rect.right, icon.x + half),
-        bottom: Math.max(rect.bottom, icon.y + half),
-      };
-    };
-
-    const particles = mountParticleIcons(canvas, {
-      icons: HERO_ICONS,
-      slot,
-      focus,
-    });
+    const particles = mountParticleIcons(canvas, { icons: HERO_ICONS, slot });
     if (!particles) return;
 
     const { signal } = pageScopedController();

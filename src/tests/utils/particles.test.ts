@@ -1,10 +1,5 @@
 import { describe, it, expect } from "vitest";
-import {
-  focusWeight,
-  matchNearest,
-  planMorph,
-  spacedPoints,
-} from "../../utils/particles";
+import { matchNearest, planMorph, spacedPoints } from "../../utils/particles";
 import { HERO_ICONS } from "../../utils/icons";
 import { TYPEWRITER_KEYS } from "../../utils/typewriter";
 
@@ -28,17 +23,6 @@ describe("planMorph", () => {
       { x: 2, y: 0 },
     ];
     expect(planMorph(targets, points, [true, false, false])).toEqual([0, 2]);
-  });
-});
-
-describe("focusWeight", () => {
-  const rect = { left: 0, top: 0, right: 100, bottom: 50 };
-
-  it("is full inside the focus area and fades to nothing at `reach`", () => {
-    expect(focusWeight({ x: 50, y: 25 }, rect, 40)).toBe(1);
-    expect(focusWeight({ x: 120, y: 25 }, rect, 40)).toBeCloseTo(0.5);
-    expect(focusWeight({ x: 50, y: 90 }, rect, 40)).toBe(0);
-    expect(focusWeight({ x: 400, y: 400 }, rect, 40)).toBe(0);
   });
 });
 

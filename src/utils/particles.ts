@@ -8,20 +8,11 @@ export interface IconSlot {
   size: number;
 }
 
-export interface Rect {
-  left: number;
-  top: number;
-  right: number;
-  bottom: number;
-}
-
 export interface ParticleIconsOptions {
   /** 24×24 SVG stroke paths, one per hero phrase. */
   icons: readonly string[];
   /** Where the icon forms, or null when there is no room for it. */
   slot: () => IconSlot | null;
-  /** Area (canvas CSS px) whose nearby stars drift; the rest stay still. */
-  focus: () => Rect | null;
 }
 
 export interface ParticleIconsController {
@@ -36,17 +27,12 @@ export interface Point {
 
 interface Particle {
   /** Resting spot in the sky, in CSS px. */
-  x0: number;
-  y0: number;
-  /** How much it drifts (0–1), from its distance to the focus area. */
-  motion: number;
-  wobble: number;
-  phase: number;
+  home: Point;
   alpha: number;
   size: number;
   /**
    * Current move, in canvas CSS px: from `from` to `to` over `ms` from
-   * `start`. `null` stands for the star's own (drifting) spot in the sky.
+   * `start`. `null` stands for the star's home in the sky.
    */
   from: Point | null;
   to: Point | null;
@@ -62,8 +48,6 @@ const MIN_PARTICLES = 360;
 const MAX_PARTICLES = 1400;
 /** Stars fade out this close to the canvas bottom, in CSS px. */
 const BOTTOM_FADE = 140;
-/** Stars this far outside the focus area no longer drift, in CSS px. */
-const FOCUS_REACH = 140;
 /** Icon dot radius in CSS px. */
 const ICON_DOT = 1.5;
 const TAU = Math.PI * 2;
@@ -72,17 +56,6 @@ const easeInOut = (t: number) =>
   t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
 const progress = (time: number, start: number, ms: number) =>
   ms > 0 ? Math.min(1, Math.max(0, (time - start) / ms)) : +(time >= start);
-
-/**
- * 1 inside `rect`, easing down to 0 at `reach` px outside it: how much a
- * star at `point` drifts.
- */
-export function focusWeight(point: Point, rect: Rect, reach: number): number {
-  const dx = Math.max(rect.left - point.x, 0, point.x - rect.right);
-  const dy = Math.max(rect.top - point.y, 0, point.y - rect.bottom);
-  const t = Math.max(0, 1 - Math.hypot(dx, dy) / reach);
-  return t * t * (3 - 2 * t);
-}
 
 /**
  * Greedily pairs each target with the closest still-free usable point.
@@ -178,16 +151,15 @@ function sampleIcon(path: Path2D, box: number): Point[] {
 
 /**
  * A still starry sky over the whole canvas, coloured with its CSS `color` and
- * fading out towards its bottom. Only stars near `focus()` drift gently. The
- * nearest stars form the current phrase's icon at `slot()`; on the next
- * phrase they travel straight to their spots in the next icon, recruiting or
- * releasing stars as the dot count changes. Pauses off-screen / in hidden
- * tabs, holds still under reduced motion, and tears down on the next page
- * swap.
+ * fading out towards its bottom. The nearest stars form the current phrase's
+ * icon at `slot()`; on the next phrase they travel straight to their spots in
+ * the next icon, recruiting or releasing stars as the dot count changes. Only
+ * those stars ever move, and the canvas only repaints while they do. Snaps
+ * under reduced motion and tears down on the next page swap.
  */
 export function mountParticleIcons(
   canvas: HTMLCanvasElement,
-  { icons, slot, focus }: ParticleIconsOptions,
+  { icons, slot }: ParticleIconsOptions,
 ): ParticleIconsController | null {
   const ctx = canvas.getContext("2d");
   if (!ctx) return null;
@@ -201,6 +173,8 @@ export function mountParticleIcons(
   let height = 0;
   let frame = 0;
   let visible = true;
+  /** When the last moving star arrives. */
+  let busyUntil = 0;
   let active = -1;
   /** Phrase waiting for the hero entrance to settle before its icon forms. */
   let pending: number | null = reduced ? null : 0;
@@ -209,11 +183,7 @@ export function mountParticleIcons(
     // Mostly faint pinpricks, with the odd brighter star.
     const glow = Math.random() ** 3;
     return {
-      x0: Math.random() * width,
-      y0: Math.random() * height,
-      motion: 0,
-      wobble: 5 + Math.random() * 12,
-      phase: Math.random() * TAU,
+      home: { x: Math.random() * width, y: Math.random() * height },
       alpha: 0.12 + 0.5 * glow,
       size: 0.5 + 0.6 * Math.random() + 0.8 * glow,
       from: null,
@@ -240,42 +210,22 @@ export function mountParticleIcons(
       ),
     );
     for (const p of particles) {
-      p.x0 *= oldWidth ? width / oldWidth : 1;
-      p.y0 *= oldHeight ? height / oldHeight : 1;
+      p.home.x *= oldWidth ? width / oldWidth : 1;
+      p.home.y *= oldHeight ? height / oldHeight : 1;
     }
     particles = particles.slice(0, count);
     while (particles.length < count) particles.push(spawn());
-    measureFocus();
-  };
-
-  const measureFocus = () => {
-    const rect = focus();
-    for (const p of particles) {
-      p.motion = rect
-        ? focusWeight({ x: p.x0, y: p.y0 }, rect, FOCUS_REACH)
-        : 0;
-    }
-  };
-
-  const float = (p: Particle, time: number): Point => {
-    const drift = p.motion * p.wobble;
-    return {
-      x: p.x0 + Math.sin(time / 2300 + p.phase) * drift,
-      y: p.y0 + Math.cos(time / 2900 + p.phase * 1.7) * drift,
-    };
   };
 
   /** Where a star is and how icon-like it looks (0 sky – 1 icon). */
   const locate = (p: Particle, time: number) => {
     const e = easeInOut(progress(time, p.start, p.ms));
-    const sky = p.from && p.to ? null : float(p, time);
-    const a = p.from ?? sky!;
-    const b = p.to ?? sky!;
+    const a = p.from ?? p.home;
+    const b = p.to ?? p.home;
     return {
       x: a.x + (b.x - a.x) * e,
       y: a.y + (b.y - a.y) * e,
       w: (p.from ? 1 - e : 0) + (p.to ? e : 0),
-      settled: e === 1,
     };
   };
 
@@ -293,13 +243,23 @@ export function mountParticleIcons(
     ctx.globalAlpha = 1;
   };
 
+  const loop = (time: number) => {
+    draw(time);
+    frame = visible && time < busyUntil ? requestAnimationFrame(loop) : 0;
+  };
+  /** Paint the next frame, and keep painting while stars are moving. */
+  const wake = () => {
+    if (reduced) draw(0);
+    else if (visible && !frame) frame = requestAnimationFrame(loop);
+  };
+
   const moveTo = (p: Particle, to: Point | null, now: number) => {
-    const at = locate(p, now);
-    // A star resting in the sky keeps drifting until it actually sets off.
-    p.from = !p.to && at.settled ? null : { x: at.x, y: at.y };
+    const { x, y } = locate(p, now);
+    p.from = { x, y };
     p.to = to;
     p.start = reduced ? -Infinity : now + Math.random() * STAGGER_MS;
     p.ms = reduced ? 0 : MOVE_MS;
+    busyUntil = Math.max(busyUntil, p.start + p.ms);
   };
 
   const iconTargets = (index: number): Point[] => {
@@ -315,7 +275,8 @@ export function mountParticleIcons(
   };
 
   /** Morph the current icon's stars into icon `index`; spares go home. */
-  const activate = (index: number, now: number) => {
+  const activate = (index: number) => {
+    const now = reduced ? 0 : performance.now();
     active = index;
     const targets = iconTargets(index);
     const plan = planMorph(
@@ -332,6 +293,7 @@ export function mountParticleIcons(
       if (to) moveTo(p, to, now);
       else if (p.to) moveTo(p, null, now);
     });
+    wake();
   };
 
   const controller: ParticleIconsController = {
@@ -341,51 +303,24 @@ export function mountParticleIcons(
         pending = next;
         return;
       }
-      if (next === active) return;
-      activate(next, reduced ? 0 : performance.now());
-      if (reduced) draw(0);
+      if (next !== active) activate(next);
     },
   };
 
   resize();
+  wake();
   if (reduced) {
-    activate(0, 0);
-    draw(0);
-    window.addEventListener(
-      "resize",
-      () => {
-        resize();
-        activate(active, 0);
-        draw(0);
-      },
-      { signal },
-    );
-    // Repaint on theme switches once the colour transition has settled.
-    const themeObserver = new MutationObserver(() =>
-      window.setTimeout(() => draw(0), 500),
-    );
-    themeObserver.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-    signal.addEventListener("abort", () => themeObserver.disconnect());
-    return controller;
+    activate(0);
+  } else {
+    // Let the hero entrance settle before measuring where the first icon goes.
+    const firstIcon = window.setTimeout(() => {
+      const index = pending ?? 0;
+      pending = null;
+      activate(index);
+    }, 900);
+    signal.addEventListener("abort", () => clearTimeout(firstIcon));
   }
 
-  // Let the hero entrance settle before measuring where the first icon goes.
-  const firstIcon = window.setTimeout(() => {
-    const index = pending ?? 0;
-    pending = null;
-    activate(index, performance.now());
-  }, 900);
-
-  const loop = (time: number) => {
-    draw(time);
-    frame = visible ? requestAnimationFrame(loop) : 0;
-  };
-  const wake = () => {
-    if (visible && !frame) frame = requestAnimationFrame(loop);
-  };
   const observer = new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting && !document.hidden;
     wake();
@@ -404,18 +339,30 @@ export function mountParticleIcons(
     "resize",
     () => {
       resize();
+      wake();
       clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(() => {
-        if (active >= 0) activate(active, performance.now());
+        if (active >= 0) activate(active);
       }, 150);
     },
     { signal },
   );
+  // Repaint on theme switches once the colour transition has settled.
+  let themeTimer = 0;
+  const themeObserver = new MutationObserver(() => {
+    clearTimeout(themeTimer);
+    themeTimer = window.setTimeout(wake, 500);
+  });
+  themeObserver.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ["class"],
+  });
   signal.addEventListener("abort", () => {
     observer.disconnect();
+    themeObserver.disconnect();
     cancelAnimationFrame(frame);
-    clearTimeout(firstIcon);
     clearTimeout(resizeTimer);
+    clearTimeout(themeTimer);
   });
   return controller;
 }
