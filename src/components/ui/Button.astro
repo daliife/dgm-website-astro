@@ -11,6 +11,7 @@ interface Props {
   disabled?: boolean;
   id?: string;
   "aria-label"?: string;
+  "aria-pressed"?: "true" | "false";
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   disabled = false,
   id,
   "aria-label": ariaLabel,
+  "aria-pressed": ariaPressed,
 } = Astro.props;
 
 const baseClasses =
@@ -50,6 +52,7 @@ const Tag = isLink ? "a" : "button";
 const commonAttrs: Record<string, unknown> = {};
 if (id) commonAttrs.id = id;
 if (ariaLabel) commonAttrs["aria-label"] = ariaLabel;
+if (ariaPressed) commonAttrs["aria-pressed"] = ariaPressed;
 
 const tagProps = isLink
   ? { href, target, rel, ...commonAttrs }

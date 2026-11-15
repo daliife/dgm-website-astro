@@ -51,7 +51,7 @@ src/
     constants.ts           ← NAV_LINKS, PAGE_* classes, NEXTUP_* classes, SUPPORTED_LANGUAGES
     format.ts              ← formatDate(), stripProtocol()
     locale.ts              ← DATE_LOCALE_MAP, OG_LOCALE_MAP
-    typewriter.ts          ← HOME_ROLE_KEYS, the three roles under the home name
+    typewriter.ts          ← HOME_ROLE_KEYS; the home rolls them, with pause and a static line when motion is reduced
     i18n.ts                ← DEFAULT_LANG, t() for SSR Catalan copy
     i18n-client.ts         ← client-side applyI18n(), lazy locale loading
     analytics.ts           ← Umami loader (consent-gated)

@@ -19,7 +19,10 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
 ---
 
 <Layout title={`${name} ${lastName} — ${t("basics.label")}`} type="profile">
-  <section class="px-6 pb-12 pt-28 md:pb-16 md:pt-36">
+  <section
+    class="flex min-h-svh flex-col justify-center px-6 pb-20 pt-28 md:pb-24 md:pt-32"
+    data-home-hero
+  >
     <div class="home-enter mx-auto w-full max-w-5xl">
       <!-- Greeting -->
       <p
@@ -37,22 +40,67 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
         <span class="block font-light">{lastName}</span>
       </h1>
 
-      <p
-        class="home-enter__item mb-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm uppercase tracking-widest text-text-secondary sm:text-base"
-      >
-        {
-          HOME_ROLE_KEYS.map((key, i) => (
-            <>
-              {i > 0 && (
-                <span aria-hidden="true" class="text-text-muted">
-                  ·
-                </span>
-              )}
-              <span data-i18n={key}>{t(key)}</span>
-            </>
-          ))
-        }
-      </p>
+      <div class="home-enter__item mb-8">
+        <p
+          class="home-roles-still flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm uppercase tracking-widest text-text-secondary sm:text-base"
+        >
+          {
+            HOME_ROLE_KEYS.map((key, i) => (
+              <>
+                {i > 0 && (
+                  <span aria-hidden="true" class="text-text-muted">
+                    ·
+                  </span>
+                )}
+                <span data-i18n={key}>{t(key)}</span>
+              </>
+            ))
+          }
+        </p>
+        <div
+          class="home-roles-live flex flex-wrap items-baseline gap-x-5 gap-y-2"
+        >
+          <p class="sr-only">
+            {
+              HOME_ROLE_KEYS.map((key, i) => (
+                <>
+                  {i > 0 && ", "}
+                  <span data-i18n={key} data-home-role>
+                    {t(key)}
+                  </span>
+                </>
+              ))
+            }
+          </p>
+          <p
+            class="hero-roll text-sm uppercase tracking-widest text-text-secondary sm:text-base"
+            data-hero-roll
+            aria-hidden="true"
+          >
+            <span>{t(HOME_ROLE_KEYS[0])}</span>
+          </p>
+          <div class="home-role-toggle">
+            <Button
+              id="home-role-toggle"
+              variant="simple"
+              size="none"
+              aria-pressed="false"
+              className="text-xs uppercase tracking-widest text-text-muted hover:text-text-primary"
+            >
+              <span data-i18n="ui.home.roles.pause" data-role-label="pause">
+                {t("ui.home.roles.pause")}
+              </span>
+              <span
+                data-i18n="ui.home.roles.play"
+                data-role-label="play"
+                class="hidden"
+              >
+                {t("ui.home.roles.play")}
+              </span>
+            </Button>
+          </div>
+        </div>
+      </div>
 
       <!-- CTAs -->
       <div
@@ -109,10 +157,10 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
   {
     featured.length > 0 && (
       <section
-        class="mx-auto max-w-5xl px-6 pb-24"
+        class="mx-auto max-w-5xl px-6 pb-24 pt-16 md:pt-24"
         aria-labelledby="home-selected-heading"
       >
-        <div class="reveal mb-8 flex items-baseline justify-between gap-6 border-t border-border-primary pt-6">
+        <div class="reveal mb-8 flex items-baseline justify-between gap-6 border-t border-border-primary pt-8">
           <h2
             id="home-selected-heading"
             class="text-xs uppercase tracking-widest text-text-muted"
@@ -153,6 +201,158 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
   }
 </Layout>
 
+<script>
+  import { pageScopedController } from "../utils/motion";
+
+  const ROLL_MS = 1100;
+  const ROLL_EASING = "cubic-bezier(0.45, 0, 0.2, 1)";
+  const HOLD_MS = 4000;
+
+  document.addEventListener("astro:page-load", () => {
+    const slot = document.querySelector<HTMLElement>("[data-hero-roll]");
+    const toggle =
+      document.querySelector<HTMLButtonElement>("#home-role-toggle");
+    if (!slot || !toggle) return;
+
+    const hero = slot.closest("[data-home-hero]");
+    const { signal } = pageScopedController();
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let timer = 0;
+    let index = 0;
+    let paused = false;
+    let rollId = 0;
+
+    const readPhrases = () =>
+      [...document.querySelectorAll<HTMLElement>("[data-home-role]")]
+        .map((el) => el.textContent?.trim() ?? "")
+        .filter(Boolean);
+
+    let phrases = readPhrases();
+
+    const stop = () => {
+      window.clearTimeout(timer);
+      timer = 0;
+    };
+
+    signal.addEventListener("abort", stop);
+
+    const word = (text: string) => {
+      const span = document.createElement("span");
+      span.textContent = text;
+      return span;
+    };
+
+    const settle = (text: string) => {
+      rollId += 1;
+      slot.replaceChildren(word(text));
+    };
+
+    const schedule = () => {
+      stop();
+      if (paused || motion.matches || phrases.length < 2) return;
+      timer = window.setTimeout(() => {
+        index = (index + 1) % phrases.length;
+        rollTo(phrases[index] ?? "");
+      }, HOLD_MS);
+    };
+
+    const rollTo = (text: string) => {
+      const id = ++rollId;
+      const current = slot.querySelector("span");
+      const incoming = word(text);
+      const travel = slot.clientHeight || 24;
+      if (!current) {
+        settle(text);
+        schedule();
+        return;
+      }
+      incoming.style.backgroundSize = "0% 1px";
+      slot.append(incoming);
+      const options: KeyframeAnimationOptions = {
+        duration: ROLL_MS,
+        easing: ROLL_EASING,
+        fill: "forwards",
+      };
+      current.animate(
+        [
+          { transform: "translateY(0)" },
+          { transform: `translateY(-${travel}px)` },
+        ],
+        options,
+      );
+      incoming
+        .animate(
+          [
+            { transform: `translateY(${travel}px)`, backgroundSize: "0% 1px" },
+            { transform: "translateY(0)", backgroundSize: "100% 1px" },
+          ],
+          options,
+        )
+        .finished.then(
+          () => {
+            if (id !== rollId) return;
+            slot.replaceChildren(word(text));
+            schedule();
+          },
+          () => {
+            if (id !== rollId) return;
+            slot.replaceChildren(word(text));
+            schedule();
+          },
+        );
+    };
+
+    const syncLabels = () => {
+      toggle.setAttribute("aria-pressed", paused ? "true" : "false");
+      toggle
+        .querySelector("[data-role-label='pause']")
+        ?.classList.toggle("hidden", paused);
+      toggle
+        .querySelector("[data-role-label='play']")
+        ?.classList.toggle("hidden", !paused);
+    };
+
+    const refresh = () => {
+      phrases = readPhrases();
+      index = Math.min(index, Math.max(phrases.length - 1, 0));
+      const text = phrases[index];
+      if (text) settle(text);
+      schedule();
+    };
+
+    toggle.addEventListener(
+      "click",
+      () => {
+        paused = !paused;
+        syncLabels();
+        if (paused) stop();
+        else schedule();
+      },
+      { signal },
+    );
+
+    window.addEventListener("app:lang-change", refresh, { signal });
+
+    motion.addEventListener(
+      "change",
+      () => {
+        if (motion.matches) {
+          stop();
+          hero?.classList.remove("is-rolling");
+          return;
+        }
+        hero?.classList.add("is-rolling");
+        schedule();
+      },
+      { signal },
+    );
+
+    if (motion.matches || phrases.length === 0) return;
+    hero?.classList.add("is-rolling");
+    schedule();
+  });
+</script>
+
 <style>
   .home-enter__item {
     opacity: 0;
@@ -179,11 +379,46 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
     }
   }
 
+  .home-roles-still,
+  .home-role-toggle {
+    display: none;
+  }
+
+  .is-rolling .home-role-toggle {
+    display: inline-flex;
+  }
+
+  .hero-roll {
+    display: inline-grid;
+    height: 1.6em;
+    overflow: hidden;
+    line-height: 1.4;
+  }
+
+  .hero-roll > :global(span) {
+    grid-area: 1 / 1;
+    align-self: start;
+    white-space: nowrap;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-size: 100% 1px;
+    padding-bottom: 0.12em;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .home-enter__item {
       opacity: 1;
       transform: none;
       animation: none;
+    }
+
+    .home-roles-live {
+      display: none;
+    }
+
+    .home-roles-still {
+      display: flex;
     }
   }
 </style>

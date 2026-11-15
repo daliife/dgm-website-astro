@@ -21,6 +21,8 @@ export const CA: Record<I18nKey, string> = {
   "ui.home.typewriter.0": "DESENVOLUPADOR FRONTEND",
   "ui.home.typewriter.1": "CLARINETISTA",
   "ui.home.typewriter.2": "AMANT DE LA NATURA",
+  "ui.home.roles.pause": "Pausa",
+  "ui.home.roles.play": "Continua",
   "ui.nextup": "Explora també",
   "ui.nextup.aria": "Pàgines relacionades",
   "ui.nextup.about": "Sobre mi",

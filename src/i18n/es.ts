@@ -21,6 +21,8 @@ export const ES: Record<I18nKey, string> = {
   "ui.home.typewriter.0": "DESARROLLADOR FRONTEND",
   "ui.home.typewriter.1": "CLARINETISTA",
   "ui.home.typewriter.2": "AMANTE DE LA NATURALEZA",
+  "ui.home.roles.pause": "Pausa",
+  "ui.home.roles.play": "Continuar",
   "ui.nextup": "Explora también",
   "ui.nextup.aria": "Páginas relacionadas",
   "ui.nextup.about": "Sobre mí",

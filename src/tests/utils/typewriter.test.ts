@@ -13,7 +13,12 @@ describe("HOME_ROLE_KEYS", () => {
     "all keys exist in %s translations",
     (lang) => {
       const dict = lang === "EN" ? EN : lang === "CA" ? CA : ES;
-      const missing = HOME_ROLE_KEYS.filter((key) => !(key in dict));
+      const keys = [
+        ...HOME_ROLE_KEYS,
+        "ui.home.roles.pause",
+        "ui.home.roles.play",
+      ];
+      const missing = keys.filter((key) => !(key in dict));
       expect(missing, `Missing ${lang} keys: ${missing.join(", ")}`).toEqual(
         [],
       );

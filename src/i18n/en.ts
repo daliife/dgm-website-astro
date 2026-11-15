@@ -18,6 +18,8 @@ export const EN = {
   "ui.home.typewriter.0": "FRONTEND DEVELOPER",
   "ui.home.typewriter.1": "CLARINETTIST",
   "ui.home.typewriter.2": "NATURE LOVER",
+  "ui.home.roles.pause": "Pause",
+  "ui.home.roles.play": "Resume",
   "ui.nextup": "Also explore",
   "ui.nextup.aria": "Related pages",
   "ui.nextup.about": "About me",
