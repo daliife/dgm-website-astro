@@ -14,9 +14,10 @@ describe("cubicBezier", () => {
 });
 
 describe("rollEase", () => {
-  it("runs from 0 to 1, front-loaded like the phrase roll", () => {
+  it("runs from 0 to 1, easing in gently and settling softly", () => {
     expect(rollEase(0)).toBe(0);
     expect(rollEase(1)).toBe(1);
-    expect(rollEase(0.3)).toBeGreaterThan(0.6);
+    expect(rollEase(0.1)).toBeLessThan(0.1);
+    expect(rollEase(0.9)).toBeGreaterThan(0.9);
   });
 });

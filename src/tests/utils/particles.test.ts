@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { matchNearest, planMorph, spacedPoints } from "../../utils/particles";
+import {
+  linkNeighbours,
+  matchNearest,
+  planMorph,
+  spacedPoints,
+} from "../../utils/particles";
 import { HERO_ICONS } from "../../utils/icons";
 import { TYPEWRITER_KEYS } from "../../utils/typewriter";
 
@@ -57,6 +62,37 @@ describe("spacedPoints", () => {
   it("keeps points at least `gap` apart, in candidate order", () => {
     const line = Array.from({ length: 10 }, (_, x) => ({ x, y: 0 }));
     expect(spacedPoints(line, 3).map((p) => p.x)).toEqual([0, 3, 6, 9]);
+  });
+});
+
+describe("linkNeighbours", () => {
+  it("joins only points within reach", () => {
+    const points = [
+      { x: 0, y: 0 },
+      { x: 3, y: 0 },
+      { x: 6, y: 0 },
+      { x: 20, y: 0 },
+    ];
+    expect(linkNeighbours(points, 4)).toEqual([
+      [0, 1],
+      [1, 2],
+    ]);
+  });
+
+  it("joins each point to at most its two nearest neighbours", () => {
+    const hub = [
+      { x: 0, y: 0 },
+      { x: 1, y: 0 },
+      { x: -2, y: 0 },
+      { x: 0, y: 3 },
+      { x: 0, y: 3.5 },
+      { x: 0, y: 4 },
+    ];
+    const fromHub = linkNeighbours(hub, 10).filter(([a]) => a === 0);
+    expect(fromHub).toEqual([
+      [0, 1],
+      [0, 2],
+    ]);
   });
 });
 

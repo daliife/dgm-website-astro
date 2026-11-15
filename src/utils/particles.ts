@@ -47,8 +47,15 @@ const MIN_PARTICLES = 360;
 const MAX_PARTICLES = 1400;
 /** Stars fade out this close to the canvas bottom, in CSS px. */
 const BOTTOM_FADE = 140;
-/** Icon dot radius in CSS px. */
-const ICON_DOT = 1.5;
+/** Icon star radius, its halo radius, and the halo's opacity. */
+const ICON_DOT = 1.8;
+const ICON_HALO = 4.5;
+const HALO_ALPHA = 0.12;
+/** Icon stars sit this many icon-box fractions apart (min 8 CSS px). */
+const ICON_SPACING = 1 / 22;
+/** Constellation lines join icon stars up to this many spacings apart. */
+const LINK_REACH = 1.8;
+const LINK_ALPHA = 0.32;
 const TAU = Math.PI * 2;
 
 const progress = (time: number, start: number, ms: number) =>
@@ -118,13 +125,47 @@ export function spacedPoints(
   return picked;
 }
 
-/** Dots along the stroke of a 24×24 icon, in CSS px from the icon centre. */
-function sampleIcon(path: Path2D, box: number): Point[] {
+/**
+ * The constellation's lines: each point joins its two nearest neighbours
+ * within `reach`, so strokes read as single chains rather than a mesh.
+ */
+export function linkNeighbours(
+  points: readonly Point[],
+  reach: number,
+): [number, number][] {
+  const max = reach * reach;
+  const keys = new Set<string>();
+  const links: [number, number][] = [];
+  points.forEach((p, i) => {
+    points
+      .map((q, j) => ({ j, dist: (p.x - q.x) ** 2 + (p.y - q.y) ** 2 }))
+      .filter(({ j, dist }) => j !== i && dist <= max)
+      .sort((a, b) => a.dist - b.dist)
+      .slice(0, 2)
+      .forEach(({ j }) => {
+        const pair: [number, number] = i < j ? [i, j] : [j, i];
+        const key = pair.join();
+        if (keys.has(key)) return;
+        keys.add(key);
+        links.push(pair);
+      });
+  });
+  return links;
+}
+
+interface IconShape {
+  /** Star spots, in CSS px from the icon centre. */
+  points: Point[];
+  links: [number, number][];
+}
+
+/** Stars along the stroke of a 24×24 icon, joined like a constellation. */
+function sampleIcon(path: Path2D, box: number): IconShape {
   box = Math.ceil(box);
   const off = document.createElement("canvas");
   off.width = off.height = box;
   const ctx = off.getContext("2d", { willReadFrequently: true });
-  if (!ctx || box < 24) return [];
+  if (!ctx || box < 24) return { points: [], links: [] };
   ctx.scale(box / 24, box / 24);
   ctx.lineWidth = 1.2;
   ctx.lineCap = ctx.lineJoin = "round";
@@ -140,10 +181,12 @@ function sampleIcon(path: Path2D, box: number): Point[] {
     const j = Math.floor(Math.random() * (i + 1));
     [stroke[i], stroke[j]] = [stroke[j], stroke[i]];
   }
-  return spacedPoints(stroke, Math.max(4, box / 30)).map(({ x, y }) => ({
+  const gap = Math.max(8, box * ICON_SPACING);
+  const points = spacedPoints(stroke, gap).map(({ x, y }) => ({
     x: x - box / 2,
     y: y - box / 2,
   }));
+  return { points, links: linkNeighbours(points, gap * LINK_REACH) };
 }
 
 /**
@@ -164,7 +207,9 @@ export function mountParticleIcons(
 
   const reduced = prefersReducedMotion();
   const paths = icons.map((d) => new Path2D(d));
-  const samples = new Map<string, Point[]>();
+  const samples = new Map<string, IconShape>();
+  /** Particle index pairs drawn as the current icon's constellation lines. */
+  let links: [number, number][] = [];
   const { signal } = pageScopedController();
   let particles: Particle[] = [];
   let width = 0;
@@ -229,15 +274,39 @@ export function mountParticleIcons(
 
   const draw = (time: number) => {
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = getComputedStyle(canvas).color;
-    for (const p of particles) {
-      const { x, y, w } = locate(p, time);
+    const color = getComputedStyle(canvas).color;
+    ctx.fillStyle = ctx.strokeStyle = color;
+    const spots = particles.map((p) => locate(p, time));
+
+    // Constellation lines fade in as both of their stars arrive.
+    ctx.lineWidth = 0.75;
+    for (const [a, b] of links) {
+      const arrived = Math.min(
+        progress(time, particles[a].start, particles[a].ms),
+        progress(time, particles[b].start, particles[b].ms),
+      );
+      if (arrived === 0) continue;
+      ctx.globalAlpha = LINK_ALPHA * arrived ** 3;
+      ctx.beginPath();
+      ctx.moveTo(spots[a].x, spots[a].y);
+      ctx.lineTo(spots[b].x, spots[b].y);
+      ctx.stroke();
+    }
+
+    particles.forEach((p, i) => {
+      const { x, y, w } = spots[i];
+      if (w > 0) {
+        ctx.globalAlpha = HALO_ALPHA * w;
+        ctx.beginPath();
+        ctx.arc(x, y, ICON_HALO * w, 0, TAU);
+        ctx.fill();
+      }
       const fade = Math.min(1, Math.max(0, (height - y) / BOTTOM_FADE));
-      ctx.globalAlpha = p.alpha * fade * (1 - w) + 0.9 * w;
+      ctx.globalAlpha = p.alpha * fade * (1 - w) + 0.95 * w;
       ctx.beginPath();
       ctx.arc(x, y, p.size * (1 - w) + ICON_DOT * w, 0, TAU);
       ctx.fill();
-    }
+    });
     ctx.globalAlpha = 1;
   };
 
@@ -260,23 +329,30 @@ export function mountParticleIcons(
     busyUntil = Math.max(busyUntil, p.start + p.ms);
   };
 
-  const iconTargets = (index: number): Point[] => {
+  const iconShape = (index: number) => {
     const place = slot();
-    if (!place) return [];
+    if (!place) return { targets: [], links: [] };
     const key = `${index}:${Math.round(place.size)}`;
     let shape = samples.get(key);
     if (!shape) {
       shape = sampleIcon(paths[index], place.size);
       samples.set(key, shape);
     }
-    return shape.map((s) => ({ x: place.x + s.x, y: place.y + s.y }));
+    return {
+      targets: shape.points.map((s) => ({
+        x: place.x + s.x,
+        y: place.y + s.y,
+      })),
+      links: shape.links,
+    };
   };
 
   /** Morph the current icon's stars into icon `index`; spares go home. */
   const activate = (index: number) => {
     const now = reduced ? 0 : performance.now();
     active = index;
-    const targets = iconTargets(index);
+    const shape = iconShape(index);
+    const targets = shape.targets;
     const plan = planMorph(
       targets,
       particles.map((p) => locate(p, now)),
@@ -286,6 +362,9 @@ export function mountParticleIcons(
     plan.forEach((i, t) => {
       if (i >= 0) assigned.set(i, targets[t]);
     });
+    links = shape.links
+      .map(([a, b]): [number, number] => [plan[a], plan[b]])
+      .filter(([a, b]) => a >= 0 && b >= 0);
     particles.forEach((p, i) => {
       const to = assigned.get(i);
       if (to) moveTo(p, to, now);

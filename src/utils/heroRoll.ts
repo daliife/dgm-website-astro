@@ -22,6 +22,6 @@ export function cubicBezier(
 }
 
 /** Hero phrase roll timing, shared so the hero stars move in step with it. */
-export const ROLL_MS = 700;
-export const ROLL_EASING = "cubic-bezier(0.22, 1, 0.36, 1)";
-export const rollEase = cubicBezier(0.22, 1, 0.36, 1);
+export const ROLL_MS = 1100;
+export const ROLL_EASING = "cubic-bezier(0.45, 0, 0.2, 1)";
+export const rollEase = cubicBezier(0.45, 0, 0.2, 1);
