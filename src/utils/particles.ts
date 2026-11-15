@@ -1,3 +1,4 @@
+import { ROLL_MS, rollEase } from "./heroRoll";
 import { pageScopedController, prefersReducedMotion } from "./motion";
 
 export interface IconSlot {
@@ -40,8 +41,6 @@ interface Particle {
   ms: number;
 }
 
-const MOVE_MS = 1200;
-const STAGGER_MS = 300;
 /** Canvas area per star, in CSS px². */
 const AREA_PER_PARTICLE = 1600;
 const MIN_PARTICLES = 360;
@@ -52,8 +51,6 @@ const BOTTOM_FADE = 140;
 const ICON_DOT = 1.5;
 const TAU = Math.PI * 2;
 
-const easeInOut = (t: number) =>
-  t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
 const progress = (time: number, start: number, ms: number) =>
   ms > 0 ? Math.min(1, Math.max(0, (time - start) / ms)) : +(time >= start);
 
@@ -153,7 +150,8 @@ function sampleIcon(path: Path2D, box: number): Point[] {
  * A still starry sky over the whole canvas, coloured with its CSS `color` and
  * fading out towards its bottom. The nearest stars form the current phrase's
  * icon at `slot()`; on the next phrase they travel straight to their spots in
- * the next icon, recruiting or releasing stars as the dot count changes. Only
+ * the next icon, in step with the phrase roll (`heroRoll.ts`), recruiting or
+ * releasing stars as the dot count changes. Only
  * those stars ever move, and the canvas only repaints while they do. Snaps
  * under reduced motion and tears down on the next page swap.
  */
@@ -219,7 +217,7 @@ export function mountParticleIcons(
 
   /** Where a star is and how icon-like it looks (0 sky – 1 icon). */
   const locate = (p: Particle, time: number) => {
-    const e = easeInOut(progress(time, p.start, p.ms));
+    const e = rollEase(progress(time, p.start, p.ms));
     const a = p.from ?? p.home;
     const b = p.to ?? p.home;
     return {
@@ -257,8 +255,8 @@ export function mountParticleIcons(
     const { x, y } = locate(p, now);
     p.from = { x, y };
     p.to = to;
-    p.start = reduced ? -Infinity : now + Math.random() * STAGGER_MS;
-    p.ms = reduced ? 0 : MOVE_MS;
+    p.start = reduced ? -Infinity : now;
+    p.ms = reduced ? 0 : ROLL_MS;
     busyUntil = Math.max(busyUntil, p.start + p.ms);
   };
 

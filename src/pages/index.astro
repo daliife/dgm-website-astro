@@ -200,10 +200,9 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
   import type { LangCode } from "../utils/i18n";
 
   import { prefersReducedMotion } from "../utils/motion";
+  import { ROLL_EASING, ROLL_MS } from "../utils/heroRoll";
 
   const HOLD_MS = 3500;
-  const ROLL_MS = 700;
-  const ROLL_EASING = "cubic-bezier(0.22, 1, 0.36, 1)";
 
   let stopCurrent: (() => void) | null = null;
 
