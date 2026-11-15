@@ -11,6 +11,7 @@ import {
   REVEAL_STAGGER_LIST_CLASSES,
 } from "../utils/constants";
 import { getFeaturedProjects } from "../utils/cvStats";
+import { HOME_ROLE_KEYS } from "../utils/typewriter";
 import type { ProjectEntry } from "../types/ui";
 import { basics, projects } from "@cv";
 const { name, lastName, email } = basics;
@@ -18,10 +19,8 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
 ---
 
 <Layout title={`${name} ${lastName} — ${t("basics.label")}`} type="profile">
-  <section
-    class="relative flex min-h-[70svh] flex-col items-center justify-center px-6 pt-16 md:min-h-[72svh]"
-  >
-    <div class="home-enter relative w-full max-w-4xl">
+  <section class="px-6 pb-12 pt-28 md:pb-16 md:pt-36">
+    <div class="home-enter mx-auto w-full max-w-5xl">
       <!-- Greeting -->
       <p
         class="home-enter__item mb-4 text-xs uppercase tracking-widest text-text-muted"
@@ -38,15 +37,21 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
         <span class="block font-light">{lastName}</span>
       </h1>
 
-      <!-- Rotating descriptor -->
       <p
-        class="home-enter__item mb-10 flex min-h-[2.75em] text-2xl font-light uppercase tracking-widest text-text-secondary max-sm:text-xl sm:min-h-[1.5em] sm:items-center sm:whitespace-nowrap sm:text-3xl"
+        class="home-enter__item mb-8 flex flex-wrap items-baseline gap-x-3 gap-y-1 text-sm uppercase tracking-widest text-text-secondary sm:text-base"
       >
-        <span class="hero-roll" data-hero-roll aria-hidden="true">
-          <span>{t("basics.label")}</span>
-        </span>
-        <span class="sr-only" data-i18n="basics.label">{t("basics.label")}</span
-        >
+        {
+          HOME_ROLE_KEYS.map((key, i) => (
+            <>
+              {i > 0 && (
+                <span aria-hidden="true" class="text-text-muted">
+                  ·
+                </span>
+              )}
+              <span data-i18n={key}>{t(key)}</span>
+            </>
+          ))
+        }
       </p>
 
       <!-- CTAs -->
@@ -104,7 +109,7 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
   {
     featured.length > 0 && (
       <section
-        class="mx-auto max-w-5xl px-6 pb-24 pt-8"
+        class="mx-auto max-w-5xl px-6 pb-24"
         aria-labelledby="home-selected-heading"
       >
         <div class="reveal mb-8 flex items-baseline justify-between gap-6 border-t border-border-primary pt-6">
@@ -174,15 +179,6 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
     }
   }
 
-  .hero-roll {
-    display: inline-grid;
-    overflow: hidden;
-  }
-
-  .hero-roll > :global(*) {
-    grid-area: 1 / 1;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     .home-enter__item {
       opacity: 1;
@@ -191,88 +187,3 @@ const featured = getFeaturedProjects(projects as ProjectEntry[]);
     }
   }
 </style>
-
-<script>
-  import { getTypewriterPhrases } from "../utils/typewriter";
-  import { getStoredLang } from "../utils/i18n-client";
-  import type { LangCode } from "../utils/i18n";
-
-  import { prefersReducedMotion } from "../utils/motion";
-  import { ROLL_EASING, ROLL_MS } from "../utils/heroRoll";
-
-  const HOLD_MS = 4000;
-
-  let stopCurrent: (() => void) | null = null;
-
-  function word(text: string) {
-    const span = document.createElement("span");
-    span.textContent = text;
-    return span;
-  }
-
-  /** Next phrase slides up into the slot while the current one exits above. */
-  function roll(slot: HTMLElement, text: string) {
-    const outgoing = slot.firstElementChild as HTMLElement | null;
-    const incoming = word(text);
-    slot.append(incoming);
-    // Travel the slot height so phrases wrapping to different line counts
-    // still fully enter and leave.
-    const travel = `${slot.offsetHeight}px`;
-    const options = { duration: ROLL_MS, easing: ROLL_EASING };
-    incoming.animate(
-      [{ transform: `translateY(${travel})` }, { transform: "translateY(0)" }],
-      options,
-    );
-    outgoing
-      ?.animate(
-        [
-          { transform: "translateY(0)" },
-          { transform: `translateY(-${travel})` },
-        ],
-        { ...options, fill: "forwards" },
-      )
-      .finished.then(() => outgoing.remove())
-      .catch(() => {});
-  }
-
-  async function startRoll(lang: LangCode) {
-    const slot = document.querySelector<HTMLElement>("[data-hero-roll]");
-    if (!slot) return;
-
-    stopCurrent?.();
-    let timer = 0;
-    stopCurrent = () => window.clearTimeout(timer);
-
-    const phrases = await getTypewriterPhrases(lang);
-    slot.replaceChildren(word(phrases[0]));
-    if (prefersReducedMotion()) return;
-
-    let index = 0;
-    const next = () => {
-      index = (index + 1) % phrases.length;
-      roll(slot, phrases[index]);
-      timer = window.setTimeout(next, HOLD_MS);
-    };
-    timer = window.setTimeout(next, HOLD_MS);
-  }
-
-  function scheduleRoll(lang: LangCode) {
-    const run = () => startRoll(lang);
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(run, { timeout: 1500 });
-    } else {
-      setTimeout(run, 200);
-    }
-  }
-
-  document.addEventListener("astro:page-load", () => {
-    scheduleRoll(getStoredLang());
-  });
-
-  document.addEventListener("astro:before-swap", () => stopCurrent?.());
-
-  window.addEventListener("app:lang-change", (e: Event) => {
-    const { lang } = (e as CustomEvent<{ lang: LangCode }>).detail;
-    scheduleRoll(lang);
-  });
-</script>
