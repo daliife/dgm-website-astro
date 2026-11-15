@@ -1,14 +1,22 @@
 import { pageScopedController, prefersReducedMotion } from "./motion";
 
+export interface IconSlot {
+  /** Icon centre, in canvas CSS px. */
+  x: number;
+  y: number;
+  /** Icon box size, in CSS px. */
+  size: number;
+}
+
 export interface ParticleIconsOptions {
   /** 24×24 SVG stroke paths, one per hero phrase. */
   icons: readonly string[];
-  /** Number of particles; must cover the densest icon. */
-  count?: number;
+  /** Where the icon forms, or null when there is no room for it. */
+  slot: () => IconSlot | null;
 }
 
 export interface ParticleIconsController {
-  /** Condense the floating particles into icon `index` for a few seconds. */
+  /** Condense the nearest particles into icon `index` for a few seconds. */
   setActive(index: number): void;
 }
 
@@ -26,25 +34,30 @@ export interface Trip {
 }
 
 interface Particle extends Trip {
-  /** Floating orbit, in cloud radii from the centre. */
-  radius: number;
-  angle: number;
-  spin: number;
+  /** Drift origin and velocity, in CSS px and px/ms. */
+  x0: number;
+  y0: number;
+  vx: number;
+  vy: number;
   wobble: number;
   phase: number;
   alpha: number;
   size: number;
-  /** Icon position, in cloud radii from the centre. */
+  /** Icon position, in canvas CSS px. */
   target: Point | null;
 }
 
 const GATHER_DELAY_MS = 120;
-const GATHER_MS = 950;
-const HOLD_MS = 1900;
-const RELEASE_MS = 1000;
-const STAGGER_MS = 280;
-/** Icon box size, in cloud radii. */
-const ICON_BOX = 1.1;
+const GATHER_MS = 1100;
+const HOLD_MS = 1800;
+const RELEASE_MS = 1100;
+const STAGGER_MS = 300;
+/** Canvas area per particle, in CSS px². */
+const AREA_PER_PARTICLE = 1500;
+const MIN_PARTICLES = 360;
+const MAX_PARTICLES = 900;
+/** Particles fade out this close to the canvas edge, in CSS px. */
+const EDGE_FADE = 80;
 /** Icon dot radius in CSS px. */
 const ICON_DOT = 1.5;
 const TAU = Math.PI * 2;
@@ -53,6 +66,11 @@ const easeInOut = (t: number) =>
   t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
 const progress = (time: number, start: number, ms: number) =>
   ms > 0 ? Math.min(1, Math.max(0, (time - start) / ms)) : +(time >= start);
+/** `value` wrapped into `[-margin, length + margin)`. */
+const wrap = (value: number, length: number, margin: number) => {
+  const span = length + 2 * margin;
+  return ((((value + margin) % span) + span) % span) - margin;
+};
 
 /** How far a particle is from floating (0) to sitting on its icon spot (1). */
 export function tripWeight(trip: Trip, time: number): number {
@@ -110,9 +128,9 @@ export function spacedPoints(
   return picked;
 }
 
-/** Dots along the stroke of a 24×24 icon, in cloud radii from the centre. */
-function sampleIcon(path: Path2D, radius: number): Point[] {
-  const box = Math.ceil(radius * ICON_BOX);
+/** Dots along the stroke of a 24×24 icon, in CSS px from the icon centre. */
+function sampleIcon(path: Path2D, box: number): Point[] {
+  box = Math.ceil(box);
   const off = document.createElement("canvas");
   off.width = off.height = box;
   const ctx = off.getContext("2d", { willReadFrequently: true });
@@ -133,85 +151,110 @@ function sampleIcon(path: Path2D, radius: number): Point[] {
     [stroke[i], stroke[j]] = [stroke[j], stroke[i]];
   }
   return spacedPoints(stroke, Math.max(4, box / 30)).map(({ x, y }) => ({
-    x: (x - box / 2) / radius,
-    y: (y - box / 2) / radius,
+    x: x - box / 2,
+    y: y - box / 2,
   }));
 }
 
 /**
- * A loose cloud of particles drifting around the canvas centre, coloured with
- * the canvas' CSS `color` and fading out towards its edge. On each phrase the
- * nearest particles condense into that phrase's icon for a few seconds, then
- * drift off again. Pauses off-screen / in hidden tabs, holds still under
- * reduced motion, and tears down on the next page swap.
+ * Particles drifting across the whole canvas, coloured with its CSS `color`
+ * and fading out near its edges. On each phrase the nearest particles
+ * condense into that phrase's icon at `slot()` for a few seconds, then drift
+ * off again. Pauses off-screen / in hidden tabs, holds still under reduced
+ * motion, and tears down on the next page swap.
  */
 export function mountParticleIcons(
   canvas: HTMLCanvasElement,
-  { icons, count = 380 }: ParticleIconsOptions,
+  { icons, slot }: ParticleIconsOptions,
 ): ParticleIconsController | null {
   const ctx = canvas.getContext("2d");
   if (!ctx) return null;
 
   const reduced = prefersReducedMotion();
   const paths = icons.map((d) => new Path2D(d));
-  const samples = new Map<number, Point[]>();
-  const particles: Particle[] = Array.from({ length: count }, () => ({
-    radius: 0.95 * Math.sqrt(Math.random()),
-    angle: Math.random() * TAU,
-    spin: (0.4 + Math.random()) * 0.00006,
-    wobble: 0.03 + Math.random() * 0.05,
-    phase: Math.random() * TAU,
-    alpha: 0.16 + Math.random() * 0.36,
-    size: 0.6 + Math.random() * 0.9,
-    target: null,
-    gatherStart: 0,
-    gatherMs: 1,
-    releaseStart: -Infinity,
-    releaseMs: 0,
-  }));
+  const samples = new Map<string, Point[]>();
   const { signal } = pageScopedController();
-  let size = 0;
+  let particles: Particle[] = [];
+  let width = 0;
+  let height = 0;
   let frame = 0;
   let visible = true;
   let active = -1;
+  /** Phrase waiting for the hero entrance to settle before its icon forms. */
+  let pending: number | null = reduced ? null : 0;
 
-  const resize = () => {
-    const dpr = window.devicePixelRatio || 1;
-    size = canvas.clientWidth;
-    canvas.width = canvas.height = Math.round(size * dpr);
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    samples.clear();
-  };
-
-  const float = (p: Particle, time: number): Point => {
-    const angle = p.angle + time * p.spin;
+  const spawn = (): Particle => {
+    const angle = Math.random() * TAU;
+    const speed = (0.3 + Math.random() * 0.7) * 0.008;
     return {
-      x:
-        Math.cos(angle) * p.radius + Math.sin(time / 2300 + p.phase) * p.wobble,
-      y:
-        Math.sin(angle) * p.radius + Math.cos(time / 2900 + p.phase) * p.wobble,
+      x0: Math.random() * width,
+      y0: Math.random() * height,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      wobble: 6 + Math.random() * 14,
+      phase: Math.random() * TAU,
+      alpha: 0.15 + Math.random() * 0.35,
+      size: 0.7 + Math.random() * 0.9,
+      target: null,
+      gatherStart: 0,
+      gatherMs: 0,
+      releaseStart: -Infinity,
+      releaseMs: 0,
     };
   };
 
+  const resize = () => {
+    const dpr = window.devicePixelRatio || 1;
+    const oldWidth = width;
+    const oldHeight = height;
+    width = canvas.clientWidth;
+    height = canvas.clientHeight;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    const count = Math.round(
+      Math.min(
+        MAX_PARTICLES,
+        Math.max(MIN_PARTICLES, (width * height) / AREA_PER_PARTICLE),
+      ),
+    );
+    for (const p of particles) {
+      p.x0 *= oldWidth ? width / oldWidth : 1;
+      p.y0 *= oldHeight ? height / oldHeight : 1;
+    }
+    particles = particles.slice(0, count);
+    while (particles.length < count) particles.push(spawn());
+  };
+
+  const float = (p: Particle, time: number): Point => ({
+    x: wrap(
+      p.x0 + time * p.vx + Math.sin(time / 2300 + p.phase) * p.wobble,
+      width,
+      EDGE_FADE,
+    ),
+    y: wrap(
+      p.y0 + time * p.vy + Math.cos(time / 2900 + p.phase) * p.wobble,
+      height,
+      EDGE_FADE,
+    ),
+  });
+
   const draw = (time: number) => {
-    const radius = size / 2;
-    ctx.clearRect(0, 0, size, size);
+    ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = getComputedStyle(canvas).color;
     for (const p of particles) {
       const at = float(p, time);
       const w = p.target ? tripWeight(p, time) : 0;
       const x = at.x + ((p.target?.x ?? 0) - at.x) * w;
       const y = at.y + ((p.target?.y ?? 0) - at.y) * w;
-      const edge = Math.min(1, Math.max(0, (1 - Math.hypot(x, y)) / 0.35));
-      ctx.globalAlpha = p.alpha * edge * (1 - w) + 0.9 * w;
-      ctx.beginPath();
-      ctx.arc(
-        radius + x * radius,
-        radius + y * radius,
-        p.size * (1 - w) + ICON_DOT * w,
-        0,
-        TAU,
+      const fade = Math.min(
+        1,
+        Math.max(0, Math.min(x, y, width - x, height - y) / EDGE_FADE),
       );
+      ctx.globalAlpha = p.alpha * fade * (1 - w) + 0.9 * w;
+      ctx.beginPath();
+      ctx.arc(x, y, p.size * (1 - w) + ICON_DOT * w, 0, TAU);
       ctx.fill();
     }
     ctx.globalAlpha = 1;
@@ -225,11 +268,15 @@ export function mountParticleIcons(
       if (releaseStart < p.releaseStart) p.releaseStart = releaseStart;
     }
 
-    let targets = samples.get(index);
-    if (!targets) {
-      targets = sampleIcon(paths[index], size / 2);
-      if (targets.length) samples.set(index, targets);
+    const place = slot();
+    if (!place) return;
+    const key = `${index}:${Math.round(place.size)}`;
+    let shape = samples.get(key);
+    if (!shape) {
+      shape = sampleIcon(paths[index], place.size);
+      samples.set(key, shape);
     }
+    const targets = shape.map((s) => ({ x: place.x + s.x, y: place.y + s.y }));
     const positions = particles.map((p) => float(p, now));
     const usable = particles.map((p) => !p.target || isFree(p, now));
     matchNearest(targets, positions, usable).forEach((i, t) => {
@@ -237,10 +284,8 @@ export function mountParticleIcons(
       const p = particles[i];
       p.target = targets[t];
       if (reduced) {
-        Object.assign(p, {
-          gatherStart: -Infinity,
-          releaseStart: Infinity,
-        });
+        p.gatherStart = -Infinity;
+        p.releaseStart = Infinity;
         return;
       }
       p.gatherStart = now + GATHER_DELAY_MS + Math.random() * STAGGER_MS;
@@ -253,6 +298,10 @@ export function mountParticleIcons(
   const controller: ParticleIconsController = {
     setActive(index) {
       const next = ((index % icons.length) + icons.length) % icons.length;
+      if (pending !== null) {
+        pending = next;
+        return;
+      }
       if (next === active) return;
       activate(next, reduced ? 0 : performance.now());
       if (reduced) draw(0);
@@ -286,7 +335,12 @@ export function mountParticleIcons(
     return controller;
   }
 
-  activate(0, performance.now() + 500);
+  // Let the hero entrance settle before measuring where the first icon goes.
+  const firstIcon = window.setTimeout(() => {
+    const index = pending ?? 0;
+    pending = null;
+    activate(index, performance.now());
+  }, 900);
 
   const loop = (time: number) => {
     draw(time);
@@ -312,6 +366,7 @@ export function mountParticleIcons(
   signal.addEventListener("abort", () => {
     observer.disconnect();
     cancelAnimationFrame(frame);
+    clearTimeout(firstIcon);
   });
   return controller;
 }

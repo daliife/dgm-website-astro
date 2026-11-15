@@ -1,11 +1,7 @@
-<div
-  class="pointer-events-none absolute inset-0 mx-auto hidden max-w-6xl md:block print:hidden"
+<canvas
+  class="hero-particles pointer-events-none absolute inset-y-0 left-1/2 hidden h-full w-[min(100%,82rem)] -translate-x-1/2 text-text-primary md:block print:hidden"
   aria-hidden="true"
->
-  <canvas
-    class="hero-particles absolute right-0 top-1/2 aspect-square w-[min(32vw,400px)] -translate-y-1/2 text-text-primary"
-    data-hero-particles></canvas>
-</div>
+  data-hero-particles></canvas>
 
 <style>
   .hero-particles {
@@ -28,14 +24,53 @@
 <script>
   import { HERO_ICONS } from "../../utils/icons";
   import { pageScopedController } from "../../utils/motion";
-  import { mountParticleIcons } from "../../utils/particles";
+  import { mountParticleIcons, type IconSlot } from "../../utils/particles";
+
+  /** Widest the hero content runs (Tailwind `max-w-6xl`), in CSS px. */
+  const CONTENT_MAX = 1152;
+  const ICON_MAX = 220;
+  const ICON_MIN = 110;
+
+  /** Right edge of the rendered name text, not of its full-width block. */
+  function textRight(el: Element): number {
+    let right = 0;
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const range = document.createRange();
+    while (walker.nextNode()) {
+      range.selectNodeContents(walker.currentNode);
+      for (const rect of range.getClientRects()) {
+        right = Math.max(right, rect.right);
+      }
+    }
+    return right;
+  }
 
   document.addEventListener("astro:page-load", () => {
     const canvas = document.querySelector<HTMLCanvasElement>(
       "[data-hero-particles]",
     );
-    if (!canvas) return;
-    const particles = mountParticleIcons(canvas, { icons: HERO_ICONS });
+    const name = canvas?.parentElement?.querySelector("h1");
+    if (!canvas || !name) return;
+
+    /** Icon spot centred in the free space right of the name. */
+    const slot = (): IconSlot | null => {
+      const box = canvas.getBoundingClientRect();
+      const contentRight = Math.min(
+        box.right - 48,
+        box.left + (box.width + CONTENT_MAX) / 2,
+      );
+      const left = textRight(name);
+      const size = Math.min(ICON_MAX, contentRight - left - 48);
+      if (size < ICON_MIN) return null;
+      const title = name.getBoundingClientRect();
+      return {
+        x: (left + contentRight) / 2 - box.left,
+        y: title.top + title.height / 2 - box.top,
+        size,
+      };
+    };
+
+    const particles = mountParticleIcons(canvas, { icons: HERO_ICONS, slot });
     if (!particles) return;
 
     const { signal } = pageScopedController();
