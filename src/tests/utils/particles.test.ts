@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { HERO_CONSTELLATIONS } from "../../utils/constellations";
+import { HERO_CONSTELLATIONS, STARS } from "../../utils/constellations";
 import { matchNearest, placeStars, planMorph } from "../../utils/particles";
 import { TYPEWRITER_KEYS } from "../../utils/typewriter";
 
@@ -72,6 +72,12 @@ describe("placeStars", () => {
 describe("hero constellations", () => {
   it("has one constellation per rotating hero phrase", () => {
     expect(HERO_CONSTELLATIONS).toHaveLength(TYPEWRITER_KEYS.length);
+  });
+
+  it("gives every constellation the same star count, so a morph never recruits", () => {
+    expect(HERO_CONSTELLATIONS.map((c) => c.stars.length)).toEqual(
+      HERO_CONSTELLATIONS.map(() => STARS),
+    );
   });
 
   it.each(HERO_CONSTELLATIONS.map((c, i) => [i, c] as const))(

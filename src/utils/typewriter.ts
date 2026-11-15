@@ -6,8 +6,6 @@ export const TYPEWRITER_KEYS = [
   "ui.home.typewriter.0",
   "ui.home.typewriter.1",
   "ui.home.typewriter.2",
-  "ui.home.typewriter.3",
-  "ui.home.typewriter.4",
 ] as const satisfies readonly I18nKey[];
 
 export async function getTypewriterPhrases(lang: LangCode): Promise<string[]> {

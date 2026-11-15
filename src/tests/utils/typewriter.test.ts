@@ -6,7 +6,7 @@ import { ES } from "../../i18n/es";
 
 describe("TYPEWRITER_KEYS", () => {
   it("has five phrase keys", () => {
-    expect(TYPEWRITER_KEYS).toHaveLength(5);
+    expect(TYPEWRITER_KEYS).toHaveLength(3);
   });
 
   it.each(["EN", "CA", "ES"] as const)(
@@ -24,7 +24,7 @@ describe("TYPEWRITER_KEYS", () => {
 describe("getTypewriterPhrases", () => {
   it("returns localized phrases for Catalan", async () => {
     const phrases = await getTypewriterPhrases("ca");
-    expect(phrases).toHaveLength(5);
+    expect(phrases).toHaveLength(3);
     expect(phrases[0]).toBe(CA["ui.home.typewriter.0"]);
   });
 });
