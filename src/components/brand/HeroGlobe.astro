@@ -1,0 +1,53 @@
+<div
+  class="pointer-events-none absolute inset-0 mx-auto hidden max-w-6xl md:block print:hidden"
+  aria-hidden="true"
+>
+  <canvas
+    class="hero-globe absolute right-0 top-1/2 aspect-square w-[min(30vw,360px)] -translate-y-1/2 text-text-primary"
+    data-hero-globe></canvas>
+</div>
+
+<style>
+  .hero-globe {
+    animation: hero-globe-in 2s var(--ease-out-expo) 0.4s both;
+  }
+
+  @keyframes hero-globe-in {
+    from {
+      opacity: 0;
+      transform: translateY(-50%) scale(0.94);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-globe {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  import { mountIconGlobe } from "../../utils/globe";
+  import { HERO_EXTRA_ICONS, HERO_ICONS } from "../../utils/icons";
+  import { pageScopedController } from "../../utils/motion";
+
+  document.addEventListener("astro:page-load", () => {
+    const canvas =
+      document.querySelector<HTMLCanvasElement>("[data-hero-globe]");
+    if (!canvas) return;
+    // Phrase icons first, so the phrase index is the icon index.
+    const globe = mountIconGlobe(canvas, {
+      icons: [...HERO_ICONS, ...HERO_EXTRA_ICONS],
+    });
+    if (!globe) return;
+
+    const { signal } = pageScopedController();
+    window.addEventListener(
+      "app:hero-phrase",
+      (e: Event) => {
+        globe.setActive((e as CustomEvent<{ index: number }>).detail.index);
+      },
+      { signal },
+    );
+  });
+</script>

@@ -1,29 +1,32 @@
 import { createIcosphere, type Vec3 } from "./geodesic";
 import { pageScopedController, prefersReducedMotion } from "./motion";
 
-export interface OrbitOptions {
-  /** 24×24 SVG stroke paths, evenly spaced around the ring. */
+export interface GlobeOptions {
+  /** 24×24 SVG stroke paths; up to 12, pinned to the icosahedron vertices. */
   icons: readonly string[];
-  /** Fraction of the canvas the ring radius fills. */
+  /** Fraction of the canvas the sphere radius fills. */
   radius?: number;
-  /** On-screen icon size in CSS px at the front of the ring. */
+  /** On-screen icon size in CSS px at the front of the sphere. */
   iconSize?: number;
+  /** Number of surface dots. */
+  dots?: number;
 }
 
-export interface OrbitController {
-  /** Turn the ring so icon `index` faces the viewer, and light it up. */
+export interface GlobeController {
+  /** Turn the globe so icon `index` faces the viewer, and light it up. */
   setActive(index: number): void;
 }
 
 const CAMERA = 3.2;
-/** Negative pitch: the near side of the ring sits lower, seen from above. */
-const PITCH = -0.52;
-const CORE_SCALE = 0.28;
-const CORE_TURN_MS = 70_000;
-const TURN_MS = 1400;
+const TURN_MS = 1500;
 const GLOW_MS = 450;
-const RING_SEGMENTS = 96;
 const TAU = Math.PI * 2;
+/**
+ * Icosahedron vertices in icon order. The first five are the pentagon ring
+ * around vertex 0, so stepping through them turns the globe evenly (~63°).
+ */
+const SLOT_ORDER = [11, 5, 1, 7, 10, 0, 2, 3, 4, 6, 8, 9];
+const ICON_SLOTS = SLOT_ORDER.map((i) => createIcosphere(0).vertices[i]);
 
 function rotate([x, y, z]: Vec3, yaw: number, pitch: number): Vec3 {
   const cy = Math.cos(yaw);
@@ -35,35 +38,49 @@ function rotate([x, y, z]: Vec3, yaw: number, pitch: number): Vec3 {
   return [x1, y * cp - z1 * sp, y * sp + z1 * cp];
 }
 
-/**
- * Yaw offset (always ≤ 0, so the ring keeps turning the same way) that brings
- * slot `index` of `count` from `yaw` to the front.
- */
-export function nextOrbitYaw(
-  yaw: number,
-  index: number,
-  count: number,
-): number {
-  const target = -(index * TAU) / count;
-  let delta = (target - yaw) % TAU;
-  if (delta > 0) delta -= TAU;
-  return yaw + delta;
+/** Evenly spread unit vectors (Fibonacci lattice). */
+export function fibonacciSphere(count: number): Vec3[] {
+  const golden = Math.PI * (3 - Math.sqrt(5));
+  return Array.from({ length: count }, (_, i) => {
+    const y = 1 - (2 * (i + 0.5)) / count;
+    const r = Math.sqrt(1 - y * y);
+    const theta = golden * i;
+    return [Math.cos(theta) * r, y, Math.sin(theta) * r];
+  });
+}
+
+/** Yaw/pitch that rotate unit vector `v` to the front centre `[0, 0, 1]`. */
+export function faceAngles([x, y, z]: Vec3): { yaw: number; pitch: number } {
+  const yaw = Math.atan2(-x, z);
+  return { yaw, pitch: Math.atan2(y, Math.hypot(x, z)) };
+}
+
+/** `to`, shifted by whole turns so it is the closest angle to `from`. */
+function nearestAngle(from: number, to: number): number {
+  return to + Math.round((from - to) / TAU) * TAU;
 }
 
 /**
- * Icons on a tilted ring around a small wireframe core, coloured with the
- * canvas' CSS `color`. Pauses off-screen / in hidden tabs, snaps without
- * motion under reduced motion, and tears down on the next page swap.
+ * A dotted sphere with icons pinned evenly over it, coloured with the canvas'
+ * CSS `color`. The active icon is turned to the front and lit. Pauses
+ * off-screen / in hidden tabs, snaps under reduced motion, and tears down on
+ * the next page swap.
  */
-export function mountOrbit(
+export function mountIconGlobe(
   canvas: HTMLCanvasElement,
-  { icons, radius: radiusFraction = 0.38, iconSize = 28 }: OrbitOptions,
-): OrbitController | null {
+  {
+    icons,
+    radius: radiusFraction = 0.36,
+    iconSize = 26,
+    dots = 360,
+  }: GlobeOptions,
+): GlobeController | null {
   const ctx = canvas.getContext("2d");
   if (!ctx) return null;
 
   const reduced = prefersReducedMotion();
-  const core = createIcosphere(1);
+  const surface = fibonacciSphere(dots);
+  const slots = icons.map((_, i) => ICON_SLOTS[i % ICON_SLOTS.length]);
   const paths = icons.map((d) => new Path2D(d));
   const glow: number[] = icons.map((_, i) => (i === 0 ? 1 : 0));
   const { signal } = pageScopedController();
@@ -71,9 +88,8 @@ export function mountOrbit(
   let frame = 0;
   let visible = true;
   let active = 0;
-  let yaw = 0;
-  let turnFrom = 0;
-  let turnTo = 0;
+  let from = faceAngles(slots[0]);
+  let to = from;
   let turnStart = -Infinity;
   let lastTime = 0;
 
@@ -84,14 +100,19 @@ export function mountOrbit(
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   };
 
+  const current = (time: number) => {
+    if (reduced) return to;
+    const t = Math.min(1, (time - turnStart) / TURN_MS);
+    const e = t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
+    return {
+      yaw: from.yaw + (to.yaw - from.yaw) * e,
+      pitch: from.pitch + (to.pitch - from.pitch) * e,
+    };
+  };
+
   const draw = (time: number) => {
     const dt = Math.min(64, time - lastTime);
     lastTime = time;
-
-    const t = Math.min(1, (time - turnStart) / TURN_MS);
-    const eased = t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
-    yaw = reduced ? turnTo : turnFrom + (turnTo - turnFrom) * eased;
-    const sway = reduced ? 0 : Math.sin(time / 5200) * 0.06;
     for (let i = 0; i < glow.length; i++) {
       const target = i === active ? 1 : 0;
       glow[i] = reduced
@@ -99,10 +120,13 @@ export function mountOrbit(
         : glow[i] + (target - glow[i]) * Math.min(1, (dt / GLOW_MS) * 3);
     }
 
+    const angles = current(time);
+    const yaw = angles.yaw + (reduced ? 0 : Math.sin(time / 6000) * 0.12);
+    const pitch = angles.pitch + (reduced ? 0 : Math.sin(time / 8300) * 0.06);
     const radius = size * radiusFraction;
     const centre = size / 2;
-    const project = (v: Vec3, spin: number) => {
-      const [x, y, z] = rotate(v, spin, PITCH);
+    const project = (v: Vec3) => {
+      const [x, y, z] = rotate(v, yaw, pitch);
       const scale = CAMERA / (CAMERA - z);
       return {
         x: centre + x * radius * scale,
@@ -115,65 +139,41 @@ export function mountOrbit(
 
     ctx.clearRect(0, 0, size, size);
     ctx.strokeStyle = ctx.fillStyle = getComputedStyle(canvas).color;
-    ctx.lineWidth = 1;
 
-    // Core: a small geodesic sphere turning on its own.
-    const coreSpin = reduced ? 0.6 : (time / CORE_TURN_MS) * TAU;
-    const corePoints = core.vertices.map(([x, y, z]) =>
-      project([x * CORE_SCALE, y * CORE_SCALE, z * CORE_SCALE], coreSpin),
-    );
-    for (const [a, b] of core.edges) {
-      const p = corePoints[a];
-      const q = corePoints[b];
-      const depth = depthOf((p.z + q.z) / 2 / CORE_SCALE);
-      ctx.globalAlpha = 0.05 + 0.2 * depth ** 1.5;
+    for (const v of surface) {
+      const p = project(v);
+      const depth = depthOf(p.z);
+      ctx.globalAlpha = 0.05 + 0.3 * depth ** 2;
       ctx.beginPath();
-      ctx.moveTo(p.x, p.y);
-      ctx.lineTo(q.x, q.y);
-      ctx.stroke();
+      ctx.arc(p.x, p.y, (0.6 + 0.9 * depth) * p.scale, 0, TAU);
+      ctx.fill();
     }
 
-    // Ring.
-    const ringYaw = yaw + sway;
-    let prev = project([0, 0, 1], ringYaw);
-    for (let s = 1; s <= RING_SEGMENTS; s++) {
-      const a = (s / RING_SEGMENTS) * TAU;
-      const p = project([Math.sin(a), 0, Math.cos(a)], ringYaw);
-      ctx.globalAlpha = 0.06 + 0.22 * depthOf((p.z + prev.z) / 2) ** 1.5;
-      ctx.beginPath();
-      ctx.moveTo(prev.x, prev.y);
-      ctx.lineTo(p.x, p.y);
-      ctx.stroke();
-      prev = p;
-    }
-
-    // Icons, back to front.
     const placed = paths
-      .map((path, i) => {
-        const a = (i * TAU) / paths.length;
-        return { ...project([Math.sin(a), 0, Math.cos(a)], ringYaw), path, i };
-      })
+      .map((path, i) => ({ ...project(slots[i]), path, i }))
       .sort((a, b) => a.z - b.z);
     for (const { x, y, z, scale, path, i } of placed) {
       const depth = depthOf(z);
       const lit = glow[i];
-      const px = iconSize * scale * (0.7 + 0.3 * depth) * (1 + 0.12 * lit);
+      const px = iconSize * scale * (0.6 + 0.4 * depth) * (1 + 0.25 * lit);
 
+      // Clear the dots under the icon so it reads cleanly.
       ctx.globalCompositeOperation = "destination-out";
-      ctx.globalAlpha = 1;
+      ctx.globalAlpha = 0.3 + 0.7 * depth;
       ctx.beginPath();
-      ctx.arc(x, y, px * 0.8, 0, TAU);
+      ctx.arc(x, y, px * 0.75, 0, TAU);
       ctx.fill();
       ctx.globalCompositeOperation = "source-over";
 
       if (lit > 0.01) {
-        ctx.globalAlpha = 0.5 * lit;
+        ctx.globalAlpha = 0.45 * lit;
+        ctx.lineWidth = 1;
         ctx.beginPath();
-        ctx.arc(x, y, px * 0.8, 0, TAU);
+        ctx.arc(x, y, px * 0.85, 0, TAU);
         ctx.stroke();
       }
 
-      ctx.globalAlpha = 0.14 + 0.3 * depth + 0.5 * lit;
+      ctx.globalAlpha = 0.04 + 0.4 * depth ** 2 + 0.55 * lit;
       ctx.save();
       ctx.translate(x - px / 2, y - px / 2);
       ctx.scale(px / 24, px / 24);
@@ -190,14 +190,16 @@ export function mountOrbit(
     frame = visible ? requestAnimationFrame(loop) : 0;
   };
 
-  const controller: OrbitController = {
+  const controller: GlobeController = {
     setActive(index) {
       const next = ((index % icons.length) + icons.length) % icons.length;
       if (next === active) return;
+      const now = performance.now();
+      from = current(now);
+      const target = faceAngles(slots[next]);
+      to = { yaw: nearestAngle(from.yaw, target.yaw), pitch: target.pitch };
       active = next;
-      turnFrom = yaw;
-      turnTo = nextOrbitYaw(yaw, active, icons.length);
-      turnStart = performance.now();
+      turnStart = now;
       if (reduced) draw(0);
     },
   };

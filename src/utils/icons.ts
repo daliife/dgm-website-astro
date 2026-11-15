@@ -49,6 +49,24 @@ export const HERO_ICONS = [
   "M2.25 19.5 9 7.5l3.75 6.75 2.25-3.75 6.75 9H2.25Zm4.5-8 2.25 1.5 2.25-1.5",
 ] as const;
 
+/** Other sides of David filling out the hero globe (24×24 stroke paths). */
+export const HERO_EXTRA_ICONS = [
+  // 3D / Unity
+  TIMELINE_ICONS.cube,
+  // Games
+  TIMELINE_ICONS.game,
+  // Teaching
+  TIMELINE_ICONS.teach,
+  // Studies
+  TIMELINE_ICONS.degree,
+  // Multimedia
+  TIMELINE_ICONS.display,
+  // Sound engineering: headphones
+  "M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-7a9 9 0 0 1 18 0v7a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3",
+  // Audiovisual: video camera
+  "M16 13l5.223 3.482a.5.5 0 0 0 .777-.416V7.87a.5.5 0 0 0-.752-.432L16 10.5M4 6h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z",
+] as const;
+
 export function isTimelineIcon(value: unknown): value is TimelineIcon {
   return typeof value === "string" && value in TIMELINE_ICONS;
 }
