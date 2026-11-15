@@ -22,7 +22,7 @@
 </style>
 
 <script>
-  import { HERO_ICONS } from "../../utils/icons";
+  import { HERO_CONSTELLATIONS } from "../../utils/constellations";
   import { pageScopedController } from "../../utils/motion";
   import { mountParticleIcons, type IconSlot } from "../../utils/particles";
 
@@ -70,7 +70,10 @@
       };
     };
 
-    const particles = mountParticleIcons(canvas, { icons: HERO_ICONS, slot });
+    const particles = mountParticleIcons(canvas, {
+      icons: HERO_CONSTELLATIONS,
+      slot,
+    });
     if (!particles) return;
 
     const { signal } = pageScopedController();

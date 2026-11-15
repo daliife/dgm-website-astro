@@ -1,3 +1,4 @@
+import type { Constellation } from "./constellations";
 import { ROLL_MS, rollEase } from "./heroRoll";
 import { pageScopedController, prefersReducedMotion } from "./motion";
 
@@ -10,8 +11,8 @@ export interface IconSlot {
 }
 
 export interface ParticleIconsOptions {
-  /** 24×24 SVG stroke paths, one per hero phrase. */
-  icons: readonly string[];
+  /** One constellation per hero phrase. */
+  icons: readonly Constellation[];
   /** Where the icon forms, or null when there is no room for it. */
   slot: () => IconSlot | null;
 }
@@ -48,14 +49,10 @@ const MAX_PARTICLES = 1400;
 /** Stars fade out this close to the canvas bottom, in CSS px. */
 const BOTTOM_FADE = 140;
 /** Icon star radius, its halo radius, and the halo's opacity. */
-const ICON_DOT = 1.8;
-const ICON_HALO = 4.5;
-const HALO_ALPHA = 0.12;
-/** Icon stars sit this many icon-box fractions apart (min 8 CSS px). */
-const ICON_SPACING = 1 / 22;
-/** Constellation lines join icon stars up to this many spacings apart. */
-const LINK_REACH = 1.8;
-const LINK_ALPHA = 0.32;
+const ICON_DOT = 2.2;
+const ICON_HALO = 6;
+const HALO_ALPHA = 0.14;
+const LINK_ALPHA = 0.38;
 const TAU = Math.PI * 2;
 
 const progress = (time: number, start: number, ms: number) =>
@@ -107,96 +104,26 @@ export function planMorph(
   return plan.map((i) => (i < 0 ? recruits[next++] : i));
 }
 
-/**
- * Points at least `gap` apart picked from `candidates` in the given order, so
- * a thin stroke becomes a single row of evenly spaced dots.
- */
-export function spacedPoints(
-  candidates: readonly Point[],
-  gap: number,
+/** A 24×24 constellation's stars placed in a `slot`, in canvas CSS px. */
+export function placeStars(
+  { stars }: Constellation,
+  { x, y, size }: IconSlot,
 ): Point[] {
-  const picked: Point[] = [];
-  const minDist = gap * gap;
-  for (const c of candidates) {
-    if (picked.every((p) => (p.x - c.x) ** 2 + (p.y - c.y) ** 2 >= minDist)) {
-      picked.push(c);
-    }
-  }
-  return picked;
-}
-
-/**
- * The constellation's lines: each point joins its two nearest neighbours
- * within `reach`, so strokes read as single chains rather than a mesh.
- */
-export function linkNeighbours(
-  points: readonly Point[],
-  reach: number,
-): [number, number][] {
-  const max = reach * reach;
-  const keys = new Set<string>();
-  const links: [number, number][] = [];
-  points.forEach((p, i) => {
-    points
-      .map((q, j) => ({ j, dist: (p.x - q.x) ** 2 + (p.y - q.y) ** 2 }))
-      .filter(({ j, dist }) => j !== i && dist <= max)
-      .sort((a, b) => a.dist - b.dist)
-      .slice(0, 2)
-      .forEach(({ j }) => {
-        const pair: [number, number] = i < j ? [i, j] : [j, i];
-        const key = pair.join();
-        if (keys.has(key)) return;
-        keys.add(key);
-        links.push(pair);
-      });
-  });
-  return links;
-}
-
-interface IconShape {
-  /** Star spots, in CSS px from the icon centre. */
-  points: Point[];
-  links: [number, number][];
-}
-
-/** Stars along the stroke of a 24×24 icon, joined like a constellation. */
-function sampleIcon(path: Path2D, box: number): IconShape {
-  box = Math.ceil(box);
-  const off = document.createElement("canvas");
-  off.width = off.height = box;
-  const ctx = off.getContext("2d", { willReadFrequently: true });
-  if (!ctx || box < 24) return { points: [], links: [] };
-  ctx.scale(box / 24, box / 24);
-  ctx.lineWidth = 1.2;
-  ctx.lineCap = ctx.lineJoin = "round";
-  ctx.stroke(path);
-  const { data } = ctx.getImageData(0, 0, box, box);
-  const stroke: Point[] = [];
-  for (let y = 0; y < box; y++) {
-    for (let x = 0; x < box; x++) {
-      if (data[(y * box + x) * 4 + 3] > 160) stroke.push({ x, y });
-    }
-  }
-  for (let i = stroke.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [stroke[i], stroke[j]] = [stroke[j], stroke[i]];
-  }
-  const gap = Math.max(8, box * ICON_SPACING);
-  const points = spacedPoints(stroke, gap).map(({ x, y }) => ({
-    x: x - box / 2,
-    y: y - box / 2,
+  const scale = size / 24;
+  return stars.map(([sx, sy]) => ({
+    x: x + (sx - 12) * scale,
+    y: y + (sy - 12) * scale,
   }));
-  return { points, links: linkNeighbours(points, gap * LINK_REACH) };
 }
 
 /**
  * A still starry sky over the whole canvas, coloured with its CSS `color` and
  * fading out towards its bottom. The nearest stars form the current phrase's
- * icon at `slot()`; on the next phrase they travel straight to their spots in
- * the next icon, in step with the phrase roll (`heroRoll.ts`), recruiting or
- * releasing stars as the dot count changes. Only
- * those stars ever move, and the canvas only repaints while they do. Snaps
- * under reduced motion and tears down on the next page swap.
+ * constellation at `slot()`; on the next phrase they travel straight to their
+ * spots in the next one, in step with the phrase roll (`heroRoll.ts`),
+ * recruiting or releasing stars as the star count changes. Only those stars
+ * ever move, and the canvas only repaints while they do. Snaps under reduced
+ * motion and tears down on the next page swap.
  */
 export function mountParticleIcons(
   canvas: HTMLCanvasElement,
@@ -206,8 +133,6 @@ export function mountParticleIcons(
   if (!ctx) return null;
 
   const reduced = prefersReducedMotion();
-  const paths = icons.map((d) => new Path2D(d));
-  const samples = new Map<string, IconShape>();
   /** Particle index pairs drawn as the current icon's constellation lines. */
   let links: [number, number][] = [];
   const { signal } = pageScopedController();
@@ -329,30 +254,13 @@ export function mountParticleIcons(
     busyUntil = Math.max(busyUntil, p.start + p.ms);
   };
 
-  const iconShape = (index: number) => {
-    const place = slot();
-    if (!place) return { targets: [], links: [] };
-    const key = `${index}:${Math.round(place.size)}`;
-    let shape = samples.get(key);
-    if (!shape) {
-      shape = sampleIcon(paths[index], place.size);
-      samples.set(key, shape);
-    }
-    return {
-      targets: shape.points.map((s) => ({
-        x: place.x + s.x,
-        y: place.y + s.y,
-      })),
-      links: shape.links,
-    };
-  };
-
   /** Morph the current icon's stars into icon `index`; spares go home. */
   const activate = (index: number) => {
     const now = reduced ? 0 : performance.now();
     active = index;
-    const shape = iconShape(index);
-    const targets = shape.targets;
+    const place = slot();
+    const icon = icons[index];
+    const targets = place ? placeStars(icon, place) : [];
     const plan = planMorph(
       targets,
       particles.map((p) => locate(p, now)),
@@ -362,9 +270,11 @@ export function mountParticleIcons(
     plan.forEach((i, t) => {
       if (i >= 0) assigned.set(i, targets[t]);
     });
-    links = shape.links
-      .map(([a, b]): [number, number] => [plan[a], plan[b]])
-      .filter(([a, b]) => a >= 0 && b >= 0);
+    links = place
+      ? icon.lines
+          .map(([a, b]): [number, number] => [plan[a], plan[b]])
+          .filter(([a, b]) => a >= 0 && b >= 0)
+      : [];
     particles.forEach((p, i) => {
       const to = assigned.get(i);
       if (to) moveTo(p, to, now);

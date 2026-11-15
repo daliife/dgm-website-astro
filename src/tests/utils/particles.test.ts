@@ -1,11 +1,6 @@
 import { describe, it, expect } from "vitest";
-import {
-  linkNeighbours,
-  matchNearest,
-  planMorph,
-  spacedPoints,
-} from "../../utils/particles";
-import { HERO_ICONS } from "../../utils/icons";
+import { HERO_CONSTELLATIONS } from "../../utils/constellations";
+import { matchNearest, placeStars, planMorph } from "../../utils/particles";
 import { TYPEWRITER_KEYS } from "../../utils/typewriter";
 
 describe("planMorph", () => {
@@ -58,46 +53,44 @@ describe("matchNearest", () => {
   });
 });
 
-describe("spacedPoints", () => {
-  it("keeps points at least `gap` apart, in candidate order", () => {
-    const line = Array.from({ length: 10 }, (_, x) => ({ x, y: 0 }));
-    expect(spacedPoints(line, 3).map((p) => p.x)).toEqual([0, 3, 6, 9]);
-  });
-});
-
-describe("linkNeighbours", () => {
-  it("joins only points within reach", () => {
-    const points = [
-      { x: 0, y: 0 },
-      { x: 3, y: 0 },
-      { x: 6, y: 0 },
-      { x: 20, y: 0 },
-    ];
-    expect(linkNeighbours(points, 4)).toEqual([
-      [0, 1],
-      [1, 2],
-    ]);
-  });
-
-  it("joins each point to at most its two nearest neighbours", () => {
-    const hub = [
-      { x: 0, y: 0 },
-      { x: 1, y: 0 },
-      { x: -2, y: 0 },
-      { x: 0, y: 3 },
-      { x: 0, y: 3.5 },
-      { x: 0, y: 4 },
-    ];
-    const fromHub = linkNeighbours(hub, 10).filter(([a]) => a === 0);
-    expect(fromHub).toEqual([
-      [0, 1],
-      [0, 2],
+describe("placeStars", () => {
+  it("scales the 24×24 grid into the slot around its centre", () => {
+    const icon = {
+      stars: [
+        [12, 12],
+        [0, 24],
+      ] as const,
+      lines: [],
+    };
+    expect(placeStars(icon, { x: 100, y: 50, size: 48 })).toEqual([
+      { x: 100, y: 50 },
+      { x: 76, y: 74 },
     ]);
   });
 });
 
-describe("hero icons", () => {
-  it("has one icon per rotating hero phrase", () => {
-    expect(HERO_ICONS).toHaveLength(TYPEWRITER_KEYS.length);
+describe("hero constellations", () => {
+  it("has one constellation per rotating hero phrase", () => {
+    expect(HERO_CONSTELLATIONS).toHaveLength(TYPEWRITER_KEYS.length);
   });
+
+  it.each(HERO_CONSTELLATIONS.map((c, i) => [i, c] as const))(
+    "constellation %i stays on the grid and joins real stars",
+    (_, { stars, lines }) => {
+      for (const [x, y] of stars) {
+        expect(x).toBeGreaterThanOrEqual(0);
+        expect(x).toBeLessThanOrEqual(24);
+        expect(y).toBeGreaterThanOrEqual(0);
+        expect(y).toBeLessThanOrEqual(24);
+      }
+      const keys = new Set<string>();
+      for (const [a, b] of lines) {
+        expect(a).not.toBe(b);
+        expect(stars[a]).toBeDefined();
+        expect(stars[b]).toBeDefined();
+        keys.add([Math.min(a, b), Math.max(a, b)].join());
+      }
+      expect(keys.size).toBe(lines.length);
+    },
+  );
 });
