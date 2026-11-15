@@ -55,14 +55,22 @@ describe("ProjectCard", () => {
     expect(html).not.toContain("https://example.com");
   });
 
-  it("renders technologies", async () => {
+  it("leaves technologies and dates for the detail page", async () => {
     const container = await AstroContainer.create();
     const html = await container.renderToString(ProjectCard, {
-      props: { project: baseProject, projectIndex: 0, slug: "my-project" },
+      props: {
+        project: {
+          ...baseProject,
+          startDate: "2020-10-26",
+          endDate: "2020-11-12",
+        },
+        projectIndex: 0,
+        slug: "my-project",
+      },
     });
 
-    expect(html).toContain("TypeScript");
-    expect(html).toContain("Astro");
+    expect(html).not.toContain("TypeScript");
+    expect(html).not.toContain("data-date-start");
   });
 
   it("shows placeholder SVG when no image is provided", async () => {
@@ -140,36 +148,5 @@ describe("ProjectCard", () => {
 
     expect(html).toContain('aria-labelledby="project-2-title"');
     expect(html).toContain('id="project-2-title"');
-  });
-
-  it("renders formatted dates when startDate is provided", async () => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(ProjectCard, {
-      props: {
-        project: {
-          ...baseProject,
-          startDate: "2020-10-26",
-          endDate: "2020-11-12",
-        },
-        projectIndex: 0,
-        slug: "my-project",
-      },
-    });
-
-    expect(html).toContain('data-date-start="2020-10-26"');
-    expect(html).toContain('data-date-end="2020-11-12"');
-  });
-
-  it("omits dates when startDate is missing", async () => {
-    const container = await AstroContainer.create();
-    const html = await container.renderToString(ProjectCard, {
-      props: {
-        project: baseProject,
-        projectIndex: 0,
-        slug: "my-project",
-      },
-    });
-
-    expect(html).not.toContain("data-date-start");
   });
 });

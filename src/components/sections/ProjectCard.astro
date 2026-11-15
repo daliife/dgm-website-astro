@@ -5,14 +5,12 @@ import { t } from "../../utils/i18n";
 import {
   CARD_FRAME_CLASSES,
   CARD_MEDIA_FRAME_CLASSES,
-  WORK_DATES_CLASSES,
 } from "../../utils/constants";
 import { pageHref } from "../../utils/url";
 import {
   getProjectImageSet,
   getProjectTransitionName,
 } from "../../utils/projects";
-import WorkDates from "./WorkDates.astro";
 
 interface Props {
   project: ProjectEntry;
@@ -78,31 +76,18 @@ const imageSet = getProjectImageSet(project.image);
         )
       }
     </div>
-    <div class="mt-5 flex min-w-0 flex-1 flex-col gap-2">
-      <div
-        class="flex min-w-0 flex-wrap items-baseline justify-between gap-x-4 gap-y-1"
-      >
-        <div class="flex items-baseline gap-2">
-          <h3
-            id={`project-${projectIndex}-title`}
-            class="link-underline-animate text-lg font-semibold text-text-primary sm:text-xl"
-          >
-            {project.name}
-          </h3>
-          <span
-            class="arrow-nudge text-text-muted transition-colors group-hover:text-text-primary"
-            aria-hidden="true">→</span
-          >
-        </div>
-        {
-          project.startDate && (
-            <WorkDates
-              startDate={project.startDate}
-              endDate={project.endDate}
-              className={`${WORK_DATES_CLASSES} shrink-0`}
-            />
-          )
-        }
+    <div class="mt-5 flex min-w-0 flex-col gap-2">
+      <div class="flex items-baseline gap-2">
+        <h3
+          id={`project-${projectIndex}-title`}
+          class="link-underline-animate text-lg font-semibold text-text-primary sm:text-xl"
+        >
+          {project.name}
+        </h3>
+        <span
+          class="arrow-nudge text-text-muted transition-colors group-hover:text-text-primary"
+          aria-hidden="true">→</span
+        >
       </div>
       <p
         class="text-sm leading-relaxed text-text-secondary"
@@ -110,13 +95,6 @@ const imageSet = getProjectImageSet(project.image);
       >
         {t(descriptionKey, project.description)}
       </p>
-      {
-        project.technologies && project.technologies.length > 0 && (
-          <p class="mt-auto text-pretty pt-1 text-xs uppercase leading-relaxed tracking-widest text-text-muted">
-            {project.technologies.join(" · ")}
-          </p>
-        )
-      }
     </div>
   </a>
 </article>
