@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
+  focusWeight,
   isFree,
   matchNearest,
   spacedPoints,
@@ -37,6 +38,17 @@ describe("tripWeight", () => {
       releaseMs: 0,
     };
     expect(tripWeight(instant, 0)).toBe(1);
+  });
+});
+
+describe("focusWeight", () => {
+  const rect = { left: 0, top: 0, right: 100, bottom: 50 };
+
+  it("is full inside the focus area and fades to nothing at `reach`", () => {
+    expect(focusWeight({ x: 50, y: 25 }, rect, 40)).toBe(1);
+    expect(focusWeight({ x: 120, y: 25 }, rect, 40)).toBeCloseTo(0.5);
+    expect(focusWeight({ x: 50, y: 90 }, rect, 40)).toBe(0);
+    expect(focusWeight({ x: 400, y: 400 }, rect, 40)).toBe(0);
   });
 });
 

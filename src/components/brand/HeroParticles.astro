@@ -1,5 +1,5 @@
 <canvas
-  class="hero-particles pointer-events-none absolute inset-y-0 left-1/2 hidden h-full w-[min(100%,82rem)] -translate-x-1/2 text-text-primary md:block print:hidden"
+  class="hero-particles pointer-events-none absolute inset-0 h-full w-full text-text-primary print:hidden"
   aria-hidden="true"
   data-hero-particles></canvas>
 
@@ -24,7 +24,11 @@
 <script>
   import { HERO_ICONS } from "../../utils/icons";
   import { pageScopedController } from "../../utils/motion";
-  import { mountParticleIcons, type IconSlot } from "../../utils/particles";
+  import {
+    mountParticleIcons,
+    type IconSlot,
+    type Rect,
+  } from "../../utils/particles";
 
   /** Widest the hero content runs (Tailwind `max-w-6xl`), in CSS px. */
   const CONTENT_MAX = 1152;
@@ -50,7 +54,8 @@
       "[data-hero-particles]",
     );
     const name = canvas?.parentElement?.querySelector("h1");
-    if (!canvas || !name) return;
+    const content = name?.closest(".home-enter");
+    if (!canvas || !name || !content) return;
 
     /** Icon spot centred in the free space right of the name. */
     const slot = (): IconSlot | null => {
@@ -70,7 +75,32 @@
       };
     };
 
-    const particles = mountParticleIcons(canvas, { icons: HERO_ICONS, slot });
+    /** The text block plus the icon spot: where the stars come alive. */
+    const focus = (): Rect => {
+      const box = canvas.getBoundingClientRect();
+      const text = content.getBoundingClientRect();
+      const rect = {
+        left: text.left - box.left,
+        top: text.top - box.top,
+        right: textRight(content) - box.left,
+        bottom: text.bottom - box.top,
+      };
+      const icon = slot();
+      if (!icon) return rect;
+      const half = icon.size / 2;
+      return {
+        left: rect.left,
+        top: Math.min(rect.top, icon.y - half),
+        right: Math.max(rect.right, icon.x + half),
+        bottom: Math.max(rect.bottom, icon.y + half),
+      };
+    };
+
+    const particles = mountParticleIcons(canvas, {
+      icons: HERO_ICONS,
+      slot,
+      focus,
+    });
     if (!particles) return;
 
     const { signal } = pageScopedController();
