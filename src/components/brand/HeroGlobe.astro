@@ -27,18 +27,15 @@
 </style>
 
 <script>
-  import { mountIconGlobe } from "../../utils/globe";
-  import { HERO_EXTRA_ICONS, HERO_ICONS } from "../../utils/icons";
+  import { mountMorphGlobe } from "../../utils/globe";
+  import { HERO_ICONS } from "../../utils/icons";
   import { pageScopedController } from "../../utils/motion";
 
   document.addEventListener("astro:page-load", () => {
     const canvas =
       document.querySelector<HTMLCanvasElement>("[data-hero-globe]");
     if (!canvas) return;
-    // Phrase icons first, so the phrase index is the icon index.
-    const globe = mountIconGlobe(canvas, {
-      icons: [...HERO_ICONS, ...HERO_EXTRA_ICONS],
-    });
+    const globe = mountMorphGlobe(canvas, { icons: HERO_ICONS });
     if (!globe) return;
 
     const { signal } = pageScopedController();

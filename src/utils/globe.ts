@@ -1,32 +1,47 @@
-import { createIcosphere, type Vec3 } from "./geodesic";
+import type { Vec3 } from "./geodesic";
 import { pageScopedController, prefersReducedMotion } from "./motion";
 
-export interface GlobeOptions {
-  /** 24×24 SVG stroke paths; up to 12, pinned to the icosahedron vertices. */
+export interface MorphGlobeOptions {
+  /** 24×24 SVG stroke paths, one per hero phrase. */
   icons: readonly string[];
   /** Fraction of the canvas the sphere radius fills. */
   radius?: number;
-  /** On-screen icon size in CSS px at the front of the sphere. */
-  iconSize?: number;
-  /** Number of surface dots. */
+  /** Number of sphere dots. */
   dots?: number;
 }
 
-export interface GlobeController {
-  /** Turn the globe so icon `index` faces the viewer, and light it up. */
+export interface MorphGlobeController {
+  /** Release the current icon back to the sphere and draw icon `index`. */
   setActive(index: number): void;
 }
 
+export interface Point {
+  x: number;
+  y: number;
+}
+
+interface Dot {
+  v: Vec3;
+  /** Icon position, in sphere radii from the centre. */
+  target: Point | null;
+  w0: number;
+  goal: number;
+  start: number;
+  duration: number;
+}
+
 const CAMERA = 3.2;
-const TURN_MS = 1500;
-const GLOW_MS = 450;
+const TILT = -0.35;
+const SPIN = 0.00012;
+const GATHER_DELAY_MS = 350;
+const GATHER_MS = 1100;
+const RELEASE_MS = 900;
+const STAGGER_MS = 300;
+/** Icon box size, in sphere radii. */
+const ICON_BOX = 1.35;
+/** Icon dot radius in CSS px. */
+const ICON_DOT = 1.6;
 const TAU = Math.PI * 2;
-/**
- * Icosahedron vertices in icon order. The first five are the pentagon ring
- * around vertex 0, so stepping through them turns the globe evenly (~63°).
- */
-const SLOT_ORDER = [11, 5, 1, 7, 10, 0, 2, 3, 4, 6, 8, 9];
-const ICON_SLOTS = SLOT_ORDER.map((i) => createIcosphere(0).vertices[i]);
 
 function rotate([x, y, z]: Vec3, yaw: number, pitch: number): Vec3 {
   const cy = Math.cos(yaw);
@@ -37,6 +52,9 @@ function rotate([x, y, z]: Vec3, yaw: number, pitch: number): Vec3 {
   const sp = Math.sin(pitch);
   return [x1, y * cp - z1 * sp, y * sp + z1 * cp];
 }
+
+const easeInOut = (t: number) =>
+  t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
 
 /** Evenly spread unit vectors (Fibonacci lattice). */
 export function fibonacciSphere(count: number): Vec3[] {
@@ -49,165 +67,225 @@ export function fibonacciSphere(count: number): Vec3[] {
   });
 }
 
-/** Yaw/pitch that rotate unit vector `v` to the front centre `[0, 0, 1]`. */
-export function faceAngles([x, y, z]: Vec3): { yaw: number; pitch: number } {
-  const yaw = Math.atan2(-x, z);
-  return { yaw, pitch: Math.atan2(y, Math.hypot(x, z)) };
-}
-
-/** `to`, shifted by whole turns so it is the closest angle to `from`. */
-function nearestAngle(from: number, to: number): number {
-  return to + Math.round((from - to) / TAU) * TAU;
+/**
+ * Greedily pairs each target with the closest still-free usable point.
+ * Returns, per target, the point index or -1 when none is left.
+ */
+export function matchNearest(
+  targets: readonly Point[],
+  points: readonly Point[],
+  usable: readonly boolean[],
+): number[] {
+  const taken = new Set<number>();
+  return targets.map((t) => {
+    let best = -1;
+    let bestDist = Infinity;
+    points.forEach((p, i) => {
+      if (!usable[i] || taken.has(i)) return;
+      const dist = (p.x - t.x) ** 2 + (p.y - t.y) ** 2;
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = i;
+      }
+    });
+    if (best >= 0) taken.add(best);
+    return best;
+  });
 }
 
 /**
- * A dotted sphere with icons pinned evenly over it, coloured with the canvas'
- * CSS `color`. The active icon is turned to the front and lit. Pauses
- * off-screen / in hidden tabs, snaps under reduced motion, and tears down on
- * the next page swap.
+ * Points at least `gap` apart picked from `candidates` in the given order, so
+ * a thin stroke becomes a single row of evenly spaced dots.
  */
-export function mountIconGlobe(
+export function spacedPoints(
+  candidates: readonly Point[],
+  gap: number,
+): Point[] {
+  const picked: Point[] = [];
+  const minDist = gap * gap;
+  for (const c of candidates) {
+    if (picked.every((p) => (p.x - c.x) ** 2 + (p.y - c.y) ** 2 >= minDist)) {
+      picked.push(c);
+    }
+  }
+  return picked;
+}
+
+/** Dots along the stroke of a 24×24 icon, in sphere radii from the centre. */
+function sampleIcon(path: Path2D, radius: number): Point[] {
+  const box = Math.ceil(radius * ICON_BOX);
+  const off = document.createElement("canvas");
+  off.width = off.height = box;
+  const ctx = off.getContext("2d", { willReadFrequently: true });
+  if (!ctx || box < 24) return [];
+  ctx.scale(box / 24, box / 24);
+  ctx.lineWidth = 1.2;
+  ctx.lineCap = ctx.lineJoin = "round";
+  ctx.stroke(path);
+  const { data } = ctx.getImageData(0, 0, box, box);
+  const stroke: Point[] = [];
+  for (let y = 0; y < box; y++) {
+    for (let x = 0; x < box; x++) {
+      if (data[(y * box + x) * 4 + 3] > 160) stroke.push({ x, y });
+    }
+  }
+  for (let i = stroke.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [stroke[i], stroke[j]] = [stroke[j], stroke[i]];
+  }
+  return spacedPoints(stroke, Math.max(4, box / 34)).map(({ x, y }) => ({
+    x: (x - box / 2) / radius,
+    y: (y - box / 2) / radius,
+  }));
+}
+
+/**
+ * A slowly spinning sphere of dots, coloured with the canvas' CSS `color`.
+ * On each phrase the front dots gather into that phrase's icon, then return
+ * to the sphere when the next one arrives. Pauses off-screen / in hidden tabs,
+ * holds still under reduced motion, and tears down on the next page swap.
+ */
+export function mountMorphGlobe(
   canvas: HTMLCanvasElement,
-  {
-    icons,
-    radius: radiusFraction = 0.36,
-    iconSize = 26,
-    dots = 360,
-  }: GlobeOptions,
-): GlobeController | null {
+  { icons, radius: radiusFraction = 0.36, dots = 800 }: MorphGlobeOptions,
+): MorphGlobeController | null {
   const ctx = canvas.getContext("2d");
   if (!ctx) return null;
 
   const reduced = prefersReducedMotion();
-  const surface = fibonacciSphere(dots);
-  const slots = icons.map((_, i) => ICON_SLOTS[i % ICON_SLOTS.length]);
   const paths = icons.map((d) => new Path2D(d));
-  const glow: number[] = icons.map((_, i) => (i === 0 ? 1 : 0));
+  const samples = new Map<number, Point[]>();
+  const sphere: Dot[] = fibonacciSphere(dots).map((v) => ({
+    v,
+    target: null,
+    w0: 0,
+    goal: 0,
+    start: 0,
+    duration: 0,
+  }));
   const { signal } = pageScopedController();
   let size = 0;
   let frame = 0;
   let visible = true;
-  let active = 0;
-  let from = faceAngles(slots[0]);
-  let to = from;
-  let turnStart = -Infinity;
-  let lastTime = 0;
+  let active = -1;
 
   const resize = () => {
     const dpr = window.devicePixelRatio || 1;
     size = canvas.getBoundingClientRect().width;
     canvas.width = canvas.height = Math.round(size * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    samples.clear();
   };
 
-  const current = (time: number) => {
-    if (reduced) return to;
-    const t = Math.min(1, (time - turnStart) / TURN_MS);
-    const e = t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
-    return {
-      yaw: from.yaw + (to.yaw - from.yaw) * e,
-      pitch: from.pitch + (to.pitch - from.pitch) * e,
-    };
+  const weight = (dot: Dot, time: number) => {
+    const t = (time - dot.start) / dot.duration;
+    if (!(t < 1)) return dot.goal;
+    return dot.w0 + (dot.goal - dot.w0) * easeInOut(Math.max(0, t));
+  };
+
+  const yawAt = (time: number) => (reduced ? 0.6 : time * SPIN);
+
+  const project = (v: Vec3, time: number) => {
+    const [x, y, z] = rotate(v, yawAt(time), TILT);
+    const scale = CAMERA / (CAMERA - z);
+    return { x: x * scale, y: y * scale, z, scale };
   };
 
   const draw = (time: number) => {
-    const dt = Math.min(64, time - lastTime);
-    lastTime = time;
-    for (let i = 0; i < glow.length; i++) {
-      const target = i === active ? 1 : 0;
-      glow[i] = reduced
-        ? target
-        : glow[i] + (target - glow[i]) * Math.min(1, (dt / GLOW_MS) * 3);
-    }
-
-    const angles = current(time);
-    const yaw = angles.yaw + (reduced ? 0 : Math.sin(time / 6000) * 0.12);
-    const pitch = angles.pitch + (reduced ? 0 : Math.sin(time / 8300) * 0.06);
     const radius = size * radiusFraction;
     const centre = size / 2;
-    const project = (v: Vec3) => {
-      const [x, y, z] = rotate(v, yaw, pitch);
-      const scale = CAMERA / (CAMERA - z);
-      return {
-        x: centre + x * radius * scale,
-        y: centre + y * radius * scale,
-        z,
-        scale,
-      };
-    };
-    const depthOf = (z: number) => Math.min(1, Math.max(0, (z + 1) / 2));
-
     ctx.clearRect(0, 0, size, size);
-    ctx.strokeStyle = ctx.fillStyle = getComputedStyle(canvas).color;
+    ctx.fillStyle = getComputedStyle(canvas).color;
 
-    for (const v of surface) {
-      const p = project(v);
-      const depth = depthOf(p.z);
-      ctx.globalAlpha = 0.05 + 0.3 * depth ** 2;
+    const icon: { x: number; y: number; w: number }[] = [];
+    for (const dot of sphere) {
+      const p = project(dot.v, time);
+      const w = dot.target ? weight(dot, time) : 0;
+      const depth = (p.z + 1) / 2;
+      const x = p.x + ((dot.target?.x ?? 0) - p.x) * w;
+      const y = p.y + ((dot.target?.y ?? 0) - p.y) * w;
+      if (w > 0.5) {
+        icon.push({ x, y, w });
+        continue;
+      }
+      ctx.globalAlpha = (0.05 + 0.22 * depth ** 2) * (1 - w) + 0.9 * w;
       ctx.beginPath();
-      ctx.arc(p.x, p.y, (0.6 + 0.9 * depth) * p.scale, 0, TAU);
+      ctx.arc(
+        centre + x * radius,
+        centre + y * radius,
+        (0.6 + 0.7 * depth) * p.scale * (1 - w) + ICON_DOT * w,
+        0,
+        TAU,
+      );
       ctx.fill();
     }
-
-    const placed = paths
-      .map((path, i) => ({ ...project(slots[i]), path, i }))
-      .sort((a, b) => a.z - b.z);
-    for (const { x, y, z, scale, path, i } of placed) {
-      const depth = depthOf(z);
-      const lit = glow[i];
-      const px = iconSize * scale * (0.6 + 0.4 * depth) * (1 + 0.25 * lit);
-
-      // Clear the dots under the icon so it reads cleanly.
-      ctx.globalCompositeOperation = "destination-out";
-      ctx.globalAlpha = 0.3 + 0.7 * depth;
+    for (const { x, y, w } of icon) {
+      ctx.globalAlpha = 0.9 * w;
       ctx.beginPath();
-      ctx.arc(x, y, px * 0.75, 0, TAU);
+      ctx.arc(centre + x * radius, centre + y * radius, ICON_DOT, 0, TAU);
       ctx.fill();
-      ctx.globalCompositeOperation = "source-over";
-
-      if (lit > 0.01) {
-        ctx.globalAlpha = 0.45 * lit;
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.arc(x, y, px * 0.85, 0, TAU);
-        ctx.stroke();
-      }
-
-      ctx.globalAlpha = 0.04 + 0.4 * depth ** 2 + 0.55 * lit;
-      ctx.save();
-      ctx.translate(x - px / 2, y - px / 2);
-      ctx.scale(px / 24, px / 24);
-      ctx.lineWidth = 1.5;
-      ctx.lineCap = ctx.lineJoin = "round";
-      ctx.stroke(path);
-      ctx.restore();
     }
     ctx.globalAlpha = 1;
   };
 
-  const loop = (time: number) => {
-    draw(time);
-    frame = visible ? requestAnimationFrame(loop) : 0;
+  const activate = (index: number, now: number) => {
+    active = index;
+    for (const dot of sphere) {
+      if (dot.goal !== 1) continue;
+      dot.w0 = weight(dot, now);
+      dot.goal = 0;
+      dot.start = reduced ? 0 : now + Math.random() * STAGGER_MS;
+      dot.duration = reduced ? 0 : RELEASE_MS;
+    }
+
+    const radius = size * radiusFraction;
+    let targets = samples.get(index);
+    if (!targets) {
+      targets = sampleIcon(paths[index], radius);
+      if (targets.length) samples.set(index, targets);
+    }
+    const projected = sphere.map((dot) => project(dot.v, now));
+    const usable = sphere.map(
+      (dot, i) =>
+        projected[i].z > 0.1 && (!dot.target || weight(dot, now) === 0),
+    );
+    matchNearest(targets, projected, usable).forEach((i, t) => {
+      if (i < 0) return;
+      const dot = sphere[i];
+      dot.target = targets[t];
+      dot.w0 = 0;
+      dot.goal = 1;
+      dot.start = reduced
+        ? 0
+        : now + GATHER_DELAY_MS + Math.random() * STAGGER_MS;
+      dot.duration = reduced ? 0 : GATHER_MS;
+    });
   };
 
-  const controller: GlobeController = {
+  const controller: MorphGlobeController = {
     setActive(index) {
       const next = ((index % icons.length) + icons.length) % icons.length;
       if (next === active) return;
-      const now = performance.now();
-      from = current(now);
-      const target = faceAngles(slots[next]);
-      to = { yaw: nearestAngle(from.yaw, target.yaw), pitch: target.pitch };
-      active = next;
-      turnStart = now;
+      activate(next, performance.now());
       if (reduced) draw(0);
     },
   };
 
   resize();
   if (reduced) {
+    activate(0, 0);
     draw(0);
-    window.addEventListener("resize", () => (resize(), draw(0)), { signal });
+    window.addEventListener(
+      "resize",
+      () => {
+        resize();
+        const current = active;
+        active = -1;
+        activate(current, 0);
+        draw(0);
+      },
+      { signal },
+    );
     // Repaint on theme switches once the colour transition has settled.
     const themeObserver = new MutationObserver(() =>
       window.setTimeout(() => draw(0), 500),
@@ -220,13 +298,14 @@ export function mountIconGlobe(
     return controller;
   }
 
+  activate(0, performance.now() + 600);
+
+  const loop = (time: number) => {
+    draw(time);
+    frame = visible ? requestAnimationFrame(loop) : 0;
+  };
   const wake = () => {
-    if (visible && !frame) {
-      frame = requestAnimationFrame((time) => {
-        lastTime = time;
-        loop(time);
-      });
-    }
+    if (visible && !frame) frame = requestAnimationFrame(loop);
   };
   const observer = new IntersectionObserver(([entry]) => {
     visible = entry.isIntersecting && !document.hidden;

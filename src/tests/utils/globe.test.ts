@@ -1,35 +1,7 @@
 import { describe, it, expect } from "vitest";
-import { createIcosphere } from "../../utils/geodesic";
-import { faceAngles, fibonacciSphere } from "../../utils/globe";
-import { HERO_EXTRA_ICONS, HERO_ICONS } from "../../utils/icons";
+import { fibonacciSphere, matchNearest, spacedPoints } from "../../utils/globe";
+import { HERO_ICONS } from "../../utils/icons";
 import { TYPEWRITER_KEYS } from "../../utils/typewriter";
-
-/** Same rotation as the globe renderer. */
-function rotate(
-  [x, y, z]: [number, number, number],
-  yaw: number,
-  pitch: number,
-) {
-  const x1 = x * Math.cos(yaw) + z * Math.sin(yaw);
-  const z1 = -x * Math.sin(yaw) + z * Math.cos(yaw);
-  return [
-    x1,
-    y * Math.cos(pitch) - z1 * Math.sin(pitch),
-    y * Math.sin(pitch) + z1 * Math.cos(pitch),
-  ];
-}
-
-describe("faceAngles", () => {
-  it("turns every icon slot to the front centre", () => {
-    for (const v of createIcosphere(0).vertices) {
-      const { yaw, pitch } = faceAngles(v);
-      const [x, y, z] = rotate(v, yaw, pitch);
-      expect(x).toBeCloseTo(0, 10);
-      expect(y).toBeCloseTo(0, 10);
-      expect(z).toBeCloseTo(1, 10);
-    }
-  });
-});
 
 describe("fibonacciSphere", () => {
   it("returns unit vectors spread over both hemispheres", () => {
@@ -40,12 +12,42 @@ describe("fibonacciSphere", () => {
   });
 });
 
+describe("matchNearest", () => {
+  const points = [
+    { x: 0, y: 0 },
+    { x: 1, y: 0 },
+    { x: 5, y: 5 },
+  ];
+
+  it("pairs each target with its closest free point", () => {
+    const targets = [
+      { x: 0.9, y: 0 },
+      { x: 0.1, y: 0 },
+    ];
+    expect(matchNearest(targets, points, [true, true, true])).toEqual([1, 0]);
+  });
+
+  it("never reuses a point and skips unusable ones", () => {
+    const targets = [
+      { x: 0, y: 0 },
+      { x: 0, y: 0 },
+      { x: 0, y: 0 },
+    ];
+    expect(matchNearest(targets, points, [true, false, true])).toEqual([
+      0, 2, -1,
+    ]);
+  });
+});
+
+describe("spacedPoints", () => {
+  it("keeps points at least `gap` apart, in candidate order", () => {
+    const line = Array.from({ length: 10 }, (_, x) => ({ x, y: 0 }));
+    expect(spacedPoints(line, 3).map((p) => p.x)).toEqual([0, 3, 6, 9]);
+  });
+});
+
 describe("hero icons", () => {
   it("has one icon per rotating hero phrase", () => {
     expect(HERO_ICONS).toHaveLength(TYPEWRITER_KEYS.length);
-  });
-
-  it("fits the 12 icosahedron slots", () => {
-    expect(HERO_ICONS.length + HERO_EXTRA_ICONS.length).toBeLessThanOrEqual(12);
   });
 });
