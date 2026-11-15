@@ -1,17 +1,14 @@
-import type { Vec3 } from "./geodesic";
 import { pageScopedController, prefersReducedMotion } from "./motion";
 
-export interface MorphGlobeOptions {
+export interface ParticleIconsOptions {
   /** 24×24 SVG stroke paths, one per hero phrase. */
   icons: readonly string[];
-  /** Fraction of the canvas the sphere radius fills. */
-  radius?: number;
-  /** Number of sphere dots. */
-  dots?: number;
+  /** Number of particles; must cover the densest icon. */
+  count?: number;
 }
 
-export interface MorphGlobeController {
-  /** Release the current icon back to the sphere and draw icon `index`. */
+export interface ParticleIconsController {
+  /** Condense the floating particles into icon `index` for a few seconds. */
   setActive(index: number): void;
 }
 
@@ -20,51 +17,53 @@ export interface Point {
   y: number;
 }
 
-interface Dot {
-  v: Vec3;
-  /** Icon position, in sphere radii from the centre. */
+/** Timeline of one particle's trip to an icon and back. */
+export interface Trip {
+  gatherStart: number;
+  gatherMs: number;
+  releaseStart: number;
+  releaseMs: number;
+}
+
+interface Particle extends Trip {
+  /** Floating orbit, in cloud radii from the centre. */
+  radius: number;
+  angle: number;
+  spin: number;
+  wobble: number;
+  phase: number;
+  alpha: number;
+  size: number;
+  /** Icon position, in cloud radii from the centre. */
   target: Point | null;
-  w0: number;
-  goal: number;
-  start: number;
-  duration: number;
 }
 
-const CAMERA = 3.2;
-const TILT = -0.35;
-const SPIN = 0.00012;
-const GATHER_DELAY_MS = 350;
-const GATHER_MS = 1100;
-const RELEASE_MS = 900;
-const STAGGER_MS = 300;
-/** Icon box size, in sphere radii. */
-const ICON_BOX = 1.35;
+const GATHER_DELAY_MS = 120;
+const GATHER_MS = 950;
+const HOLD_MS = 1900;
+const RELEASE_MS = 1000;
+const STAGGER_MS = 280;
+/** Icon box size, in cloud radii. */
+const ICON_BOX = 1.1;
 /** Icon dot radius in CSS px. */
-const ICON_DOT = 1.6;
+const ICON_DOT = 1.5;
 const TAU = Math.PI * 2;
-
-function rotate([x, y, z]: Vec3, yaw: number, pitch: number): Vec3 {
-  const cy = Math.cos(yaw);
-  const sy = Math.sin(yaw);
-  const x1 = x * cy + z * sy;
-  const z1 = -x * sy + z * cy;
-  const cp = Math.cos(pitch);
-  const sp = Math.sin(pitch);
-  return [x1, y * cp - z1 * sp, y * sp + z1 * cp];
-}
 
 const easeInOut = (t: number) =>
   t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
+const progress = (time: number, start: number, ms: number) =>
+  ms > 0 ? Math.min(1, Math.max(0, (time - start) / ms)) : +(time >= start);
 
-/** Evenly spread unit vectors (Fibonacci lattice). */
-export function fibonacciSphere(count: number): Vec3[] {
-  const golden = Math.PI * (3 - Math.sqrt(5));
-  return Array.from({ length: count }, (_, i) => {
-    const y = 1 - (2 * (i + 0.5)) / count;
-    const r = Math.sqrt(1 - y * y);
-    const theta = golden * i;
-    return [Math.cos(theta) * r, y, Math.sin(theta) * r];
-  });
+/** How far a particle is from floating (0) to sitting on its icon spot (1). */
+export function tripWeight(trip: Trip, time: number): number {
+  const rise = easeInOut(progress(time, trip.gatherStart, trip.gatherMs));
+  const fall = easeInOut(progress(time, trip.releaseStart, trip.releaseMs));
+  return rise * (1 - fall);
+}
+
+/** Whether a particle has finished its trip and can join the next icon. */
+export function isFree(trip: Trip, time: number): boolean {
+  return time >= trip.releaseStart + trip.releaseMs;
 }
 
 /**
@@ -111,7 +110,7 @@ export function spacedPoints(
   return picked;
 }
 
-/** Dots along the stroke of a 24×24 icon, in sphere radii from the centre. */
+/** Dots along the stroke of a 24×24 icon, in cloud radii from the centre. */
 function sampleIcon(path: Path2D, radius: number): Point[] {
   const box = Math.ceil(radius * ICON_BOX);
   const off = document.createElement("canvas");
@@ -133,35 +132,42 @@ function sampleIcon(path: Path2D, radius: number): Point[] {
     const j = Math.floor(Math.random() * (i + 1));
     [stroke[i], stroke[j]] = [stroke[j], stroke[i]];
   }
-  return spacedPoints(stroke, Math.max(4, box / 34)).map(({ x, y }) => ({
+  return spacedPoints(stroke, Math.max(4, box / 30)).map(({ x, y }) => ({
     x: (x - box / 2) / radius,
     y: (y - box / 2) / radius,
   }));
 }
 
 /**
- * A slowly spinning sphere of dots, coloured with the canvas' CSS `color`.
- * On each phrase the front dots gather into that phrase's icon, then return
- * to the sphere when the next one arrives. Pauses off-screen / in hidden tabs,
- * holds still under reduced motion, and tears down on the next page swap.
+ * A loose cloud of particles drifting around the canvas centre, coloured with
+ * the canvas' CSS `color` and fading out towards its edge. On each phrase the
+ * nearest particles condense into that phrase's icon for a few seconds, then
+ * drift off again. Pauses off-screen / in hidden tabs, holds still under
+ * reduced motion, and tears down on the next page swap.
  */
-export function mountMorphGlobe(
+export function mountParticleIcons(
   canvas: HTMLCanvasElement,
-  { icons, radius: radiusFraction = 0.36, dots = 800 }: MorphGlobeOptions,
-): MorphGlobeController | null {
+  { icons, count = 380 }: ParticleIconsOptions,
+): ParticleIconsController | null {
   const ctx = canvas.getContext("2d");
   if (!ctx) return null;
 
   const reduced = prefersReducedMotion();
   const paths = icons.map((d) => new Path2D(d));
   const samples = new Map<number, Point[]>();
-  const sphere: Dot[] = fibonacciSphere(dots).map((v) => ({
-    v,
+  const particles: Particle[] = Array.from({ length: count }, () => ({
+    radius: 0.95 * Math.sqrt(Math.random()),
+    angle: Math.random() * TAU,
+    spin: (0.4 + Math.random()) * 0.00006,
+    wobble: 0.03 + Math.random() * 0.05,
+    phase: Math.random() * TAU,
+    alpha: 0.16 + Math.random() * 0.36,
+    size: 0.6 + Math.random() * 0.9,
     target: null,
-    w0: 0,
-    goal: 0,
-    start: 0,
-    duration: 0,
+    gatherStart: 0,
+    gatherMs: 1,
+    releaseStart: -Infinity,
+    releaseMs: 0,
   }));
   const { signal } = pageScopedController();
   let size = 0;
@@ -171,58 +177,41 @@ export function mountMorphGlobe(
 
   const resize = () => {
     const dpr = window.devicePixelRatio || 1;
-    size = canvas.getBoundingClientRect().width;
+    size = canvas.clientWidth;
     canvas.width = canvas.height = Math.round(size * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     samples.clear();
   };
 
-  const weight = (dot: Dot, time: number) => {
-    const t = (time - dot.start) / dot.duration;
-    if (!(t < 1)) return dot.goal;
-    return dot.w0 + (dot.goal - dot.w0) * easeInOut(Math.max(0, t));
-  };
-
-  const yawAt = (time: number) => (reduced ? 0.6 : time * SPIN);
-
-  const project = (v: Vec3, time: number) => {
-    const [x, y, z] = rotate(v, yawAt(time), TILT);
-    const scale = CAMERA / (CAMERA - z);
-    return { x: x * scale, y: y * scale, z, scale };
+  const float = (p: Particle, time: number): Point => {
+    const angle = p.angle + time * p.spin;
+    return {
+      x:
+        Math.cos(angle) * p.radius + Math.sin(time / 2300 + p.phase) * p.wobble,
+      y:
+        Math.sin(angle) * p.radius + Math.cos(time / 2900 + p.phase) * p.wobble,
+    };
   };
 
   const draw = (time: number) => {
-    const radius = size * radiusFraction;
-    const centre = size / 2;
+    const radius = size / 2;
     ctx.clearRect(0, 0, size, size);
     ctx.fillStyle = getComputedStyle(canvas).color;
-
-    const icon: { x: number; y: number; w: number }[] = [];
-    for (const dot of sphere) {
-      const p = project(dot.v, time);
-      const w = dot.target ? weight(dot, time) : 0;
-      const depth = (p.z + 1) / 2;
-      const x = p.x + ((dot.target?.x ?? 0) - p.x) * w;
-      const y = p.y + ((dot.target?.y ?? 0) - p.y) * w;
-      if (w > 0.5) {
-        icon.push({ x, y, w });
-        continue;
-      }
-      ctx.globalAlpha = (0.05 + 0.22 * depth ** 2) * (1 - w) + 0.9 * w;
+    for (const p of particles) {
+      const at = float(p, time);
+      const w = p.target ? tripWeight(p, time) : 0;
+      const x = at.x + ((p.target?.x ?? 0) - at.x) * w;
+      const y = at.y + ((p.target?.y ?? 0) - at.y) * w;
+      const edge = Math.min(1, Math.max(0, (1 - Math.hypot(x, y)) / 0.35));
+      ctx.globalAlpha = p.alpha * edge * (1 - w) + 0.9 * w;
       ctx.beginPath();
       ctx.arc(
-        centre + x * radius,
-        centre + y * radius,
-        (0.6 + 0.7 * depth) * p.scale * (1 - w) + ICON_DOT * w,
+        radius + x * radius,
+        radius + y * radius,
+        p.size * (1 - w) + ICON_DOT * w,
         0,
         TAU,
       );
-      ctx.fill();
-    }
-    for (const { x, y, w } of icon) {
-      ctx.globalAlpha = 0.9 * w;
-      ctx.beginPath();
-      ctx.arc(centre + x * radius, centre + y * radius, ICON_DOT, 0, TAU);
       ctx.fill();
     }
     ctx.globalAlpha = 1;
@@ -230,43 +219,42 @@ export function mountMorphGlobe(
 
   const activate = (index: number, now: number) => {
     active = index;
-    for (const dot of sphere) {
-      if (dot.goal !== 1) continue;
-      dot.w0 = weight(dot, now);
-      dot.goal = 0;
-      dot.start = reduced ? 0 : now + Math.random() * STAGGER_MS;
-      dot.duration = reduced ? 0 : RELEASE_MS;
+    for (const p of particles) {
+      if (!p.target || isFree(p, now)) continue;
+      const releaseStart = reduced ? -Infinity : now + Math.random() * 120;
+      if (releaseStart < p.releaseStart) p.releaseStart = releaseStart;
     }
 
-    const radius = size * radiusFraction;
     let targets = samples.get(index);
     if (!targets) {
-      targets = sampleIcon(paths[index], radius);
+      targets = sampleIcon(paths[index], size / 2);
       if (targets.length) samples.set(index, targets);
     }
-    const projected = sphere.map((dot) => project(dot.v, now));
-    const usable = sphere.map(
-      (dot, i) =>
-        projected[i].z > 0.1 && (!dot.target || weight(dot, now) === 0),
-    );
-    matchNearest(targets, projected, usable).forEach((i, t) => {
+    const positions = particles.map((p) => float(p, now));
+    const usable = particles.map((p) => !p.target || isFree(p, now));
+    matchNearest(targets, positions, usable).forEach((i, t) => {
       if (i < 0) return;
-      const dot = sphere[i];
-      dot.target = targets[t];
-      dot.w0 = 0;
-      dot.goal = 1;
-      dot.start = reduced
-        ? 0
-        : now + GATHER_DELAY_MS + Math.random() * STAGGER_MS;
-      dot.duration = reduced ? 0 : GATHER_MS;
+      const p = particles[i];
+      p.target = targets[t];
+      if (reduced) {
+        Object.assign(p, {
+          gatherStart: -Infinity,
+          releaseStart: Infinity,
+        });
+        return;
+      }
+      p.gatherStart = now + GATHER_DELAY_MS + Math.random() * STAGGER_MS;
+      p.gatherMs = GATHER_MS;
+      p.releaseStart = p.gatherStart + GATHER_MS + HOLD_MS;
+      p.releaseMs = RELEASE_MS + Math.random() * STAGGER_MS;
     });
   };
 
-  const controller: MorphGlobeController = {
+  const controller: ParticleIconsController = {
     setActive(index) {
       const next = ((index % icons.length) + icons.length) % icons.length;
       if (next === active) return;
-      activate(next, performance.now());
+      activate(next, reduced ? 0 : performance.now());
       if (reduced) draw(0);
     },
   };
@@ -298,7 +286,7 @@ export function mountMorphGlobe(
     return controller;
   }
 
-  activate(0, performance.now() + 600);
+  activate(0, performance.now() + 500);
 
   const loop = (time: number) => {
     draw(time);

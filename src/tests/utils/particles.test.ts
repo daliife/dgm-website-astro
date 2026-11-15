@@ -1,14 +1,42 @@
 import { describe, it, expect } from "vitest";
-import { fibonacciSphere, matchNearest, spacedPoints } from "../../utils/globe";
+import {
+  isFree,
+  matchNearest,
+  spacedPoints,
+  tripWeight,
+} from "../../utils/particles";
 import { HERO_ICONS } from "../../utils/icons";
 import { TYPEWRITER_KEYS } from "../../utils/typewriter";
 
-describe("fibonacciSphere", () => {
-  it("returns unit vectors spread over both hemispheres", () => {
-    const points = fibonacciSphere(200);
-    expect(points).toHaveLength(200);
-    for (const p of points) expect(Math.hypot(...p)).toBeCloseTo(1, 10);
-    expect(points.filter(([, y]) => y > 0)).toHaveLength(100);
+describe("tripWeight", () => {
+  const trip = {
+    gatherStart: 100,
+    gatherMs: 100,
+    releaseStart: 500,
+    releaseMs: 100,
+  };
+
+  it("floats, gathers, holds the icon, then floats again", () => {
+    expect(tripWeight(trip, 0)).toBe(0);
+    expect(tripWeight(trip, 150)).toBeCloseTo(0.5);
+    expect(tripWeight(trip, 300)).toBe(1);
+    expect(tripWeight(trip, 550)).toBeCloseTo(0.5);
+    expect(tripWeight(trip, 700)).toBe(0);
+  });
+
+  it("frees the particle only once the release has finished", () => {
+    expect(isFree(trip, 550)).toBe(false);
+    expect(isFree(trip, 600)).toBe(true);
+  });
+
+  it("snaps instantly for zero-length phases", () => {
+    const instant = {
+      gatherStart: -Infinity,
+      gatherMs: 0,
+      releaseStart: Infinity,
+      releaseMs: 0,
+    };
+    expect(tripWeight(instant, 0)).toBe(1);
   });
 });
 

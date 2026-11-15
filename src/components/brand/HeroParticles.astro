@@ -3,46 +3,46 @@
   aria-hidden="true"
 >
   <canvas
-    class="hero-globe absolute right-0 top-1/2 aspect-square w-[min(30vw,360px)] -translate-y-1/2 text-text-primary"
-    data-hero-globe></canvas>
+    class="hero-particles absolute right-0 top-1/2 aspect-square w-[min(32vw,400px)] -translate-y-1/2 text-text-primary"
+    data-hero-particles></canvas>
 </div>
 
 <style>
-  .hero-globe {
-    animation: hero-globe-in 2s var(--ease-out-expo) 0.4s both;
+  .hero-particles {
+    animation: hero-particles-in 2s var(--ease-out-expo) 0.4s both;
   }
 
-  @keyframes hero-globe-in {
+  @keyframes hero-particles-in {
     from {
       opacity: 0;
-      transform: translateY(-50%) scale(0.94);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-globe {
+    .hero-particles {
       animation: none;
     }
   }
 </style>
 
 <script>
-  import { mountMorphGlobe } from "../../utils/globe";
   import { HERO_ICONS } from "../../utils/icons";
   import { pageScopedController } from "../../utils/motion";
+  import { mountParticleIcons } from "../../utils/particles";
 
   document.addEventListener("astro:page-load", () => {
-    const canvas =
-      document.querySelector<HTMLCanvasElement>("[data-hero-globe]");
+    const canvas = document.querySelector<HTMLCanvasElement>(
+      "[data-hero-particles]",
+    );
     if (!canvas) return;
-    const globe = mountMorphGlobe(canvas, { icons: HERO_ICONS });
-    if (!globe) return;
+    const particles = mountParticleIcons(canvas, { icons: HERO_ICONS });
+    if (!particles) return;
 
     const { signal } = pageScopedController();
     window.addEventListener(
       "app:hero-phrase",
       (e: Event) => {
-        globe.setActive((e as CustomEvent<{ index: number }>).detail.index);
+        particles.setActive((e as CustomEvent<{ index: number }>).detail.index);
       },
       { signal },
     );
