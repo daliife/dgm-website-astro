@@ -60,7 +60,7 @@ const { dropup = false } = Astro.props;
     role="listbox"
     aria-label={t("ui.a11y.lang.listbox")}
     data-i18n-aria="ui.a11y.lang.listbox"
-    class={`absolute right-0 ${dropup ? "bottom-full mb-1" : "top-full mt-1"} hidden z-50 bg-bg-primary border border-border-primary rounded-lg shadow-lg py-1 min-w-[5.5rem]`}
+    class={`absolute right-0 ${dropup ? "bottom-full mb-1" : "top-full mt-1"} z-50 hidden min-w-[5.5rem] border border-border-primary bg-bg-primary py-1`}
   >
     {
       SUPPORTED_LANGUAGES.map((lang) => (

@@ -4,6 +4,7 @@ import { projects } from "@cv";
 import {
   BREADCRUMB_LINK_CLASSES,
   CARD_FRAME_CLASSES,
+  CARD_MEDIA_FRAME_CLASSES,
   PAGE_CONTAINER_CLASSES,
   PROJECT_DETAIL_CTA_CLASSES,
   CONTENT_LIST_CLASSES,
@@ -166,16 +167,10 @@ const creativeWorkSchema = {
 
       {
         project.image && (
-          <figure class="mb-10 overflow-hidden rounded-md bg-bg-secondary ring-1 ring-border-primary">
+          <figure class="mb-10">
             <div
-              class="flex h-7 items-center gap-1.5 border-b border-border-primary px-3"
-              aria-hidden="true"
+              class={`${CARD_FRAME_CLASSES} ${CARD_MEDIA_FRAME_CLASSES} aspect-[16/10] w-full`}
             >
-              <span class="h-2 w-2 rounded-full bg-border-secondary" />
-              <span class="h-2 w-2 rounded-full bg-border-secondary" />
-              <span class="h-2 w-2 rounded-full bg-border-secondary" />
-            </div>
-            <div class={`${CARD_FRAME_CLASSES} aspect-[16/10] bg-bg-muted`}>
               <img
                 src={heroImage?.src ?? project.image}
                 srcset={heroImage?.srcset}

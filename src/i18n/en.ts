@@ -85,7 +85,6 @@ export const EN = {
   "ui.a11y.cookieNotice": "Cookie notice",
   "ui.a11y.skipToContent": "Skip to main content",
   "ui.a11y.portraitOf": "Portrait of",
-  "ui.a11y.portraitFlip": "Flip portrait horizontally",
   "ui.a11y.theme.toDark": "Switch to dark mode",
   "ui.a11y.theme.toLight": "Switch to light mode",
   "ui.a11y.nav.main": "Main navigation",
