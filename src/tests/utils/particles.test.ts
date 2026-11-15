@@ -1,43 +1,33 @@
 import { describe, it, expect } from "vitest";
 import {
   focusWeight,
-  isFree,
   matchNearest,
+  planMorph,
   spacedPoints,
-  tripWeight,
 } from "../../utils/particles";
 import { HERO_ICONS } from "../../utils/icons";
 import { TYPEWRITER_KEYS } from "../../utils/typewriter";
 
-describe("tripWeight", () => {
-  const trip = {
-    gatherStart: 100,
-    gatherMs: 100,
-    releaseStart: 500,
-    releaseMs: 100,
-  };
+describe("planMorph", () => {
+  const points = [
+    { x: 0, y: 0 },
+    { x: 10, y: 0 },
+    { x: 1, y: 0 },
+  ];
 
-  it("floats, gathers, holds the icon, then floats again", () => {
-    expect(tripWeight(trip, 0)).toBe(0);
-    expect(tripWeight(trip, 150)).toBeCloseTo(0.5);
-    expect(tripWeight(trip, 300)).toBe(1);
-    expect(tripWeight(trip, 550)).toBeCloseTo(0.5);
-    expect(tripWeight(trip, 700)).toBe(0);
+  it("moves the current icon's points on before recruiting new ones", () => {
+    // Point 2 sits closer to the target, but point 0 is already in the icon.
+    expect(planMorph([{ x: 2, y: 0 }], points, [true, false, false])).toEqual([
+      0,
+    ]);
   });
 
-  it("frees the particle only once the release has finished", () => {
-    expect(isFree(trip, 550)).toBe(false);
-    expect(isFree(trip, 600)).toBe(true);
-  });
-
-  it("snaps instantly for zero-length phases", () => {
-    const instant = {
-      gatherStart: -Infinity,
-      gatherMs: 0,
-      releaseStart: Infinity,
-      releaseMs: 0,
-    };
-    expect(tripWeight(instant, 0)).toBe(1);
+  it("recruits the nearest outside points once the icon runs out", () => {
+    const targets = [
+      { x: 0, y: 0 },
+      { x: 2, y: 0 },
+    ];
+    expect(planMorph(targets, points, [true, false, false])).toEqual([0, 2]);
   });
 });
 

@@ -25,7 +25,7 @@ export interface ParticleIconsOptions {
 }
 
 export interface ParticleIconsController {
-  /** Condense the nearest particles into icon `index` for a few seconds. */
+  /** Morph the stars of the current icon into icon `index`. */
   setActive(index: number): void;
 }
 
@@ -34,15 +34,7 @@ export interface Point {
   y: number;
 }
 
-/** Timeline of one particle's trip to an icon and back. */
-export interface Trip {
-  gatherStart: number;
-  gatherMs: number;
-  releaseStart: number;
-  releaseMs: number;
-}
-
-interface Particle extends Trip {
+interface Particle {
   /** Resting spot in the sky, in CSS px. */
   x0: number;
   y0: number;
@@ -52,14 +44,17 @@ interface Particle extends Trip {
   phase: number;
   alpha: number;
   size: number;
-  /** Icon position, in canvas CSS px. */
-  target: Point | null;
+  /**
+   * Current move, in canvas CSS px: from `from` to `to` over `ms` from
+   * `start`. `null` stands for the star's own (drifting) spot in the sky.
+   */
+  from: Point | null;
+  to: Point | null;
+  start: number;
+  ms: number;
 }
 
-const GATHER_DELAY_MS = 120;
-const GATHER_MS = 1100;
-const HOLD_MS = 1800;
-const RELEASE_MS = 1100;
+const MOVE_MS = 1200;
 const STAGGER_MS = 300;
 /** Canvas area per star, in CSS px². */
 const AREA_PER_PARTICLE = 1600;
@@ -89,18 +84,6 @@ export function focusWeight(point: Point, rect: Rect, reach: number): number {
   return t * t * (3 - 2 * t);
 }
 
-/** How far a particle is from floating (0) to sitting on its icon spot (1). */
-export function tripWeight(trip: Trip, time: number): number {
-  const rise = easeInOut(progress(time, trip.gatherStart, trip.gatherMs));
-  const fall = easeInOut(progress(time, trip.releaseStart, trip.releaseMs));
-  return rise * (1 - fall);
-}
-
-/** Whether a particle has finished its trip and can join the next icon. */
-export function isFree(trip: Trip, time: number): boolean {
-  return time >= trip.releaseStart + trip.releaseMs;
-}
-
 /**
  * Greedily pairs each target with the closest still-free usable point.
  * Returns, per target, the point index or -1 when none is left.
@@ -125,6 +108,26 @@ export function matchNearest(
     if (best >= 0) taken.add(best);
     return best;
   });
+}
+
+/**
+ * Which point fills each target of the next icon: points already in the
+ * current icon move on first; only the leftover targets recruit others.
+ */
+export function planMorph(
+  targets: readonly Point[],
+  points: readonly Point[],
+  inIcon: readonly boolean[],
+): number[] {
+  const plan = matchNearest(targets, points, inIcon);
+  const missing = targets.filter((_, t) => plan[t] < 0);
+  const recruits = matchNearest(
+    missing,
+    points,
+    inIcon.map((v) => !v),
+  );
+  let next = 0;
+  return plan.map((i) => (i < 0 ? recruits[next++] : i));
 }
 
 /**
@@ -175,10 +178,12 @@ function sampleIcon(path: Path2D, box: number): Point[] {
 
 /**
  * A still starry sky over the whole canvas, coloured with its CSS `color` and
- * fading out towards its bottom. Only stars near `focus()` drift gently. On
- * each phrase the nearest stars condense into that phrase's icon at `slot()`
- * for a few seconds, then return. Pauses off-screen / in hidden tabs, holds
- * still under reduced motion, and tears down on the next page swap.
+ * fading out towards its bottom. Only stars near `focus()` drift gently. The
+ * nearest stars form the current phrase's icon at `slot()`; on the next
+ * phrase they travel straight to their spots in the next icon, recruiting or
+ * releasing stars as the dot count changes. Pauses off-screen / in hidden
+ * tabs, holds still under reduced motion, and tears down on the next page
+ * swap.
  */
 export function mountParticleIcons(
   canvas: HTMLCanvasElement,
@@ -211,11 +216,10 @@ export function mountParticleIcons(
       phase: Math.random() * TAU,
       alpha: 0.12 + 0.5 * glow,
       size: 0.5 + 0.6 * Math.random() + 0.8 * glow,
-      target: null,
-      gatherStart: 0,
-      gatherMs: 0,
-      releaseStart: -Infinity,
-      releaseMs: 0,
+      from: null,
+      to: null,
+      start: 0,
+      ms: 0,
     };
   };
 
@@ -261,14 +265,25 @@ export function mountParticleIcons(
     };
   };
 
+  /** Where a star is and how icon-like it looks (0 sky – 1 icon). */
+  const locate = (p: Particle, time: number) => {
+    const e = easeInOut(progress(time, p.start, p.ms));
+    const sky = p.from && p.to ? null : float(p, time);
+    const a = p.from ?? sky!;
+    const b = p.to ?? sky!;
+    return {
+      x: a.x + (b.x - a.x) * e,
+      y: a.y + (b.y - a.y) * e,
+      w: (p.from ? 1 - e : 0) + (p.to ? e : 0),
+      settled: e === 1,
+    };
+  };
+
   const draw = (time: number) => {
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = getComputedStyle(canvas).color;
     for (const p of particles) {
-      const at = float(p, time);
-      const w = p.target ? tripWeight(p, time) : 0;
-      const x = at.x + ((p.target?.x ?? 0) - at.x) * w;
-      const y = at.y + ((p.target?.y ?? 0) - at.y) * w;
+      const { x, y, w } = locate(p, time);
       const fade = Math.min(1, Math.max(0, (height - y) / BOTTOM_FADE));
       ctx.globalAlpha = p.alpha * fade * (1 - w) + 0.9 * w;
       ctx.beginPath();
@@ -278,38 +293,44 @@ export function mountParticleIcons(
     ctx.globalAlpha = 1;
   };
 
-  const activate = (index: number, now: number) => {
-    active = index;
-    for (const p of particles) {
-      if (!p.target || isFree(p, now)) continue;
-      const releaseStart = reduced ? -Infinity : now + Math.random() * 120;
-      if (releaseStart < p.releaseStart) p.releaseStart = releaseStart;
-    }
+  const moveTo = (p: Particle, to: Point | null, now: number) => {
+    const at = locate(p, now);
+    // A star resting in the sky keeps drifting until it actually sets off.
+    p.from = !p.to && at.settled ? null : { x: at.x, y: at.y };
+    p.to = to;
+    p.start = reduced ? -Infinity : now + Math.random() * STAGGER_MS;
+    p.ms = reduced ? 0 : MOVE_MS;
+  };
 
+  const iconTargets = (index: number): Point[] => {
     const place = slot();
-    if (!place) return;
+    if (!place) return [];
     const key = `${index}:${Math.round(place.size)}`;
     let shape = samples.get(key);
     if (!shape) {
       shape = sampleIcon(paths[index], place.size);
       samples.set(key, shape);
     }
-    const targets = shape.map((s) => ({ x: place.x + s.x, y: place.y + s.y }));
-    const positions = particles.map((p) => float(p, now));
-    const usable = particles.map((p) => !p.target || isFree(p, now));
-    matchNearest(targets, positions, usable).forEach((i, t) => {
-      if (i < 0) return;
-      const p = particles[i];
-      p.target = targets[t];
-      if (reduced) {
-        p.gatherStart = -Infinity;
-        p.releaseStart = Infinity;
-        return;
-      }
-      p.gatherStart = now + GATHER_DELAY_MS + Math.random() * STAGGER_MS;
-      p.gatherMs = GATHER_MS;
-      p.releaseStart = p.gatherStart + GATHER_MS + HOLD_MS;
-      p.releaseMs = RELEASE_MS + Math.random() * STAGGER_MS;
+    return shape.map((s) => ({ x: place.x + s.x, y: place.y + s.y }));
+  };
+
+  /** Morph the current icon's stars into icon `index`; spares go home. */
+  const activate = (index: number, now: number) => {
+    active = index;
+    const targets = iconTargets(index);
+    const plan = planMorph(
+      targets,
+      particles.map((p) => locate(p, now)),
+      particles.map((p) => p.to !== null),
+    );
+    const assigned = new Map<number, Point>();
+    plan.forEach((i, t) => {
+      if (i >= 0) assigned.set(i, targets[t]);
+    });
+    particles.forEach((p, i) => {
+      const to = assigned.get(i);
+      if (to) moveTo(p, to, now);
+      else if (p.to) moveTo(p, null, now);
     });
   };
 
@@ -334,9 +355,7 @@ export function mountParticleIcons(
       "resize",
       () => {
         resize();
-        const current = active;
-        active = -1;
-        activate(current, 0);
+        activate(active, 0);
         draw(0);
       },
       { signal },
@@ -380,11 +399,23 @@ export function mountParticleIcons(
     },
     { signal },
   );
-  window.addEventListener("resize", resize, { signal });
+  let resizeTimer = 0;
+  window.addEventListener(
+    "resize",
+    () => {
+      resize();
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(() => {
+        if (active >= 0) activate(active, performance.now());
+      }, 150);
+    },
+    { signal },
+  );
   signal.addEventListener("abort", () => {
     observer.disconnect();
     cancelAnimationFrame(frame);
     clearTimeout(firstIcon);
+    clearTimeout(resizeTimer);
   });
   return controller;
 }
