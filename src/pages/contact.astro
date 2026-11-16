@@ -14,19 +14,13 @@ import { t } from "../utils/i18n";
 import { getPageTitleFromKey } from "../utils/seo";
 const { email, profiles } = basics;
 
-const CONTACT_ICONS: Record<string, string> = {
-  Github: ICON_PATHS.github,
-  Linkedin: ICON_PATHS.linkedin,
-};
-
 const NETWORK_I18N: Record<SocialNetwork, I18nKey> = {
   Email: "ui.contact.network.email",
   Linkedin: "ui.contact.network.linkedin",
   Github: "ui.contact.network.github",
 };
 
-const CONTACT_LABEL_CLASS =
-  "flex items-center gap-1.5 text-xs uppercase tracking-widest text-text-muted";
+const CONTACT_LABEL_CLASS = "text-xs uppercase tracking-widest text-text-muted";
 
 const CONTACT_ROW_BASE =
   "flex w-full items-center justify-between gap-6 border-t border-border-primary py-6";
@@ -71,18 +65,11 @@ const CONTACT_VALUE_CLASS =
           className="!flex min-w-0 flex-1 !items-start !justify-start hover:no-underline"
         >
           <span class="flex min-w-0 flex-col gap-2">
-            <span class={CONTACT_LABEL_CLASS}>
-              <svg
-                class="h-3.5 w-3.5 shrink-0"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <Fragment set:html={ICON_PATHS.email} />
-              </svg>
-              <span data-i18n="ui.contact.network.email">
-                {t("ui.contact.network.email")}
-              </span>
+            <span
+              class={CONTACT_LABEL_CLASS}
+              data-i18n="ui.contact.network.email"
+            >
+              {t("ui.contact.network.email")}
             </span>
             <span class={`${CONTACT_VALUE_CLASS} break-all`}>{email}</span>
           </span>
@@ -123,7 +110,6 @@ const CONTACT_VALUE_CLASS =
       {
         (profiles as SocialProfile[]).map((profile) => {
           if (profile.network === "Email") return null;
-          const icon = CONTACT_ICONS[profile.network];
           const labelKey = NETWORK_I18N[profile.network];
           return (
             <Button
@@ -135,18 +121,8 @@ const CONTACT_VALUE_CLASS =
               className={CONTACT_ROW_CLASS}
             >
               <span class="flex min-w-0 flex-col gap-2">
-                <span class={CONTACT_LABEL_CLASS}>
-                  {icon && (
-                    <svg
-                      class="h-3.5 w-3.5 shrink-0"
-                      fill="currentColor"
-                      viewBox="0 0 24 24"
-                      aria-hidden="true"
-                    >
-                      <Fragment set:html={icon} />
-                    </svg>
-                  )}
-                  <span data-i18n={labelKey}>{t(labelKey)}</span>
+                <span class={CONTACT_LABEL_CLASS} data-i18n={labelKey}>
+                  {t(labelKey)}
                 </span>
                 <span class={CONTACT_VALUE_CLASS}>
                   {profile.username || profile.network}

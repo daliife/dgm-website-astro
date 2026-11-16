@@ -16,16 +16,18 @@ const boardChars = [...(roleTexts[0] ?? "").trimEnd()];
 
 <Layout title={`${name} ${lastName} — ${t("basics.label")}`} type="profile">
   <section class="flex flex-1 items-center px-6 pb-8 pt-20 md:pt-24">
-    <div class="home-enter mx-auto flex w-full max-w-5xl flex-col items-start">
+    <div
+      class="home-enter mx-auto flex w-full max-w-5xl flex-col items-center lg:items-start"
+    >
       <h1
-        class="home-enter__item flex w-full min-w-0 flex-wrap items-baseline gap-x-[0.22em] gap-y-2 text-4xl/none font-extrabold uppercase tracking-tight text-text-primary sm:gap-y-3 sm:text-6xl/none lg:text-7xl/none xl:text-8xl/none"
+        class="home-enter__item flex w-full min-w-0 flex-wrap items-baseline justify-center gap-x-[0.22em] gap-y-2 text-4xl/none font-extrabold uppercase tracking-tight text-text-primary sm:gap-y-3 sm:text-6xl/none lg:justify-start lg:text-7xl/none xl:text-8xl/none"
       >
         <span>{name}</span>
         <span class="font-thin">{lastName}</span>
       </h1>
 
       <div
-        class="home-enter__item mt-4 flex w-full flex-col items-start gap-16 sm:mt-5 sm:gap-24"
+        class="home-enter__item mt-4 flex w-full flex-col items-center gap-16 sm:mt-5 sm:gap-24 lg:items-start"
       >
         <div class="w-full">
           <p
@@ -77,27 +79,15 @@ const boardChars = [...(roleTexts[0] ?? "").trimEnd()];
             </div>
           </div>
         </div>
-        <div class="flex flex-wrap items-center gap-x-8 gap-y-4 self-end">
+        <div
+          class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 self-center lg:self-end"
+        >
           <Button
             href={pageHref("projects")}
             variant="simple"
             size="none"
             className={HOME_CTA_PRIMARY_CLASSES}
           >
-            <svg
-              class="h-4 w-4 shrink-0 sm:h-5 sm:w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-              ></path>
-            </svg>
             <span data-i18n="ui.home.cta.work">{t("ui.home.cta.work")}</span>
           </Button>
           <Button
@@ -106,20 +96,6 @@ const boardChars = [...(roleTexts[0] ?? "").trimEnd()];
             size="none"
             className={HOME_CTA_SECONDARY_CLASSES}
           >
-            <svg
-              class="h-4 w-4 shrink-0 sm:h-5 sm:w-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              ></path>
-            </svg>
             <span data-i18n="ui.home.cta">{t("ui.home.cta")}</span>
           </Button>
         </div>

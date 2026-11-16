@@ -16,10 +16,7 @@ const iconPath = isTimelineIcon(icon) ? TIMELINE_ICONS[icon] : undefined;
 ---
 
 <span
-  class:list={[
-    "relative z-[1] flex h-10 w-10 shrink-0 items-center justify-center rounded-md border border-border-secondary bg-bg-secondary",
-    current ? "text-text-primary" : "text-text-secondary",
-  ]}
+  class="relative z-[1] flex h-10 w-10 shrink-0 items-center justify-center border border-border-primary text-text-primary"
   aria-hidden="true"
 >
   {
@@ -35,7 +32,7 @@ const iconPath = isTimelineIcon(icon) ? TIMELINE_ICONS[icon] : undefined;
       />
     ) : iconPath ? (
       <svg
-        class="h-[18px] w-[18px]"
+        class="h-6 w-6"
         fill="none"
         stroke="currentColor"
         stroke-width="1.5"
@@ -46,9 +43,7 @@ const iconPath = isTimelineIcon(icon) ? TIMELINE_ICONS[icon] : undefined;
         <path d={iconPath} />
       </svg>
     ) : (
-      <span class="text-[11px] font-semibold tracking-wide">
-        {getInitials(name)}
-      </span>
+      <span class="text-xs font-medium tracking-wide">{getInitials(name)}</span>
     )
   }
   {

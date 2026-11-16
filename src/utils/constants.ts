@@ -78,7 +78,11 @@ export const HOME_CTA_PRIMARY_CLASSES = `${HOME_CTA_BASE_CLASSES} font-medium te
 /** Home hero secondary CTA (contact). */
 export const HOME_CTA_SECONDARY_CLASSES = `${HOME_CTA_BASE_CLASSES} text-text-muted hover:text-text-primary`;
 
+/** Project detail: open the live project. */
 export const PROJECT_DETAIL_CTA_CLASSES = `gap-2 ${EDITORIAL_LINK_MD_CLASSES} hover:!no-underline`;
+
+/** Project detail: source link, used when a live link is also present. */
+export const PROJECT_DETAIL_CTA_SECONDARY_CLASSES = `gap-2 ${EDITORIAL_LINK_MD_MUTED_CLASSES} hover:!no-underline`;
 
 export const NEXTUP_NAV_CLASSES = "reveal border-t border-border-primary pt-8";
 

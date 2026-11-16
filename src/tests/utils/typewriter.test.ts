@@ -6,7 +6,7 @@ import { ES } from "../../i18n/es";
 
 describe("HOME_ROLE_KEYS", () => {
   it("lists the roles under the home name", () => {
-    expect(HOME_ROLE_KEYS).toHaveLength(5);
+    expect(HOME_ROLE_KEYS).toHaveLength(4);
   });
 
   it.each(["EN", "CA", "ES"] as const)(

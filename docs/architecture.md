@@ -69,7 +69,7 @@ The `@cv` path alias is configured in `tsconfig.json`.
 
 ### Project detail pages
 
-`/projects/[slug]/` is a case-study view for each `cv.json` project: long description, tech stack, visit/GitHub CTAs, framed 16:10 screenshot (`public/projects/{slug}-640|1280.webp` via `srcset`), highlights, and prev/next navigation. List cards (`ProjectCard`) link to the detail page; outbound “visit” stays on the detail CTAs.
+`/projects/[slug]/` is a case-study view for each `cv.json` project. The header pairs the title with the visit and GitHub actions. From the `lg` breakpoint the framed 16:10 screenshot (`public/projects/{slug}-640|1280.webp` via `srcset`, and the view-transition target) sits beside the description, highlights, and tech list, so the writing is on the first screen. Below that breakpoint the screenshot is full width and the writing follows it. Prev/next closes the page. List cards (`ProjectCard`) link to the detail page; outbound “visit” stays on the detail actions.
 
 ---
 

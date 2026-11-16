@@ -6,5 +6,4 @@ export const HOME_ROLE_KEYS = [
   "ui.home.typewriter.1",
   "ui.home.typewriter.2",
   "ui.home.typewriter.3",
-  "ui.home.typewriter.4",
 ] as const satisfies readonly I18nKey[];
