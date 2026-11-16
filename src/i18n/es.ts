@@ -13,14 +13,12 @@ export const ES: Record<I18nKey, string> = {
   "ui.nav.contact": "Contacto",
 
   // ── Home page ─────────────────────────────────────────────────────────────
-  "ui.home.greeting": "Hola, soy",
   "ui.home.cta": "Contáctame",
   "ui.home.cta.work": "Explora mis proyectos",
-  "ui.home.typewriter.0": "DESARROLLADOR FRONTEND",
-  "ui.home.typewriter.1": "INGENIERO DE SOFTWARE",
-  "ui.home.typewriter.2": "ESPECIALISTA EN REACT",
-  "ui.home.typewriter.3": "CLARINETISTA",
-  "ui.home.typewriter.4": "AMANTE DE LA MONTAÑA",
+  "ui.home.typewriter.0": "Desarrollador frontend",
+  "ui.home.typewriter.1": "Ingeniero de software",
+  "ui.home.typewriter.2": "Clarinetista",
+  "ui.home.typewriter.3": "Amante de la montaña",
   "ui.nextup": "Explora también",
   "ui.nextup.aria": "Páginas relacionadas",
   "ui.nextup.about": "Sobre mí",
@@ -39,14 +37,14 @@ export const ES: Record<I18nKey, string> = {
   "ui.meta.defaultDescription":
     "Portafolio personal de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
   "ui.meta.about.description":
-    "Sobre David Gimeno Mañé — Desarrollador Frontend en Barcelona. Descubre mi historia, habilidades y trayectoria profesional.",
+    "Sobre David Gimeno Mañé — Desarrollador Frontend en Barcelona. Trayectoria, habilidades y experiencia.",
   "ui.meta.experience.description":
     "Experiencia profesional de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
   "ui.meta.projects.description":
-    "Portafolio de proyectos de desarrollo web de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
-  "ui.meta.projects.listName": "Portafolio de proyectos",
+    "Proyectos web de David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
+  "ui.meta.projects.listName": "Proyectos",
   "ui.meta.contact.description":
-    "Contacta con David Gimeno Mañé — Desarrollador Frontend en Barcelona. Trabajemos juntos.",
+    "Contacta con David Gimeno Mañé — Desarrollador Frontend en Barcelona.",
   "ui.meta.404.title": "404 — Página no encontrada",
 
   // ── Projects categories ─────────────────────────────────────────────────────
@@ -70,11 +68,15 @@ export const ES: Record<I18nKey, string> = {
   "ui.about.education": "Formación",
   "ui.about.certificates": "Certificados",
   "ui.about.printcv": "Imprimir CV",
+  "ui.about.stats": "En cifras",
+  "ui.about.stats.years": "Años de experiencia",
+  "ui.about.stats.projects": "Proyectos",
+  "ui.about.stats.technologies": "Tecnologías",
   "ui.about.experience": "Experiencia", // print-only
 
   // ── Cookie consent ──────────────────────────────────────────────────────────
   "ui.cookies.message":
-    "Este sitio utiliza analíticas anónimas para mejorar la experiencia.",
+    "Este sitio recoge estadísticas anónimas para mejorar la experiencia.",
   "ui.cookies.learnmore": "Más información",
   "ui.cookies.accept": "Aceptar",
   "ui.cookies.reject": "Rechazar",
@@ -84,7 +86,6 @@ export const ES: Record<I18nKey, string> = {
   "ui.a11y.cookieNotice": "Aviso de cookies",
   "ui.a11y.skipToContent": "Saltar al contenido principal",
   "ui.a11y.portraitOf": "Retrato de",
-  "ui.a11y.portraitFlip": "Girar el retrato horizontalmente",
   "ui.a11y.theme.toDark": "Cambiar al modo oscuro",
   "ui.a11y.theme.toLight": "Cambiar al modo claro",
   "ui.a11y.nav.main": "Navegación principal",
@@ -109,51 +110,53 @@ export const ES: Record<I18nKey, string> = {
   "ui.page.privacy": "Privacidad",
   "ui.privacy.intro.before": "Este sitio utiliza ",
   "ui.privacy.intro.after":
-    ", una herramienta de analítica de código abierto y respetuosa con la privacidad. No se usan cookies y no se recopilan datos personales.",
+    ", una herramienta de estadísticas de código abierto que respeta la privacidad. No usa cookies ni recoge datos personales.",
   "ui.privacy.collected.title": "Qué recopilamos",
-  "ui.privacy.collected.0": "Páginas visitadas y rutas de navegación",
-  "ui.privacy.collected.1": "URL de referencia (de dónde vienes)",
-  "ui.privacy.collected.2": "Navegador y sistema operativo (genérico)",
+  "ui.privacy.collected.0": "Páginas vistas y recorrido por la web",
+  "ui.privacy.collected.1": "Página de procedencia",
+  "ui.privacy.collected.2": "Navegador y sistema operativo, sin detalle",
   "ui.privacy.collected.3":
     "Tipo de dispositivo (escritorio / móvil / tableta)",
   "ui.privacy.collected.4": "País (aproximado, basado en IP anonimizada)",
   "ui.privacy.collected.5":
-    "Idioma preferido del sitio y tema de color (en la visita y al cambiarlo)",
+    "Idioma de la web y modo claro u oscuro (al entrar y al cambiarlo)",
   "ui.privacy.notcollected.title": "Qué NO recopilamos",
   "ui.privacy.notcollected.0": "Sin cookies ni identificadores persistentes",
   "ui.privacy.notcollected.1": "Sin datos personales (nombre, correo, etc.)",
   "ui.privacy.notcollected.2": "Sin almacenamiento de dirección IP",
-  "ui.privacy.notcollected.3": "Sin seguimiento entre sitios",
+  "ui.privacy.notcollected.3": "Sin rastreo entre webs",
   "ui.privacy.notcollected.4": "Sin venta de datos a terceros",
   "ui.privacy.moreinfo": "Más detalles en",
   "ui.privacy.consent":
-    "Las analíticas solo se cargan si aceptas el banner. Si las rechazas, el sitio funciona igual, sin cargar Umami.",
+    "Las estadísticas solo se cargan si aceptas el aviso. Si lo rechazas, la web funciona igual y no carga Umami.",
 
   // ── Contact ───────────────────────────────────────────────────────────────
   "ui.contact.intro":
-    "Abierto a nuevos proyectos y colaboraciones. Escríbeme cuando quieras — normalmente respondo en menos de 24 horas.",
+    "Estoy abierto a proyectos y colaboraciones. Escríbeme cuando quieras: normalmente respondo en menos de 24 horas.",
   "ui.contact.network.email": "Correo electrónico",
   "ui.contact.network.linkedin": "LinkedIn",
   "ui.contact.network.github": "GitHub",
+  "ui.contact.copy": "Copiar correo",
+  "ui.contact.copied": "Copiado",
 
   // ── Basics ───────────────────────────────────────────────────────────────
   "basics.label": "Desarrollador Frontend",
   "basics.location": "Barcelona · Cataluña",
   "basics.summary.0":
-    "Desarrollador frontend especializado en construir interfaces limpias y cuidadas — desde componentes reutilizables hasta los detalles que percibe el usuario. Me importa que las experiencias funcionen bien y sean un placer de usar.",
+    "Desarrollador frontend. Hago interfaces limpias y cuidadas, de los componentes que se reutilizan a los detalles que se notan. Me importa que funcionen bien y que apetezca usarlas.",
   "basics.summary.1":
-    "Me adapto con rapidez y mantengo la curiosidad: sigo las tendencias del sector, las nuevas herramientas y cómo la IA está cambiando la forma de desarrollar.",
+    "Me adapto rápido y mantengo la curiosidad: sigo las novedades del sector, las herramientas nuevas y cómo la IA está cambiando la forma de programar.",
   "basics.summary.2":
-    "Además del frontend, trabajo con Unity en proyectos interactivos y aporto conocimientos de modelado 3D — una visión más amplia que ayuda en productos digitales multidisciplinares.",
+    "Además del frontend, trabajo con Unity en proyectos interactivos y sé modelar en 3D. Esa mirada más amplia ayuda cuando un producto mezcla disciplinas.",
 
   // ── Work experience ───────────────────────────────────────────────────────
   "work.0.position": "Lead Engineer",
   "work.0.highlights.0":
-    "Nuevo producto Role-Play integrando SCAI (WebSockets) y AI Factory (LLMs de puntuación).",
+    "Nuevo producto Role-Play que integra SCAI (WebSockets) y AI Factory (modelos de lenguaje para puntuar).",
   "work.0.highlights.1":
     "Componentes y widgets para Syntphony Learning Tech (PHP, Moodle, HTML, JavaScript).",
   "work.0.highlights.2":
-    "Funcionalidades en el portal de administración de Syntphony Immersive Experiences, incluido el acceso con OTP.",
+    "Funcionalidades en el portal de administración de Syntphony Immersive Experiences, con inicio de sesión por OTP.",
   "work.0.highlights.3":
     "Versión web de Syntphony Immersive Experiences con WebGL y Unity.",
   "work.0.highlights.4":
@@ -161,7 +164,7 @@ export const ES: Record<I18nKey, string> = {
   "work.0.highlights.5":
     "Migración del design system del portal Syntphony Immersive Experiences.",
   "work.0.highlights.6":
-    "Mantenimiento y optimización de pipelines CI/CD de frontend: tests E2E, tests unitarios y rendimiento de build.",
+    "Mantenimiento y optimización de los pipelines CI/CD de frontend: tests E2E, tests unitarios y tiempo de compilación.",
 
   "work.1.position": "Engineer",
   "work.1.highlights.0":
@@ -175,7 +178,7 @@ export const ES: Record<I18nKey, string> = {
   "work.1.highlights.4":
     "Widget de calendario como portlet Liferay (Educaixa/CaixaBank).",
   "work.1.highlights.5":
-    "SPAs para sitios Ready-for-Proposal (RFP) con demos de alto impacto en Angular 9 (SEAT y Orange).",
+    "Aplicaciones para propuestas comerciales (RFP), con demos potentes en Angular 9 (SEAT y Orange).",
   "work.1.highlights.6": "Design system con Storybook y Stencil.",
   "work.1.highlights.7":
     "Prueba de concepto: exportación de design tokens de Figma a un design system.",
@@ -200,7 +203,7 @@ export const ES: Record<I18nKey, string> = {
 
   "work.5.position": "Programador Multimedia",
   "work.5.summary":
-    "Simulación del HUD y las pantallas de cockpit digital de un nuevo vehículo SEAT.",
+    "Simulación del HUD y las pantallas de la cabina digital de un vehículo nuevo de SEAT.",
 
   "work.6.position": "IT Helpdesk",
   "work.6.highlights.0":
@@ -215,7 +218,7 @@ export const ES: Record<I18nKey, string> = {
     "Nuevos ejercicios de aprendizaje para los estudiantes.",
   "work.7.highlights.1": "Apoyo a la docencia de la asignatura de Animación 1.",
   "work.7.highlights.2":
-    "Apoyo en jornadas de puertas abiertas: visitas a laboratorios, Q&A e información para futuros estudiantes.",
+    "Apoyo en las jornadas de puertas abiertas: visitas a los laboratorios, preguntas e información para futuros estudiantes.",
   "work.7.highlights.3":
     "Gestión del material y la logística de los laboratorios.",
 
@@ -223,72 +226,71 @@ export const ES: Record<I18nKey, string> = {
   "projects.0.description":
     "Consola meteorológica LCARS (TNG) para una estación en Cabacés",
   "projects.0.longDescription":
-    "El tiempo de una estación meteorológica de patio en Cabacés (Priorat), dibujado como un pupitre de operaciones LCARS de Star Trek TNG a pantalla completa. Condiciones en directo, previsión e histórico desde Weather Underground (con alternativa a Open-Meteo), etiquetas en catalán, castellano e inglés, y unidades métricas o imperiales. Hecho como sitio estático con Astro, TypeScript y un marco LCARS a medida — un proyecto de fan, sin afiliación con Paramount ni Weather Underground.",
+    "El tiempo de una estación meteorológica de patio en Cabacés (Priorat), con el aspecto de una consola de operaciones LCARS de Star Trek TNG a pantalla completa. Condiciones en directo, previsión e histórico de Weather Underground (con alternativa a Open-Meteo), textos en catalán, castellano e inglés, y unidades métricas o imperiales. Sitio estático con Astro, TypeScript y una interfaz LCARS hecha a medida. Es un proyecto de fan, sin relación con Paramount ni Weather Underground.",
   "projects.1.description":
     "Visualizador 3D interactivo de eclipses solares y lunares",
   "projects.1.longDescription":
-    "Visualizador 3D interactivo de eclipses solares y lunares. Distancias y tamaños usan una escala de aula por defecto para que la inclinación orbital de 5° de la Luna se vea bien, con un conmutador de escala real para las proporciones reales. Hecho con React, TypeScript, Three.js y React Three Fiber, arranca en pausa en el eclipse solar total del 12 de agosto de 2026, con interfaz en inglés y catalán.",
+    "Visualizador 3D interactivo de eclipses solares y lunares. Las distancias y los tamaños salen a escala de aula para que se vea la inclinación orbital de 5° de la Luna, con una opción para pasar a la escala real. Hecho con React, TypeScript, Three.js y React Three Fiber. Se abre parado en el eclipse solar total del 12 de agosto de 2026, con la interfaz en inglés y catalán.",
   "projects.2.description":
     "Web para un estudio de movimiento Seitai y katsugen",
   "projects.2.longDescription":
-    "Web de marketing para Estudi Seitai, una práctica de movimiento Seitai y katsugen en Cataluña. Hecha como sitio estático rápido con Astro, TypeScript y Tailwind, presenta la práctica, los estudios y el contacto en catalán, con un tono editorial calmado acorde a la marca.",
+    "Web de marketing para Estudi Seitai, un estudio de movimiento Seitai y katsugen en Cataluña. Sitio estático y rápido con Astro, TypeScript y Tailwind. Explica la práctica, los espacios y el contacto en catalán, con un tono tranquilo que encaja con la marca.",
   "projects.3.description":
-    "App estática mobile-first para encontrar objetos de casa con espacios etiquetados con QR",
+    "App estática pensada para el móvil para encontrar objetos de casa con espacios marcados con QR",
   "projects.3.longDescription":
-    "App web estática mobile-first para encontrar dónde tienes guardadas las cosas de casa. Pega un QR en armarios y cajoneras, escanea y busca por palabra clave con coincidencia aproximada en el cliente. Hecha con Next.js, TypeScript y Tailwind CSS, con inventario en catalán e interfaz en catalán, castellano e inglés, desplegada como PWA estática en GitHub Pages.",
+    "App web estática, pensada para el móvil, para encontrar dónde tienes guardadas las cosas de casa. Pegas un QR en armarios y cajoneras, lo escaneas y buscas por palabra, con una búsqueda aproximada que se hace en el navegador. Hecha con Next.js, TypeScript y Tailwind CSS, con el inventario en catalán y la interfaz en catalán, castellano e inglés. Publicada como PWA estática en GitHub Pages.",
   "projects.4.description":
-    "App de lectura rápida con la técnica Spritz (desarrollo guiado por especificaciones)",
+    "App de lectura rápida con la técnica Spritz, hecha a partir de especificaciones",
   "projects.4.longDescription":
-    "App de lectura rápida en el navegador basada en la técnica Spritz (RSVP): las palabras aparecen de una en una alrededor de un punto fijo para subir la velocidad sin mover la mirada. Hecha con React, Vite, TypeScript y Tailwind con un flujo guiado por especificaciones, con cambio de idioma y velocidades ajustables.",
+    "App de lectura rápida en el navegador con la técnica Spritz (RSVP): las palabras salen de una en una alrededor de un punto fijo, para leer más deprisa sin mover los ojos. Hecha con React, Vite, TypeScript y Tailwind a partir de especificaciones, con cambio de idioma y velocidad ajustable.",
   "projects.5.description":
     "Página interactiva con tres minijuegos en Canvas (SEAT)",
   "projects.5.longDescription":
-    "Experiencia interactiva de RFP para SEAT con Angular y Canvas. Los visitantes exploran una narrativa de marca a través de tres minijuegos que presentan ideas de propuesta en un formato jugable orientado al cliente, en lugar de una presentación estática.",
+    "Propuesta interactiva para SEAT con Angular y Canvas. Quien la visita recorre la marca con tres minijuegos, en vez de una presentación estática.",
   "projects.6.description":
     "Página interactiva con una cronología de marca (SEAT)",
   "projects.6.longDescription":
-    "Cronología interactiva de marca para SEAT que invita a viajar por coches icónicos y momentos históricos. Una interfaz Angular + TypeScript presenta la línea temporal como narrativa guiada, no como un archivo estático.",
+    "Cronología de marca para SEAT para recorrer coches icónicos y momentos de la historia. La interfaz, en Angular y TypeScript, explica la línea de tiempo paso a paso, no como un archivo quieto.",
   "projects.7.description":
     "Página promocional con un minijuego de cartas (Orange)",
   "projects.7.longDescription":
-    "Página promocional para Orange con un minijuego de cartas. Hecha con Angular, TypeScript y animaciones Lottie para convertir una propuesta de RFP en una historia interactiva sobre servicios centrados en el usuario.",
+    "Página promocional para Orange con un minijuego de cartas. Hecha con Angular, TypeScript y animaciones Lottie, convierte una propuesta comercial en una historia interactiva sobre servicios pensados para quien los usa.",
   "projects.8.description":
     "App de recomendación de TV para Samsung Smart TV (Tizen Studio)",
   "projects.8.longDescription":
-    "Experiencia de recomendación pensada para Samsung Smart TV (Tizen). Una interfaz JavaScript amigable con el mando ayuda a navegar colecciones de películas y series pensadas para el sofá.",
+    "Recomendador pensado para Samsung Smart TV (Tizen). La interfaz, en JavaScript y cómoda con el mando, sirve para elegir películas y series desde el sofá.",
   "projects.9.description":
     "Prototipo de videojuego desarrollado con Unreal Engine 4",
   "projects.9.longDescription":
-    "Prototipo académico de carreras con Unreal Engine 4 y sistemas de juego en C++. Se centra en la sensación del vehículo, el flujo de la pista y el HUD en un entorno de cañón de ciencia ficción — un corte vertical, no un lanzamiento comercial completo.",
+    "Prototipo académico de carreras con Unreal Engine 4 y la lógica de juego en C++. Trabaja cómo se siente el vehículo, el ritmo del circuito y el HUD en un cañón de ciencia ficción. Es una muestra jugable, no un juego comercial terminado.",
   "projects.10.description": "Juego de palabras inspirado en el Paraulògic",
   "projects.10.longDescription":
-    "Minijuego de palabras en el navegador inspirado en el Paraulògic. Los jugadores forman palabras en catalán a partir de un juego hexagonal de letras, con mezcla, borrado y puntuación, hecho con HTML, CSS y JavaScript.",
+    "Minijuego de palabras en el navegador inspirado en el Paraulògic. Se forman palabras en catalán a partir de un hexágono de letras, con opción de mezclar, borrar y puntuar. Hecho con HTML, CSS y JavaScript.",
   "projects.11.description":
     "Versión anterior del portafolio desarrollada con Angular",
   "projects.11.longDescription":
-    "Primer portafolio personal de larga duración, hecho con Angular, TypeScript y SCSS. Estableció el sistema de marca DGM y los patrones de narración de proyectos que después se refinaron en el sitio actual en Astro.",
-  "projects.12.description":
-    "Minijuego hipercasual de minigolf desarrollado con Unity",
+    "Primer portafolio personal que duró, hecho con Angular, TypeScript y SCSS. Ahí quedó fijada la marca DGM y la forma de contar los proyectos, luego refinada en la web actual en Astro.",
+  "projects.12.description": "Minijuego sencillo de minigolf hecho con Unity",
   "projects.12.longDescription":
-    "Minijuego hipercasual de minigolf hecho con Unity, C# y HLSL. Niveles mínimos, disparos con clic y arrastre y una estética low-poly viva — publicado en itch.io como una sesión corta y accesible.",
+    "Minijuego sencillo de minigolf hecho con Unity, C# y HLSL. Niveles cortos, tiros arrastrando el ratón y un estilo low-poly alegre. Publicado en itch.io para echar una partida rápida.",
   "projects.13.description":
     "Web para descubrir familias de instrumentos, desarrollada con Angular",
   "projects.13.longDescription":
-    "Catálogo en catalán para explorar familias de instrumentos musicales. Un frontend Angular muestra cartas de instrumentos con paneles de detalle expansibles para descripciones, enlaces y medios.",
+    "Catálogo en catalán para explorar familias de instrumentos. El frontend, en Angular, muestra fichas que se abren con la descripción, los enlaces y los medios.",
   "projects.14.description":
     "Cuadrícula filtrable de elementos con Isotope (Endesa)",
   "projects.14.longDescription":
-    "Cuadrícula filtrable de elementos para Endesa con Isotope, jQuery y Handlebars. Los visitantes ordenan y exploran valores codificados por color en un tablero interactivo denso pensado para demos de cliente.",
+    "Cuadrícula filtrable para Endesa con Isotope, jQuery y Handlebars. Se pueden ordenar y explorar valores marcados con colores en un tablero pensado para enseñárselo al cliente.",
   "projects.15.description":
     "Efectos de postprocesado en tiempo real con fragment shaders e ImGui",
   "projects.15.longDescription":
-    "Laboratorio de postprocesado en tiempo real con C++ y GLSL y controles ImGui. Permite activar efectos como corrección de color, posterización, dithering y pixelización sobre una escena 3D para estudiar pipelines de efectos de imagen.",
+    "Laboratorio de efectos de imagen en tiempo real con C++ y GLSL, y controles con ImGui. Se pueden activar corrección de color, posterización, dithering y pixelado sobre una escena 3D para ver cómo se encadenan.",
   "projects.0.highlights.0":
     "Consola LCARS TNG a pantalla completa para el tiempo de Cabacés",
   "projects.0.highlights.1":
     "Astro y TypeScript con una interfaz LCARS a medida",
   "projects.0.highlights.2":
-    "Pipeline de snapshots en directo con CA / ES / EN y unidades métricas o imperiales",
+    "Capturas en directo con CA / ES / EN y unidades métricas o imperiales",
   "projects.1.highlights.0":
     "Visualizador 3D interactivo de eclipses solares y lunares",
   "projects.1.highlights.1":
@@ -301,19 +303,18 @@ export const ES: Record<I18nKey, string> = {
     "Sitio estático hecho con Astro, TypeScript y Tailwind CSS",
   "projects.2.highlights.2": "En producción en estudiseitai.cat",
   "projects.3.highlights.0":
-    "App estática mobile-first para encontrar objetos de casa",
+    "App estática, pensada para el móvil, para encontrar objetos de casa",
   "projects.3.highlights.1":
-    "Códigos QR para los espacios y búsqueda aproximada en el cliente",
+    "Códigos QR en los espacios y búsqueda aproximada en el navegador",
   "projects.3.highlights.2": "Next.js + TypeScript, desplegada en GitHub Pages",
   "projects.4.highlights.0":
     "App web de lectura rápida basada en la técnica Spritz (RSVP)",
-  "projects.4.highlights.1":
-    "Desarrollada con un flujo de trabajo guiado por especificaciones",
+  "projects.4.highlights.1": "Hecha a partir de especificaciones",
   "projects.4.highlights.2": "React + Vite + TypeScript + Tailwind CSS",
   "projects.5.highlights.0":
     "Página interactiva de propuesta con tres minijuegos en Canvas para SEAT",
   "projects.5.highlights.1": "Frontend con Angular y TypeScript",
-  "projects.5.highlights.2": "Demo orientada al cliente para un RFP",
+  "projects.5.highlights.2": "Demo para enseñar una propuesta al cliente",
   "projects.6.highlights.0": "Cronología interactiva de marca para SEAT",
   "projects.6.highlights.1": "Interfaz con Angular y TypeScript",
   "projects.6.highlights.2":
@@ -321,17 +322,17 @@ export const ES: Record<I18nKey, string> = {
   "projects.7.highlights.0":
     "Página promocional con un minijuego de cartas para Orange",
   "projects.7.highlights.1": "Angular y TypeScript con animaciones Lottie",
-  "projects.7.highlights.2": "Demo orientada al cliente para un RFP",
+  "projects.7.highlights.2": "Demo para enseñar una propuesta al cliente",
   "projects.8.highlights.0":
     "App de recomendación de TV para Samsung Smart TV (Tizen)",
   "projects.8.highlights.1": "Hecha con JavaScript, HTML y CSS",
   "projects.8.highlights.2":
-    "Proyecto académico centrado en la experiencia de salón",
+    "Proyecto académico pensado para verlo desde el sofá",
   "projects.9.highlights.0":
     "Prototipo de videojuego de carreras con Unreal Engine 4",
   "projects.9.highlights.1": "Mecánicas de juego y sistemas en C++",
   "projects.9.highlights.2":
-    "Prototipo académico para explorar sensación de vehículo y ritmo de pista",
+    "Prototipo académico para probar cómo se siente el coche y el ritmo del circuito",
   "projects.10.highlights.0": "Juego de palabras inspirado en el Paraulògic",
   "projects.10.highlights.1":
     "Implementación ligera con HTML, CSS y JavaScript",
@@ -341,23 +342,23 @@ export const ES: Record<I18nKey, string> = {
   "projects.11.highlights.1":
     "Arquitectura de componentes con TypeScript y SCSS",
   "projects.11.highlights.2": "Sustituida por el sitio actual en Astro",
-  "projects.12.highlights.0": "Minijuego hipercasual de minigolf con Unity",
+  "projects.12.highlights.0": "Minijuego sencillo de minigolf con Unity",
   "projects.12.highlights.1": "Gameplay y shaders con C# y HLSL",
   "projects.12.highlights.2": "Publicado en itch.io",
   "projects.13.highlights.0": "Catálogo navegable de familias de instrumentos",
   "projects.13.highlights.1": "Frontend con Angular y TypeScript",
   "projects.13.highlights.2":
-    "Interfaz exploratoria para una taxonomía de instrumentos",
+    "Interfaz para explorar las familias de instrumentos",
   "projects.14.highlights.0":
     "Cuadrícula filtrable de productos/elementos para Endesa",
   "projects.14.highlights.1": "Layout con Isotope, jQuery y Handlebars",
   "projects.14.highlights.2":
-    "Entrega de cliente centrada en la navegación y el filtrado",
+    "Encargo para el cliente, pensado para navegar y filtrar",
   "projects.15.highlights.0":
     "Efectos de postprocesado en tiempo real con fragment shaders",
   "projects.15.highlights.1": "C++ y GLSL con controles ImGui",
   "projects.15.highlights.2":
-    "Exploración académica de pipelines de efectos de imagen",
+    "Estudio académico de cómo se encadenan los efectos de imagen",
 
   // ── Education ─────────────────────────────────────────────────────────────
   "education.0.studyType": "Máster en Desarrollo Avanzado de Videojuegos",
@@ -396,4 +397,5 @@ export const ES: Record<I18nKey, string> = {
   "ui.404.message": "Página no encontrada",
   "ui.404.nav.aria": "Navegación rápida",
   "ui.404.back": "← Volver al inicio",
+  "ui.404.hint": "Juega con el 404",
 };

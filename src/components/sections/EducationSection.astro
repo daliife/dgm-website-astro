@@ -4,54 +4,79 @@ import type { I18nKey } from "../../i18n/en";
 import {
   ABOUT_MAJOR_SECTION_CLASSES,
   LINK_UNDERLINE_SECONDARY_CLASSES,
+  TIMELINE_ITEM_CLASSES,
+  TIMELINE_LIST_CLASSES,
+  TIMELINE_RAIL_CLASSES,
 } from "../../utils/constants";
 import { t } from "../../utils/i18n";
 import SectionHeader from "./SectionHeader.astro";
+import TimelineMarker from "./TimelineMarker.astro";
 
 interface Props {
   education: EducationEntry[];
+  /** Keep in the printed CV only (shown on screen on /experience/). */
+  printOnly?: boolean;
 }
 
-const { education } = Astro.props;
+const { education, printOnly = false } = Astro.props;
 ---
 
-<section id="about-education" class={ABOUT_MAJOR_SECTION_CLASSES}>
+<section
+  id="education"
+  class:list={[ABOUT_MAJOR_SECTION_CLASSES, printOnly && "hidden print:block"]}
+>
   <SectionHeader titleKey="ui.about.education" />
-  <div class="space-y-6 print:space-y-4">
+  <div class={`${TIMELINE_LIST_CLASSES} print:space-y-4`}>
     {
       education.map((edu: EducationEntry, eduIndex: number) => (
-        <div class="border-t border-border-primary pt-4 print:border-0 print:pt-0">
-          <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between print:flex-row print:gap-0">
-            <div>
-              <h3
-                class="font-medium text-text-primary print:text-[10px] print:font-semibold print:text-gray-900"
-                data-i18n={`education.${eduIndex}.studyType`}
-              >
-                {t(`education.${eduIndex}.studyType` as I18nKey, edu.studyType)}
-              </h3>
-              <p class="text-sm text-text-secondary print:text-[10px] print:text-gray-600">
-                <span data-i18n={`education.${eduIndex}.area`}>
-                  {t(`education.${eduIndex}.area` as I18nKey, edu.area)}
-                </span>{" "}
-                <span class="hidden print:inline">— {edu.institution}</span>
-              </p>
+        <div class={`${TIMELINE_ITEM_CLASSES} pb-10 print:block print:pb-0`}>
+          <span
+            class={`${TIMELINE_RAIL_CLASSES} print:hidden`}
+            aria-hidden="true"
+          />
+          <span class="print:hidden">
+            <TimelineMarker
+              name={edu.institution}
+              logo={edu.logo}
+              icon={edu.icon}
+            />
+          </span>
+          <div class="min-w-0 pt-1.5 print:pt-0">
+            <div class="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between print:flex-row print:gap-0">
+              <div>
+                <h3
+                  class="font-medium text-text-primary print:text-[10px] print:font-semibold print:text-gray-900"
+                  data-i18n={`education.${eduIndex}.studyType`}
+                >
+                  {t(
+                    `education.${eduIndex}.studyType` as I18nKey,
+                    edu.studyType,
+                  )}
+                </h3>
+                <p class="text-sm text-text-secondary print:text-[10px] print:text-gray-600">
+                  <span data-i18n={`education.${eduIndex}.area`}>
+                    {t(`education.${eduIndex}.area` as I18nKey, edu.area)}
+                  </span>{" "}
+                  <span class="hidden print:inline">— {edu.institution}</span>
+                </p>
+              </div>
+              <span class="whitespace-nowrap text-xs uppercase tracking-widest text-text-muted print:text-[9px] print:text-gray-500">
+                {new Date(edu.startDate).getFullYear()} &mdash;{" "}
+                {new Date(edu.endDate).getFullYear()}
+              </span>
             </div>
-            <span class="whitespace-nowrap text-xs uppercase tracking-widest text-text-muted print:text-[9px] print:text-gray-500">
-              {new Date(edu.startDate).getFullYear()} &mdash;{" "}
-              {new Date(edu.endDate).getFullYear()}
-            </span>
+            <a
+              href={edu.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={`${LINK_UNDERLINE_SECONDARY_CLASSES} mt-2 inline-block text-sm print:hidden`}
+            >
+              {edu.institution}
+              <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
+                {t("ui.a11y.opensNewTab")}
+              </span>
+            </a>
           </div>
-          <a
-            href={edu.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            class={`${LINK_UNDERLINE_SECONDARY_CLASSES} text-sm print:hidden`}
-          >
-            {edu.institution}
-            <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
-              {t("ui.a11y.opensNewTab")}
-            </span>
-          </a>
         </div>
       ))
     }

@@ -10,14 +10,12 @@ export const EN = {
   "ui.nav.contact": "Contact",
 
   // ── Home page ─────────────────────────────────────────────────────────────
-  "ui.home.greeting": "Hello, I'm",
   "ui.home.cta": "Get in touch",
   "ui.home.cta.work": "Explore my projects",
-  "ui.home.typewriter.0": "FRONTEND DEVELOPER",
-  "ui.home.typewriter.1": "SOFTWARE ENGINEER",
-  "ui.home.typewriter.2": "REACT SPECIALIST",
-  "ui.home.typewriter.3": "CLARINETTIST",
-  "ui.home.typewriter.4": "MOUNTAIN ENTHUSIAST",
+  "ui.home.typewriter.0": "Frontend developer",
+  "ui.home.typewriter.1": "Software engineer",
+  "ui.home.typewriter.2": "Clarinettist",
+  "ui.home.typewriter.3": "Mountain enthusiast",
   "ui.nextup": "Also explore",
   "ui.nextup.aria": "Related pages",
   "ui.nextup.about": "About me",
@@ -67,6 +65,10 @@ export const EN = {
   "ui.about.education": "Education",
   "ui.about.certificates": "Certificates",
   "ui.about.printcv": "Print CV",
+  "ui.about.stats": "At a glance",
+  "ui.about.stats.years": "Years of experience",
+  "ui.about.stats.projects": "Projects",
+  "ui.about.stats.technologies": "Technologies",
   "ui.about.experience": "Experience", // print-only
 
   // ── Cookie consent ─────────────────────────────────────────────────────────
@@ -81,7 +83,6 @@ export const EN = {
   "ui.a11y.cookieNotice": "Cookie notice",
   "ui.a11y.skipToContent": "Skip to main content",
   "ui.a11y.portraitOf": "Portrait of",
-  "ui.a11y.portraitFlip": "Flip portrait horizontally",
   "ui.a11y.theme.toDark": "Switch to dark mode",
   "ui.a11y.theme.toLight": "Switch to light mode",
   "ui.a11y.nav.main": "Main navigation",
@@ -131,6 +132,8 @@ export const EN = {
   "ui.contact.network.email": "Email",
   "ui.contact.network.linkedin": "LinkedIn",
   "ui.contact.network.github": "GitHub",
+  "ui.contact.copy": "Copy email",
+  "ui.contact.copied": "Copied",
 
   // ── Basics ─────────────────────────────────────────────────────────────────
   "basics.label": "Frontend Developer",
@@ -372,6 +375,7 @@ export const EN = {
   "ui.404.message": "Page not found",
   "ui.404.nav.aria": "Quick navigation",
   "ui.404.back": "← Back to home",
+  "ui.404.hint": "Play with the 404",
 } as const;
 
 export type I18nKey = keyof typeof EN;

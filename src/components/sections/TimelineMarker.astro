@@ -1,0 +1,56 @@
+---
+import { getInitials } from "../../utils/cvStats";
+import { TIMELINE_ICONS, isTimelineIcon } from "../../utils/icons";
+
+interface Props {
+  name: string;
+  /** Square logo path; takes precedence over `icon`. */
+  logo?: string;
+  /** Key of TIMELINE_ICONS; unknown keys fall back to initials. */
+  icon?: string;
+  current?: boolean;
+}
+
+const { name, logo, icon, current = false } = Astro.props;
+const iconPath = isTimelineIcon(icon) ? TIMELINE_ICONS[icon] : undefined;
+---
+
+<span
+  class="relative z-[1] flex h-10 w-10 shrink-0 items-center justify-center border border-border-primary text-text-primary"
+  aria-hidden="true"
+>
+  {
+    logo ? (
+      <img
+        src={logo}
+        alt=""
+        class="h-3/5 w-3/5 object-contain grayscale"
+        width="24"
+        height="24"
+        loading="lazy"
+        decoding="async"
+      />
+    ) : iconPath ? (
+      <svg
+        class="h-6 w-6"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        viewBox="0 0 24 24"
+      >
+        <path d={iconPath} />
+      </svg>
+    ) : (
+      <span class="text-xs font-medium tracking-wide">{getInitials(name)}</span>
+    )
+  }
+  {
+    current && (
+      <span class="absolute -right-1 -top-1 flex h-2.5 w-2.5 items-center justify-center rounded-full bg-bg-primary">
+        <span class="h-1.5 w-1.5 rounded-full bg-status-positive" />
+      </span>
+    )
+  }
+</span>

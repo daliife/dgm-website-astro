@@ -1,0 +1,105 @@
+---
+import { projects, work } from "@cv";
+import type { I18nKey } from "../../i18n/en";
+import type { ProjectEntry, WorkEntry } from "../../types/ui";
+import { getTechnologyCount, getYearsOfExperience } from "../../utils/cvStats";
+import { t } from "../../utils/i18n";
+
+interface Props {
+  className?: string;
+}
+
+const { className = "" } = Astro.props;
+
+const stats: { value: number; suffix?: string; labelKey: I18nKey }[] = [
+  {
+    value: getYearsOfExperience(work as WorkEntry[]),
+    suffix: "+",
+    labelKey: "ui.about.stats.years",
+  },
+  { value: projects.length, labelKey: "ui.about.stats.projects" },
+  {
+    value: getTechnologyCount(projects as ProjectEntry[]),
+    labelKey: "ui.about.stats.technologies",
+  },
+];
+---
+
+<section
+  aria-labelledby="about-stats-heading"
+  class:list={["reveal print:hidden", className]}
+>
+  <h2 id="about-stats-heading" class="sr-only" data-i18n="ui.about.stats">
+    {t("ui.about.stats")}
+  </h2>
+  <dl
+    class="grid grid-cols-3 divide-x divide-border-primary border-y border-border-primary"
+  >
+    {
+      stats.map(({ value, suffix = "", labelKey }) => (
+        <div class="flex flex-col-reverse gap-2 px-3 py-6 first:pl-0 sm:px-6 sm:py-8">
+          <dt
+            class="text-[11px] uppercase leading-snug tracking-widest text-text-muted sm:text-xs"
+            data-i18n={labelKey}
+          >
+            {t(labelKey)}
+          </dt>
+          <dd class="flex items-baseline text-3xl font-bold tabular-nums tracking-tight text-text-primary sm:text-5xl">
+            <span data-count-to={value}>{value}</span>
+            <span>{suffix}</span>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>
+
+<script>
+  const DURATION_MS = 1400;
+  let countObserver: IntersectionObserver | null = null;
+
+  function countUp(el: HTMLElement) {
+    const target = Number(el.dataset.countTo);
+    const start = performance.now();
+    const step = (now: number) => {
+      const progress = Math.min(1, (now - start) / DURATION_MS);
+      const eased = 1 - Math.pow(2, -10 * progress);
+      el.textContent = String(
+        Math.round(target * (progress === 1 ? 1 : eased)),
+      );
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  document.addEventListener("astro:before-swap", () => {
+    countObserver?.disconnect();
+    countObserver = null;
+  });
+
+  document.addEventListener("astro:page-load", () => {
+    const counters = document.querySelectorAll<HTMLElement>("[data-count-to]");
+    if (
+      !counters.length ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
+    countObserver?.disconnect();
+    countObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          countUp(entry.target as HTMLElement);
+          countObserver?.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.6 },
+    );
+    counters.forEach((el) => {
+      el.textContent = "0";
+      countObserver!.observe(el);
+    });
+  });
+</script>

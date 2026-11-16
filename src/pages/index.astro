@@ -7,95 +7,295 @@ import {
   HOME_CTA_PRIMARY_CLASSES,
   HOME_CTA_SECONDARY_CLASSES,
 } from "../utils/constants";
+import { HOME_ROLE_KEYS } from "../utils/typewriter";
 import { basics } from "@cv";
 const { name, lastName, email } = basics;
+const roleTexts = HOME_ROLE_KEYS.map((key) => t(key));
+const boardChars = [...(roleTexts[0] ?? "").trimEnd()];
 ---
 
-<Layout
-  title={`${name} ${lastName} — ${t("basics.label")}`}
-  type="profile"
-  hideFooter={true}
->
-  <section class="flex min-h-screen flex-col items-center justify-center px-6">
-    <div class="home-enter w-full max-w-4xl">
-      <!-- Greeting -->
-      <p
-        class="home-enter__item mb-4 text-xs uppercase tracking-widest text-text-muted"
-        data-i18n="ui.home.greeting"
-      >
-        {t("ui.home.greeting")}
-      </p>
-
-      <!-- Name -->
+<Layout title={`${name} ${lastName} — ${t("basics.label")}`} type="profile">
+  <section class="flex flex-1 items-center px-6 pb-8 pt-20 md:pt-24">
+    <div
+      class="home-enter mx-auto flex w-full max-w-5xl flex-col items-center lg:items-start"
+    >
       <h1
-        class="home-enter__item mb-4 text-5xl font-bold uppercase leading-none tracking-tight text-text-primary sm:text-7xl lg:text-8xl"
+        class="home-enter__item flex w-full min-w-0 flex-wrap items-baseline justify-center gap-x-[0.22em] gap-y-2 text-4xl/none font-extrabold uppercase tracking-tight text-text-primary sm:gap-y-3 sm:text-6xl/none lg:justify-start lg:text-7xl/none xl:text-8xl/none"
       >
-        <span class="block">{name}</span>
-        <span class="block font-light">{lastName}</span>
+        <span>{name}</span>
+        <span class="font-thin">{lastName}</span>
       </h1>
 
-      <!-- Rotating descriptor (typewriter) -->
-      <p
-        class="home-enter__item mb-10 flex min-h-[2.75em] text-2xl font-light uppercase tracking-widest text-text-secondary max-sm:whitespace-normal max-sm:text-xl sm:min-h-[1.5em] sm:items-center sm:overflow-hidden sm:whitespace-nowrap sm:text-3xl"
-        aria-live="polite"
-        aria-atomic="true"
-      >
-        <span id="tw-rotating">{t("basics.label")}</span>
-        <span class="typewriter-cursor" aria-hidden="true"></span>
-      </p>
-
-      <!-- CTAs -->
       <div
-        class="home-enter__item flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
+        class="home-enter__item mt-4 flex w-full flex-col items-center gap-16 sm:mt-5 sm:gap-24 lg:items-start"
       >
-        <Button
-          href={pageHref("projects")}
-          variant="simple"
-          size="none"
-          className={HOME_CTA_PRIMARY_CLASSES}
-        >
-          <svg
-            class="h-4 w-4 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
+        <div class="w-full">
+          <p
+            class="home-roles-still flex w-full flex-wrap items-baseline justify-center gap-x-3 gap-y-1 text-lg font-light tracking-wide text-text-secondary sm:text-3xl lg:text-4xl"
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-              d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zm10 0a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-            ></path>
-          </svg>
-          <span data-i18n="ui.home.cta.work">{t("ui.home.cta.work")}</span>
-        </Button>
-        <Button
-          href={`mailto:${email}`}
-          variant="simple"
-          size="none"
-          className={HOME_CTA_SECONDARY_CLASSES}
+            {
+              HOME_ROLE_KEYS.map((key, i) => (
+                <>
+                  {i > 0 && (
+                    <span aria-hidden="true" class="text-text-muted">
+                      ·
+                    </span>
+                  )}
+                  <span data-i18n={key}>{t(key)}</span>
+                </>
+              ))
+            }
+          </p>
+          <div class="home-roles-live w-full">
+            <p class="sr-only">
+              {
+                HOME_ROLE_KEYS.map((key, i) => (
+                  <>
+                    {i > 0 && ", "}
+                    <span data-i18n={key} data-home-role>
+                      {t(key)}
+                    </span>
+                  </>
+                ))
+              }
+            </p>
+            <div class="flex w-full justify-center">
+              <div
+                class="hero-board inline-grid text-lg font-light tracking-wide text-text-secondary sm:text-3xl lg:text-4xl"
+                aria-hidden="true"
+              >
+                <span class="hero-window">
+                  <span class="hero-track" data-hero-roll>
+                    {
+                      boardChars.map((ch) => (
+                        <span class="hero-board__cell shrink-0">
+                          {ch === " " ? "\u00A0" : ch}
+                        </span>
+                      ))
+                    }
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="flex flex-wrap items-center justify-center gap-x-8 gap-y-4 self-center lg:self-end"
         >
-          <svg
-            class="h-4 w-4 shrink-0"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
+          <Button
+            href={pageHref("projects")}
+            variant="simple"
+            size="none"
+            className={HOME_CTA_PRIMARY_CLASSES}
           >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-              d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-            ></path>
-          </svg>
-          <span data-i18n="ui.home.cta">{t("ui.home.cta")}</span>
-        </Button>
+            <span data-i18n="ui.home.cta.work">{t("ui.home.cta.work")}</span>
+          </Button>
+          <Button
+            href={`mailto:${email}`}
+            variant="simple"
+            size="none"
+            className={HOME_CTA_SECONDARY_CLASSES}
+          >
+            <span data-i18n="ui.home.cta">{t("ui.home.cta")}</span>
+          </Button>
+        </div>
       </div>
     </div>
   </section>
 </Layout>
+
+<script>
+  import { pageScopedController } from "../utils/motion";
+
+  const HOLD_MS = 4000;
+  const WIPE_MS = 1100;
+  const CELL_CLASS = "hero-board__cell shrink-0";
+
+  document.addEventListener("astro:page-load", () => {
+    const slot = document.querySelector<HTMLElement>("[data-hero-roll]");
+    if (!slot) return;
+
+    const { signal } = pageScopedController();
+    const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let timer = 0;
+    let index = 0;
+    let flapId = 0;
+    let shown = "";
+    const flapTimers: number[] = [];
+
+    const readPhrases = () =>
+      [...document.querySelectorAll<HTMLElement>("[data-home-role]")]
+        .map((el) => el.textContent?.trim() ?? "")
+        .filter(Boolean);
+
+    let phrases = readPhrases();
+
+    const stop = () => {
+      window.clearTimeout(timer);
+      timer = 0;
+    };
+
+    const clearFlaps = () => {
+      while (flapTimers.length > 0) {
+        window.clearTimeout(flapTimers.pop());
+      }
+      slot.getAnimations().forEach((anim) => anim.cancel());
+      slot.style.transform = "";
+    };
+
+    signal.addEventListener("abort", () => {
+      stop();
+      clearFlaps();
+    });
+
+    const paint = (cell: HTMLElement, char: string) => {
+      cell.textContent = char === " " ? "\u00A0" : char;
+    };
+
+    const cellsFor = (width: number) => {
+      const current = [
+        ...slot.querySelectorAll<HTMLElement>(".hero-board__cell"),
+      ];
+      if (current.length < width) {
+        for (let i = current.length; i < width; i += 1) {
+          const cell = document.createElement("span");
+          cell.className = CELL_CLASS;
+          cell.textContent = "\u00A0";
+          slot.append(cell);
+          current.push(cell);
+        }
+      } else if (current.length > width) {
+        current.splice(width).forEach((cell) => cell.remove());
+      }
+      return current;
+    };
+
+    const planOf = (text: string) => {
+      const body = text.trimEnd();
+      const chars = [...body];
+      return { body, chars, left: 0 };
+    };
+
+    const slotAt = (frame: { chars: string[] }, i: number) =>
+      frame.chars[i] ?? " ";
+
+    const settle = (text: string) => {
+      shown = text;
+      flapId += 1;
+      clearFlaps();
+      const frame = planOf(text);
+      const cells = cellsFor(frame.chars.length);
+      cells.forEach((cell, i) => {
+        paint(cell, slotAt(frame, i));
+      });
+    };
+
+    const schedule = () => {
+      stop();
+      if (motion.matches || phrases.length < 2) return;
+      timer = window.setTimeout(() => {
+        index = (index + 1) % phrases.length;
+        flapTo(phrases[index] ?? "");
+      }, HOLD_MS);
+    };
+
+    const later = (ms: number, run: () => void) => {
+      flapTimers.push(window.setTimeout(run, ms));
+    };
+
+    const flapTo = (text: string) => {
+      shown = text;
+      const id = ++flapId;
+      clearFlaps();
+      const frame = planOf(text);
+      const apply = () => {
+        const cells = cellsFor(frame.chars.length);
+        cells.forEach((cell, i) => {
+          paint(cell, slotAt(frame, i));
+        });
+      };
+      if (frame.chars.length === 0) {
+        apply();
+        schedule();
+        return;
+      }
+
+      const timing = {
+        duration: WIPE_MS,
+        easing: "cubic-bezier(0.65, 0, 0.35, 1)",
+      };
+      const lift = [
+        { transform: "translateY(0)", offset: 0 },
+        { transform: "translateY(-110%)", offset: 0.28 },
+        { transform: "translateY(-110%)", offset: 0.62 },
+        { transform: "translateY(0)", offset: 1 },
+      ];
+      slot.animate(lift, timing);
+      later(Math.round(WIPE_MS * 0.45), () => {
+        if (id !== flapId) return;
+        apply();
+        schedule();
+      });
+    };
+
+    const show = (text: string, animate: boolean) => {
+      if (!animate || motion.matches) {
+        settle(text);
+        schedule();
+        return;
+      }
+      flapTo(text);
+    };
+
+    const refresh = () => {
+      phrases = readPhrases();
+      index = Math.min(index, Math.max(phrases.length - 1, 0));
+      const text = phrases[index];
+      if (!text) return;
+      if (text === shown) {
+        schedule();
+        return;
+      }
+      show(text, text !== shown);
+    };
+
+    window.addEventListener("app:lang-change", refresh, { signal });
+
+    const roleNode = document.querySelector("[data-home-role]");
+    if (roleNode) {
+      const observer = new MutationObserver(() => {
+        observer.disconnect();
+        refresh();
+      });
+      observer.observe(roleNode, {
+        characterData: true,
+        childList: true,
+        subtree: true,
+      });
+      signal.addEventListener("abort", () => observer.disconnect());
+    }
+
+    motion.addEventListener(
+      "change",
+      () => {
+        if (motion.matches) {
+          stop();
+          clearFlaps();
+          return;
+        }
+        const text = phrases[index] ?? phrases[0];
+        if (text) settle(text);
+        schedule();
+      },
+      { signal },
+    );
+
+    if (motion.matches || phrases.length === 0) return;
+    const first = phrases[0] ?? "";
+    settle(first);
+    schedule();
+  });
+</script>
 
 <style>
   .home-enter__item {
@@ -113,10 +313,6 @@ const { name, lastName, email } = basics;
   .home-enter__item:nth-child(3) {
     animation-delay: 0.16s;
   }
-  .home-enter__item:nth-child(4) {
-    animation-delay: 0.22s;
-  }
-
   @keyframes home-enter {
     to {
       opacity: 1;
@@ -124,25 +320,26 @@ const { name, lastName, email } = basics;
     }
   }
 
-  .typewriter-cursor {
-    display: inline-block;
-    width: 0.1em;
-    height: 0.82em;
-    background-color: currentColor;
-    vertical-align: text-bottom;
-    margin-left: 0.1em;
-    border-radius: 1px;
-    animation: blink 1s step-end infinite;
+  .home-roles-still {
+    display: none;
   }
-  @keyframes blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
+
+  .hero-board {
+    grid-template-columns: max-content;
+    line-height: 1;
   }
+
+  .hero-window {
+    overflow: hidden;
+  }
+
+  .hero-track {
+    display: flex;
+    justify-content: center;
+    white-space: nowrap;
+    padding-bottom: 0.28em;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .home-enter__item {
       opacity: 1;
@@ -150,90 +347,12 @@ const { name, lastName, email } = basics;
       animation: none;
     }
 
-    .typewriter-cursor {
+    .home-roles-live {
       display: none;
+    }
+
+    .home-roles-still {
+      display: flex;
     }
   }
 </style>
-
-<script>
-  import { getTypewriterPhrases } from "../utils/typewriter";
-  import { getStoredLang } from "../utils/i18n-client";
-  import type { LangCode } from "../utils/i18n";
-
-  let stopCurrent: (() => void) | null = null;
-
-  async function startTypewriter(lang: LangCode) {
-    const el = document.getElementById("tw-rotating");
-    const cursor = document.querySelector<HTMLElement>(".typewriter-cursor");
-    if (!el || !cursor) return;
-
-    stopCurrent?.();
-    let stopped = false;
-    stopCurrent = () => {
-      stopped = true;
-    };
-
-    const phrases = await getTypewriterPhrases(lang);
-
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      el.textContent = phrases[0];
-      cursor.style.display = "none";
-      return;
-    }
-
-    cursor.style.display = "";
-    let charIdx = 0;
-    let phraseIdx = 0;
-    let isDeleting = false;
-
-    function rotate() {
-      if (stopped) return;
-      const current = phrases[phraseIdx];
-
-      if (isDeleting) {
-        charIdx--;
-        el!.textContent = current.slice(0, charIdx);
-        if (charIdx === 0) {
-          isDeleting = false;
-          phraseIdx = (phraseIdx + 1) % phrases.length;
-          setTimeout(rotate, 350);
-        } else {
-          setTimeout(rotate, 35 + Math.random() * 20);
-        }
-      } else {
-        charIdx++;
-        el!.textContent = current.slice(0, charIdx);
-        if (charIdx === current.length) {
-          setTimeout(() => {
-            if (stopped) return;
-            isDeleting = true;
-            rotate();
-          }, 3500);
-        } else {
-          setTimeout(rotate, 80 + Math.random() * 40);
-        }
-      }
-    }
-
-    setTimeout(rotate, 750);
-  }
-
-  function scheduleTypewriter(lang: LangCode) {
-    const run = () => startTypewriter(lang);
-    if ("requestIdleCallback" in window) {
-      requestIdleCallback(run, { timeout: 1500 });
-    } else {
-      setTimeout(run, 200);
-    }
-  }
-
-  document.addEventListener("astro:page-load", () => {
-    scheduleTypewriter(getStoredLang());
-  });
-
-  window.addEventListener("app:lang-change", (e: Event) => {
-    const { lang } = (e as CustomEvent<{ lang: LangCode }>).detail;
-    scheduleTypewriter(lang);
-  });
-</script>

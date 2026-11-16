@@ -5,6 +5,7 @@ import {
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_CLASSES,
   PROJECTS_CATEGORY_HEADING_CLASSES,
+  PROJECT_GRID_CLASSES,
   REVEAL_STAGGER_LIST_CLASSES,
   SCROLL_ANCHOR_MARGIN_CLASSES,
   LIVE_URL,
@@ -92,7 +93,7 @@ const itemListSchema = {
               class:list={[
                 "reveal",
                 SCROLL_ANCHOR_MARGIN_CLASSES,
-                cat !== firstCategory && "mt-12 md:mt-16",
+                cat !== firstCategory && "mt-20 md:mt-28",
               ]}
               aria-labelledby={`projects-category-${cat}-heading`}
             >
@@ -102,7 +103,7 @@ const itemListSchema = {
                 headingClasses={PROJECTS_CATEGORY_HEADING_CLASSES}
               />
               <ul
-                class={`${REVEAL_STAGGER_LIST_CLASSES} space-y-0 [&>li:first-child>article]:border-t-0`}
+                class={`${REVEAL_STAGGER_LIST_CLASSES} ${PROJECT_GRID_CLASSES}`}
               >
                 {grouped[cat].map(({ project, index, slug }) => (
                   <li>

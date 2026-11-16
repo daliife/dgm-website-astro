@@ -21,6 +21,7 @@ import CertificatesSection from "../components/sections/CertificatesSection.astr
 import PrintWorkSection from "../components/sections/PrintWorkSection.astro";
 import NextUpNav from "../components/layout/NextUpNav.astro";
 import AboutPortrait from "../components/sections/AboutPortrait.astro";
+import AboutStats from "../components/sections/AboutStats.astro";
 import type { SocialProfile, WorkEntry } from "../types/ui";
 import type { I18nKey } from "../i18n/en";
 import { t } from "../utils/i18n";
@@ -192,11 +193,12 @@ const profilePageSchema = {
       </div>
     </section>
 
+    <AboutStats className="mt-16 md:mt-20" />
     <PrintWorkSection work={work as WorkEntry[]} />
     <SkillsSection skills={skills} />
     <LanguagesSection languages={languages} />
-    <EducationSection education={education} />
-    <CertificatesSection certificates={certificates} />
+    <EducationSection education={education} printOnly />
+    <CertificatesSection certificates={certificates} printOnly />
 
     <NextUpNav
       className={`${NEXTUP_NAV_CLASSES} mt-12 print:hidden`}

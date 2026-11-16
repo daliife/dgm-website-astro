@@ -19,6 +19,16 @@ export default {
         "border-primary": "rgb(var(--border-primary) / <alpha-value>)",
         "border-secondary": "rgb(var(--border-secondary) / <alpha-value>)",
         "border-muted": "rgb(var(--border-muted) / <alpha-value>)",
+        "status-positive": "rgb(var(--status-positive) / <alpha-value>)",
+      },
+      // Motion tokens — keep in sync with --ease-out-expo / --duration-* in Layout.astro
+      transitionTimingFunction: {
+        "out-expo": "cubic-bezier(0.22, 1, 0.36, 1)",
+      },
+      transitionDuration: {
+        fast: "160ms",
+        base: "280ms",
+        slow: "450ms",
       },
     },
   },

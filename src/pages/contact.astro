@@ -5,7 +5,6 @@ import {
   PAGE_CONTAINER_CLASSES,
   PAGE_HEADING_CLASSES,
   PAGE_HEADING_MARGIN_COMPACT_CLASSES,
-  LINK_UNDERLINE_CLASSES,
 } from "../utils/constants";
 import { ICON_PATHS } from "../utils/icons";
 import type { I18nKey } from "../i18n/en";
@@ -15,71 +14,102 @@ import { t } from "../utils/i18n";
 import { getPageTitleFromKey } from "../utils/seo";
 const { email, profiles } = basics;
 
-const CONTACT_ICONS: Record<string, string> = {
-  Email: ICON_PATHS.email,
-  Github: ICON_PATHS.github,
-  Linkedin: ICON_PATHS.linkedin,
-};
-
 const NETWORK_I18N: Record<SocialNetwork, I18nKey> = {
   Email: "ui.contact.network.email",
   Linkedin: "ui.contact.network.linkedin",
   Github: "ui.contact.network.github",
 };
 
-const CONTACT_ITEM_CLASS =
-  "!flex flex-col !items-start !justify-start gap-1 rounded-none hover:no-underline w-full border-t border-border-primary pt-6 transition-colors duration-200 focus-within:border-text-secondary group";
+const CONTACT_LABEL_CLASS = "text-xs uppercase tracking-widest text-text-muted";
+
+const CONTACT_ROW_BASE =
+  "flex w-full items-center justify-between gap-6 border-t border-border-primary py-6";
+
+const CONTACT_ROW_CLASS = `${CONTACT_ROW_BASE} !flex !items-center !justify-between rounded-none hover:no-underline group`;
+
+const CONTACT_VALUE_CLASS =
+  "link-underline-animate w-fit text-lg font-normal text-text-primary sm:text-xl";
 ---
 
 <Layout
   title={getPageTitleFromKey("ui.page.contact")}
   description={t("ui.meta.contact.description")}
 >
-  <div class={PAGE_CONTAINER_CLASSES}>
-    <h1
-      class={`${PAGE_HEADING_CLASSES} ${PAGE_HEADING_MARGIN_COMPACT_CLASSES}`}
-      data-i18n="ui.page.contact"
-    >
-      {t("ui.page.contact")}
-    </h1>
-    <p
-      class="reveal mb-16 max-w-xl text-base leading-relaxed text-text-secondary sm:text-lg"
-      data-i18n="ui.contact.intro"
-    >
-      {t("ui.contact.intro")}
-    </p>
-    <div class="reveal space-y-6 [&>a:first-child]:border-t-0">
-      <Button
-        href={`mailto:${email}`}
-        variant="simple"
-        size="none"
-        className={CONTACT_ITEM_CLASS}
+  <div
+    class={`${PAGE_CONTAINER_CLASSES} grid grid-cols-1 gap-x-16 md:grid-cols-[5fr_7fr]`}
+  >
+    <div>
+      <h1
+        class={`${PAGE_HEADING_CLASSES} ${PAGE_HEADING_MARGIN_COMPACT_CLASSES}`}
+        data-i18n="ui.page.contact"
       >
-        <span
-          class="mb-2 flex items-center gap-1.5 text-xs uppercase tracking-widest text-text-muted"
+        {t("ui.page.contact")}
+      </h1>
+      <p
+        class="reveal mb-12 max-w-md text-base leading-relaxed text-text-secondary sm:text-lg md:mb-0"
+        data-i18n="ui.contact.intro"
+      >
+        {t("ui.contact.intro")}
+      </p>
+    </div>
+
+    <div
+      class="reveal-stagger self-start border-b border-border-primary md:mt-3"
+    >
+      <div class={`${CONTACT_ROW_BASE} group`}>
+        <Button
+          id="contact-email-link"
+          href={`mailto:${email}`}
+          variant="simple"
+          size="none"
+          className="!flex min-w-0 flex-1 !items-start !justify-start hover:no-underline"
         >
-          <svg
-            class="h-3.5 w-3.5 shrink-0"
-            fill="currentColor"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <Fragment set:html={CONTACT_ICONS.Email} />
-          </svg>
-          <span data-i18n="ui.contact.network.email">
-            {t("ui.contact.network.email")}
+          <span class="flex min-w-0 flex-col gap-2">
+            <span
+              class={CONTACT_LABEL_CLASS}
+              data-i18n="ui.contact.network.email"
+            >
+              {t("ui.contact.network.email")}
+            </span>
+            <span class={`${CONTACT_VALUE_CLASS} break-all`}>{email}</span>
           </span>
-        </span>
-        <span
-          class={`${LINK_UNDERLINE_CLASSES} text-lg text-text-primary sm:text-xl`}
+        </Button>
+        <Button
+          id="copy-email"
+          variant="outline"
+          size="sm"
+          className="hidden shrink-0"
         >
-          {email}
-        </span>
-      </Button>
+          <span data-copy-idle class="inline-flex items-center gap-2">
+            <svg
+              class="h-4 w-4 shrink-0"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <Fragment set:html={ICON_PATHS.copy} />
+            </svg>
+            <span data-i18n="ui.contact.copy">{t("ui.contact.copy")}</span>
+          </span>
+          <span data-copy-done class="hidden items-center gap-2">
+            <svg
+              class="h-4 w-4 shrink-0 text-status-positive"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              aria-hidden="true"
+            >
+              <Fragment set:html={ICON_PATHS.check} />
+            </svg>
+            <span data-i18n="ui.contact.copied">{t("ui.contact.copied")}</span>
+          </span>
+        </Button>
+        <span id="copy-email-status" class="sr-only" aria-live="polite"></span>
+      </div>
       {
         (profiles as SocialProfile[]).map((profile) => {
           if (profile.network === "Email") return null;
-          const icon = CONTACT_ICONS[profile.network];
           const labelKey = NETWORK_I18N[profile.network];
           return (
             <Button
@@ -88,25 +118,21 @@ const CONTACT_ITEM_CLASS =
               rel="noopener noreferrer"
               variant="simple"
               size="none"
-              className={CONTACT_ITEM_CLASS}
+              className={CONTACT_ROW_CLASS}
             >
-              <span class="mb-2 flex items-center gap-1.5 text-xs uppercase tracking-widest text-text-muted">
-                {icon && (
-                  <svg
-                    class="h-3.5 w-3.5 shrink-0"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
-                  >
-                    <Fragment set:html={icon} />
-                  </svg>
-                )}
-                <span data-i18n={labelKey}>{t(labelKey)}</span>
+              <span class="flex min-w-0 flex-col gap-2">
+                <span class={CONTACT_LABEL_CLASS} data-i18n={labelKey}>
+                  {t(labelKey)}
+                </span>
+                <span class={CONTACT_VALUE_CLASS}>
+                  {profile.username || profile.network}
+                </span>
               </span>
               <span
-                class={`${LINK_UNDERLINE_CLASSES} text-lg text-text-primary sm:text-xl`}
+                class="arrow-nudge arrow-nudge--external text-xl text-text-muted transition-colors group-hover:text-text-primary"
+                aria-hidden="true"
               >
-                {profile.username || profile.network}
+                ↗
               </span>
               <span class="sr-only" data-i18n="ui.a11y.opensNewTab">
                 {t("ui.a11y.opensNewTab")}
@@ -118,3 +144,41 @@ const CONTACT_ITEM_CLASS =
     </div>
   </div>
 </Layout>
+
+<script>
+  import { getStoredLang, loadLang } from "../utils/i18n-client";
+
+  let resetTimer: number | undefined;
+
+  document.addEventListener("astro:page-load", () => {
+    const btn = document.getElementById("copy-email");
+    const status = document.getElementById("copy-email-status");
+    const link = document.getElementById("contact-email-link");
+    if (!btn || !status || !link || !navigator.clipboard) return;
+
+    const email = link.getAttribute("href")!.replace(/^mailto:/, "");
+    const idle = btn.querySelector<HTMLElement>("[data-copy-idle]")!;
+    const done = btn.querySelector<HTMLElement>("[data-copy-done]")!;
+
+    btn.classList.remove("hidden");
+
+    btn.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(email);
+      } catch {
+        return;
+      }
+      const translations = await loadLang(getStoredLang());
+      status.textContent = translations["ui.contact.copied"];
+      idle.classList.add("hidden");
+      done.classList.replace("hidden", "inline-flex");
+
+      window.clearTimeout(resetTimer);
+      resetTimer = window.setTimeout(() => {
+        done.classList.replace("inline-flex", "hidden");
+        idle.classList.remove("hidden");
+        status.textContent = "";
+      }, 2000);
+    });
+  });
+</script>

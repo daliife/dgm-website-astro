@@ -2,6 +2,8 @@ import { describe, it, expect } from "vitest";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import WorkCard from "../../components/sections/WorkCard.astro";
 import type { WorkEntry } from "../../types/ui";
+import { TIMELINE_ICONS, isTimelineIcon } from "../../utils/icons";
+import { education, work } from "@cv";
 
 const baseJob: WorkEntry = {
   company: "Acme Corp",
@@ -90,6 +92,47 @@ describe("WorkCard", () => {
 
     expect(html).toContain("<ul");
     expect(html).toContain("Built and maintained the main web platform.");
+  });
+
+  it("renders a timeline marker with company initials when no logo is set", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(WorkCard, {
+      props: { job: baseJob, jobIndex: 0 },
+    });
+
+    expect(html).toContain("timeline-rail");
+    expect(html).toMatch(/>\s*AC\s*</);
+    expect(html).not.toContain("bg-status-positive");
+  });
+
+  it("renders the role icon instead of initials when set", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(WorkCard, {
+      props: { job: { ...baseJob, icon: "code" }, jobIndex: 0 },
+    });
+
+    expect(html).toContain(`d="${TIMELINE_ICONS.code}"`);
+    expect(html).not.toMatch(/>\s*AC\s*</);
+  });
+
+  it("every cv.json work/education icon is a known timeline icon", () => {
+    const icons = [...work, ...education]
+      .map((entry) => (entry as { icon?: string }).icon)
+      .filter((icon) => icon !== undefined);
+    expect(icons.filter((icon) => !isTimelineIcon(icon))).toEqual([]);
+  });
+
+  it("uses the logo and marks the current role", async () => {
+    const container = await AstroContainer.create();
+    const html = await container.renderToString(WorkCard, {
+      props: {
+        job: { ...baseJob, endDate: undefined, logo: "/logos/acme.svg" },
+        jobIndex: 0,
+      },
+    });
+
+    expect(html).toContain('src="/logos/acme.svg"');
+    expect(html).toContain("bg-status-positive");
   });
 
   it("does not render list when there is no summary or highlights", async () => {

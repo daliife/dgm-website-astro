@@ -60,9 +60,17 @@ export const PROJECTS_CATEGORY_HEADING_CLASSES =
 /** Project screenshots — crop only, no frame border. */
 export const CARD_FRAME_CLASSES = "overflow-hidden";
 
+/** Screenshot frame: hairline drawn above the image so dark screenshots keep an edge. */
+export const CARD_MEDIA_FRAME_CLASSES =
+  "relative bg-bg-muted after:pointer-events-none after:absolute after:inset-0 after:ring-1 after:ring-inset after:ring-border-primary after:content-['']";
+
+/** Projects page: two-column card grid. */
+export const PROJECT_GRID_CLASSES =
+  "grid list-none grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2";
+
 /** Shared home hero CTA: animated underline on hover (both actions). */
 const HOME_CTA_BASE_CLASSES =
-  "gap-2 w-fit rounded-none pb-1 text-sm uppercase tracking-widest link-underline-animate transition-colors duration-200 hover:no-underline";
+  "gap-2.5 w-fit rounded-none pb-1 text-sm uppercase tracking-widest link-underline-animate transition-colors duration-200 hover:no-underline sm:text-base";
 
 /** Home hero primary CTA (projects). */
 export const HOME_CTA_PRIMARY_CLASSES = `${HOME_CTA_BASE_CLASSES} font-medium text-text-primary`;
@@ -70,7 +78,11 @@ export const HOME_CTA_PRIMARY_CLASSES = `${HOME_CTA_BASE_CLASSES} font-medium te
 /** Home hero secondary CTA (contact). */
 export const HOME_CTA_SECONDARY_CLASSES = `${HOME_CTA_BASE_CLASSES} text-text-muted hover:text-text-primary`;
 
+/** Project detail: open the live project. */
 export const PROJECT_DETAIL_CTA_CLASSES = `gap-2 ${EDITORIAL_LINK_MD_CLASSES} hover:!no-underline`;
+
+/** Project detail: source link, used when a live link is also present. */
+export const PROJECT_DETAIL_CTA_SECONDARY_CLASSES = `gap-2 ${EDITORIAL_LINK_MD_MUTED_CLASSES} hover:!no-underline`;
 
 export const NEXTUP_NAV_CLASSES = "reveal border-t border-border-primary pt-8";
 
@@ -81,6 +93,17 @@ export const WORK_COMPANY_LINK_CLASSES = LINK_UNDERLINE_SECONDARY_CLASSES;
 
 export const WORK_DATES_CLASSES =
   "whitespace-nowrap tabular-nums text-xs uppercase tracking-widest text-text-muted";
+
+/** Timeline row: marker column + content; pair with TIMELINE_RAIL_CLASSES inside. */
+export const TIMELINE_ITEM_CLASSES =
+  "relative grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-5 md:gap-x-8";
+
+/** Vertical line from below the marker to the next row; hidden on the last row. */
+export const TIMELINE_RAIL_CLASSES =
+  "timeline-rail absolute bottom-2 left-5 top-12 w-px bg-border-primary";
+
+/** Parent list: drop the rail after the final entry. */
+export const TIMELINE_LIST_CLASSES = "[&>*:last-child_.timeline-rail]:hidden";
 
 /** Bulleted body copy (experience, project highlights, etc.). */
 export const CONTENT_LIST_CLASSES = "max-w-2xl list-none space-y-2.5";

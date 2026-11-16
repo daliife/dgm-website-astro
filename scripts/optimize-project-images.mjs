@@ -1,7 +1,8 @@
 /**
- * Reads project thumbnails from cv.json imageSource (HTTP(S) URL or local path
- * relative to the repo root), optimizes them to WebP (480×320, 3:2 — fits card +
- * detail display without oversized downloads), and writes paths to public/projects/.
+ * Reads project images from cv.json imageSource (HTTP(S) URL or local path
+ * relative to the repo root), optimizes them to WebP (480×320 base + 16:10
+ * responsive variants, see scripts/lib/project-images.mjs), and writes paths to
+ * public/projects/.
  *
  * Usage: pnpm run images:projects
  *
@@ -16,16 +17,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import sharp from "sharp";
+import { writeProjectImages } from "./lib/project-images.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.join(__dirname, "..");
 const CV_PATH = path.join(ROOT, "cv.json");
 const OUT_DIR = path.join(ROOT, "public", "projects");
-
-const WIDTH = 480;
-const HEIGHT = 320;
-const WEBP_QUALITY = 78;
 
 function slugify(name) {
   return name
@@ -71,18 +68,12 @@ async function main() {
 
     const slug = slugify(project.name);
     const filename = `${slug}.webp`;
-    const outPath = path.join(OUT_DIR, filename);
     const publicPath = `/projects/${filename}`;
 
     process.stdout.write(`Optimizing ${project.name}… `);
     const input = await loadSourceBuffer(source);
-    await sharp(input)
-      .resize(WIDTH, HEIGHT, { fit: "cover", position: "centre" })
-      .webp({ quality: WEBP_QUALITY })
-      .toFile(outPath);
-
-    const { size } = await fs.stat(outPath);
-    console.log(`${filename} (${(size / 1024).toFixed(1)} KB)`);
+    const size = await writeProjectImages(input, OUT_DIR, slug);
+    console.log(`${slug} (${(size / 1024).toFixed(1)} KB total)`);
 
     if (!project.imageSource) {
       project.imageSource = source;
